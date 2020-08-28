@@ -13,8 +13,6 @@
 .right {
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
     min-height: 100vh;
     padding: 26px 16px 0;
