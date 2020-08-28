@@ -1,31 +1,52 @@
 import React from 'react'
-import { DataQuery } from '@dhis2/app-runtime'
-import i18n from '@dhis2/d2-i18n'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import './locales'
+
 import classes from './App.module.css'
+import { Navigation } from './navigation'
+import {
+    Home,
+    TableTemplate,
+    GenerateTable,
+    ReportTemplate,
+    GenerateReport,
+} from './views'
 
-const query = {
-    me: {
-        resource: 'me',
-    },
+const MyApp = () => {
+    return (
+        <BrowserRouter>
+            <div className={classes.container}>
+                <div className={classes.left}>
+                    <Navigation />
+                </div>
+                <div className={classes.right}>
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route
+                            exact
+                            path="/table-template"
+                            component={TableTemplate}
+                        />
+                        <Route
+                            exact
+                            path="/generate-table"
+                            component={GenerateTable}
+                        />
+                        <Route
+                            exact
+                            path="/report-template"
+                            component={ReportTemplate}
+                        />
+                        <Route
+                            exact
+                            path="/generate-report"
+                            component={GenerateReport}
+                        />
+                    </Switch>
+                </div>
+            </div>
+        </BrowserRouter>
+    )
 }
-
-const MyApp = () => (
-    <div className={classes.container}>
-        <DataQuery query={query}>
-            {({ error, loading, data }) => {
-                if (error) return <span>ERROR</span>
-                if (loading) return <span>...</span>
-                return (
-                    <>
-                        <h1>
-                            {i18n.t('Hello {{name}}', { name: data.me.name })}
-                        </h1>
-                        <h3>{i18n.t('Welcome to DHIS2!')}</h3>
-                    </>
-                )
-            }}
-        </DataQuery>
-    </div>
-)
 
 export default MyApp
