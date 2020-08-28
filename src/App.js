@@ -10,7 +10,7 @@ import {
     GenerateTable,
     ReportTemplate,
     GenerateReport,
-} from './views'
+} from './pages'
 
 const MyApp = () => {
     return (
