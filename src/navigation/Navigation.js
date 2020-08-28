@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { PropTypes } from '@dhis2/prop-types'
 import { Menu, MenuItem } from '@dhis2/ui'
+import i18n from '../locales'
 
 // TODO: i18n
 
@@ -28,25 +29,25 @@ NavigationItem.propTypes = {
 
 export const Navigation = () => (
     <Menu>
-        <NavigationItem label="Home" path="/" />
+        <NavigationItem label={i18n.t('Home')} path="/" />
 
         <NavigationItem
-            label="Create Custom Table Template"
+            label={i18n.t('Create Custom Table Template')}
             path="/table-template"
         />
 
         <NavigationItem
-            label="Generate Custom Table from Template"
+            label={i18n.t('Generate Custom Table from Template')}
             path="/generate-table"
         />
 
         <NavigationItem
-            label="Create Custom Report Template"
+            label={i18n.t('Create Custom Report Template')}
             path="/report-template"
         />
 
         <NavigationItem
-            label="Generate Custom Report from Template"
+            label={i18n.t('Generate Custom Report from Template')}
             path="/generate-Report"
         />
     </Menu>
