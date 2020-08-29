@@ -16,10 +16,10 @@ const MyApp = () => {
     return (
         <BrowserRouter>
             <div className={classes.container}>
-                <div className={classes.left}>
+                <nav className={classes.left}>
                     <Navigation />
-                </div>
-                <div className={classes.right}>
+                </nav>
+                <main className={classes.right}>
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route
@@ -43,7 +43,7 @@ const MyApp = () => {
                             component={GenerateReport}
                         />
                     </Switch>
-                </div>
+                </main>
             </div>
         </BrowserRouter>
     )
