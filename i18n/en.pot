@@ -5,11 +5,44 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-28T04:17:15.318Z\n"
-"PO-Revision-Date: 2020-08-28T04:17:15.318Z\n"
+"POT-Creation-Date: 2020-08-31T21:20:58.907Z\n"
+"PO-Revision-Date: 2020-08-31T21:20:58.907Z\n"
 
-msgid "Hello {{name}}"
+msgid "Home"
 msgstr ""
 
-msgid "Welcome to DHIS2!"
+msgid "Create Custom Table Template"
+msgstr ""
+
+msgid "Generate Custom Table from Template"
+msgstr ""
+
+msgid "Create Custom Report Template"
+msgstr ""
+
+msgid "Generate Custom Report from Template"
+msgstr ""
+
+msgid "Generate Report from Custom Template"
+msgstr ""
+
+msgid "Generate Table from Custom Template"
+msgstr ""
+
+msgid "Hello, world!"
+msgstr ""
+
+msgid "Choose data..."
+msgstr ""
+
+msgid "Choose data for cell"
+msgstr ""
+
+msgid "+ Row"
+msgstr ""
+
+msgid "+ Column"
+msgstr ""
+
+msgid "Row name"
 msgstr ""
