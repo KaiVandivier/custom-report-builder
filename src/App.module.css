@@ -12,8 +12,7 @@
 
 .right {
     flex-grow: 1;
-    display: flex;
-    justify-content: center;
+    text-align: center;
     min-height: 100vh;
     padding: 26px 16px 0;
     background: #f0f0f0;
