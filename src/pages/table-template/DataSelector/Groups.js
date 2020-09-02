@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 
 import { Detail } from './Detail'
-import { dataTypes } from '../../modules/dataTypes'
+import { dataTypes } from '../../../modules/dataTypes'
 import styles from './styles/Groups.style'
 
 export const Groups = ({

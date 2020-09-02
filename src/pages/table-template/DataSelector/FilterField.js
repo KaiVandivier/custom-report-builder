@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import i18n from '@dhis2/d2-i18n'
 
-import Filter from './Filter/Filter'
+import Filter from './Filter'
 import styles from './styles/FilterField.style'
 
 export const FilterField = ({ text, onFilterTextChange, onClearFilter }) => (
