@@ -8,7 +8,7 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui'
-// import { debounce } from 'lodash'
+import { debounce } from 'lodash'
 import i18n from '../../../locales'
 
 import DataTypes from './DataTypesSelector'
@@ -33,11 +33,8 @@ const DEFAULT_ALTERNATIVES = {
     nextPage: FIRST_PAGE,
 }
 
+// TODO: Receive initial data from props, e.g. data type & field name if there is a previously defined data chosen for this cell
 export class DataSelectorModal extends Component {
-    // TODO: Receive initial data from props, e.g. data type & field name if there is a previously defined data chosen for this cell
-
-    // const engine = useDataEngine()
-
     // defaults
     state = {
         dataType: DEFAULT_DATATYPE_ID,
@@ -179,6 +176,8 @@ export class DataSelectorModal extends Component {
         this.setState({ items: newItems, nextPage: alternatives.nextPage })
     }
 
+    debouncedUpdateAlternatives = debounce(this.updateAlternatives, 300)
+
     onGroupChange = newGroupId => {
         console.log('onGroupChange')
 
@@ -198,13 +197,13 @@ export class DataSelectorModal extends Component {
     onClearFilter = () => {
         console.log('onClearFilter')
         // TODO: debounce
-        this.setState({ filterText: '' }, this.updateAlternatives)
+        this.setState({ filterText: '' }, this.debouncedUpdateAlternatives)
     }
 
     onFilterTextChange = filterText => {
         console.log('onFilterTextChange')
         // TODO: debounce
-        this.setState({ filterText }, this.updateAlternatives)
+        this.setState({ filterText }, this.debouncedUpdateAlternatives)
     }
 
     render() {
