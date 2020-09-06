@@ -5,8 +5,62 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-31T21:20:58.907Z\n"
-"PO-Revision-Date: 2020-08-31T21:20:58.907Z\n"
+"POT-Creation-Date: 2020-09-01T22:06:34.434Z\n"
+"PO-Revision-Date: 2020-09-01T22:06:34.434Z\n"
+
+msgid "Reporting rate"
+msgstr ""
+
+msgid "Reporting rate on time"
+msgstr ""
+
+msgid "Actual reports"
+msgstr ""
+
+msgid "Actual reports on time"
+msgstr ""
+
+msgid "Expected reports"
+msgstr ""
+
+msgid "Program"
+msgstr ""
+
+msgid "Select a program"
+msgstr ""
+
+msgid "Indicators"
+msgstr ""
+
+msgid "Select indicator group"
+msgstr ""
+
+msgid "[ All groups ]"
+msgstr ""
+
+msgid "Data elements"
+msgstr ""
+
+msgid "Select data element group"
+msgstr ""
+
+msgid "[ All data elements ]"
+msgstr ""
+
+msgid "Data sets"
+msgstr ""
+
+msgid "Select data sets"
+msgstr ""
+
+msgid "[ All metrics ]"
+msgstr ""
+
+msgid "Event data items"
+msgstr ""
+
+msgid "Program indicators"
+msgstr ""
 
 msgid "Home"
 msgstr ""
@@ -36,6 +90,21 @@ msgid "Choose data..."
 msgstr ""
 
 msgid "Choose data for cell"
+msgstr ""
+
+msgid "Data Type"
+msgstr ""
+
+msgid "Totals"
+msgstr ""
+
+msgid "Details"
+msgstr ""
+
+msgid "Detail"
+msgstr ""
+
+msgid "Search"
 msgstr ""
 
 msgid "+ Row"
