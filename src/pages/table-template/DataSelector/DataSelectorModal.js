@@ -6,17 +6,17 @@ import {
     ModalTitle,
     ModalContent,
     ModalActions,
-    Menu,
-    MenuItem,
     Button,
     ButtonStrip,
 } from '@dhis2/ui'
-import debounce from 'lodash/debounce'
+import { debounce } from 'lodash'
 import i18n from '../../../locales'
 
 import DataTypes from './DataTypesSelector'
 import Groups from './Groups'
 import FilterField from './FilterField'
+import DimensionItemsMenu from './DimensionItemsMenu'
+import { modal, modalContent } from './styles/DataSelectorModal.module.css'
 
 import {
     DEFAULT_DATATYPE_ID,
@@ -26,7 +26,6 @@ import {
     defaultGroupDetail,
 } from '../../../modules/dataTypes'
 import { fetchGroups, fetchAlternatives } from '../../../api/dimensions'
-// import { DIMENSION_ID_DATA } from '../../modules/predefinedDimensions'
 
 const FIRST_PAGE = 1
 
@@ -65,18 +64,6 @@ export const DataSelectorModal = ({
 
     const debouncedUpdateRef = useRef(debounce(console.table, 300))
 
-    const queryResults = () => {
-        return items.map(item => (
-            <MenuItem
-                label={item.name}
-                id={item.id}
-                key={item.id}
-                active={item.id === selectedItem?.id}
-                onClick={() => setSelectedItem(item)}
-            />
-        )) // TODO: handle selection on save
-    }
-
     const handleSave = () => {
         onSave({
             dataType: 'Indicator', // TODO: Make dynamic
@@ -109,7 +96,6 @@ export const DataSelectorModal = ({
         setGroups({ ...groups, [dataType]: dataTypeGroups })
 
         // Refetch dimension results
-        // TODO: Handle this in a useEffect
         // updateAlternatives()
     }
 
@@ -151,24 +137,20 @@ export const DataSelectorModal = ({
     }
 
     // TODO: Trigger this upon scrolling to bottom of first page of results
-    console.log(nextPage)
-    // function requestMoreItems() {
-    //     console.log('requestMoreItems')
+    function requestMoreItems() {
+        console.log('requestMoreItems')
 
-    //     if (!nextPage) return
+        if (!nextPage) return
 
-    //     updateAlternatives(nextPage, true)
-
-    //     // if (this.state.nextPage) {
-    //     //     this.updateAlternatives(this.state.nextPage, true)
-    //     // }
-    // }
+        console.log('requesting more items due to scroll')
+        updateAlternatives(nextPage, true)
+    }
 
     // TODO: Debounce me!
     async function updateAlternatives(page = FIRST_PAGE, concatItems = false) {
         console.log('update alternatives')
 
-        // TODO: 1. Make query with correct resource and params
+        // 1. Make query with correct resource and params
         const alternatives =
             (await fetchAlternatives({
                 engine,
@@ -190,13 +172,13 @@ export const DataSelectorModal = ({
         }
 
         // 4. Concatenate new items onto previous page(s) if called for
-        const items = concatItems
+        const newItems = concatItems
             ? items.concat(dimensionItems)
             : dimensionItems
 
         // 5. Update state: `items`, `itemsCopy`, and `nextPage`
         // NOTE: Filtering for selected item in step 6 is unnecessary for this interface
-        setItems(() => items)
+        setItems(() => newItems)
         setNextPage(() => alternatives.nextPage)
     }
 
@@ -236,7 +218,6 @@ export const DataSelectorModal = ({
         console.log('onClearFilter')
 
         setFilterText('')
-        // TODO: debounce
         // updateAlternatives()
     }
 
@@ -244,7 +225,6 @@ export const DataSelectorModal = ({
         console.log('onFilterTextChange')
 
         setFilterText(filterText)
-        // TODO: Update query (debounced)
         // updateAlternatives()
     }
 
@@ -273,18 +253,17 @@ export const DataSelectorModal = ({
     }
 
     return (
-        <Modal>
+        <Modal className={modal}>
             <ModalTitle>{i18n.t('Choose data for cell')}</ModalTitle>
-            <ModalContent>
+            <ModalContent className={modalContent}>
                 {/* TODO: Row & column names */}
-
-                {/* Filter Zone: */}
                 {filterZone()}
-
-                {/* Results */}
-                <div /* TODO: Add frame styles? */>
-                    <Menu>{queryResults()}</Menu>
-                </div>
+                <DimensionItemsMenu
+                    items={items}
+                    selectedItem={selectedItem}
+                    setSelectedItem={setSelectedItem}
+                    requestMoreItems={requestMoreItems}
+                />
             </ModalContent>
             <ModalActions>
                 <ButtonStrip end>
