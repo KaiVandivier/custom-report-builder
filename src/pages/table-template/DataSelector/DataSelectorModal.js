@@ -68,29 +68,20 @@ export class DataSelectorModal extends Component {
         })
     }
 
-    // Start function handlers copied from analytics
-    // ---------------------------------------------
-
     updateGroups = async () => {
-        console.log('updateGroups')
-
         const { groups, dataType } = this.state
 
-        // If groups are already populated, update alternatives & return
         if (groups[dataType].length) {
             this.updateAlternatives()
             return
         }
 
-        // Else, 1. Fetch groups belonging to this datatype
         const dataTypeGroups = await fetchGroups(
             this.props.engine,
             dataType,
             this.props.displayNameProp
         )
 
-        // Update `groups` in state to include value for current data type
-        // and update alternatives
         this.setState(
             { groups: { ...groups, [dataType]: dataTypeGroups } },
             this.updateAlternatives
@@ -98,11 +89,8 @@ export class DataSelectorModal extends Component {
     }
 
     onDataTypeChange = async newDataType => {
-        console.log('onDataTypeChange')
-
         const { dataType, groupId, groupDetail, filter } = this.state
 
-        // If data type has not changed, return
         if (newDataType === dataType) return
 
         // Update `filter` to include settings from previously selected dataType
@@ -118,7 +106,6 @@ export class DataSelectorModal extends Component {
         const currentGroupDetail =
             currentFilter.groupDetail || defaultGroupDetail(newDataType)
 
-        // Update state and groups
         this.setState(
             {
                 filter: newFilter,
@@ -131,21 +118,14 @@ export class DataSelectorModal extends Component {
         )
     }
 
-    // TODO: Trigger this upon scrolling to bottom of first page of results
     requestMoreItems = () => {
-        console.log('requestMoreItems')
-
         if (!this.state.nextPage) return
         this.updateAlternatives(this.state.nextPage, true)
     }
 
-    // TODO: Debounce me!
     updateAlternatives = async (page = FIRST_PAGE, concatItems = false) => {
-        console.log('update alternatives')
-
         const { dataType, groupId, groupDetail, filterText } = this.state
 
-        // 1. Make query with correct resource and params
         const alternatives =
             (await fetchAlternatives({
                 engine: this.props.engine,
@@ -157,52 +137,37 @@ export class DataSelectorModal extends Component {
                 nameProp: this.props.displayNameProp,
             })) || DEFAULT_ALTERNATIVES
 
-        // 2. Parse dimension items
         let { dimensionItems } = alternatives
 
-        // 3. Augment dimension items (for `data set`)
         const augmentFn = dataTypes[dataType].augmentAlternatives
         if (augmentFn) {
             dimensionItems = augmentFn(dimensionItems, groupId)
         }
 
-        // 4. Concatenate new items onto previous page(s) if called for
         const newItems = concatItems
             ? this.state.items.concat(dimensionItems)
             : dimensionItems
 
-        // 5. Update state: `items` and `nextPage`
-        // NOTE: Filtering for selected item in step 6 is unnecessary for this interface
         this.setState({ items: newItems, nextPage: alternatives.nextPage })
     }
 
     debouncedUpdateAlternatives = debounce(this.updateAlternatives, 300)
 
     onGroupChange = newGroupId => {
-        console.log('onGroupChange')
-
         if (newGroupId === this.state.groupId) return
-
         this.setState({ groupId: newGroupId }, this.updateAlternatives)
     }
 
     onDetailChange = newGroupDetail => {
-        console.log('onDetailChange', newGroupDetail)
-
         if (newGroupDetail === this.state.groupDetail) return
-
         this.setState({ groupDetail: newGroupDetail }, this.updateAlternatives)
     }
 
     onClearFilter = () => {
-        console.log('onClearFilter')
-        // TODO: debounce
         this.setState({ filterText: '' }, this.debouncedUpdateAlternatives)
     }
 
     onFilterTextChange = filterText => {
-        console.log('onFilterTextChange')
-        // TODO: debounce
         this.setState({ filterText }, this.debouncedUpdateAlternatives)
     }
 
