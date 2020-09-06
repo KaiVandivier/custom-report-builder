@@ -250,9 +250,11 @@ export class DataSelectorModal extends Component {
                 </ModalContent>
                 <ModalActions>
                     <ButtonStrip end>
-                        <Button onClick={this.props.onClose}>Cancel</Button>
+                        <Button onClick={this.props.onClose}>
+                            {i18n.t('Cancel')}
+                        </Button>
                         <Button primary onClick={this.handleSave}>
-                            Save
+                            {i18n.t('Save')}
                         </Button>
                     </ButtonStrip>
                 </ModalActions>
