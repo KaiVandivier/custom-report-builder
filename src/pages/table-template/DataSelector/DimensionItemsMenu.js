@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
-import { Menu, MenuItem } from '@dhis2/ui'
+import { Menu, MenuItem, colors } from '@dhis2/ui'
 import throttle from 'lodash/throttle'
 
 export const DimensionItemsMenu = ({
@@ -37,6 +37,7 @@ export const DimensionItemsMenu = ({
             <Menu>{queryResults()}</Menu>
             <style jsx>{`
                 .container {
+                    border: 1px solid ${colors.grey300};
                     flex: 1 0 100px;
                     overflow-y: scroll;
                 }
