@@ -1,0 +1,8 @@
+.modal {
+    height: 100vh !important;
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+}
