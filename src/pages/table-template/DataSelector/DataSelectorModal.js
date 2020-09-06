@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { Component } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
-import { useDataEngine } from '@dhis2/app-runtime'
 import {
     Modal,
     ModalTitle,
@@ -9,7 +8,7 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui'
-import { debounce } from 'lodash'
+// import { debounce } from 'lodash'
 import i18n from '../../../locales'
 
 import DataTypes from './DataTypesSelector'
@@ -34,41 +33,40 @@ const DEFAULT_ALTERNATIVES = {
     nextPage: FIRST_PAGE,
 }
 
-export const DataSelectorModal = ({
-    onClose,
-    onSave,
-    displayNameProp = 'displayName',
-}) => {
+export class DataSelectorModal extends Component {
     // TODO: Receive initial data from props, e.g. data type & field name if there is a previously defined data chosen for this cell
 
-    const engine = useDataEngine()
+    // const engine = useDataEngine()
 
-    // State
-    // TODO: Seed values from props
-    const [selectedItem, setSelectedItem] = useState(null) // maybe lift up to parent
-    const [dataType, setDataType] = useState(DEFAULT_DATATYPE_ID)
-    const [filterText, setFilterText] = useState('')
-    const [groups, setGroups] = useState({
-        indicators: [],
-        dataElements: [],
-        dataElementOperands: [],
-        dataSets: [],
-        eventDataItems: [],
-        programIndicators: [],
-    })
-    const [groupId, setGroupId] = useState(ALL_ID)
-    const [groupDetail, setGroupDetail] = useState('')
-    const [nextPage, setNextPage] = useState(null)
-    const [items, setItems] = useState([])
-    const [filter, setFilter] = useState({})
+    // defaults
+    state = {
+        dataType: DEFAULT_DATATYPE_ID,
+        groups: {
+            indicators: [],
+            dataElements: [],
+            dataElementOperands: [],
+            dataSets: [],
+            eventDataItems: [],
+            programIndicators: [],
+        },
+        groupId: ALL_ID,
+        groupDetail: '',
+        filterText: '',
+        items: [],
+        nextPage: null,
+        filter: {},
+        selectedItem: null,
+    }
 
-    const debouncedUpdateRef = useRef(debounce(console.table, 300))
+    componentDidMount() {
+        this.updateGroups()
+    }
 
-    const handleSave = () => {
-        onSave({
+    handleSave = () => {
+        this.props.onSave({
             dataType: 'Indicator', // TODO: Make dynamic
-            dataName: selectedItem.name,
-            dataId: selectedItem.id,
+            dataName: this.state.selectedItem.name,
+            dataId: this.state.selectedItem.id,
             // TODO: Other fields: dataset, data elements; idk
         })
     }
@@ -76,37 +74,36 @@ export const DataSelectorModal = ({
     // Start function handlers copied from analytics
     // ---------------------------------------------
 
-    async function updateGroups() {
+    updateGroups = async () => {
         console.log('updateGroups')
 
-        // If groups are already populated, update results & return
+        const { groups, dataType } = this.state
+
+        // If groups are already populated, update alternatives & return
         if (groups[dataType].length) {
-            updateAlternatives()
+            this.updateAlternatives()
             return
         }
 
-        // TODO: 1. Fetch groups belonging to this datatype
+        // Else, 1. Fetch groups belonging to this datatype
         const dataTypeGroups = await fetchGroups(
-            engine,
+            this.props.engine,
             dataType,
-            displayNameProp
+            this.props.displayNameProp
         )
 
         // Update `groups` in state to include value for current data type
-        setGroups({ ...groups, [dataType]: dataTypeGroups })
-
-        // Refetch dimension results
-        // updateAlternatives()
+        // and update alternatives
+        this.setState(
+            { groups: { ...groups, [dataType]: dataTypeGroups } },
+            this.updateAlternatives
+        )
     }
 
-    // Load on component mount and update when dataType changes
-    useEffect(() => {
-        // TODO: This will probably be needed for updateAlternatives() too
-        updateGroups()
-    }, [dataType])
-
-    async function onDataTypeChange(newDataType) {
+    onDataTypeChange = async newDataType => {
         console.log('onDataTypeChange')
+
+        const { dataType, groupId, groupDetail, filter } = this.state
 
         // If data type has not changed, return
         if (newDataType === dataType) return
@@ -124,42 +121,43 @@ export const DataSelectorModal = ({
         const currentGroupDetail =
             currentFilter.groupDetail || defaultGroupDetail(newDataType)
 
-        // Update state
-        setFilter(newFilter)
-        setDataType(() => newDataType)
-        setGroupId(currentGroupId)
-        setGroupDetail(currentGroupDetail)
-        setFilterText('')
-
-        // Update groups via query
-        // updateGroups()
-        // NOTE: This is handled by useEffect, actually
+        // Update state and groups
+        this.setState(
+            {
+                filter: newFilter,
+                dataType: newDataType,
+                groupId: currentGroupId,
+                groupDetail: currentGroupDetail,
+                filterText: '',
+            },
+            this.updateGroups
+        )
     }
 
     // TODO: Trigger this upon scrolling to bottom of first page of results
-    function requestMoreItems() {
+    requestMoreItems = () => {
         console.log('requestMoreItems')
 
-        if (!nextPage) return
-
-        console.log('requesting more items due to scroll')
-        updateAlternatives(nextPage, true)
+        if (!this.state.nextPage) return
+        this.updateAlternatives(this.state.nextPage, true)
     }
 
     // TODO: Debounce me!
-    async function updateAlternatives(page = FIRST_PAGE, concatItems = false) {
+    updateAlternatives = async (page = FIRST_PAGE, concatItems = false) => {
         console.log('update alternatives')
+
+        const { dataType, groupId, groupDetail, filterText } = this.state
 
         // 1. Make query with correct resource and params
         const alternatives =
             (await fetchAlternatives({
-                engine,
+                engine: this.props.engine,
                 dataType,
                 groupId,
                 groupDetail,
                 page,
                 filterText,
-                nameProp: displayNameProp,
+                nameProp: this.props.displayNameProp,
             })) || DEFAULT_ALTERNATIVES
 
         // 2. Parse dimension items
@@ -173,112 +171,103 @@ export const DataSelectorModal = ({
 
         // 4. Concatenate new items onto previous page(s) if called for
         const newItems = concatItems
-            ? items.concat(dimensionItems)
+            ? this.state.items.concat(dimensionItems)
             : dimensionItems
 
-        // 5. Update state: `items`, `itemsCopy`, and `nextPage`
+        // 5. Update state: `items` and `nextPage`
         // NOTE: Filtering for selected item in step 6 is unnecessary for this interface
-        setItems(() => newItems)
-        setNextPage(() => alternatives.nextPage)
+        this.setState({ items: newItems, nextPage: alternatives.nextPage })
     }
 
-    useEffect(() => {
-        // TODO: debounce
-        updateAlternatives()
-        // TODO: Remove test
-        debouncedUpdateRef.current({
-            engine,
-            dataType,
-            groupId,
-            groupDetail,
-            filterText,
-            nameProp: displayNameProp,
-        })
-    }, [engine, dataType, groupId, groupDetail, filterText, displayNameProp])
-
-    async function onGroupChange(newGroupId) {
+    onGroupChange = newGroupId => {
         console.log('onGroupChange')
 
-        if (newGroupId === groupId) return
+        if (newGroupId === this.state.groupId) return
 
-        setGroupId(newGroupId)
-        // updateAlternatives()
+        this.setState({ groupId: newGroupId }, this.updateAlternatives)
     }
 
-    function onDetailChange(newGroupDetail) {
+    onDetailChange = newGroupDetail => {
         console.log('onDetailChange', newGroupDetail)
 
-        if (newGroupDetail === groupDetail) return
+        if (newGroupDetail === this.state.groupDetail) return
 
-        setGroupDetail(newGroupDetail)
-        // updateAlternatives()
+        this.setState({ groupDetail: newGroupDetail }, this.updateAlternatives)
     }
 
-    function onClearFilter() {
+    onClearFilter = () => {
         console.log('onClearFilter')
-
-        setFilterText('')
-        // updateAlternatives()
+        // TODO: debounce
+        this.setState({ filterText: '' }, this.updateAlternatives)
     }
 
-    function onFilterTextChange(filterText) {
+    onFilterTextChange = filterText => {
         console.log('onFilterTextChange')
-
-        setFilterText(filterText)
-        // updateAlternatives()
+        // TODO: debounce
+        this.setState({ filterText }, this.updateAlternatives)
     }
 
-    function filterZone() {
+    render() {
+        const filterZone = () => {
+            return (
+                <div>
+                    <DataTypes
+                        currentDataType={this.state.dataType}
+                        onChange={this.onDataTypeChange}
+                    />
+                    <Groups
+                        dataType={this.state.dataType}
+                        groups={this.state.groups[this.state.dataType] || []}
+                        groupId={this.state.groupId}
+                        onGroupChange={this.onGroupChange}
+                        onDetailChange={this.onDetailChange}
+                        detailValue={this.state.groupDetail}
+                    />
+                    <FilterField
+                        text={this.state.filterText}
+                        onFilterTextChange={this.onFilterTextChange}
+                        onClearFilter={this.onClearFilter}
+                    />
+                </div>
+            )
+        }
+
         return (
-            <div>
-                <DataTypes
-                    currentDataType={dataType}
-                    onChange={onDataTypeChange}
-                />
-                <Groups
-                    dataType={dataType}
-                    groups={groups[dataType] || []}
-                    groupId={groupId}
-                    onGroupChange={onGroupChange}
-                    onDetailChange={onDetailChange}
-                    detailValue={groupDetail}
-                />
-                <FilterField
-                    text={filterText}
-                    onFilterTextChange={onFilterTextChange}
-                    onClearFilter={onClearFilter}
-                />
-            </div>
+            <Modal className={modal}>
+                <ModalTitle>{i18n.t('Choose data for cell')}</ModalTitle>
+                <ModalContent className={modalContent}>
+                    {/* TODO: Row & column names */}
+                    {filterZone()}
+                    <DimensionItemsMenu
+                        items={this.state.items}
+                        selectedItem={this.state.selectedItem}
+                        setSelectedItem={item =>
+                            // TODO: Refactor into discrete function
+                            this.setState({ selectedItem: item })
+                        }
+                        requestMoreItems={this.requestMoreItems}
+                    />
+                </ModalContent>
+                <ModalActions>
+                    <ButtonStrip end>
+                        <Button onClick={this.props.onClose}>Cancel</Button>
+                        <Button primary onClick={this.handleSave}>
+                            Save
+                        </Button>
+                    </ButtonStrip>
+                </ModalActions>
+            </Modal>
         )
     }
-
-    return (
-        <Modal className={modal}>
-            <ModalTitle>{i18n.t('Choose data for cell')}</ModalTitle>
-            <ModalContent className={modalContent}>
-                {/* TODO: Row & column names */}
-                {filterZone()}
-                <DimensionItemsMenu
-                    items={items}
-                    selectedItem={selectedItem}
-                    setSelectedItem={setSelectedItem}
-                    requestMoreItems={requestMoreItems}
-                />
-            </ModalContent>
-            <ModalActions>
-                <ButtonStrip end>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button primary onClick={handleSave}>
-                        Save
-                    </Button>
-                </ButtonStrip>
-            </ModalActions>
-        </Modal>
-    )
 }
 
 DataSelectorModal.propTypes = {
+    engine: PropTypes.shape({ query: PropTypes.func }).isRequired,
     displayNameProp: PropTypes.string,
     onClose: PropTypes.func,
     onSave: PropTypes.func,
+}
+
+DataSelectorModal.defaultProps = {
+    displayNameProp: 'displayName',
 }
