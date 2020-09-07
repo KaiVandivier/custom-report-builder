@@ -12,7 +12,6 @@ export const DimensionItemsMenu = ({
     const scrollRef = useRef()
 
     const onScroll = throttle(() => {
-        console.log('onScroll')
         const node = scrollRef.current
         if (!node) return
 
