@@ -4,23 +4,38 @@ import i18n from '../../locales'
 
 import { DataSelectorModal } from './DataSelector/DataSelectorModal'
 import DataEngine from '../../components/DataEngine'
-
-// TODO: This will show the current cell contents and offer a dialog to define the data for a cell - the dialog will be another component I suppose
+import { dataTypes } from '../../modules/dataTypes'
 
 export const DataEntryCell = () => {
     const [modalOpen, setModalOpen] = useState(false)
+    const [dimensionItem, setDimensionItem] = useState(null)
+    const [metadata, setMetadata] = useState({})
 
     const onModalClose = () => setModalOpen(false)
 
-    const onModalSave = args => {
-        console.log(args)
+    const onModalSave = ({ item, ...metadata }) => {
+        setDimensionItem({ item, ...metadata })
+        setMetadata(metadata)
         setModalOpen(false)
     }
 
     return (
         <TableCell>
-            (Current data)
-            <br />
+            {dimensionItem ? (
+                <>
+                    <p>
+                        <strong>{i18n.t('Data Type:')}</strong>{' '}
+                        {dataTypes[metadata.dataType].getName()}
+                        {/* TODO: Shorten name if too long */}
+                    </p>
+                    <p>
+                        <strong>{i18n.t('Name:')}</strong>{' '}
+                        {dimensionItem.item.name}
+                    </p>
+                </>
+            ) : (
+                <p>{i18n.t('No data selected')}</p>
+            )}
             <Button primary onClick={() => setModalOpen(true)}>
                 {i18n.t('Choose data...')}
             </Button>
@@ -28,9 +43,12 @@ export const DataEntryCell = () => {
                 <DataEngine>
                     {engine => (
                         <DataSelectorModal
+                            engine={engine}
                             onClose={onModalClose}
                             onSave={onModalSave}
-                            engine={engine}
+                            initialValues={
+                                dimensionItem ? { ...dimensionItem } : {}
+                            }
                         />
                     )}
                 </DataEngine>

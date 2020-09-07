@@ -33,11 +33,10 @@ const DEFAULT_ALTERNATIVES = {
     nextPage: FIRST_PAGE,
 }
 
-// TODO: Receive initial data from props, e.g. data type & field name if there is a previously defined data chosen for this cell
 export class DataSelectorModal extends Component {
     // defaults
     state = {
-        dataType: DEFAULT_DATATYPE_ID,
+        dataType: this.props.initialValues.dataType || DEFAULT_DATATYPE_ID,
         groups: {
             indicators: [],
             dataElements: [],
@@ -47,25 +46,16 @@ export class DataSelectorModal extends Component {
             programIndicators: [],
         },
         groupId: ALL_ID,
-        groupDetail: '',
-        filterText: '',
+        groupDetail: this.props.initialValues.groupDetail || '',
+        filterText: this.props.initialValues.item?.name || '',
         items: [],
         nextPage: null,
         filter: {},
-        selectedItem: null,
+        selectedItem: this.props.initialValues.item || null,
     }
 
     componentDidMount() {
         this.updateGroups()
-    }
-
-    handleSave = () => {
-        this.props.onSave({
-            dataType: 'Indicator', // TODO: Make dynamic
-            dataName: this.state.selectedItem.name,
-            dataId: this.state.selectedItem.id,
-            // TODO: Other fields: dataset, data elements; idk
-        })
     }
 
     updateGroups = async () => {
@@ -171,6 +161,15 @@ export class DataSelectorModal extends Component {
         this.setState({ filterText }, this.debouncedUpdateAlternatives)
     }
 
+    onSave = () => {
+        this.props.onSave({
+            item: this.state.selectedItem,
+            dataType: this.state.dataType,
+            groupId: this.state.groupId,
+            groupDetail: this.state.groupDetail,
+        })
+    }
+
     render() {
         const filterZone = () => {
             return (
@@ -206,7 +205,6 @@ export class DataSelectorModal extends Component {
                         items={this.state.items}
                         selectedItem={this.state.selectedItem}
                         setSelectedItem={item =>
-                            // TODO: Refactor into discrete function
                             this.setState({ selectedItem: item })
                         }
                         requestMoreItems={this.requestMoreItems}
@@ -217,7 +215,7 @@ export class DataSelectorModal extends Component {
                         <Button onClick={this.props.onClose}>
                             {i18n.t('Cancel')}
                         </Button>
-                        <Button primary onClick={this.handleSave}>
+                        <Button primary onClick={this.onSave}>
                             {i18n.t('Save')}
                         </Button>
                     </ButtonStrip>
@@ -230,6 +228,12 @@ export class DataSelectorModal extends Component {
 DataSelectorModal.propTypes = {
     engine: PropTypes.shape({ query: PropTypes.func }).isRequired,
     displayNameProp: PropTypes.string,
+    initialValues: PropTypes.shape({
+        dataType: PropTypes.string,
+        groupDetail: PropTypes.string,
+        groupId: PropTypes.string,
+        item: PropTypes.shape({ id: PropTypes.string, name: PropTypes.string }),
+    }),
     onClose: PropTypes.func,
     onSave: PropTypes.func,
 }
