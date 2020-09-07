@@ -36,26 +36,10 @@ const requestWithPaging = (
 }
 
 // Query builder (to replace requests made by d2.Api)
-export const dataQuery = (
-    engine,
-    { resource, params, selectorFn, paging = false }
-) => {
+export const dataQuery = (engine, { resource, params, selectorFn }) => {
     return engine
-        .query({ result: { resource, params: { ...params, paging } } })
-        .then(({ result }) =>
-            paging
-                ? {
-                      dimensionItems: selectFromResponse(
-                          result,
-                          resource,
-                          selectorFn
-                      ),
-                      nextPage: result.pager.nextPage
-                          ? result.pager.page + 1
-                          : null,
-                  }
-                : selectFromResponse(result, resource, selectorFn)
-        )
+        .query({ result: { resource, params: { ...params, paging: false } } })
+        .then(({ result }) => selectFromResponse(result, resource, selectorFn))
         .catch(onError)
 }
 
@@ -63,10 +47,13 @@ export const dataQueryWithPaging = (
     engine,
     { resource, params, selectorFn }
 ) => {
-    return engine.query({ result: { resource, params } }).then(response => ({
-        dimensionItems: selectFromResponse(response, resource, selectorFn),
-        nextPage: response.pager.nextPage ? response.pager.page + 1 : null,
-    }))
+    return engine
+        .query({ result: { resource, params: { ...params, paging: true } } })
+        .then(({ result }) => ({
+            dimensionItems: selectFromResponse(result, resource, selectorFn),
+            nextPage: result.pager.nextPage ? result.pager.page + 1 : null,
+        }))
+        .catch(onError)
 }
 
 // Fetch functions
@@ -222,10 +209,9 @@ const _fetchIndicators = ({ engine, nameProp, groupId, filterText, page }) => {
         filter.push(`${nameProp}:ilike:${filterText}`)
     }
 
-    return dataQuery(engine, {
+    return dataQueryWithPaging(engine, {
         resource: 'indicators',
         params: { fields, order, filter, page },
-        paging: true,
     })
 }
 
@@ -248,8 +234,7 @@ const _fetchDataElements = ({
         filter.push(`${nameProp}:ilike:${filterText}`)
     }
 
-    return dataQuery(engine, {
-        paging: true,
+    return dataQueryWithPaging(engine, {
         resource: 'dataElements',
         params: {
             fields,
@@ -279,8 +264,7 @@ const _fetchDataElementOperands = ({
         filter.push(`${nameProp}:ilike:${filterText}`)
     }
 
-    return dataQuery(engine, {
-        paging: true,
+    return dataQueryWithPaging(engine, {
         resource: 'dataElementOperands',
         params: { fields, order, filter, page },
     })
@@ -291,8 +275,7 @@ const _fetchDataSets = ({ engine, page, filterText, nameProp }) => {
     const order = `${nameProp}:asc`
     const filter = filterText ? [`${nameProp}:ilike:${filterText}`] : []
 
-    return dataQuery(engine, {
-        paging: true,
+    return dataQueryWithPaging(engine, {
         resource: 'dataSets',
         params: { fields, order, filter, page },
     })
@@ -314,8 +297,7 @@ const _fetchProgramDataElements = ({
     const program = groupId
     const filter = filterText ? [`${nameProp}:ilike:${filterText}`] : []
 
-    return dataQuery(engine, {
-        paging: true,
+    return dataQueryWithPaging(engine, {
         resource: 'programDataElements',
         params: { fields, order, program, filter, page },
     })
@@ -380,8 +362,8 @@ const _fetchProgramIndicators = ({
     const order = `${nameProp}:asc`
     const filter = [`program.id:eq:${groupId}`]
     if (filterText) filter.push(`${nameProp}:ilike:${filterText}`)
-    return dataQuery(engine, {
-        paging: true,
+
+    return dataQueryWithPaging(engine, {
         resource: 'programIndicators',
         params: { fields, order, filter, page },
     })
