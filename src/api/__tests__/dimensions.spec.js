@@ -34,7 +34,7 @@ const mockQueryFn = jest.fn().mockResolvedValue({
     // Includes many dummy resource results to test successful parsing by `selectFromRsesponse`
     result: {
         pager: { page: 1, nextPage: true },
-        indicators: { msg: 'indicators!' },
+        indicators: ['indicators!'],
         dataElements: { msg: 'dataElements!' },
         dataElementOperands: { msg: 'dataElementOperands!' },
         dataSets: { msg: 'dataSets!' },
@@ -93,38 +93,64 @@ describe('fetchGroups', () => {
     })
 })
 
-describe('fetch data with data query', () => {
-    test('it correctly fetches indicators', async () => {
-        const result = await fetchAlternatives({
+describe('fetchAlternatives', () => {
+    let dimensionProps
+
+    beforeEach(() => {
+        dimensionProps = {
             engine: mockEngine,
-            dataType: 'indicators',
+            groupDetail: '',
+            nameProp: 'entireName',
+            groupId: 'ALL',
             page: 1,
-            groupId: 'LWvy9lMdSlH',
-            filterText: 'births',
-            nameProp: 'displayName',
+        }
+    })
+
+    describe('indicators', () => {
+        beforeEach(() => {
+            dimensionProps.dataType = 'indicators'
         })
 
-        expect(mockQueryFn).toHaveBeenCalled()
-        expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
-            result: {
-                resource: 'indicators',
-                params: {
-                    fields: [
-                        'id',
-                        'displayName~rename(name)',
-                        'dimensionItemType',
-                    ],
-                    filter: [
-                        'indicatorGroups.id:eq:LWvy9lMdSlH',
-                        'displayName:ilike:births',
-                    ],
-                    order: 'displayName:asc',
-                    page: 1,
+        test('it fires a query with correct name, filter, and page value', async () => {
+            await fetchAlternatives(dimensionProps)
+
+            expect(mockQueryFn).toHaveBeenCalled()
+            expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
+                result: {
+                    resource: 'indicators',
+                    params: {
+                        fields: [
+                            'id',
+                            'entireName~rename(name)',
+                            'dimensionItemType',
+                        ],
+                        order: 'entireName:asc',
+                        page: 1,
+                        paging: true,
+                    },
                 },
-            },
+            })
         })
-        expect(result.dimensionItems).toMatchObject({ msg: 'indicators!' })
-        expect(result.nextPage).toEqual(2)
+
+        test('it uses correct filter values based on filterText and groupId', async () => {
+            await fetchAlternatives({
+                ...dimensionProps,
+                filterText: 'dummyText',
+                groupId: 'dummyId',
+            })
+
+            expect(mockQueryFn.mock.calls[0][0].result.params.filter).toEqual([
+                'indicatorGroups.id:eq:dummyId',
+                'entireName:ilike:dummyText',
+            ])
+        })
+
+        test('it correctly parses values from response', async () => {
+            const response = await fetchAlternatives(dimensionProps)
+
+            expect(response.dimensionItems).toEqual(['indicators!'])
+            expect(response.nextPage).toBe(2)
+        })
     })
 
     test('it correctly fetches data elements', async () => {
@@ -430,6 +456,9 @@ describe('api: dimensions', () => {
             })
         })
     })
+
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
 
     describe('apiFetchAlternatives', () => {
         beforeEach(() => {
