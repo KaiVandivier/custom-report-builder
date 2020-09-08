@@ -30,47 +30,70 @@ const asyncCheckMatches = (matches, done) => {
     })
 }
 
-describe.only('fetch groups with data query', () => {
-    let mockQueryFn
-    let mockEngine
-    beforeEach(() => {
-        // Could also be "reset mocks"
-        mockQueryFn = jest.fn().mockResolvedValue({
-            result: { pager: {}, indicatorGroups: { msg: 'hello!' } },
-        })
-        mockEngine = { query: mockQueryFn }
-    })
+const mockQueryFn = jest.fn().mockResolvedValue({
+    // Includes many dummy resource results to test successful parsing by `selectFromRsesponse`
+    result: {
+        pager: { page: 1, nextPage: true },
+        indicators: { msg: 'indicators!' },
+        dataElements: { msg: 'dataElements!' },
+        dataElementOperands: { msg: 'dataElementOperands!' },
+        dataSets: { msg: 'dataSets!' },
+        programDataElements: [{ msg: 'programDataElements!' }],
+        programIndicators: { msg: 'programIndicators!' },
+        indicatorGroups: ['indicatorGroups'],
+    },
+})
+const mockEngine = { query: mockQueryFn }
 
-    test('it correctly fetches indicator groups', async () => {
+beforeEach(() => {
+    mockQueryFn.mockClear()
+})
+
+describe('fetchGroups', () => {
+    test('indicators: fetches correct resource with correct fields, displayName prop, order, and paging, and correctly parses the result', async () => {
         const result = await fetchGroups(
             mockEngine,
             'indicators',
-            'displayName'
+            'displayNameProp-iShouldBeOverwritten'
         )
+        expect(result).toEqual(['indicatorGroups'])
+
         expect(mockQueryFn).toHaveBeenCalled()
-        expect(result).toMatchObject({ msg: 'hello!' })
+        expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
+            result: {
+                resource: 'indicatorGroups',
+                params: {
+                    fields: ['id', 'displayName~rename(name)'],
+                    order: 'displayName:asc',
+                },
+            },
+        })
+    })
+
+    test('dataElements: correct resource and displayName prop', async () => {
+        await fetchGroups(mockEngine, 'dataElements', 'testDisplayNameProp')
+
+        expect(mockQueryFn).toHaveBeenCalled()
+        expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
+            result: {
+                resource: 'dataElementGroups',
+                params: {
+                    fields: ['id', 'testDisplayNameProp~rename(name)'],
+                    order: 'testDisplayNameProp:asc',
+                    paging: false,
+                },
+            },
+        })
+    })
+
+    test("dataSets: doesn't fire a query", async () => {
+        await fetchGroups(mockEngine, 'dataSets', 'displayName')
+
+        expect(mockQueryFn).not.toHaveBeenCalled()
     })
 })
 
-describe.only('fetch data with data query', () => {
-    let mockQueryFn
-    let mockEngine
-    beforeEach(() => {
-        // Could also be "reset mocks"
-        mockQueryFn = jest.fn().mockResolvedValue({
-            result: {
-                pager: { page: 1, nextPage: true },
-                indicators: { msg: 'indicators!' },
-                dataElements: { msg: 'dataElements!' },
-                dataElementOperands: { msg: 'dataElementOperands!' },
-                dataSets: { msg: 'dataSets!' },
-                programDataElements: [{ msg: 'programDataElements!' }],
-                programIndicators: { msg: 'programIndicators!' },
-            },
-        })
-        mockEngine = { query: mockQueryFn }
-    })
-
+describe('fetch data with data query', () => {
     test('it correctly fetches indicators', async () => {
         const result = await fetchAlternatives({
             engine: mockEngine,
@@ -340,13 +363,18 @@ describe.only('fetch data with data query', () => {
     })
 })
 
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
 describe('api: dimensions', () => {
     beforeEach(() => {
         mockGetFn = jest.fn().mockResolvedValue({ pager: {} })
         mockD2 = { Api: { getApi: () => ({ get: mockGetFn }) } }
     })
 
-    describe('apiFetchDimensions', () => {
+    describe.skip('apiFetchDimensions', () => {
         it('has correct entity and name property', done => {
             apiFetchDimensions(mockD2, 'entireName')
 
