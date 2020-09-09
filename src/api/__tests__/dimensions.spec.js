@@ -35,8 +35,8 @@ const mockQueryFn = jest.fn().mockResolvedValue({
     result: {
         pager: { page: 1, nextPage: true },
         indicators: ['indicators!'],
-        dataElements: { msg: 'dataElements!' },
-        dataElementOperands: { msg: 'dataElementOperands!' },
+        dataElements: ['dataElements!'],
+        dataElementOperands: ['dataElementOperands!'],
         dataSets: { msg: 'dataSets!' },
         programDataElements: [{ msg: 'programDataElements!' }],
         programIndicators: { msg: 'programIndicators!' },
@@ -153,57 +153,94 @@ describe('fetchAlternatives', () => {
         })
     })
 
-    test('it correctly fetches data elements', async () => {
-        const result = await fetchAlternatives({
-            engine: mockEngine,
-            nameProp: 'displayName',
-            dataType: 'dataElements',
-            groupId: 'ALL',
-            groupDetail: 'totals',
-            page: 1,
+    describe('dataElements', () => {
+        beforeEach(() => {
+            dimensionProps.dataType = 'dataElements'
         })
 
-        expect(result.dimensionItems).toMatchObject({ msg: 'dataElements!' })
-        expect(mockQueryFn).toHaveBeenCalled()
-        expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
-            result: {
-                resource: 'dataElements',
-                params: {
-                    fields: ['id', 'displayName~rename(name)'],
-                    order: 'displayName:asc',
-                    filter: ['domainType:eq:AGGREGATE'],
-                    page: 1,
-                    paging: true,
-                },
-            },
-        })
-    })
+        describe('Totals', () => {
+            test('it has correct resource, fields, order, filter, and page', async () => {
+                await fetchAlternatives(dimensionProps)
 
-    test('it correctly fetches data element operands when groupDetail == "detail"', async () => {
-        const result = await fetchAlternatives({
-            engine: mockEngine,
-            dataType: 'dataElements',
-            nameProp: 'displayName',
-            groupId: 'ALL',
-            groupDetail: 'detail',
-            page: 1,
+                expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
+                    result: {
+                        resource: 'dataElements',
+                        params: {
+                            fields: ['id', 'entireName~rename(name)'],
+                            order: 'entireName:asc',
+                            filter: ['domainType:eq:AGGREGATE'],
+                            page: 1,
+                            paging: true,
+                        },
+                    },
+                })
+            })
+
+            test('it has correct filter based on groupId and filterText', async () => {
+                await fetchAlternatives({
+                    ...dimensionProps,
+                    groupId: 'dummyGroupId',
+                    filterText: 'dummyFilterText',
+                })
+
+                const queryArgs = mockQueryFn.mock.calls[0][0]
+                expect(queryArgs.result.params.filter).toEqual([
+                    'domainType:eq:AGGREGATE',
+                    'dataElementGroups.id:eq:dummyGroupId',
+                    'entireName:ilike:dummyFilterText',
+                ])
+            })
+
+            test('it correctly parses data from results', async () => {
+                const result = await fetchAlternatives(dimensionProps)
+
+                expect(result.dimensionItems).toEqual(['dataElements!'])
+                expect(result.nextPage).toBe(2)
+            })
         })
 
-        expect(result.dimensionItems).toMatchObject({
-            msg: 'dataElementOperands!',
-        })
-        expect(mockQueryFn).toHaveBeenCalled()
-        expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
-            result: {
-                resource: 'dataElementOperands',
-                params: {
-                    fields: ['id', 'displayName~rename(name)'],
-                    order: 'displayName:asc',
-                    filter: [],
-                    page: 1,
-                    paging: true,
-                },
-            },
+        describe('Details', () => {
+            beforeEach(() => {
+                dimensionProps.groupDetail = 'detail'
+            })
+
+            test('it has correct resource, fields, filter, order, and page', async () => {
+                await fetchAlternatives(dimensionProps)
+
+                expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
+                    result: {
+                        resource: 'dataElementOperands',
+                        params: {
+                            fields: ['id', 'entireName~rename(name)'],
+                            order: 'entireName:asc',
+                            filter: [],
+                            page: 1,
+                            paging: true,
+                        },
+                    },
+                })
+            })
+
+            test('it has correct filter value based on groupId and filterText', async () => {
+                await fetchAlternatives({
+                    ...dimensionProps,
+                    groupId: 'dummyGroupId',
+                    filterText: 'dummyFilterText',
+                })
+
+                const queryArgs = mockQueryFn.mock.calls[0][0]
+                expect(queryArgs.result.params.filter).toEqual([
+                    'dataElement.dataElementGroups.id:eq:dummyGroupId',
+                    'entireName:ilike:dummyFilterText',
+                ])
+            })
+
+            test('it correctly parses data from results', async () => {
+                const result = await fetchAlternatives(dimensionProps)
+
+                expect(result.dimensionItems).toEqual(['dataElementOperands!'])
+                expect(result.nextPage).toBe(2)
+            })
         })
     })
 
@@ -457,9 +494,6 @@ describe('api: dimensions', () => {
         })
     })
 
-    // -------------------------------------------------------------------------
-    // -------------------------------------------------------------------------
-
     describe('apiFetchAlternatives', () => {
         beforeEach(() => {
             dimensionProps = {
@@ -510,6 +544,9 @@ describe('api: dimensions', () => {
                 )
             })
         })
+
+        // ---------------------------------------------------------------------
+        // ---------------------------------------------------------------------
 
         describe('dataElements url', () => {
             beforeEach(() => {
