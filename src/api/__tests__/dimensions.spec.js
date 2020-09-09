@@ -274,6 +274,44 @@ describe('fetchAlternatives', () => {
         })
     })
 
+    describe('fetching dataSets', () => {
+        beforeEach(() => {
+            dimensionProps.dataType = 'dataSets'
+        })
+
+        it('has correct resource, fields, order, filter, and page', async () => {
+            await fetchAlternatives(dimensionProps)
+
+            expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
+                result: {
+                    resource: 'dataSets',
+                    params: {
+                        fields: [
+                            'dimensionItem~rename(id)',
+                            'entireName~rename(name)',
+                        ],
+                        order: 'entireName:asc',
+                        filter: [],
+                        page: 1,
+                        paging: true,
+                    },
+                },
+            })
+        })
+
+        it('has correct filter value based on filterText', async () => {
+            await fetchAlternatives({
+                ...dimensionProps,
+                filterText: 'dummyFilterText',
+            })
+
+            const queryArgs = mockQueryFn.mock.calls[0][0]
+            expect(queryArgs.result.params.filter).toEqual([
+                'entireName:ilike:dummyFilterText',
+            ])
+        })
+    })
+
     describe('Handling event data elements', () => {
         test('it sends queries to programDataElements and programs', async () => {
             await fetchAlternatives({
@@ -544,9 +582,6 @@ describe('api: dimensions', () => {
                 )
             })
         })
-
-        // ---------------------------------------------------------------------
-        // ---------------------------------------------------------------------
 
         describe('dataElements url', () => {
             beforeEach(() => {
