@@ -39,7 +39,7 @@ const mockQueryFn = jest.fn().mockResolvedValue({
         dataElementOperands: ['dataElementOperands!'],
         dataSets: { msg: 'dataSets!' },
         programDataElements: [{ msg: 'programDataElements!' }],
-        programIndicators: { msg: 'programIndicators!' },
+        programIndicators: ['programIndicators!'],
         indicatorGroups: ['indicatorGroups'],
     },
 })
@@ -385,7 +385,7 @@ describe('fetchAlternatives', () => {
             expect(result).toMatchObject(expectedResult)
         })
 
-        it('executes two queries: one for programDataElements, one for progams/{groupId}', async () => {
+        it('executes two queries: one for programDataElements, one for attributes (programs/{groupId})', async () => {
             await fetchAlternatives(dimensionProps)
 
             expect(mockQueryFn).toHaveBeenCalledTimes(2)
@@ -396,7 +396,7 @@ describe('fetchAlternatives', () => {
             expect(secondArgs.result.resource).toBe('programs/testGroupId')
         })
 
-        it('has correct resource, fields, order, program, filter, and page for programDataElements query', async () => {
+        it('uses correct resource, fields, order, program, filter, and page values for programDataElements query', async () => {
             await fetchAlternatives(dimensionProps)
 
             expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
@@ -417,7 +417,7 @@ describe('fetchAlternatives', () => {
             })
         })
 
-        it('has correct resource, fields, filter, and paging values for programs/{groupId} query', async () => {
+        it('uses correct resource, fields, filter, and paging values for attributes (programs/{groupId}) query', async () => {
             await fetchAlternatives(dimensionProps)
 
             expect(mockQueryFn.mock.calls[1][0]).toMatchObject({
@@ -435,7 +435,7 @@ describe('fetchAlternatives', () => {
             })
         })
 
-        it('has correct filter values based on filterText for both queries', async () => {
+        it('uses correct filter values based on filterText for both queries', async () => {
             await fetchAlternatives({
                 ...dimensionProps,
                 filterText: 'testFilterText',
@@ -452,39 +452,49 @@ describe('fetchAlternatives', () => {
         })
     })
 
-    describe('Program Indicators', () => {
-        test('it correctly fetches program indicators', async () => {
-            const res = await fetchAlternatives({
-                engine: mockEngine,
-                dataType: 'programIndicators',
-                groupId: 'PROGRAM_ID',
-                page: 1,
-                nameProp: 'displayName',
-                filterText: 'test',
-            })
+    describe('programIndicators', () => {
+        beforeEach(() => {
+            dimensionProps.dataType = 'programIndicators'
+            dimensionProps.groupId = 'testGroupId'
+        })
 
-            expect(res).toMatchObject({
-                dimensionItems: { msg: 'programIndicators!' },
-                nextPage: 2,
-            })
+        it('uses correct resource, fields, order, filter, and page values in query', async () => {
+            await fetchAlternatives(dimensionProps)
+
             expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
                 result: {
                     resource: 'programIndicators',
                     params: {
                         fields: [
                             'dimensionItem~rename(id)',
-                            'displayName~rename(name)',
+                            'entireName~rename(name)',
                         ],
-                        order: 'displayName:asc',
-                        filter: [
-                            'program.id:eq:PROGRAM_ID',
-                            'displayName:ilike:test',
-                        ],
+                        order: 'entireName:asc',
+                        filter: ['program.id:eq:testGroupId'],
                         page: 1,
                         paging: true,
                     },
                 },
             })
+        })
+
+        it('uses correct filter value based on filterText', async () => {
+            await fetchAlternatives({
+                ...dimensionProps,
+                filterText: 'testFilterText',
+            })
+
+            expect(mockQueryFn.mock.calls[0][0].result.params.filter).toEqual([
+                'program.id:eq:testGroupId',
+                'entireName:ilike:testFilterText',
+            ])
+        })
+
+        it('correctly parses values from result', async () => {
+            const result = await fetchAlternatives(dimensionProps)
+
+            expect(result.dimensionItems).toEqual(['programIndicators!'])
+            expect(result.nextPage).toBe(2)
         })
     })
 })
@@ -869,9 +879,6 @@ describe('api: dimensions', () => {
                 })
             })
         })
-
-        // ---------------------------------------------------------------------
-        // ---------------------------------------------------------------------
 
         describe('programIndicators url', () => {
             beforeEach(() => {
