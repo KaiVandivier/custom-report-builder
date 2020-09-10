@@ -50,7 +50,7 @@ beforeEach(() => {
 })
 
 describe('fetchGroups', () => {
-    test('indicators: fetches correct resource with correct fields, displayName prop, order, and paging, and correctly parses the result', async () => {
+    it('indicators: fetches correct resource with correct fields, displayName prop, order, and paging, and correctly parses the result', async () => {
         const result = await fetchGroups(
             mockEngine,
             'indicators',
@@ -70,7 +70,7 @@ describe('fetchGroups', () => {
         })
     })
 
-    test('dataElements: correct resource and displayName prop', async () => {
+    it('dataElements: correct resource and displayName prop', async () => {
         await fetchGroups(mockEngine, 'dataElements', 'testDisplayNameProp')
 
         expect(mockQueryFn).toHaveBeenCalled()
@@ -86,7 +86,7 @@ describe('fetchGroups', () => {
         })
     })
 
-    test("dataSets: doesn't fire a query", async () => {
+    it("dataSets: doesn't fire a query", async () => {
         await fetchGroups(mockEngine, 'dataSets', 'displayName')
 
         expect(mockQueryFn).not.toHaveBeenCalled()
@@ -111,7 +111,7 @@ describe('fetchAlternatives', () => {
             dimensionProps.dataType = 'indicators'
         })
 
-        test('it fires a query with correct name, filter, and page value', async () => {
+        it('uses correct resource, fields, order, filter, and page values for query', async () => {
             await fetchAlternatives(dimensionProps)
 
             expect(mockQueryFn).toHaveBeenCalled()
@@ -132,7 +132,7 @@ describe('fetchAlternatives', () => {
             })
         })
 
-        test('it uses correct filter values based on filterText and groupId', async () => {
+        it('uses correct filter values based on filterText and groupId', async () => {
             await fetchAlternatives({
                 ...dimensionProps,
                 filterText: 'testText',
@@ -145,7 +145,7 @@ describe('fetchAlternatives', () => {
             ])
         })
 
-        test('it correctly parses values from response', async () => {
+        it('correctly parses values from response', async () => {
             const response = await fetchAlternatives(dimensionProps)
 
             expect(response.dimensionItems).toEqual(['indicators!'])
@@ -159,7 +159,7 @@ describe('fetchAlternatives', () => {
         })
 
         describe('Totals', () => {
-            test('it has correct resource, fields, order, filter, and page', async () => {
+            it('uses correct resource, fields, order, filter, and page values in query', async () => {
                 await fetchAlternatives(dimensionProps)
 
                 expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
@@ -176,7 +176,7 @@ describe('fetchAlternatives', () => {
                 })
             })
 
-            test('it has correct filter based on groupId and filterText', async () => {
+            it('uses correct filter value based on groupId and filterText', async () => {
                 await fetchAlternatives({
                     ...dimensionProps,
                     groupId: 'testGroupId',
@@ -191,7 +191,7 @@ describe('fetchAlternatives', () => {
                 ])
             })
 
-            test('it correctly parses data from results', async () => {
+            it('correctly parses data from results', async () => {
                 const result = await fetchAlternatives(dimensionProps)
 
                 expect(result.dimensionItems).toEqual(['dataElements!'])
@@ -204,7 +204,7 @@ describe('fetchAlternatives', () => {
                 dimensionProps.groupDetail = 'detail'
             })
 
-            test('it has correct resource, fields, filter, order, and page', async () => {
+            it('uses correct resource, fields, filter, order, and page values for query', async () => {
                 await fetchAlternatives(dimensionProps)
 
                 expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
@@ -221,7 +221,7 @@ describe('fetchAlternatives', () => {
                 })
             })
 
-            test('it has correct filter value based on groupId and filterText', async () => {
+            it('uses correct filter value based on groupId and filterText', async () => {
                 await fetchAlternatives({
                     ...dimensionProps,
                     groupId: 'testGroupId',
@@ -235,7 +235,7 @@ describe('fetchAlternatives', () => {
                 ])
             })
 
-            test('it correctly parses data from results', async () => {
+            it('correctly parses data from results', async () => {
                 const result = await fetchAlternatives(dimensionProps)
 
                 expect(result.dimensionItems).toEqual(['dataElementOperands!'])
@@ -244,42 +244,12 @@ describe('fetchAlternatives', () => {
         })
     })
 
-    test('it correctly fetches data sets', async () => {
-        const result = await fetchAlternatives({
-            engine: mockEngine,
-            dataType: 'dataSets',
-            nameProp: 'displayName',
-            groupId: 'ALL',
-            page: 1,
-        })
-
-        expect(result.dimensionItems).toMatchObject({
-            msg: 'dataSets!',
-        })
-        expect(mockQueryFn).toHaveBeenCalled()
-        expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
-            result: {
-                resource: 'dataSets',
-                params: {
-                    fields: [
-                        'dimensionItem~rename(id)',
-                        'displayName~rename(name)',
-                    ],
-                    order: 'displayName:asc',
-                    filter: [],
-                    page: 1,
-                    paging: true,
-                },
-            },
-        })
-    })
-
-    describe('fetching dataSets', () => {
+    describe('dataSets', () => {
         beforeEach(() => {
             dimensionProps.dataType = 'dataSets'
         })
 
-        it('has correct resource, fields, order, filter, and page', async () => {
+        it('uses correct resource, fields, order, filter, and page values in query', async () => {
             await fetchAlternatives(dimensionProps)
 
             expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
@@ -299,7 +269,7 @@ describe('fetchAlternatives', () => {
             })
         })
 
-        it('has correct filter value based on filterText', async () => {
+        it('uses correct filter value based on filterText', async () => {
             await fetchAlternatives({
                 ...dimensionProps,
                 filterText: 'testFilterText',
@@ -312,7 +282,7 @@ describe('fetchAlternatives', () => {
         })
     })
 
-    describe('fetching eventDataItems', () => {
+    describe('eventDataItems', () => {
         let eventDataMockQuery, eventDataMockEngine
 
         beforeEach(() => {
