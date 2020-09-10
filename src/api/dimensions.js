@@ -272,7 +272,24 @@ export const apiFetchDimensions = (d2, nameProp) => {
 
     return request(d2, 'dimensions', { paramString: params })
 }
+*/
 
+export const fetchDimensions = (engine, nameProp) => {
+    const fields = [
+        'id',
+        `${nameProp}~rename(name)`,
+        'dimensionType',
+        'dataDimensionType',
+    ]
+    const order = `${nameProp}:asc`
+
+    return dataQuery(engine, {
+        resource: 'dimensions',
+        params: { fields, order },
+    })
+}
+
+/* 
 export const apiFetchRecommendedIds = (d2, dxIds, ouIds) => {
     let dimensions = 'dimension='
 

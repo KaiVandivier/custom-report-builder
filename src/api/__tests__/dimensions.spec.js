@@ -1,4 +1,4 @@
-import { fetchGroups, fetchAlternatives } from '../dimensions'
+import { fetchGroups, fetchAlternatives, fetchDimensions } from '../dimensions'
 
 // Dummy query results for all resources to test successful parsing by `selectFromResponse()`
 const expectedQueryResults = {
@@ -462,16 +462,22 @@ describe('fetchAlternatives', () => {
 // ----------------------------------------------------------------------------
 // The following test and its helper functions can be used for a future implementation of apiFetchDimension using the new data engine
 
-describe.skip('apiFetchDimensions', () => {
+describe('apiFetchDimensions', () => {
     it('uses correct resource and params values for query', async () => {
-        // TODO: Implement fetchDimensions using dataEngine
-        // await fetchDimensions(mockEngine, 'entireName')
+        await fetchDimensions(mockEngine, 'entireName')
 
         expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
             result: {
                 resource: 'dimensions',
                 params: {
-                    fields: ['entireName~rename(name)'],
+                    fields: [
+                        'id',
+                        'entireName~rename(name)',
+                        'dimensionType',
+                        'dataDimensionType',
+                    ],
+                    order: 'entireName:asc',
+                    paging: false,
                 },
             },
         })
