@@ -262,6 +262,7 @@ const fetchProgramIndicators = ({
 }
 
 // TODO: Refactor the following functions to use the data engine
+// (They are unused in this project)
 /* 
 export const apiFetchDimensions = (d2, nameProp) => {
     const fields = `fields=id,${nameProp}~rename(name),dimensionType,dataDimensionType`
