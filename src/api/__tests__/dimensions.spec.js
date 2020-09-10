@@ -30,17 +30,21 @@ const asyncCheckMatches = (matches, done) => {
     })
 }
 
+const expectedQueryResults = {
+    indicators: ['indicators!'],
+    dataElements: ['dataElements!'],
+    dataElementOperands: ['dataElementOperands!'],
+    dataSets: ['dataSets!'],
+    programDataElements: ['programDataElements!'],
+    programIndicators: ['programIndicators!'],
+    indicatorGroups: ['indicatorGroups'],
+}
+
 const mockQueryFn = jest.fn().mockResolvedValue({
     // Includes many dummy query results for all resources to test successful parsing by `selectFromRsesponse`
     result: {
         pager: { page: 1, nextPage: true },
-        indicators: ['indicators!'],
-        dataElements: ['dataElements!'],
-        dataElementOperands: ['dataElementOperands!'],
-        dataSets: { msg: 'dataSets!' },
-        programDataElements: [{ msg: 'programDataElements!' }],
-        programIndicators: ['programIndicators!'],
-        indicatorGroups: ['indicatorGroups'],
+        ...expectedQueryResults,
     },
 })
 const mockEngine = { query: mockQueryFn }
@@ -56,7 +60,7 @@ describe('fetchGroups', () => {
             'indicators',
             'displayNameProp-iShouldBeOverwritten'
         )
-        expect(result).toEqual(['indicatorGroups'])
+        expect(result).toEqual(expectedQueryResults.indicatorGroups)
 
         expect(mockQueryFn).toHaveBeenCalled()
         expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
@@ -148,7 +152,9 @@ describe('fetchAlternatives', () => {
         it('correctly parses values from response', async () => {
             const response = await fetchAlternatives(dimensionProps)
 
-            expect(response.dimensionItems).toEqual(['indicators!'])
+            expect(response.dimensionItems).toEqual(
+                expectedQueryResults.indicators
+            )
             expect(response.nextPage).toBe(2)
         })
     })
@@ -194,7 +200,9 @@ describe('fetchAlternatives', () => {
             it('correctly parses data from results', async () => {
                 const result = await fetchAlternatives(dimensionProps)
 
-                expect(result.dimensionItems).toEqual(['dataElements!'])
+                expect(result.dimensionItems).toEqual(
+                    expectedQueryResults.dataElements
+                )
                 expect(result.nextPage).toBe(2)
             })
         })
@@ -238,7 +246,9 @@ describe('fetchAlternatives', () => {
             it('correctly parses data from results', async () => {
                 const result = await fetchAlternatives(dimensionProps)
 
-                expect(result.dimensionItems).toEqual(['dataElementOperands!'])
+                expect(result.dimensionItems).toEqual(
+                    expectedQueryResults.dataElementOperands
+                )
                 expect(result.nextPage).toBe(2)
             })
         })
@@ -279,6 +289,13 @@ describe('fetchAlternatives', () => {
             expect(queryArgs.result.params.filter).toEqual([
                 'entireName:ilike:testFilterText',
             ])
+        })
+
+        it('correctly parses data from results', async () => {
+            const result = await fetchAlternatives(dimensionProps)
+
+            expect(result.dimensionItems).toEqual(expectedQueryResults.dataSets)
+            expect(result.nextPage).toBe(2)
         })
     })
 
@@ -463,7 +480,9 @@ describe('fetchAlternatives', () => {
         it('correctly parses values from result', async () => {
             const result = await fetchAlternatives(dimensionProps)
 
-            expect(result.dimensionItems).toEqual(['programIndicators!'])
+            expect(result.dimensionItems).toEqual(
+                expectedQueryResults.programIndicators
+            )
             expect(result.nextPage).toBe(2)
         })
     })
