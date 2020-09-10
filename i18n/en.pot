@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-09-06T21:58:44.916Z\n"
-"PO-Revision-Date: 2020-09-06T21:58:44.916Z\n"
+"POT-Creation-Date: 2020-09-10T04:38:04.079Z\n"
+"PO-Revision-Date: 2020-09-10T04:38:04.079Z\n"
 
 msgid "Reporting rate"
 msgstr ""
@@ -84,6 +84,9 @@ msgid "Generate Table from Custom Template"
 msgstr ""
 
 msgid "Hello, world!"
+msgstr ""
+
+msgid "No data selected"
 msgstr ""
 
 msgid "Choose data..."
