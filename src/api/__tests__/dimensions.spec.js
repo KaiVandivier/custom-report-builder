@@ -31,7 +31,7 @@ const asyncCheckMatches = (matches, done) => {
 }
 
 const mockQueryFn = jest.fn().mockResolvedValue({
-    // Includes many dummy resource results to test successful parsing by `selectFromRsesponse`
+    // Includes many dummy query results for all resources to test successful parsing by `selectFromRsesponse`
     result: {
         pager: { page: 1, nextPage: true },
         indicators: ['indicators!'],
@@ -135,13 +135,13 @@ describe('fetchAlternatives', () => {
         test('it uses correct filter values based on filterText and groupId', async () => {
             await fetchAlternatives({
                 ...dimensionProps,
-                filterText: 'dummyText',
-                groupId: 'dummyId',
+                filterText: 'testText',
+                groupId: 'testId',
             })
 
             expect(mockQueryFn.mock.calls[0][0].result.params.filter).toEqual([
-                'indicatorGroups.id:eq:dummyId',
-                'entireName:ilike:dummyText',
+                'indicatorGroups.id:eq:testId',
+                'entireName:ilike:testText',
             ])
         })
 
@@ -179,15 +179,15 @@ describe('fetchAlternatives', () => {
             test('it has correct filter based on groupId and filterText', async () => {
                 await fetchAlternatives({
                     ...dimensionProps,
-                    groupId: 'dummyGroupId',
-                    filterText: 'dummyFilterText',
+                    groupId: 'testGroupId',
+                    filterText: 'testFilterText',
                 })
 
                 const queryArgs = mockQueryFn.mock.calls[0][0]
                 expect(queryArgs.result.params.filter).toEqual([
                     'domainType:eq:AGGREGATE',
-                    'dataElementGroups.id:eq:dummyGroupId',
-                    'entireName:ilike:dummyFilterText',
+                    'dataElementGroups.id:eq:testGroupId',
+                    'entireName:ilike:testFilterText',
                 ])
             })
 
@@ -224,14 +224,14 @@ describe('fetchAlternatives', () => {
             test('it has correct filter value based on groupId and filterText', async () => {
                 await fetchAlternatives({
                     ...dimensionProps,
-                    groupId: 'dummyGroupId',
-                    filterText: 'dummyFilterText',
+                    groupId: 'testGroupId',
+                    filterText: 'testFilterText',
                 })
 
                 const queryArgs = mockQueryFn.mock.calls[0][0]
                 expect(queryArgs.result.params.filter).toEqual([
-                    'dataElement.dataElementGroups.id:eq:dummyGroupId',
-                    'entireName:ilike:dummyFilterText',
+                    'dataElement.dataElementGroups.id:eq:testGroupId',
+                    'entireName:ilike:testFilterText',
                 ])
             })
 
@@ -302,25 +302,102 @@ describe('fetchAlternatives', () => {
         it('has correct filter value based on filterText', async () => {
             await fetchAlternatives({
                 ...dimensionProps,
-                filterText: 'dummyFilterText',
+                filterText: 'testFilterText',
             })
 
             const queryArgs = mockQueryFn.mock.calls[0][0]
             expect(queryArgs.result.params.filter).toEqual([
-                'entireName:ilike:dummyFilterText',
+                'entireName:ilike:testFilterText',
             ])
         })
     })
 
-    describe('Handling event data elements', () => {
-        test('it sends queries to programDataElements and programs', async () => {
-            await fetchAlternatives({
-                engine: mockEngine,
-                dataType: 'eventDataItems',
-                nameProp: 'displayName',
-                groupId: 'abc123',
-                page: 1,
+    describe('fetching eventDataItems', () => {
+        let eventDataMockQuery, eventDataMockEngine
+
+        beforeEach(() => {
+            dimensionProps.dataType = 'eventDataItems'
+            dimensionProps.groupId = 'testGroupId'
+            eventDataMockQuery = jest.fn().mockImplementation(({ result }) => {
+                if (result.resource.includes('programDataElements')) {
+                    return Promise.resolve({
+                        result: {
+                            programDataElements: [
+                                {
+                                    id: 'cc',
+                                    name: 'Chocolate cake',
+                                    valueType: 'NUMBER',
+                                },
+                                {
+                                    id: 'em',
+                                    name: 'English muffin',
+                                    valueType: 'TEXT',
+                                },
+                            ],
+                            pager: {},
+                        },
+                    })
+                } else if (result.resource.includes('programs/')) {
+                    return Promise.resolve({
+                        result: {
+                            name: 'Veggies',
+                            programTrackedEntityAttributes: [
+                                {
+                                    trackedEntityAttribute: {
+                                        id: 'spin',
+                                        name: 'Spinach',
+                                        valueType: 'TEXT',
+                                    },
+                                },
+                                {
+                                    trackedEntityAttribute: {
+                                        id: 'broc',
+                                        name: 'Broccoli',
+                                        valueType: 'NUMBER',
+                                    },
+                                },
+                            ],
+                        },
+                    })
+                }
+
+                return Promise.resolve({ pager: {} })
             })
+            eventDataMockEngine = { query: eventDataMockQuery }
+        })
+
+        it('returns the correct dimension items', async () => {
+            const result = await fetchAlternatives({
+                ...dimensionProps,
+                engine: eventDataMockEngine,
+            })
+            const expectedResult = {
+                dimensionItems: [
+                    { id: 'cc', name: 'Chocolate cake', valueType: 'NUMBER' },
+                    {
+                        id: 'testGroupId.broc',
+                        name: 'Veggies Broccoli',
+                        valueType: 'NUMBER',
+                    },
+                ],
+            }
+
+            expect(result).toMatchObject(expectedResult)
+        })
+
+        it('executes two queries: one for programDataElements, one for progams/{groupId}', async () => {
+            await fetchAlternatives(dimensionProps)
+
+            expect(mockQueryFn).toHaveBeenCalledTimes(2)
+
+            const firstArgs = mockQueryFn.mock.calls[0][0]
+            const secondArgs = mockQueryFn.mock.calls[1][0]
+            expect(firstArgs.result.resource).toBe('programDataElements')
+            expect(secondArgs.result.resource).toBe('programs/testGroupId')
+        })
+
+        it('has correct resource, fields, order, program, filter, and page for programDataElements query', async () => {
+            await fetchAlternatives(dimensionProps)
 
             expect(mockQueryFn.mock.calls[0][0]).toMatchObject({
                 result: {
@@ -328,25 +405,28 @@ describe('fetchAlternatives', () => {
                     params: {
                         fields: [
                             'dimensionItem~rename(id)',
-                            'displayName~rename(name)',
+                            'entireName~rename(name)',
                             'valueType',
                         ],
+                        order: 'entireName:asc',
+                        program: 'testGroupId',
                         filter: [],
-                        order: 'displayName:asc',
-                        program: 'abc123',
                         page: 1,
-                        paging: true,
                     },
                 },
             })
+        })
+
+        it('has correct resource, fields, filter, and paging values for programs/{groupId} query', async () => {
+            await fetchAlternatives(dimensionProps)
 
             expect(mockQueryFn.mock.calls[1][0]).toMatchObject({
                 result: {
-                    resource: 'programs/abc123',
+                    resource: 'programs/testGroupId',
                     params: {
                         fields: [
-                            'displayName~rename(name)',
-                            'programTrackedEntityAttributes[trackedEntityAttribute[id,displayName~rename(name),valueType]]',
+                            'entireName~rename(name)',
+                            'programTrackedEntityAttributes[trackedEntityAttribute[id,entireName~rename(name),valueType]]',
                         ],
                         filter: [],
                         paging: false,
@@ -355,75 +435,20 @@ describe('fetchAlternatives', () => {
             })
         })
 
-        test('it processes resulting data correctly', async () => {
-            const eventMockQueryFn = jest
-                .fn()
-                .mockImplementation(({ result }) => {
-                    if (result.resource.includes('programDataElements')) {
-                        return Promise.resolve({
-                            result: {
-                                programDataElements: [
-                                    {
-                                        id: 'cc',
-                                        name: 'Chocolate cake',
-                                        valueType: 'NUMBER',
-                                    },
-                                    {
-                                        id: 'em',
-                                        name: 'English muffin',
-                                        valueType: 'TEXT',
-                                    },
-                                ],
-                                pager: {},
-                            },
-                        })
-                    } else if (result.resource.includes('programs/')) {
-                        return Promise.resolve({
-                            result: {
-                                name: 'Veggies',
-                                programTrackedEntityAttributes: [
-                                    {
-                                        trackedEntityAttribute: {
-                                            id: 'spin',
-                                            name: 'Spinach',
-                                            valueType: 'TEXT',
-                                        },
-                                    },
-                                    {
-                                        trackedEntityAttribute: {
-                                            id: 'broc',
-                                            name: 'Broccoli',
-                                            valueType: 'NUMBER',
-                                        },
-                                    },
-                                ],
-                            },
-                        })
-                    }
-
-                    return Promise.resolve({ pager: {} })
-                })
-            const eventMockEngine = { query: eventMockQueryFn }
-
-            const res = await fetchAlternatives({
-                engine: eventMockEngine,
-                dataType: 'eventDataItems',
-                nameProp: 'displayName',
-                groupId: 'abc123',
-                page: 1,
+        it('has correct filter values based on filterText for both queries', async () => {
+            await fetchAlternatives({
+                ...dimensionProps,
+                filterText: 'testFilterText',
             })
-            const expectedRes = {
-                dimensionItems: [
-                    { id: 'cc', name: 'Chocolate cake', valueType: 'NUMBER' },
-                    {
-                        id: 'abc123.broc',
-                        name: 'Veggies Broccoli',
-                        valueType: 'NUMBER',
-                    },
-                ],
-            }
 
-            expect(res).toMatchObject(expectedRes)
+            const firstArgs = mockQueryFn.mock.calls[0][0]
+            const secondArgs = mockQueryFn.mock.calls[1][0]
+            expect(firstArgs.result.params.filter).toEqual([
+                'entireName:ilike:testFilterText',
+            ])
+            expect(secondArgs.result.params.filter).toEqual([
+                'entireName:ilike:testFilterText',
+            ])
         })
     })
 
@@ -844,6 +869,9 @@ describe('api: dimensions', () => {
                 })
             })
         })
+
+        // ---------------------------------------------------------------------
+        // ---------------------------------------------------------------------
 
         describe('programIndicators url', () => {
             beforeEach(() => {
