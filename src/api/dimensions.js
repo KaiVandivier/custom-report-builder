@@ -261,19 +261,6 @@ const fetchProgramIndicators = ({
     })
 }
 
-// TODO: Refactor the following functions to use the data engine
-// (They are unused in this project)
-/* 
-export const apiFetchDimensions = (d2, nameProp) => {
-    const fields = `fields=id,${nameProp}~rename(name),dimensionType,dataDimensionType`
-    const order = `order=${nameProp}:asc`
-
-    const params = `${fields}&${order}`
-
-    return request(d2, 'dimensions', { paramString: params })
-}
-*/
-
 export const fetchDimensions = (engine, nameProp) => {
     const fields = [
         'id',
@@ -288,6 +275,9 @@ export const fetchDimensions = (engine, nameProp) => {
         params: { fields, order },
     })
 }
+
+// TODO: Refactor the following functions to use the data engine
+// (They are unused in this project)
 
 /* 
 export const apiFetchRecommendedIds = (d2, dxIds, ouIds) => {
