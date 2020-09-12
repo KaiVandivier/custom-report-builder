@@ -17,7 +17,7 @@ const testCell = {
     groupDetail: '',
 }
 
-const testTable = {
+export const testTable = {
     columns: [{ name: 'Column 0' }, { name: 'Column 1' }, { name: 'Column 2' }],
     rows: [
         {
