@@ -19,7 +19,6 @@ import { modal, modalContent } from './styles/DataSelectorModal.module.css'
 
 import {
     DEFAULT_DATATYPE_ID,
-    ALL_ID,
     dataTypes,
     defaultGroupId,
     defaultGroupDetail,
@@ -45,7 +44,7 @@ export class DataSelectorModal extends Component {
             eventDataItems: [],
             programIndicators: [],
         },
-        groupId: ALL_ID,
+        groupId: defaultGroupId(this.props.initialValues.dataType),
         groupDetail: this.props.initialValues.groupDetail || '',
         filterText: this.props.initialValues.item?.name || '',
         items: [],
