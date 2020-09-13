@@ -1,36 +1,42 @@
 import React, { useState } from 'react'
 import { TableCell, Button } from '@dhis2/ui'
+import { PropTypes } from '@dhis2/prop-types'
 import i18n from '../../locales'
 
 import { DataSelectorModal } from './DataSelector/DataSelectorModal'
 import DataEngine from '../../components/DataEngine'
 import { dataTypes } from '../../modules/dataTypes'
+import { UPDATE_CELL } from '../../reducers/tableReducer'
 
-export const DataEntryCell = () => {
+export const DataEntryCell = ({ values, dispatch, cellIdx, rowIdx }) => {
     const [modalOpen, setModalOpen] = useState(false)
-    const [dimensionItem, setDimensionItem] = useState(null)
-    const [metadata, setMetadata] = useState({})
 
     const onModalClose = () => setModalOpen(false)
 
     const onModalSave = ({ item, ...metadata }) => {
-        setDimensionItem({ item, ...metadata })
-        setMetadata(metadata)
         setModalOpen(false)
+
+        dispatch({
+            type: UPDATE_CELL,
+            payload: {
+                cell: { item, ...metadata },
+                rowIdx,
+                cellIdx,
+            },
+        })
     }
 
     return (
         <TableCell>
-            {dimensionItem ? (
+            {values ? (
                 <>
                     <p>
-                        <strong>{i18n.t('Data Type:')}</strong>{' '}
-                        {dataTypes[metadata.dataType].getName()}
-                        {/* TODO: Shorten name if too long */}
+                        <strong>{i18n.t('Name:')}</strong> {values.item.name}
                     </p>
                     <p>
-                        <strong>{i18n.t('Name:')}</strong>{' '}
-                        {dimensionItem.item.name}
+                        <strong>{i18n.t('Data Type:')}</strong>{' '}
+                        {/* TODO: Shorten name if too long */}
+                        {dataTypes[values.dataType].getName().replace(/s$/, '')}
                     </p>
                 </>
             ) : (
@@ -46,9 +52,7 @@ export const DataEntryCell = () => {
                             engine={engine}
                             onClose={onModalClose}
                             onSave={onModalSave}
-                            initialValues={
-                                dimensionItem ? { ...dimensionItem } : {}
-                            }
+                            initialValues={values ? { ...values } : {}}
                         />
                     )}
                 </DataEngine>
@@ -56,3 +60,17 @@ export const DataEntryCell = () => {
         </TableCell>
     )
 }
+
+DataEntryCell.propTypes = {
+    cellIdx: PropTypes.number.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    rowIdx: PropTypes.number.isRequired,
+    values: PropTypes.shape({
+        dataType: PropTypes.string,
+        groupDetail: PropTypes.string,
+        groupId: PropTypes.string,
+        item: PropTypes.shape({ id: PropTypes.string, name: PropTypes.string }),
+    }),
+}
+
+export default DataEntryCell
