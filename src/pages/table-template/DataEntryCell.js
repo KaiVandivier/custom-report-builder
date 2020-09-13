@@ -42,7 +42,7 @@ export const DataEntryCell = ({ values, dispatch, cellIdx, rowIdx }) => {
             ) : (
                 <p>{i18n.t('No data selected')}</p>
             )}
-            <Button primary onClick={() => setModalOpen(true)}>
+            <Button small onClick={() => setModalOpen(true)}>
                 {i18n.t('Choose data...')}
             </Button>
             {modalOpen && (
