@@ -1,28 +1,27 @@
 import React, { useReducer } from 'react'
 import {
-    Button,
-    ButtonStrip,
     Table,
     TableHead,
     TableRowHead,
     TableCellHead,
     TableBody,
     TableRow,
-    TableCell,
 } from '@dhis2/ui'
 import i18n from '../../locales'
 
-import { DataEntryCell } from './DataEntryCell'
+import DataEntryCell from './DataEntryCell'
+import AddTableDimension from './AddTableDimension'
 import tableReducer from '../../reducers/tableReducer'
+import styles from './styles/ModifyTemplate.style'
 // Testing purposes (TODO: Remove when functional)
 import testTable from '../../modules/testTable'
 
 // TODO:
 // DONE - Apply reducer to manage table state
 // DONE - Template out table components from state
-// Give subcomponents `dispatch` functionality to modify state (import action types)
-// (add row/column, update+reorder+delete row/column, update cell)
-// create `add row/column` modals
+// DONE - (Start with cells; rows and columns will follow with later todos)
+// DONE - create `add row/column` modals
+// WIP - Give subcomponents `dispatch` functionality to modify state (import action types)
 // create controls to update/reorder/delete on each row and column
 
 export function TemplatingTable() {
@@ -42,10 +41,15 @@ export function TemplatingTable() {
         )
     }
 
-    function mapCellsToJsx(cells) {
+    function mapCellsToJsx(cells, rowIdx) {
         return cells.map((cell, idx) => (
-            // TODO: Add props
-            <DataEntryCell data-idx={idx} key={idx} dispatch={dispatch} />
+            <DataEntryCell
+                rowIdx={rowIdx}
+                cellIdx={idx}
+                values={cell}
+                dispatch={dispatch}
+                key={idx}
+            />
         ))
     }
 
@@ -53,18 +57,19 @@ export function TemplatingTable() {
         return table.rows.map((row, idx) => (
             // TODO: Make custom header to handle edit/reorder/deleteuops
             <TableRow data-idx={idx} key={idx}>
-                <TableCell>{row.name}</TableCell>
-                {mapCellsToJsx(row.cells)}
+                <TableCellHead>{row.name}</TableCellHead>
+                {mapCellsToJsx(row.cells, idx)}
             </TableRow>
         ))
     }
     return (
         <>
             {/* TODO: Make `Add Row/Column` components */}
-            <ButtonStrip>
-                <Button primary>{i18n.t('+ Row')}</Button>
-                <Button primary>{i18n.t('+ Column')}</Button>
-            </ButtonStrip>
+            <div className="dimension-buttons">
+                <AddTableDimension type="Row" dispatch={dispatch} />
+                <AddTableDimension type="Column" dispatch={dispatch} />
+                <style jsx>{styles}</style>
+            </div>
             <Table>
                 <TableHead>{tableColumns()}</TableHead>
                 <TableBody>{tableRows()}</TableBody>
