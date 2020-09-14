@@ -18,6 +18,7 @@ import DimensionItemsMenu from './DimensionItemsMenu'
 import { modal, modalContent } from './styles/DataSelectorModal.module.css'
 
 import {
+    ALL_ID,
     DEFAULT_DATATYPE_ID,
     dataTypes,
     defaultGroupId,
@@ -44,7 +45,9 @@ export class DataSelectorModal extends Component {
             eventDataItems: [],
             programIndicators: [],
         },
-        groupId: defaultGroupId(this.props.initialValues.dataType),
+        groupId: this.props.initialValues.dataType
+            ? defaultGroupId(this.props.initialValues.dataType)
+            : ALL_ID,
         groupDetail: this.props.initialValues.groupDetail || '',
         filterText: this.props.initialValues.item?.name || '',
         items: [],

@@ -52,7 +52,7 @@ export const DataEntryCell = ({ values, dispatch, cellIdx, rowIdx }) => {
                             engine={engine}
                             onClose={onModalClose}
                             onSave={onModalSave}
-                            initialValues={values ? { ...values } : {}}
+                            initialValues={values?.item ? { ...values } : {}}
                         />
                     )}
                 </DataEngine>
