@@ -5,6 +5,7 @@ export default css`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 1rem;
     }
     .button-container {
         display: inline-flex;
