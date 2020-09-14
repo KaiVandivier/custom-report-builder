@@ -11,6 +11,7 @@ import i18n from '../../locales'
 
 import DataEntryCell from './DataEntryCell'
 import AddTableDimension from './AddTableDimension'
+import RowControls from './RowControls'
 import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/ModifyTemplate.style'
 // Testing purposes (TODO: Remove when functional)
@@ -28,11 +29,11 @@ export function TemplatingTable() {
     const [table, dispatch] = useReducer(tableReducer, testTable)
 
     function tableColumns() {
-        // TODO: Make custom component to handle edit/reorder/delete
         return (
             <TableRowHead>
                 <TableCellHead>{i18n.t('Row name')}</TableCellHead>
                 {table.columns.map((col, idx) => (
+                    // TODO: Make custom component to handle edit/reorder/delete
                     <TableCellHead data-idx={idx} key={idx}>
                         {col.name}
                     </TableCellHead>
@@ -54,10 +55,16 @@ export function TemplatingTable() {
     }
 
     function tableRows() {
-        return table.rows.map((row, idx) => (
+        return table.rows.map((row, idx, arr) => (
             // TODO: Make custom header to handle edit/reorder/deleteuops
-            <TableRow data-idx={idx} key={idx}>
-                <TableCellHead>{row.name}</TableCellHead>
+            <TableRow idx={idx} key={idx}>
+                {/* <TableCellHead>{row.name}</TableCellHead> */}
+                <RowControls
+                    dispatch={dispatch}
+                    name={row.name}
+                    idx={idx}
+                    maxIdx={arr.length - 1}
+                />
                 {mapCellsToJsx(row.cells, idx)}
             </TableRow>
         ))
@@ -68,12 +75,12 @@ export function TemplatingTable() {
             <div className="dimension-buttons">
                 <AddTableDimension type="Row" dispatch={dispatch} />
                 <AddTableDimension type="Column" dispatch={dispatch} />
-                <style jsx>{styles}</style>
             </div>
             <Table>
                 <TableHead>{tableColumns()}</TableHead>
                 <TableBody>{tableRows()}</TableBody>
             </Table>
+            <style jsx>{styles}</style>
         </>
     )
 }
