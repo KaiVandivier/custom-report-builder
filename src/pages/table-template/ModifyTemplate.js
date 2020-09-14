@@ -16,6 +16,7 @@ import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/ModifyTemplate.style'
 // Testing purposes (TODO: Remove when functional)
 import testTable from '../../modules/testTable'
+import ColumnControls from './ColumnControls'
 
 // TODO:
 // DONE - Apply reducer to manage table state
@@ -32,11 +33,18 @@ export function TemplatingTable() {
         return (
             <TableRowHead>
                 <TableCellHead>{i18n.t('Row name')}</TableCellHead>
-                {table.columns.map((col, idx) => (
+                {table.columns.map((col, idx, arr) => (
                     // TODO: Make custom component to handle edit/reorder/delete
-                    <TableCellHead data-idx={idx} key={idx}>
-                        {col.name}
-                    </TableCellHead>
+                    // <TableCellHead data-idx={idx} key={idx}>
+                    // {/* {col.name} */}
+                    <ColumnControls
+                        dispatch={dispatch}
+                        name={col.name}
+                        idx={idx}
+                        maxIdx={arr.length - 1}
+                        key={idx}
+                    />
+                    // </TableCellHead>
                 ))}
             </TableRowHead>
         )
