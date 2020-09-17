@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@dhis2/app-runtime": "^2.2.2",
+        "@dhis2/app-service-datastore": "^1.0.0-alpha.1",
         "lodash": "^4.17.20",
         "react-router-dom": "^5.2.0"
     }
