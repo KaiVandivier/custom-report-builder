@@ -13,10 +13,10 @@ import DataEntryCell from './DataEntryCell'
 import AddTableDimension from './AddTableDimension'
 import RowControls from './RowControls'
 import tableReducer from '../../reducers/tableReducer'
-import styles from './styles/ModifyTemplate.style'
+import styles from './styles/EditTableTemplate.style'
+import ColumnControls from './ColumnControls'
 // Testing purposes (TODO: Remove when functional)
 import testTable from '../../modules/testTable'
-import ColumnControls from './ColumnControls'
 
 // TODO:
 // DONE - Apply reducer to manage table state
@@ -26,7 +26,7 @@ import ColumnControls from './ColumnControls'
 // WIP - Give subcomponents `dispatch` functionality to modify state (import action types)
 // create controls to update/reorder/delete on each row and column
 
-export function TemplatingTable() {
+export function EditTableTemplate() {
     const [table, dispatch] = useReducer(tableReducer, testTable)
 
     function tableColumns() {
