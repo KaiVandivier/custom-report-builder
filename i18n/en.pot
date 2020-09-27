@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-09-14T03:19:53.332Z\n"
-"PO-Revision-Date: 2020-09-14T03:19:53.332Z\n"
+"POT-Creation-Date: 2020-09-16T03:49:58.266Z\n"
+"PO-Revision-Date: 2020-09-16T03:49:58.266Z\n"
 
 msgid "Reporting rate"
 msgstr ""
@@ -101,6 +101,18 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "Move left"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Move right"
+msgstr ""
+
 msgid "No data selected"
 msgstr ""
 
@@ -132,12 +144,6 @@ msgid "Row name"
 msgstr ""
 
 msgid "Move up"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Delete"
 msgstr ""
 
 msgid "Move down"
