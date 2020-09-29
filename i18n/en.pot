@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-09-16T03:49:58.266Z\n"
-"PO-Revision-Date: 2020-09-16T03:49:58.266Z\n"
+"POT-Creation-Date: 2020-09-29T21:06:10.240Z\n"
+"PO-Revision-Date: 2020-09-29T21:06:10.240Z\n"
 
 msgid "Reporting rate"
 msgstr ""
@@ -147,4 +147,25 @@ msgid "Move up"
 msgstr ""
 
 msgid "Move down"
+msgstr ""
+
+msgid "Create new"
+msgstr ""
+
+msgid "Create new table template"
+msgstr ""
+
+msgid "Table name"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Make dummy template"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Actions"
 msgstr ""
