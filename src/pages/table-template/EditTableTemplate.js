@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react'
 // import PropTypes from 'prop-types'
 import {
+    Button,
     Table,
     TableHead,
     TableRowHead,
@@ -38,6 +39,10 @@ export function EditTableTemplate() {
     const history = useHistory()
     console.log(history, params)
     console.log(savedTable, savedTableActions)
+
+    function saveTemplate() {
+        savedTableActions.update({ ...table })
+    }
 
     function tableColumns() {
         return (
@@ -88,6 +93,9 @@ export function EditTableTemplate() {
             <div className="dimension-buttons">
                 <AddTableDimension type="Row" dispatch={dispatch} />
                 <AddTableDimension type="Column" dispatch={dispatch} />
+                <Button primary onClick={saveTemplate}>
+                    {i18n.t('Save Template')}
+                </Button>
             </div>
             <Table>
                 <TableHead>{tableColumns()}</TableHead>
