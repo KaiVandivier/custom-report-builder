@@ -27,17 +27,14 @@ const MyApp = () => {
                             component={TableTemplate}
                         />
                         <Route
-                            exact
                             path="/generate-table"
                             component={GenerateTable}
                         />
                         <Route
-                            exact
                             path="/report-template"
                             component={ReportTemplate}
                         />
                         <Route
-                            exact
                             path="/generate-report"
                             component={GenerateReport}
                         />
