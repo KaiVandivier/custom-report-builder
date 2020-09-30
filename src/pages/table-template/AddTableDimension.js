@@ -33,9 +33,7 @@ export function AddTableDimension({ dispatch, type }) {
 
     return (
         <>
-            <Button primary onClick={onOpen}>
-                {i18n.t('Add {{type}}', { type })}
-            </Button>
+            <Button onClick={onOpen}>{i18n.t('Add {{type}}', { type })}</Button>
             {modalOpen && (
                 <Modal>
                     <ModalTitle>{i18n.t('New {{type}}', { type })}</ModalTitle>
