@@ -18,6 +18,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import { CreateNewTableTemplate } from './CreateNewTableTemplate'
 
 import testTable from '../../../modules/testTable'
+import { GenerateTableButton } from './GenerateTableButton'
 
 // TODO:
 // DONE - Add a 'Create New' Button
@@ -56,7 +57,6 @@ export function SavedTableTemplates() {
                 {/* TODO: Template actions */}
                 <TableCell>
                     <ButtonStrip>
-                        {/* <Button onClick={() => setEditingId(template.id)}> */}
                         <Button
                             onClick={() =>
                                 history.push(
@@ -67,6 +67,7 @@ export function SavedTableTemplates() {
                             {i18n.t('View & Edit')}
                         </Button>
                         <Button destructive>{i18n.t('Delete (todo)')}</Button>
+                        <GenerateTableButton id={template.id} />
                     </ButtonStrip>
                 </TableCell>
             </TableRow>
