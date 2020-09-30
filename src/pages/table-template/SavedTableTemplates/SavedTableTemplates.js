@@ -1,16 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import i18n from '../../../locales'
 import { useSavedObjectList } from '@dhis2/app-service-datastore'
 import {
     Button,
     ButtonStrip,
     Table,
+    TableHead,
+    TableBody,
     TableRow,
     TableRowHead,
     TableCell,
     TableCellHead,
 } from '@dhis2/ui'
+import { useLocation, useHistory } from 'react-router-dom'
 
 import { CreateNewTableTemplate } from './CreateNewTableTemplate'
 
@@ -22,7 +25,9 @@ import testTable from '../../../modules/testTable'
 // - Make a default table to create
 // - Make functions to edit, rename, and delete each table template
 
-export function SavedTableTemplates({ setEditingId }) {
+export function SavedTableTemplates() {
+    const history = useHistory()
+    const location = useLocation()
     const [savedTableTemplates, tableTemplateActions] = useSavedObjectList({
         global: true,
     })
@@ -39,10 +44,9 @@ export function SavedTableTemplates({ setEditingId }) {
         // })
     }
 
-    function createNew(name) {
-        tableTemplateActions.add({ ...testTable, name })
-        // TODO: Open 'view & modify' window;
-        // `setEditingId(id)`
+    async function createNew(name) {
+        const { id } = await tableTemplateActions.add({ ...testTable, name })
+        history.push(`${location.pathname}/${id}`)
     }
 
     function mapTemplatesToRows() {
@@ -52,7 +56,14 @@ export function SavedTableTemplates({ setEditingId }) {
                 {/* TODO: Template actions */}
                 <TableCell>
                     <ButtonStrip>
-                        <Button onClick={() => setEditingId(template.id)}>
+                        {/* <Button onClick={() => setEditingId(template.id)}> */}
+                        <Button
+                            onClick={() =>
+                                history.push(
+                                    `${location.pathname}/${template.id}`
+                                )
+                            }
+                        >
                             {i18n.t('View & Edit')}
                         </Button>
                         <Button destructive>{i18n.t('Delete (todo)')}</Button>
@@ -70,16 +81,16 @@ export function SavedTableTemplates({ setEditingId }) {
             </button>
             <CreateNewTableTemplate createNew={createNew} />
             <Table>
-                <TableRowHead>
-                    <TableCellHead>{i18n.t('Name')}</TableCellHead>
-                    <TableCellHead>{i18n.t('Actions')}</TableCellHead>
-                </TableRowHead>
-                {mapTemplatesToRows()}
+                <TableHead>
+                    <TableRowHead>
+                        <TableCellHead>{i18n.t('Name')}</TableCellHead>
+                        <TableCellHead>{i18n.t('Actions')}</TableCellHead>
+                    </TableRowHead>
+                </TableHead>
+                <TableBody>{mapTemplatesToRows()}</TableBody>
             </Table>
         </>
     )
 }
 
-SavedTableTemplates.propTypes = {
-    setEditingId: PropTypes.func.isRequired,
-}
+SavedTableTemplates.propTypes = {}

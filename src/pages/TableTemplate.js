@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import i18n from '../locales'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { DataStoreProvider } from '@dhis2/app-service-datastore'
+import { Switch, Route } from 'react-router-dom'
 
 import { EditTableTemplate } from './table-template/EditTableTemplate'
 import { SavedTableTemplates } from './table-template/SavedTableTemplates/SavedTableTemplates'
@@ -17,17 +18,21 @@ import { SavedTableTemplates } from './table-template/SavedTableTemplates/SavedT
 // Get all the tables from there (not reports)
 // For each entry found, render a table with an item for each report - option to edit, rename, delete
 
-export const TableTemplate = () => {
-    const [editing, setEditing] = useState(false)
-
+export const TableTemplate = ({ match }) => {
     return (
         <DataStoreProvider namespace="tableTemplates">
-            <h1>{i18n.t('Create Custom Table Template')}</h1>
-            {!editing ? (
-                <SavedTableTemplates setEditing={setEditing} />
-            ) : (
-                <EditTableTemplate />
-            )}
+            <Switch>
+                <Route path={match.url + '/:id'}>
+                    <EditTableTemplate />
+                </Route>
+                <Route exact path={match.url}>
+                    <SavedTableTemplates />
+                </Route>
+            </Switch>
         </DataStoreProvider>
     )
+}
+
+TableTemplate.propTypes = {
+    match: PropTypes.shape({ url: PropTypes.string }).isRequired,
 }

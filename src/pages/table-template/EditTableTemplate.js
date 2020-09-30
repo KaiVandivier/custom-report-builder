@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react'
+// import PropTypes from 'prop-types'
 import {
     Table,
     TableHead,
@@ -7,6 +8,8 @@ import {
     TableBody,
     TableRow,
 } from '@dhis2/ui'
+import { useSavedObject } from '@dhis2/app-service-datastore'
+import { useHistory, useParams } from 'react-router-dom'
 import i18n from '../../locales'
 
 import DataEntryCell from './DataEntryCell'
@@ -15,8 +18,6 @@ import RowControls from './RowControls'
 import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/EditTableTemplate.style'
 import ColumnControls from './ColumnControls'
-// Testing purposes (TODO: Remove when functional)
-import testTable from '../../modules/testTable'
 
 // TODO:
 // DONE - Apply reducer to manage table state
@@ -26,17 +27,23 @@ import testTable from '../../modules/testTable'
 // WIP - Give subcomponents `dispatch` functionality to modify state (import action types)
 // create controls to update/reorder/delete on each row and column
 
+// TODO:
+// DONE - Load in initial template datastore using params.id
+// - Save template to datastore
+
 export function EditTableTemplate() {
-    const [table, dispatch] = useReducer(tableReducer, testTable)
+    const params = useParams()
+    const [savedTable, savedTableActions] = useSavedObject(params.id)
+    const [table, dispatch] = useReducer(tableReducer, savedTable)
+    const history = useHistory()
+    console.log(history, params)
+    console.log(savedTable, savedTableActions)
 
     function tableColumns() {
         return (
             <TableRowHead>
                 <TableCellHead>{i18n.t('Row name')}</TableCellHead>
                 {table.columns.map((col, idx, arr) => (
-                    // TODO: Make custom component to handle edit/reorder/delete
-                    // <TableCellHead data-idx={idx} key={idx}>
-                    // {/* {col.name} */}
                     <ColumnControls
                         dispatch={dispatch}
                         name={col.name}
@@ -44,7 +51,6 @@ export function EditTableTemplate() {
                         maxIdx={arr.length - 1}
                         key={idx}
                     />
-                    // </TableCellHead>
                 ))}
             </TableRowHead>
         )
@@ -66,7 +72,6 @@ export function EditTableTemplate() {
         return table.rows.map((row, idx, arr) => (
             // TODO: Make custom header to handle edit/reorder/deleteuops
             <TableRow idx={idx} key={idx}>
-                {/* <TableCellHead>{row.name}</TableCellHead> */}
                 <RowControls
                     dispatch={dispatch}
                     name={row.name}
@@ -79,7 +84,7 @@ export function EditTableTemplate() {
     }
     return (
         <>
-            {/* TODO: Make `Add Row/Column` components */}
+            <h1>{savedTable.name}</h1>
             <div className="dimension-buttons">
                 <AddTableDimension type="Row" dispatch={dispatch} />
                 <AddTableDimension type="Column" dispatch={dispatch} />
@@ -92,3 +97,5 @@ export function EditTableTemplate() {
         </>
     )
 }
+
+EditTableTemplate.propTypes = {}

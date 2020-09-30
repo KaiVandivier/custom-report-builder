@@ -23,7 +23,6 @@ const MyApp = () => {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route
-                            exact
                             path="/table-template"
                             component={TableTemplate}
                         />
