@@ -10,7 +10,7 @@ import {
     TableRow,
 } from '@dhis2/ui'
 import { useSavedObject } from '@dhis2/app-service-datastore'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import i18n from '../../locales'
 
 import DataEntryCell from './DataEntryCell'
@@ -36,9 +36,7 @@ export function EditTableTemplate() {
     const params = useParams()
     const [savedTable, savedTableActions] = useSavedObject(params.id)
     const [table, dispatch] = useReducer(tableReducer, savedTable)
-    const history = useHistory()
-    console.log(history, params)
-    console.log(savedTable, savedTableActions)
+    // const history = useHistory()
 
     function saveTemplate() {
         savedTableActions.update({ ...table })
