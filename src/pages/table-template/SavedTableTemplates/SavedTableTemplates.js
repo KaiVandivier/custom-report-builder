@@ -3,8 +3,6 @@ import React from 'react'
 import i18n from '../../../locales'
 import { useSavedObjectList } from '@dhis2/app-service-datastore'
 import {
-    Button,
-    ButtonStrip,
     Table,
     TableHead,
     TableBody,
@@ -18,13 +16,13 @@ import { useLocation, useHistory } from 'react-router-dom'
 import { CreateNewTableTemplate } from './CreateNewTableTemplate'
 
 import testTable from '../../../modules/testTable'
-import { GenerateTableButton } from './GenerateTableButton'
+import SavedTableTemplateActions from './SavedTableTemplateActions'
 
 // TODO:
 // DONE - Add a 'Create New' Button
 // DONE - Render a list of saved table templates: paginated table?
 // - Make a default table to create
-// - Make functions to edit, rename, and delete each table template
+// WIP - Make functions to edit, rename, and delete each table template (wip - just delete now)
 
 export function SavedTableTemplates() {
     const history = useHistory()
@@ -33,17 +31,10 @@ export function SavedTableTemplates() {
         global: true,
     })
 
-    function createDummyTemplate() {
-        tableTemplateActions.add({
-            rows: [1, 2, 3],
-            columns: ['a', 'b', 'c'],
-            name: 'Dummy template',
-        })
-
-        // savedTableTemplates.forEach(template => {
-        //     tableTemplateActions.remove(template.id)
-        // })
-    }
+    // Delete all:
+    // savedTableTemplates.forEach(template => {
+    //     tableTemplateActions.remove(template.id)
+    // })
 
     async function createNew(name) {
         const { id } = await tableTemplateActions.add({ ...testTable, name })
@@ -54,21 +45,19 @@ export function SavedTableTemplates() {
         return savedTableTemplates.map(template => (
             <TableRow key={template.id}>
                 <TableCell>{template.name}</TableCell>
-                {/* TODO: Template actions */}
                 <TableCell>
-                    <ButtonStrip>
-                        <Button
-                            onClick={() =>
-                                history.push(
-                                    `${location.pathname}/${template.id}`
-                                )
-                            }
-                        >
-                            {i18n.t('View & Edit')}
-                        </Button>
-                        <Button destructive>{i18n.t('Delete (todo)')}</Button>
-                        <GenerateTableButton id={template.id} />
-                    </ButtonStrip>
+                    <SavedTableTemplateActions
+                        onEdit={() =>
+                            history.push(`${location.pathname}/${template.id}`)
+                        }
+                        onDelete={() => {
+                            /* TODO (and make sure to confirm) */
+                            // tableTemplateActions.remove(template.id)
+                        }}
+                        onGenerate={() =>
+                            history.push(`generate-table/${template.id}`)
+                        }
+                    />
                 </TableCell>
             </TableRow>
         ))
@@ -77,9 +66,6 @@ export function SavedTableTemplates() {
     return (
         <>
             <h1>Table Templates</h1>
-            <button onClick={createDummyTemplate}>
-                {i18n.t('Make dummy template')}
-            </button>
             <CreateNewTableTemplate createNew={createNew} />
             <Table>
                 <TableHead>
