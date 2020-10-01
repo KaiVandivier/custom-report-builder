@@ -95,3 +95,5 @@ export function SavedTableTemplates() {
 }
 
 SavedTableTemplates.propTypes = {}
+
+export default SavedTableTemplates
