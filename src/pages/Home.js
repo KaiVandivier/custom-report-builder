@@ -3,6 +3,7 @@ import i18n from '../locales'
 
 import { DataStoreTest } from './home/DataStoreTest'
 import { DataStoreProvider } from '@dhis2/app-service-datastore'
+import FlyoutMenuTest from './home/FlyoutMenuTest'
 
 export const Home = () => (
     <div>
@@ -23,6 +24,7 @@ export const Home = () => (
             <span className="material-icons">delete</span>
             <span className="material-icons">arrow_right</span>
         </p>
+        <FlyoutMenuTest />
         <DataStoreProvider namespace="customReports">
             <DataStoreTest />
         </DataStoreProvider>
