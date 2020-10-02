@@ -1,23 +1,15 @@
 import React, { useState } from 'react'
 import i18n from '../../../locales'
 import PropTypes from 'prop-types'
-import {
-    Button,
-    ButtonStrip,
-    Modal,
-    ModalTitle,
-    ModalContent,
-    ModalActions,
-    InputField,
-} from '@dhis2/ui'
+import { Button } from '@dhis2/ui'
+import InputModal from '../../../components/InputModal'
 
 export function CreateNewTableTemplate({ createNew }) {
     const [modalOpen, setModalOpen] = useState(false)
-    const [name, setName] = useState('')
 
-    function onCreateNew() {
+    function onCreateNew(inputText) {
         setModalOpen(false)
-        createNew(name)
+        createNew(inputText)
     }
 
     return (
@@ -26,30 +18,15 @@ export function CreateNewTableTemplate({ createNew }) {
                 {i18n.t('Create new')}
             </Button>
             {modalOpen && (
-                <Modal>
-                    <ModalTitle>
-                        {i18n.t('Create new table template')}
-                    </ModalTitle>
-                    <ModalContent>
-                        <InputField
-                            label={i18n.t('Table name')}
-                            name="name"
-                            placeholder={i18n.t('Enter a name')}
-                            onChange={ref => setName(ref.value)}
-                            value={name}
-                        />
-                    </ModalContent>
-                    <ModalActions>
-                        <ButtonStrip end>
-                            <Button onClick={() => setModalOpen(false)}>
-                                {i18n.t('Cancel')}
-                            </Button>
-                            <Button primary onClick={onCreateNew}>
-                                {i18n.t('Create')}
-                            </Button>
-                        </ButtonStrip>
-                    </ModalActions>
-                </Modal>
+                <InputModal
+                    title={i18n.t('Create new table template')}
+                    inputLabel={i18n.t('Table name')}
+                    inputPlaceholder={i18n.t('Enter a name')}
+                    initialValue={''}
+                    confirmText={i18n.t('Create')}
+                    onCancel={() => setModalOpen(false)}
+                    onConfirm={onCreateNew}
+                />
             )}
         </>
     )
