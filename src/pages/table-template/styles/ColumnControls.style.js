@@ -1,8 +1,9 @@
 import css from 'styled-jsx/css'
 
 export default css`
-    .button-container {
+    .container {
         display: flex;
-        gap: 0.25rem;
+        align-items: center;
+        gap: 1rem;
     }
 `
