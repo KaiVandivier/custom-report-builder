@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-09-30T05:32:39.213Z\n"
-"PO-Revision-Date: 2020-09-30T05:32:39.213Z\n"
+"POT-Creation-Date: 2020-10-01T23:53:41.069Z\n"
+"PO-Revision-Date: 2020-10-01T23:53:41.069Z\n"
 
 msgid "Reporting rate"
 msgstr ""
@@ -86,6 +86,21 @@ msgstr ""
 msgid "Hello, world!"
 msgstr ""
 
+msgid "Row name"
+msgstr ""
+
+msgid "Menu header"
+msgstr ""
+
+msgid "Generate Table"
+msgstr ""
+
+msgid "View & Edit"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
 msgid "Add {{type}}"
 msgstr ""
 
@@ -105,9 +120,6 @@ msgid "Move left"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
-
-msgid "Delete"
 msgstr ""
 
 msgid "Move right"
@@ -140,9 +152,6 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-msgid "Row name"
-msgstr ""
-
 msgid "Save Template"
 msgstr ""
 
@@ -162,18 +171,6 @@ msgid "Table name"
 msgstr ""
 
 msgid "Create"
-msgstr ""
-
-msgid "Generate"
-msgstr ""
-
-msgid "View & Edit"
-msgstr ""
-
-msgid "Delete (todo)"
-msgstr ""
-
-msgid "Make dummy template"
 msgstr ""
 
 msgid "Name"
