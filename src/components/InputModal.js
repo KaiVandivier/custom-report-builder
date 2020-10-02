@@ -15,10 +15,10 @@ function InputModal({
     title,
     inputLabel,
     inputPlaceholder,
-    initialValue = '',
     confirmText,
     onCancel,
     onConfirm,
+    initialValue = '',
 }) {
     const [inputText, setInputText] = useState(initialValue)
     return (
