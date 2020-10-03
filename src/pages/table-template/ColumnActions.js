@@ -37,7 +37,6 @@ export function ColumnActions({ dispatch, name, idx, maxIdx }) {
     }
 
     function onDelete(togglePopover) {
-        // TODO: open modal to confirm deletion
         dispatch({
             type: DELETE_COLUMN,
             payload: { idx },

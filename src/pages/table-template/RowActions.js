@@ -36,7 +36,6 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
     }
 
     function onDelete(togglePopover) {
-        // TODO: open modal to confirm deletion
         dispatch({
             type: DELETE_ROW,
             payload: { idx },
