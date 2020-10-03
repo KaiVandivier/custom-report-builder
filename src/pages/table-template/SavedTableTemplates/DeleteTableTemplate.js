@@ -25,7 +25,7 @@ function DeleteTableTemplate({ onDeleteConfirmation, onCancel }) {
                     )}
                     confirmText={i18n.t('Delete')}
                     onCancel={() => {
-                        onCancel && onCancel()
+                        if (onCancel) onCancel()
                         setModalIsOpen(false)
                     }}
                     onConfirm={() => {
