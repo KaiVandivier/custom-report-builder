@@ -25,12 +25,15 @@ import ColumnControls from './ColumnControls'
 // DONE - Template out table components from state
 // DONE - (Start with cells; rows and columns will follow with later todos)
 // DONE - create `add row/column` modals
-// WIP - Give subcomponents `dispatch` functionality to modify state (import action types)
-// create controls to update/reorder/delete on each row and column
-
-// TODO:
+// DONE - Give subcomponents `dispatch` functionality to modify state (import action types)
+// DONE - create controls to update/reorder/delete on each row and column
 // DONE - Load in initial template datastore using params.id
-// - Save template to datastore
+// DONE - Save template to datastore
+
+// - Add rename button
+// - Add `save & generate` button
+// - `save & exit`?
+// - Exit
 
 export function EditTableTemplate() {
     const params = useParams()
@@ -73,7 +76,6 @@ export function EditTableTemplate() {
 
     function tableRows() {
         return table.rows.map((row, idx, arr) => (
-            // TODO: Make custom header to handle edit/reorder/deleteuops
             <TableRow idx={idx} key={idx}>
                 <RowControls
                     dispatch={dispatch}
