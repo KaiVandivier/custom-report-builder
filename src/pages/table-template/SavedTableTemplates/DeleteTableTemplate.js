@@ -6,8 +6,7 @@ import Icon from '../../../components/Icon'
 import ConfirmModal from '../../../components/ConfirmModal'
 import i18n from '../../../locales'
 
-function DeleteTableTemplate({ onDeleteConfirmation }) {
-    // TODO: An `onCancel` prop/handler might be useful
+function DeleteTableTemplate({ onDeleteConfirmation, onCancel }) {
     const [modalIsOpen, setModalIsOpen] = useState(false)
 
     return (
@@ -25,7 +24,10 @@ function DeleteTableTemplate({ onDeleteConfirmation }) {
                         'Are you sure you want to delete this template?'
                     )}
                     confirmText={i18n.t('Delete')}
-                    onCancel={() => setModalIsOpen(false)}
+                    onCancel={() => {
+                        onCancel && onCancel()
+                        setModalIsOpen(false)
+                    }}
                     onConfirm={() => {
                         onDeleteConfirmation()
                         setModalIsOpen(false)
@@ -38,6 +40,7 @@ function DeleteTableTemplate({ onDeleteConfirmation }) {
 
 DeleteTableTemplate.propTypes = {
     onDeleteConfirmation: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
 }
 
 export default DeleteTableTemplate
