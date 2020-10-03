@@ -21,8 +21,8 @@ import SavedTableTemplateActions from './SavedTableTemplateActions'
 // TODO:
 // DONE - Add a 'Create New' Button
 // DONE - Render a list of saved table templates: paginated table?
+// DONE - Make functions to edit, rename, and delete each table template
 // - Make a default table to create
-// WIP - Make functions to edit, rename, and delete each table template (wip - just delete now)
 
 export function SavedTableTemplates() {
     const history = useHistory()
@@ -30,11 +30,6 @@ export function SavedTableTemplates() {
     const [savedTableTemplates, tableTemplateActions] = useSavedObjectList({
         global: true,
     })
-
-    // Delete all:
-    // savedTableTemplates.forEach(template => {
-    //     tableTemplateActions.remove(template.id)
-    // })
 
     async function createNew(name) {
         const { id } = await tableTemplateActions.add({ ...testTable, name })
