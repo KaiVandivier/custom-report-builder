@@ -19,6 +19,7 @@ import RowControls from './RowControls'
 import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/EditTableTemplate.style'
 import ColumnControls from './ColumnControls'
+import RenameTable from './RenameTable'
 
 // TODO:
 // DONE - Apply reducer to manage table state
@@ -29,8 +30,8 @@ import ColumnControls from './ColumnControls'
 // DONE - create controls to update/reorder/delete on each row and column
 // DONE - Load in initial template datastore using params.id
 // DONE - Save template to datastore
+// DONE - Add rename button
 
-// - Add rename button
 // - Add `save & generate` button
 // - `save & exit`?
 // - Exit
@@ -43,6 +44,10 @@ export function EditTableTemplate() {
 
     function saveTemplate() {
         savedTableActions.update({ ...table })
+    }
+
+    function renameTable(name) {
+        savedTableActions.update({ name })
     }
 
     function tableColumns() {
@@ -87,9 +92,13 @@ export function EditTableTemplate() {
             </TableRow>
         ))
     }
+
     return (
         <>
-            <h1>{savedTable.name}</h1>
+            <h1>
+                {savedTable.name}{' '}
+                <RenameTable name={savedTable.name} onRename={renameTable} />
+            </h1>
             <div className="dimension-buttons">
                 <AddTableDimension type="Row" dispatch={dispatch} />
                 <AddTableDimension type="Column" dispatch={dispatch} />
