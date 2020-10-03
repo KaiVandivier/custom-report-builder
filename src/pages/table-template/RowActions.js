@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
 import { MenuItem } from '@dhis2/ui'
 import { DELETE_ROW, REORDER_ROW } from '../../reducers/tableReducer'
@@ -6,8 +6,11 @@ import i18n from '../../locales'
 
 import Icon from '../../components/Icon'
 import PopoverMenu from '../../components/PopoverMenu'
+import ConfirmModal from '../../components/ConfirmModal'
 
 export function RowActions({ dispatch, name, idx, maxIdx }) {
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+
     function onMoveUp(togglePopover) {
         if (idx <= 0) return
         dispatch({
@@ -69,8 +72,21 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
                         dense
                         icon={<Icon name="delete" dense />}
                         label={i18n.t('Delete')}
-                        onClick={() => onDelete(togglePopover)}
+                        onClick={() => setDeleteModalIsOpen(true)}
                     />
+                    {deleteModalIsOpen && (
+                        <ConfirmModal
+                            confirmText={i18n.t('Delete')}
+                            text={i18n.t('Do you want to delete this row?')}
+                            title={i18n.t('Confirm deletion')}
+                            onCancel={() => setDeleteModalIsOpen(false)}
+                            onConfirm={() => {
+                                onDelete(togglePopover)
+                                setDeleteModalIsOpen(false)
+                            }}
+                            destructive={true}
+                        />
+                    )}
                 </>
             )}
         </PopoverMenu>
