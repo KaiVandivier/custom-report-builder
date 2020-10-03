@@ -12,10 +12,10 @@ import PropTypes from 'prop-types'
 import i18n from '../locales'
 
 function InputModal({
-    title,
+    confirmText,
     inputLabel,
     inputPlaceholder,
-    confirmText,
+    title,
     onCancel,
     onConfirm,
     initialValue = '',
