@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
 import { MenuItem } from '@dhis2/ui'
-import { DELETE_COLUMN, REORDER_COLUMN } from '../../reducers/tableReducer'
+import {
+    DELETE_COLUMN,
+    REORDER_COLUMN,
+    UPDATE_COLUMN,
+} from '../../reducers/tableReducer'
 import i18n from '../../locales'
 
 import Icon from '../../components/Icon'
 import PopoverMenu from '../../components/PopoverMenu'
 import ConfirmModal from '../../components/ConfirmModal'
+import InputModal from '../../components/InputModal'
 
-// TODO: Rename 'Column actions'
 export function ColumnActions({ dispatch, name, idx, maxIdx }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+    const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
     function onMoveLeft(togglePopover) {
         if (idx <= 0) return
@@ -30,9 +35,11 @@ export function ColumnActions({ dispatch, name, idx, maxIdx }) {
         togglePopover()
     }
 
-    function onEdit(togglePopover) {
-        // TODO: open a modal and offer to edit
-        console.log(name)
+    function onEdit(togglePopover, inputText) {
+        dispatch({
+            type: UPDATE_COLUMN,
+            payload: { idx, column: { name: inputText } },
+        })
         togglePopover()
     }
 
@@ -66,7 +73,7 @@ export function ColumnActions({ dispatch, name, idx, maxIdx }) {
                         dense
                         icon={<Icon name="edit" dense />}
                         label={i18n.t('Edit')}
-                        onClick={() => onEdit(togglePopover)}
+                        onClick={() => setEditModalIsOpen(true)}
                     />
                     <MenuItem
                         dense
@@ -85,6 +92,20 @@ export function ColumnActions({ dispatch, name, idx, maxIdx }) {
                                 setDeleteModalIsOpen(false)
                             }}
                             destructive={true}
+                        />
+                    )}
+                    {editModalIsOpen && (
+                        <InputModal
+                            title={i18n.t('Edit column')}
+                            inputLabel={i18n.t('Column name')}
+                            inputPlaceholder={i18n.t('Enter column name')}
+                            confirmText={i18n.t('Save')}
+                            onCancel={() => setEditModalIsOpen(false)}
+                            onConfirm={inputText => {
+                                onEdit(togglePopover, inputText)
+                                setEditModalIsOpen(false)
+                            }}
+                            initialValue={name}
                         />
                     )}
                 </>

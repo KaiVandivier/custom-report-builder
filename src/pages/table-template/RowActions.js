@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
 import { MenuItem } from '@dhis2/ui'
-import { DELETE_ROW, REORDER_ROW } from '../../reducers/tableReducer'
+import {
+    DELETE_ROW,
+    REORDER_ROW,
+    UPDATE_ROW,
+} from '../../reducers/tableReducer'
 import i18n from '../../locales'
 
 import Icon from '../../components/Icon'
 import PopoverMenu from '../../components/PopoverMenu'
 import ConfirmModal from '../../components/ConfirmModal'
+import InputModal from '../../components/InputModal'
 
 export function RowActions({ dispatch, name, idx, maxIdx }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+    const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
     function onMoveUp(togglePopover) {
         if (idx <= 0) return
@@ -29,9 +35,11 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
         togglePopover()
     }
 
-    function onEdit(togglePopover) {
-        // TODO: open a modal and offer to edit
-        console.log(name)
+    function onEdit(togglePopover, inputText) {
+        dispatch({
+            type: UPDATE_ROW,
+            payload: { idx, row: { name: inputText } },
+        })
         togglePopover()
     }
 
@@ -65,7 +73,7 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
                         dense
                         icon={<Icon name="edit" dense />}
                         label={i18n.t('Edit')}
-                        onClick={() => onEdit(togglePopover)}
+                        onClick={() => setEditModalIsOpen(true)}
                     />
                     <MenuItem
                         dense
@@ -84,6 +92,20 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
                                 setDeleteModalIsOpen(false)
                             }}
                             destructive={true}
+                        />
+                    )}
+                    {editModalIsOpen && (
+                        <InputModal
+                            title={i18n.t('Edit row')}
+                            inputLabel={i18n.t('Row name')}
+                            inputPlaceholder={i18n.t('Enter row name')}
+                            confirmText={i18n.t('Save')}
+                            onCancel={() => setEditModalIsOpen(false)}
+                            onConfirm={inputText => {
+                                onEdit(togglePopover, inputText)
+                                setEditModalIsOpen(false)
+                            }}
+                            initialValue={name}
                         />
                     )}
                 </>
