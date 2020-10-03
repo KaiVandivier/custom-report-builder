@@ -4,6 +4,7 @@ import { Button, FlyoutMenu, MenuItem, Popover } from '@dhis2/ui'
 import i18n from '../../../locales'
 
 import Icon from '../../../components/Icon'
+import DeleteTableTemplate from './DeleteTableTemplate'
 
 // TODO: Execute actions on click (and close the menu)
 
@@ -50,10 +51,8 @@ export default function SavedTableTemplateActions({
                                 togglePopover()
                             }}
                         />
-                        <MenuItem
-                            icon={<Icon name="delete" />}
-                            label={i18n.t('Delete')}
-                            onClick={() => {
+                        <DeleteTableTemplate
+                            onDeleteConfirmation={() => {
                                 onDelete()
                                 togglePopover()
                             }}

@@ -47,15 +47,14 @@ export function SavedTableTemplates() {
                 <TableCell>{template.name}</TableCell>
                 <TableCell>
                     <SavedTableTemplateActions
+                        onGenerate={() =>
+                            history.push(`generate-table/${template.id}`)
+                        }
                         onEdit={() =>
                             history.push(`${location.pathname}/${template.id}`)
                         }
-                        onDelete={() => {
-                            /* TODO (and make sure to confirm) */
-                            // tableTemplateActions.remove(template.id)
-                        }}
-                        onGenerate={() =>
-                            history.push(`generate-table/${template.id}`)
+                        onDelete={() =>
+                            tableTemplateActions.remove(template.id)
                         }
                     />
                 </TableCell>
