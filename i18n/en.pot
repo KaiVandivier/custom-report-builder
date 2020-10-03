@@ -5,8 +5,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-01T23:53:41.069Z\n"
-"PO-Revision-Date: 2020-10-01T23:53:41.069Z\n"
+"POT-Creation-Date: 2020-10-03T03:43:46.692Z\n"
+"PO-Revision-Date: 2020-10-03T03:43:46.692Z\n"
+
+msgid "Cancel"
+msgstr ""
 
 msgid "Reporting rate"
 msgstr ""
@@ -113,16 +116,13 @@ msgstr ""
 msgid "Enter a name"
 msgstr ""
 
-msgid "Cancel"
+msgid "Move column left"
 msgstr ""
 
-msgid "Move left"
+msgid "Move column right"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
-
-msgid "Move right"
 msgstr ""
 
 msgid "No data selected"
@@ -155,10 +155,10 @@ msgstr ""
 msgid "Save Template"
 msgstr ""
 
-msgid "Move up"
+msgid "Move row up"
 msgstr ""
 
-msgid "Move down"
+msgid "Move row down"
 msgstr ""
 
 msgid "Create new"
@@ -171,6 +171,12 @@ msgid "Table name"
 msgstr ""
 
 msgid "Create"
+msgstr ""
+
+msgid "Confirm delete"
+msgstr ""
+
+msgid "Are you sure you want to delete this template?"
 msgstr ""
 
 msgid "Name"
