@@ -11,6 +11,7 @@ import {
 } from '@dhis2/ui'
 import i18n from '../../locales'
 import { ADD_ROW, ADD_COLUMN } from '../../reducers/tableReducer'
+import Icon from '../../components/Icon'
 
 export function AddTableDimension({ dispatch, type }) {
     const [modalOpen, setModalOpen] = useState(false)
@@ -33,7 +34,9 @@ export function AddTableDimension({ dispatch, type }) {
 
     return (
         <>
-            <Button onClick={onOpen}>{i18n.t('Add {{type}}', { type })}</Button>
+            <Button icon={<Icon name="add" />} onClick={onOpen}>
+                {i18n.t('Add {{type}}', { type })}
+            </Button>
             {modalOpen && (
                 <Modal>
                     <ModalTitle>{i18n.t('New {{type}}', { type })}</ModalTitle>
