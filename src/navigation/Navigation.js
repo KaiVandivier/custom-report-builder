@@ -4,8 +4,6 @@ import { PropTypes } from '@dhis2/prop-types'
 import { Menu, MenuItem } from '@dhis2/ui'
 import i18n from '../locales'
 
-// TODO: i18n
-
 const NavigationItem = ({ path, label }) => {
     // browser history object
     const history = useHistory()
@@ -32,23 +30,10 @@ export const Navigation = () => (
         <NavigationItem label={i18n.t('Home')} path="/" />
 
         <NavigationItem
-            label={i18n.t('Create Custom Table Template')}
+            label={i18n.t('Custom tables')}
             path="/table-template"
         />
 
-        <NavigationItem
-            label={i18n.t('Generate Custom Table from Template')}
-            path="/generate-table"
-        />
-
-        <NavigationItem
-            label={i18n.t('Create Custom Report Template')}
-            path="/report-template"
-        />
-
-        <NavigationItem
-            label={i18n.t('Generate Custom Report from Template')}
-            path="/generate-Report"
-        />
+        <NavigationItem label={i18n.t('Custom reports')} path="/reports" />
     </Menu>
 )
