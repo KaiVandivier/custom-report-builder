@@ -9,14 +9,15 @@ function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
     const toggleModal = () => setDeleteModalIsOpen(state => !state)
 
     return (
-        <div style={{ marginBottom: '0.5rem' }}>
+        <div style={{ marginBottom: '0.5rem', marginTop: '-1rem' }}>
             <ButtonStrip middle>
                 {/* Save & Exit? */}
                 {/* Exit? */}
-                <Button primary onClick={onSave}>
+                <Button small primary onClick={onSave}>
                     {i18n.t('Save')}
                 </Button>
                 <Button
+                    small
                     primary
                     onClick={() => {
                         onSave()
@@ -25,8 +26,8 @@ function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
                 >
                     {i18n.t('Save & Generate')}
                 </Button>
-                <Button destructive onClick={toggleModal}>
-                    {i18n.t('Delete Template')}
+                <Button small destructive onClick={toggleModal}>
+                    {i18n.t('Delete')}
                 </Button>
             </ButtonStrip>
             {deleteModalIsOpen && (
