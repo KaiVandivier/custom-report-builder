@@ -3,6 +3,7 @@ import i18n from '../../../locales'
 import PropTypes from 'prop-types'
 import { Button } from '@dhis2/ui'
 import InputModal from '../../../components/InputModal'
+import Icon from '../../../components/Icon'
 
 export function CreateNewTableTemplate({ createNew }) {
     const [modalOpen, setModalOpen] = useState(false)
@@ -13,8 +14,12 @@ export function CreateNewTableTemplate({ createNew }) {
     }
 
     return (
-        <>
-            <Button onClick={() => setModalOpen(true)}>
+        <div style={{ marginBottom: '0.5rem' }}>
+            <Button
+                primary
+                icon={<Icon name="add" color="white" />}
+                onClick={() => setModalOpen(true)}
+            >
                 {i18n.t('Create new')}
             </Button>
             {modalOpen && (
@@ -28,7 +33,7 @@ export function CreateNewTableTemplate({ createNew }) {
                     onConfirm={onCreateNew}
                 />
             )}
-        </>
+        </div>
     )
 }
 
