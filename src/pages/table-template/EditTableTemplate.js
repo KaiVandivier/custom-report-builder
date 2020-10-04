@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react'
 // import PropTypes from 'prop-types'
 import {
-    Button,
     Table,
     TableHead,
     TableRowHead,
@@ -10,7 +9,7 @@ import {
     TableRow,
 } from '@dhis2/ui'
 import { useSavedObject } from '@dhis2/app-service-datastore'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import i18n from '../../locales'
 
 import DataEntryCell from './DataEntryCell'
@@ -20,6 +19,7 @@ import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/EditTableTemplate.style'
 import ColumnControls from './ColumnControls'
 import RenameTable from './RenameTable'
+import EditTableTemplateActions from './EditTableTemplateActions'
 
 // TODO:
 // DONE - Apply reducer to manage table state
@@ -31,8 +31,8 @@ import RenameTable from './RenameTable'
 // DONE - Load in initial template datastore using params.id
 // DONE - Save template to datastore
 // DONE - Add rename button
+// DONE - Add `save & generate` & `delete` buttons
 
-// - Add `save & generate` button
 // - `save & exit`?
 // - Exit
 
@@ -40,10 +40,19 @@ export function EditTableTemplate() {
     const params = useParams()
     const [savedTable, savedTableActions] = useSavedObject(params.id)
     const [table, dispatch] = useReducer(tableReducer, savedTable)
-    // const history = useHistory()
+    const history = useHistory()
 
     function saveTemplate() {
         savedTableActions.update({ ...table })
+    }
+
+    function onDelete() {
+        savedTableActions.remove(params.id)
+        history.push('/table-template')
+    }
+
+    function onGenerate() {
+        history.push(`/generate-table/${params.id}`)
     }
 
     function renameTable(name) {
@@ -99,12 +108,14 @@ export function EditTableTemplate() {
                 {savedTable.name}{' '}
                 <RenameTable name={savedTable.name} onRename={renameTable} />
             </h1>
+            <EditTableTemplateActions
+                onSave={saveTemplate}
+                onGenerate={onGenerate}
+                onDelete={onDelete}
+            />
             <div className="dimension-buttons">
                 <AddTableDimension type="Row" dispatch={dispatch} />
                 <AddTableDimension type="Column" dispatch={dispatch} />
-                <Button primary onClick={saveTemplate}>
-                    {i18n.t('Save Template')}
-                </Button>
             </div>
             <Table>
                 <TableHead>{tableColumns()}</TableHead>
