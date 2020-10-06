@@ -1,6 +1,6 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
-import i18n from '../../../locales'
+import i18n from '../../locales'
 import { useSavedObjectList } from '@dhis2/app-service-datastore'
 import {
     Table,
@@ -13,10 +13,10 @@ import {
 } from '@dhis2/ui'
 import { useLocation, useHistory, Link } from 'react-router-dom'
 
-import { CreateNewTableTemplate } from './CreateNewTableTemplate'
+import { CreateNewTableTemplate } from './saved-table-templates/CreateNewTableTemplate'
 
-import testTable from '../../../modules/testTable'
-import SavedTableTemplateActions from './SavedTableTemplateActions'
+import testTable from '../../modules/testTable'
+import SavedTableTemplateActions from './saved-table-templates/SavedTableTemplateActions'
 
 // TODO:
 // DONE - Add a 'Create New' Button

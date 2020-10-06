@@ -11,7 +11,7 @@ import {
     TableRow,
     TableCell,
 } from '@dhis2/ui'
-import i18n from '../../../locales'
+import i18n from '../../locales'
 
 const ANALYTICS_QUERY = {
     result: {

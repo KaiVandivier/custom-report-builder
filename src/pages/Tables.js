@@ -4,8 +4,8 @@ import { DataStoreProvider } from '@dhis2/app-service-datastore'
 import { Switch, Route } from 'react-router-dom'
 
 import { EditTableTemplate } from './tables/EditTableTemplate'
-import { SavedTableTemplates } from './tables/SavedTableTemplates/SavedTableTemplates'
-import GeneratedTable from './tables/generated-table/GeneratedTable'
+import { SavedTableTemplates } from './tables/SavedTableTemplates'
+import GeneratedTable from './tables/GeneratedTable'
 
 // TODO: Rename 'table templateS'
 
