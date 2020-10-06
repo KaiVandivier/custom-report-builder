@@ -15,8 +15,9 @@ export function BackButton({ to }) {
                     </Link>
                     <style jsx>{`
                         .container {
-                            position: absolute;
                             height: 42px;
+                            float: left;
+                            margin-right: -100%;
                         }
                     `}</style>
                 </div>
