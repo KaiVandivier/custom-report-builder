@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { TableCell, Button } from '@dhis2/ui'
 import { PropTypes } from '@dhis2/prop-types'
-import i18n from '../../locales'
+import i18n from '../../../locales'
 
 import { DataSelectorModal } from './DataSelector/DataSelectorModal'
-import DataEngine from '../../components/DataEngine'
-import { dataTypes } from '../../modules/dataTypes'
-import { UPDATE_CELL } from '../../reducers/tableReducer'
+import DataEngine from '../../../components/DataEngine'
+import { dataTypes } from '../../../modules/dataTypes'
+import { UPDATE_CELL } from '../../../reducers/tableReducer'
 
 export const DataEntryCell = ({ values, dispatch, cellIdx, rowIdx }) => {
     const [modalOpen, setModalOpen] = useState(false)

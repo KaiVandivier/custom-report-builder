@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Button, ButtonStrip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import i18n from '../../locales'
-import ConfirmModal from '../../components/ConfirmModal'
+import i18n from '../../../locales'
+import ConfirmModal from '../../../components/ConfirmModal'
 
 function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)

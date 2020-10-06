@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import i18n from '@dhis2/d2-i18n'
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 
-import { dataTypes } from '../../../modules/dataTypes'
+import { dataTypes } from '../../../../modules/dataTypes'
 import styles from './styles/DataTypesSelector.style'
 
 export const DataTypes = ({ currentDataType, onChange }) => (

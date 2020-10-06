@@ -2,34 +2,34 @@ import React, { useState } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
 import { MenuItem } from '@dhis2/ui'
 import {
-    DELETE_ROW,
-    REORDER_ROW,
-    UPDATE_ROW,
-} from '../../reducers/tableReducer'
-import i18n from '../../locales'
+    DELETE_COLUMN,
+    REORDER_COLUMN,
+    UPDATE_COLUMN,
+} from '../../../reducers/tableReducer'
+import i18n from '../../../locales'
 
-import Icon from '../../components/Icon'
-import PopoverMenu from '../../components/PopoverMenu'
-import ConfirmModal from '../../components/ConfirmModal'
-import InputModal from '../../components/InputModal'
+import Icon from '../../../components/Icon'
+import PopoverMenu from '../../../components/PopoverMenu'
+import ConfirmModal from '../../../components/ConfirmModal'
+import InputModal from '../../../components/InputModal'
 
-export function RowActions({ dispatch, name, idx, maxIdx }) {
+export function ColumnActions({ dispatch, name, idx, maxIdx }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
-    function onMoveUp(togglePopover) {
+    function onMoveLeft(togglePopover) {
         if (idx <= 0) return
         dispatch({
-            type: REORDER_ROW,
+            type: REORDER_COLUMN,
             payload: { oldIdx: idx, newIdx: idx - 1 },
         })
         togglePopover()
     }
 
-    function onMoveDown(togglePopover) {
+    function onMoveRight(togglePopover) {
         if (idx >= maxIdx) return
         dispatch({
-            type: REORDER_ROW,
+            type: REORDER_COLUMN,
             payload: { oldIdx: idx, newIdx: idx + 1 },
         })
         togglePopover()
@@ -37,15 +37,15 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
 
     function onEdit(togglePopover, inputText) {
         dispatch({
-            type: UPDATE_ROW,
-            payload: { idx, row: { name: inputText } },
+            type: UPDATE_COLUMN,
+            payload: { idx, column: { name: inputText } },
         })
         togglePopover()
     }
 
     function onDelete(togglePopover) {
         dispatch({
-            type: DELETE_ROW,
+            type: DELETE_COLUMN,
             payload: { idx },
         })
         togglePopover()
@@ -58,16 +58,16 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
                     <MenuItem
                         dense
                         disabled={idx <= 0}
-                        icon={<Icon name="arrow_drop_up" dense />}
-                        label={i18n.t('Move row up')}
-                        onClick={() => onMoveUp(togglePopover)}
+                        icon={<Icon name="arrow_left" dense />}
+                        label={i18n.t('Move column left')}
+                        onClick={() => onMoveLeft(togglePopover)}
                     />
                     <MenuItem
                         dense
                         disabled={idx >= maxIdx}
-                        icon={<Icon name="arrow_drop_down" dense />}
-                        label={i18n.t('Move row down')}
-                        onClick={() => onMoveDown(togglePopover)}
+                        icon={<Icon name="arrow_right" dense />}
+                        label={i18n.t('Move column right')}
+                        onClick={() => onMoveRight(togglePopover)}
                     />
                     <MenuItem
                         dense
@@ -84,7 +84,7 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
                     {deleteModalIsOpen && (
                         <ConfirmModal
                             confirmText={i18n.t('Delete')}
-                            text={i18n.t('Do you want to delete this row?')}
+                            text={i18n.t('Do you want to delete this column?')}
                             title={i18n.t('Confirm deletion')}
                             onCancel={() => setDeleteModalIsOpen(false)}
                             onConfirm={() => {
@@ -96,9 +96,9 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
                     )}
                     {editModalIsOpen && (
                         <InputModal
-                            title={i18n.t('Edit row')}
-                            inputLabel={i18n.t('Row name')}
-                            inputPlaceholder={i18n.t('Enter row name')}
+                            title={i18n.t('Edit column')}
+                            inputLabel={i18n.t('Column name')}
+                            inputPlaceholder={i18n.t('Enter column name')}
                             confirmText={i18n.t('Save')}
                             onCancel={() => setEditModalIsOpen(false)}
                             onConfirm={inputText => {
@@ -114,11 +114,11 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
     )
 }
 
-RowActions.propTypes = {
+ColumnActions.propTypes = {
     dispatch: PropTypes.func.isRequired,
     idx: PropTypes.number.isRequired,
     maxIdx: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
 }
 
-export default RowActions
+export default ColumnActions

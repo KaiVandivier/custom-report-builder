@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import InputModal from '../../components/InputModal'
-import Icon from '../../components/Icon'
+import InputModal from '../../../components/InputModal'
+import Icon from '../../../components/Icon'
 import styles from './styles/RenameTable.style'
-import i18n from '../../locales'
+import i18n from '../../../locales'
 
 // TODO: Use a tooltip to say `rename`
 

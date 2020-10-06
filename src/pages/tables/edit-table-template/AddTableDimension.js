@@ -9,9 +9,9 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui'
-import i18n from '../../locales'
-import { ADD_ROW, ADD_COLUMN } from '../../reducers/tableReducer'
-import Icon from '../../components/Icon'
+import i18n from '../../../locales'
+import { ADD_ROW, ADD_COLUMN } from '../../../reducers/tableReducer'
+import Icon from '../../../components/Icon'
 
 export function AddTableDimension({ dispatch, type }) {
     const [modalOpen, setModalOpen] = useState(false)
