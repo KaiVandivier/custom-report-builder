@@ -19,7 +19,7 @@ import GeneratedTable from './generated-table/GeneratedTable'
 // Get all the tables from there (not reports)
 // For each entry found, render a table with an item for each report - option to edit, rename, delete
 
-export const TableTemplate = ({ match }) => {
+export function Tables({ match }) {
     return (
         <DataStoreProvider namespace="tableTemplates">
             <Switch>
@@ -37,6 +37,8 @@ export const TableTemplate = ({ match }) => {
     )
 }
 
-TableTemplate.propTypes = {
+Tables.propTypes = {
     match: PropTypes.shape({ url: PropTypes.string }).isRequired,
 }
+
+export default Tables
