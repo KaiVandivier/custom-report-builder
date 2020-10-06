@@ -127,3 +127,5 @@ export function EditTableTemplate() {
 }
 
 EditTableTemplate.propTypes = {}
+
+export default EditTableTemplate
