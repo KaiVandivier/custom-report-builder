@@ -3,6 +3,7 @@ import { useSavedObject } from '@dhis2/app-service-datastore'
 import { useParams } from 'react-router-dom'
 import { useDataQuery } from '@dhis2/app-runtime'
 import {
+    Card,
     Table,
     TableHead,
     TableRowHead,
@@ -96,10 +97,12 @@ export function GeneratedTable() {
                 {savedTable.name}
             </h1>
             <h3>Period: todo; Org unit: todo</h3>
-            <Table>
-                <TableHead>{tableHeader()}</TableHead>
-                <TableBody>{tableBody()}</TableBody>
-            </Table>
+            <Card>
+                <Table>
+                    <TableHead>{tableHeader()}</TableHead>
+                    <TableBody>{tableBody()}</TableBody>
+                </Table>
+            </Card>
         </div>
     )
 }
