@@ -11,7 +11,7 @@ import {
     TableCell,
     TableCellHead,
 } from '@dhis2/ui'
-import { useLocation, useHistory } from 'react-router-dom'
+import { useLocation, useHistory, Link } from 'react-router-dom'
 
 import { CreateNewTableTemplate } from './CreateNewTableTemplate'
 
@@ -39,7 +39,11 @@ export function SavedTableTemplates() {
     function mapTemplatesToRows() {
         return savedTableTemplates.map(template => (
             <TableRow key={template.id}>
-                <TableCell>{template.name}</TableCell>
+                <TableCell>
+                    <Link to={`table-template/${template.id}`}>
+                        {template.name}
+                    </Link>
+                </TableCell>
                 <TableCell>
                     <SavedTableTemplateActions
                         onGenerate={() =>
