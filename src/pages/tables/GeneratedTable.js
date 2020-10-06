@@ -111,11 +111,10 @@ export function GeneratedTable() {
             <Card>
                 <div ref={printRef} className={classes.print}>
                     <h2 className={classes.title}>{savedTable.name}</h2>
-                    <p>{i18n.t('Organisation Unit: ')}Sierra Leone</p>
-                    <p>{i18n.t('Period: ')}2020</p>
+                    <p>{i18n.t('Organisation Unit')}: Sierra Leone</p>
+                    <p>{i18n.t('Period')}: 2020</p>
                     <p>
-                        {i18n.t('Date: ')}
-                        {new Date().toLocaleDateString()}
+                        {i18n.t('Date')}: {new Date().toLocaleDateString()}
                     </p>
                     <Table>
                         <TableHead>{tableHeader()}</TableHead>
