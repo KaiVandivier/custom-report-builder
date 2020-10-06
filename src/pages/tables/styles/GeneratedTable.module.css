@@ -1,0 +1,22 @@
+.topButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.print {
+    padding: 2rem;
+    text-align: left;
+}
+
+@media print {
+    .print {
+        padding: 0.75in;
+    }
+}

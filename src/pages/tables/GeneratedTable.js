@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useSavedObject } from '@dhis2/app-service-datastore'
 import { useParams } from 'react-router-dom'
 import { useDataQuery } from '@dhis2/app-runtime'
 import {
+    Button,
     Card,
     Table,
     TableHead,
@@ -13,7 +14,13 @@ import {
     TableCell,
 } from '@dhis2/ui'
 import i18n from '../../locales'
+import { useReactToPrint } from 'react-to-print'
+
 import BackButton from '../../components/BackButton'
+import Icon from '../../components/Icon'
+import classes from './styles/GeneratedTable.module.css'
+
+// TODO: Dynamically handle org unit and period
 
 const ANALYTICS_QUERY = {
     result: {
@@ -41,13 +48,14 @@ function getDxIds(rows) {
 
 // TODO: Make two components to avoid double dataStore queries (unless they're cached)
 export function GeneratedTable() {
+    const printRef = useRef()
+    const handlePrint = useReactToPrint({ content: () => printRef.current })
+
     const { id } = useParams()
     const [savedTable] = useSavedObject(id)
-    console.log('Saved table', savedTable)
 
     // 1. Filter ids from saved table + make a big list
     const dxIds = getDxIds(savedTable.rows)
-    console.log('dxIds', dxIds)
 
     // 3. Make analytics query
     const { data, loading, error } = useDataQuery(ANALYTICS_QUERY, {
@@ -55,11 +63,9 @@ export function GeneratedTable() {
     })
     if (loading) return <p>Loading...</p>
     if (error) return <p>Oops! There was an error.</p>
-    console.log('Result', data.result)
 
     // 4. Map results: id: value
     const resultMap = new Map(data.result.rows)
-    console.log('Result map', resultMap)
 
     // 5. Render table by iterating over all cells, and for each, looking up value in map
     function tableHeader() {
@@ -92,16 +98,30 @@ export function GeneratedTable() {
 
     return (
         <div id="generated-table">
-            <h1>
+            <div className={classes.topButtons}>
                 <BackButton to="/tables" />
-                {savedTable.name}
-            </h1>
-            <h3>Period: todo; Org unit: todo</h3>
+                <Button
+                    large
+                    icon={<Icon name="print" />}
+                    onClick={handlePrint}
+                >
+                    {i18n.t('Print')}
+                </Button>
+            </div>
             <Card>
-                <Table>
-                    <TableHead>{tableHeader()}</TableHead>
-                    <TableBody>{tableBody()}</TableBody>
-                </Table>
+                <div ref={printRef} className={classes.print}>
+                    <h2 className={classes.title}>{savedTable.name}</h2>
+                    <p>{i18n.t('Organisation Unit: ')}Sierra Leone</p>
+                    <p>{i18n.t('Period: ')}2020</p>
+                    <p>
+                        {i18n.t('Date created: ')}
+                        {new Date().toLocaleDateString()}
+                    </p>
+                    <Table>
+                        <TableHead>{tableHeader()}</TableHead>
+                        <TableBody>{tableBody()}</TableBody>
+                    </Table>
+                </div>
             </Card>
         </div>
     )
