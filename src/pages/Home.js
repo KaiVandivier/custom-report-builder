@@ -4,7 +4,7 @@ import i18n from '../locales'
 import { DataStoreTest } from './home/DataStoreTest'
 import { DataStoreProvider } from '@dhis2/app-service-datastore'
 import FlyoutMenuTest from './home/FlyoutMenuTest'
-import ColumnActions from './table-template/ColumnActions'
+import ColumnActions from './tables/ColumnActions'
 
 export const Home = () => (
     <div>

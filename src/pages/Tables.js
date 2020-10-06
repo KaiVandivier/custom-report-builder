@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { DataStoreProvider } from '@dhis2/app-service-datastore'
 import { Switch, Route } from 'react-router-dom'
 
-import { EditTableTemplate } from './table-template/EditTableTemplate'
-import { SavedTableTemplates } from './table-template/SavedTableTemplates/SavedTableTemplates'
-import GeneratedTable from './generated-table/GeneratedTable'
+import { EditTableTemplate } from './tables/EditTableTemplate'
+import { SavedTableTemplates } from './tables/SavedTableTemplates/SavedTableTemplates'
+import GeneratedTable from './tables/generated-table/GeneratedTable'
 
 // TODO: Rename 'table templateS'
 
