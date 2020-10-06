@@ -29,10 +29,7 @@ export const Navigation = () => (
     <Menu>
         <NavigationItem label={i18n.t('Home')} path="/" />
 
-        <NavigationItem
-            label={i18n.t('Custom tables')}
-            path="/table-template"
-        />
+        <NavigationItem label={i18n.t('Custom tables')} path="/tables" />
 
         <NavigationItem label={i18n.t('Custom reports')} path="/reports" />
     </Menu>

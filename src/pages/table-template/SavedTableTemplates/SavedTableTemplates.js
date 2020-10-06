@@ -40,17 +40,17 @@ export function SavedTableTemplates() {
         return savedTableTemplates.map(template => (
             <TableRow key={template.id}>
                 <TableCell>
-                    <Link to={`table-template/${template.id}`}>
+                    <Link to={`tables/edit/${template.id}`}>
                         {template.name}
                     </Link>
                 </TableCell>
                 <TableCell>
                     <SavedTableTemplateActions
                         onGenerate={() =>
-                            history.push(`generate-table/${template.id}`)
+                            history.push(`tables/generated/${template.id}`)
                         }
                         onEdit={() =>
-                            history.push(`${location.pathname}/${template.id}`)
+                            history.push(`tables/edit/${template.id}`)
                         }
                         onDelete={() =>
                             tableTemplateActions.remove(template.id)

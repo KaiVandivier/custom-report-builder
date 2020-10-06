@@ -48,11 +48,11 @@ export function EditTableTemplate() {
 
     function onDelete() {
         savedTableActions.remove(params.id)
-        history.push('/table-template')
+        history.push('/tables')
     }
 
     function onGenerate() {
-        history.push(`/generate-table/${params.id}`)
+        history.push(`/tables/generated/${params.id}`)
     }
 
     function renameTable(name) {

@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import { EditTableTemplate } from './table-template/EditTableTemplate'
 import { SavedTableTemplates } from './table-template/SavedTableTemplates/SavedTableTemplates'
+import GeneratedTable from './generated-table/GeneratedTable'
 
 // TODO: Rename 'table templateS'
 
@@ -22,8 +23,11 @@ export const TableTemplate = ({ match }) => {
     return (
         <DataStoreProvider namespace="tableTemplates">
             <Switch>
-                <Route path={match.url + '/:id'}>
+                <Route path={match.url + '/edit/:id'}>
                     <EditTableTemplate />
+                </Route>
+                <Route path={match.url + '/generated/:id'}>
+                    <GeneratedTable />
                 </Route>
                 <Route exact path={match.url}>
                     <SavedTableTemplates />

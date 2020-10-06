@@ -4,13 +4,7 @@ import './locales'
 
 import classes from './App.module.css'
 import { Navigation } from './navigation'
-import {
-    Home,
-    TableTemplate,
-    GenerateTable,
-    ReportTemplate,
-    GenerateReport,
-} from './pages'
+import { Home, TableTemplate } from './pages'
 
 const MyApp = () => {
     return (
@@ -22,22 +16,8 @@ const MyApp = () => {
                 <main className={classes.right}>
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route
-                            path="/table-template"
-                            component={TableTemplate}
-                        />
-                        <Route
-                            path="/generate-table"
-                            component={GenerateTable}
-                        />
-                        <Route
-                            path="/report-template"
-                            component={ReportTemplate}
-                        />
-                        <Route
-                            path="/generate-report"
-                            component={GenerateReport}
-                        />
+                        <Route path="/tables" component={TableTemplate} />
+                        <Route path="/reports" component={null} />
                     </Switch>
                 </main>
             </div>

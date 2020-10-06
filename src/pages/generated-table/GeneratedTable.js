@@ -99,3 +99,5 @@ export function GeneratedTable() {
         </div>
     )
 }
+
+export default GeneratedTable
