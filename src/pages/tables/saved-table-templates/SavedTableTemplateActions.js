@@ -8,11 +8,7 @@ import DeleteTableTemplate from './DeleteTableTemplate'
 
 // TODO: Execute actions on click (and close the menu)
 
-export default function SavedTableTemplateActions({
-    onGenerate,
-    onEdit,
-    onDelete,
-}) {
+export function SavedTableTemplateActions({ onGenerate, onEdit, onDelete }) {
     const [popoverIsOpen, setPopoverIsOpen] = useState(false)
     const buttonRef = useRef()
 
@@ -69,3 +65,5 @@ SavedTableTemplateActions.propTypes = {
     onEdit: PropTypes.func.isRequired,
     onGenerate: PropTypes.func.isRequired,
 }
+
+export default SavedTableTemplateActions

@@ -6,7 +6,7 @@ import Icon from '../../../components/Icon'
 import ConfirmModal from '../../../components/ConfirmModal'
 import i18n from '../../../locales'
 
-function DeleteTableTemplate({ onDeleteConfirmation, onCancel }) {
+export function DeleteTableTemplate({ onDeleteConfirmation, onCancel }) {
     const [modalIsOpen, setModalIsOpen] = useState(false)
 
     return (

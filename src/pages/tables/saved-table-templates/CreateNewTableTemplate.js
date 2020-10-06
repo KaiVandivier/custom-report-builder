@@ -40,3 +40,5 @@ export function CreateNewTableTemplate({ createNew }) {
 CreateNewTableTemplate.propTypes = {
     createNew: PropTypes.func.isRequired,
 }
+
+export default CreateNewTableTemplate

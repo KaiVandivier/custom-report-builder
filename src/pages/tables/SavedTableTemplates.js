@@ -13,10 +13,12 @@ import {
 } from '@dhis2/ui'
 import { useLocation, useHistory, Link } from 'react-router-dom'
 
-import { CreateNewTableTemplate } from './saved-table-templates/CreateNewTableTemplate'
+import {
+    CreateNewTableTemplate,
+    SavedTableTemplateActions,
+} from './saved-table-templates'
 
 import testTable from '../../modules/testTable'
-import SavedTableTemplateActions from './saved-table-templates/SavedTableTemplateActions'
 
 // TODO:
 // DONE - Add a 'Create New' Button
