@@ -10,8 +10,9 @@ import {
     TableRowHead,
     TableCell,
     TableCellHead,
+    MenuItem,
 } from '@dhis2/ui'
-import { useLocation, useHistory, Link } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 
 import {
     CreateNewTableTemplate,
@@ -25,6 +26,7 @@ import testTable from '../../modules/testTable'
 // DONE - Render a list of saved table templates: paginated table?
 // DONE - Make functions to edit, rename, and delete each table template
 // - Make a default table to create
+// - Remove padding from clickable cell
 
 export function SavedTableTemplates() {
     const history = useHistory()
@@ -42,9 +44,12 @@ export function SavedTableTemplates() {
         return savedTableTemplates.map(template => (
             <TableRow key={template.id}>
                 <TableCell>
-                    <Link to={`tables/edit/${template.id}`}>
-                        {template.name}
-                    </Link>
+                    <MenuItem
+                        label={template.name}
+                        onClick={() =>
+                            history.push(`/tables/edit/${template.id}`)
+                        }
+                    />
                 </TableCell>
                 <TableCell>
                     <SavedTableTemplateActions
@@ -67,7 +72,7 @@ export function SavedTableTemplates() {
         <>
             <h1>Table Templates</h1>
             <CreateNewTableTemplate createNew={createNew} />
-            <Table>
+            <Table suppressZebraStriping>
                 <TableHead>
                     <TableRowHead>
                         <TableCellHead>{i18n.t('Name')}</TableCellHead>
