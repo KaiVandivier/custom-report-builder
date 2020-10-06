@@ -11,7 +11,7 @@ const NavigationItem = ({ path, label }) => {
     // "null" when not active, "object" when active
     const routeMatch = useRouteMatch(path)
     // If "isActive" is not null and "isActive.isExact" is true
-    const isActive = routeMatch?.isExact
+    const isActive = path === '/' ? routeMatch?.isExact : !!routeMatch
 
     // Callback called when clicking on the menu item.
     // If the menu item is not active, navigate to the path
