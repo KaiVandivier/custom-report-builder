@@ -14,8 +14,7 @@ const NavigationItem = ({ path, label }) => {
     const isActive = path === '/' ? routeMatch?.isExact : !!routeMatch
 
     // Callback called when clicking on the menu item.
-    // If the menu item is not active, navigate to the path
-    const onClick = () => !isActive && history.push(path)
+    const onClick = () => history.push(path)
 
     return <MenuItem label={label} active={isActive} onClick={onClick} />
 }
