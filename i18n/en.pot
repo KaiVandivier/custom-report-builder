@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-04T00:01:05.312Z\n"
-"PO-Revision-Date: 2020-10-04T00:01:05.312Z\n"
+"POT-Creation-Date: 2020-10-06T00:06:41.437Z\n"
+"PO-Revision-Date: 2020-10-06T00:06:41.437Z\n"
 
 msgid "Cancel"
 msgstr ""
@@ -68,16 +68,10 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-msgid "Create Custom Table Template"
+msgid "Custom tables"
 msgstr ""
 
-msgid "Generate Custom Table from Template"
-msgstr ""
-
-msgid "Create Custom Report Template"
-msgstr ""
-
-msgid "Generate Custom Report from Template"
+msgid "Custom reports"
 msgstr ""
 
 msgid "Generate Report from Custom Template"
@@ -87,6 +81,9 @@ msgid "Generate Table from Custom Template"
 msgstr ""
 
 msgid "Hello, world!"
+msgstr ""
+
+msgid "Create Custom Report Template"
 msgstr ""
 
 msgid "Row name"
@@ -167,13 +164,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-msgid "Save Template"
-msgstr ""
-
 msgid "Save & Generate"
-msgstr ""
-
-msgid "Delete Template"
 msgstr ""
 
 msgid "Really delete this template?"
