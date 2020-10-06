@@ -7,7 +7,7 @@ import i18n from '../../../locales'
 
 // TODO: Use a tooltip to say `rename`
 
-function RenameTable({ name, onRename }) {
+export function RenameTable({ name, onRename }) {
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const toggleModal = () => setModalIsOpen(state => !state)
 

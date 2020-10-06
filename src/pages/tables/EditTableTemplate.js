@@ -12,14 +12,16 @@ import { useSavedObject } from '@dhis2/app-service-datastore'
 import { useParams, useHistory } from 'react-router-dom'
 import i18n from '../../locales'
 
-import DataEntryCell from './edit-table-template/DataEntryCell'
-import AddTableDimension from './edit-table-template/AddTableDimension'
-import RowControls from './edit-table-template/RowControls'
 import tableReducer from '../../reducers/tableReducer'
 import styles from './edit-table-template/styles/EditTableTemplate.style'
-import ColumnControls from './edit-table-template/ColumnControls'
-import RenameTable from './edit-table-template/RenameTable'
-import EditTableTemplateActions from './edit-table-template/EditTableTemplateActions'
+import {
+    DataEntryCell,
+    AddTableDimension,
+    RowControls,
+    ColumnControls,
+    RenameTable,
+    EditTableTemplateActions,
+} from './edit-table-template'
 
 // TODO:
 // DONE - Apply reducer to manage table state
