@@ -22,6 +22,7 @@ import {
     RenameTable,
     EditTableTemplateActions,
 } from './edit-table-template'
+import BackButton from '../../components/BackButton'
 
 // TODO:
 // DONE - Apply reducer to manage table state
@@ -107,6 +108,7 @@ export function EditTableTemplate() {
     return (
         <>
             <h1>
+                <BackButton to="/tables" />
                 {savedTable.name}{' '}
                 <RenameTable name={savedTable.name} onRename={renameTable} />
             </h1>

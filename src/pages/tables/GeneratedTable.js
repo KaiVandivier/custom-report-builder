@@ -12,6 +12,7 @@ import {
     TableCell,
 } from '@dhis2/ui'
 import i18n from '../../locales'
+import BackButton from '../../components/BackButton'
 
 const ANALYTICS_QUERY = {
     result: {
@@ -90,7 +91,10 @@ export function GeneratedTable() {
 
     return (
         <div id="generated-table">
-            <h1>{savedTable.name}</h1>
+            <h1>
+                <BackButton to="/tables" />
+                {savedTable.name}
+            </h1>
             <h3>Period: todo; Org unit: todo</h3>
             <Table>
                 <TableHead>{tableHeader()}</TableHead>
