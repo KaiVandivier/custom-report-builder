@@ -84,7 +84,7 @@ export function EditTableTemplate() {
             <DataEntryCell
                 rowIdx={rowIdx}
                 cellIdx={idx}
-                values={cell}
+                cell={cell}
                 dispatch={dispatch}
                 key={idx}
             />
