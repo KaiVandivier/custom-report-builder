@@ -3,6 +3,7 @@ import i18n from '../locales'
 
 // import IconTest from './home/IconTest'
 import OrgUnitTreeTest from './home/OrgUnitTreeTest'
+import PeriodSelectTest from './home/PeriodSelectTest'
 
 export const Home = () => (
     <div>
@@ -12,5 +13,6 @@ export const Home = () => (
             custom table template&rdquo; page for recent updates.
         </p>
         <OrgUnitTreeTest />
+        <PeriodSelectTest />
     </div>
 )
