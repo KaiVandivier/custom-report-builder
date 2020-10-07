@@ -16,6 +16,7 @@
         "@dhis2/cli-style": "^7.0.0"
     },
     "dependencies": {
+        "@dhis2/analytics": "^11.0.10",
         "@dhis2/app-runtime": "^2.2.2",
         "@dhis2/app-service-datastore": "^1.0.0-alpha.1",
         "lodash": "^4.17.20",
