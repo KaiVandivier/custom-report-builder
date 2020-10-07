@@ -1,4 +1,5 @@
 import reorderArray from '../modules/reorderArray'
+import { defaultCell } from '../modules/defaultTable'
 
 export const ADD_ROW = 'ADD_ROW'
 export const UPDATE_ROW = 'UPDATE_ROW'
@@ -21,7 +22,7 @@ export function tableReducer(table, { type, payload }) {
                 rows: table.rows.concat({
                     name: payload.name,
                     // TODO: Default cell value?
-                    cells: Array(table.columns.length).fill(null),
+                    cells: Array(table.columns.length).fill(defaultCell),
                 }),
             }
         case UPDATE_ROW:
@@ -48,7 +49,7 @@ export function tableReducer(table, { type, payload }) {
                 rows: table.rows.map(row => ({
                     ...row,
                     // TODO: default cell value?
-                    cells: row.cells.concat(null),
+                    cells: row.cells.concat(defaultCell),
                 })),
             }
         case UPDATE_COLUMN:

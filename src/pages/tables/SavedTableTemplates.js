@@ -12,32 +12,31 @@ import {
     TableCellHead,
     MenuItem,
 } from '@dhis2/ui'
-import { useLocation, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import {
     CreateNewTableTemplate,
     SavedTableTemplateActions,
 } from './saved-table-templates'
 
-import testTable from '../../modules/testTable'
+import defaultTable from '../../modules/defaultTable'
 
 // TODO:
 // DONE - Add a 'Create New' Button
 // DONE - Render a list of saved table templates: paginated table?
 // DONE - Make functions to edit, rename, and delete each table template
-// - Make a default table to create
+// DONE - Make a default table to create
 // - Remove padding from clickable cell
 
 export function SavedTableTemplates() {
     const history = useHistory()
-    const location = useLocation()
     const [savedTableTemplates, tableTemplateActions] = useSavedObjectList({
         global: true,
     })
 
     async function createNew(name) {
-        const { id } = await tableTemplateActions.add({ ...testTable, name })
-        history.push(`${location.pathname}/${id}`)
+        const { id } = await tableTemplateActions.add({ ...defaultTable, name })
+        history.push(`tables/edit/${id}`)
     }
 
     function mapTemplatesToRows() {
