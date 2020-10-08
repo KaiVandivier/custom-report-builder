@@ -5,13 +5,25 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-06T23:53:49.683Z\n"
-"PO-Revision-Date: 2020-10-06T23:53:49.683Z\n"
+"POT-Creation-Date: 2020-10-08T08:24:52.734Z\n"
+"PO-Revision-Date: 2020-10-08T08:24:52.734Z\n"
 
 msgid "Back"
 msgstr ""
 
 msgid "Cancel"
+msgstr ""
+
+msgid "Report parameters"
+msgstr ""
+
+msgid "Organisation Unit(s)"
+msgstr ""
+
+msgid "Period(s)"
+msgstr ""
+
+msgid "Generate"
 msgstr ""
 
 msgid "Reporting rate"
