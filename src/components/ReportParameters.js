@@ -18,10 +18,6 @@ function ReportParameters({ onGenerate }) {
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const toggleModal = () => setModalIsOpen(state => !state)
 
-    // TODO: Remove after testing
-    console.log('Org units', selectedOrgUnits)
-    console.log('Period', selectedPeriods)
-
     return (
         <div>
             <Button onClick={toggleModal}>Open Modal (test)</Button>
