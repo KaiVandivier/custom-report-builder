@@ -3,7 +3,7 @@ import i18n from '../locales'
 
 // import IconTest from './home/IconTest'
 // import PeriodSelectTest from './home/PeriodSelectTest'
-import OrgUnitTreeTest from './home/OrgUnitTreeTest'
+import OrganisationUnitPicker from '../components/OrganisationUnitPicker'
 
 export const Home = () => {
     const [selectedOrgUnits, setSelectedOrgUnits] = useState([])
@@ -17,7 +17,7 @@ export const Home = () => {
                 &ldquo;Create custom table template&rdquo; page for recent
                 updates.
             </p>
-            <OrgUnitTreeTest
+            <OrganisationUnitPicker
                 selectedOrgUnits={selectedOrgUnits}
                 setSelectedOrgUnits={setSelectedOrgUnits}
             />
