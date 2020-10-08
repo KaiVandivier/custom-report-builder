@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { OrganisationUnitTree, CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 
+import styles from './styles/OrganisationUnitPicker.styles'
+
 const ORG_UNIT_QUERY = {
     result: {
         resource: 'organisationUnits',
@@ -54,14 +56,17 @@ export default function OrganisationUnitPicker({
     }
 
     return (
-        <OrganisationUnitTree
-            roots={roots}
-            onChange={args => {
-                onChange(args)
-                updateSelectedOrgUnits(args)
-            }}
-            selected={selectedPaths}
-        />
+        <div className="container">
+            <OrganisationUnitTree
+                roots={roots}
+                onChange={args => {
+                    onChange(args)
+                    updateSelectedOrgUnits(args)
+                }}
+                selected={selectedPaths}
+            />
+            <style jsx>{styles}</style>
+        </div>
     )
 }
 
