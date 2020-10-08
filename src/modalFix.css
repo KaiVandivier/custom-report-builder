@@ -1,0 +1,5 @@
+/* Fixes the z-index issue with a Select popper from the PeriodPicker appearing below the modal */
+
+.layer.fixed.translucent.level-3000 {
+    z-index: 2000 !important;
+}

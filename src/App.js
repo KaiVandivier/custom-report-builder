@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './locales'
+import './modalFix.css'
 
 import classes from './App.module.css'
 import { Navigation } from './navigation'
