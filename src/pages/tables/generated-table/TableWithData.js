@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSavedObject } from '@dhis2/app-service-datastore'
 import { useParams } from 'react-router-dom'
@@ -21,13 +21,22 @@ import styles from './styles/TableWithData.styles'
 // - Optimize DxIds fn
 // - Don't fire query if there's no data dimensions
 
+// Problem: not refetching in response to new props.
+// Possible solution:
+// 1. Make query 'lazy'
+// 2. Make a useEffect() block with deps of props (so it fires again with new props)
+// 3. refetch the query with vars = props in the useEffect hook
+
 const ANALYTICS_QUERY = {
     result: {
         resource: 'analytics',
-        params: ({ dxIds }) => ({
+        params: ({ dxIds, ouIds = 'LEVEL-1', peIds = '2020' }) => ({
             dimension: `dx:${dxIds.join(';')}`,
             // TODO: Filter based on selected periods & ous
-            filter: 'ou:LEVEL-1,pe:2020',
+            filter: [
+                `ou:${ouIds.length ? ouIds : 'LEVEL-1'}`,
+                `pe:${peIds.length ? peIds : 'THIS_YEAR'}`,
+            ],
             skipMeta: true,
         }),
     },
@@ -46,18 +55,34 @@ function getDxIds(rows) {
     return dxIds
 }
 
+function getOuIds(selectedOrgUnits) {
+    return selectedOrgUnits.map(({ id }) => id).join(';')
+}
+
+function getPeIds(selectedPeriods) {
+    return selectedPeriods.map(({ id }) => id).join(';')
+}
+
 export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
     console.log(selectedPeriods, selectedOrgUnits)
 
     const { id } = useParams()
     const [savedTable] = useSavedObject(id)
 
+    useEffect(
+        () =>
+            console.log('Using effect', { selectedOrgUnits, selectedPeriods }),
+        [selectedOrgUnits, selectedPeriods]
+    )
+
     // 1. Filter ids from saved table + make a big list
     const dxIds = getDxIds(savedTable.rows)
+    const ouIds = getOuIds(selectedOrgUnits)
+    const peIds = getPeIds(selectedPeriods)
 
     // 3. Make analytics query
     const { data, loading, error } = useDataQuery(ANALYTICS_QUERY, {
-        variables: { dxIds },
+        variables: { dxIds, ouIds, peIds },
     })
     if (loading) return <p>Loading...</p>
     if (error) return <p>Oops! There was an error.</p>
