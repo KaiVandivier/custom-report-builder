@@ -4,7 +4,7 @@ import i18n from '../locales'
 // import IconTest from './home/IconTest'
 // import PeriodSelectTest from './home/PeriodSelectTest'
 // import OrganisationUnitPicker from '../components/OrganisationUnitPicker'
-import ReportParameters from '../components/ReportParameters'
+import ReportParameters from './tables/generated-table/ReportParameters'
 
 export const Home = () => {
     // const [selectedOrgUnits, setSelectedOrgUnits] = useState([])

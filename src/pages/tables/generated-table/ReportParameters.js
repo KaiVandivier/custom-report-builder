@@ -9,8 +9,8 @@ import {
     ModalContent,
 } from '@dhis2/ui'
 import { PeriodDimension } from '@dhis2/analytics'
-import i18n from '../locales'
-import OrganisationUnitPicker from './OrganisationUnitPicker'
+import i18n from '../../../locales'
+import OrganisationUnitPicker from '../../../components/OrganisationUnitPicker'
 
 function ReportParameters({ onGenerate }) {
     const [selectedOrgUnits, setSelectedOrgUnits] = useState([])
