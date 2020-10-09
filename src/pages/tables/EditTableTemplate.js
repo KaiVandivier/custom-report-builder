@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect } from 'react'
 // import PropTypes from 'prop-types'
 import {
     ButtonStrip,
@@ -45,6 +45,11 @@ export function EditTableTemplate() {
     const [savedTable, savedTableActions] = useSavedObject(params.id)
     const [table, dispatch] = useReducer(tableReducer, savedTable)
     const history = useHistory()
+
+    // Save table in response to changes
+    useEffect(() => {
+        savedTableActions.update({ ...table })
+    }, [table])
 
     function saveTemplate() {
         savedTableActions.update({ ...table })
