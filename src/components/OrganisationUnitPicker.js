@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { OrganisationUnitTree, CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
@@ -18,7 +18,6 @@ export default function OrganisationUnitPicker({
     selectedOrgUnits,
     setSelectedOrgUnits,
 }) {
-    const [selectedPaths, setSelectedPaths] = useState([])
     const { data, loading, error } = useDataQuery(ORG_UNIT_QUERY)
 
     if (loading) return <CircularLoader small />
@@ -26,13 +25,13 @@ export default function OrganisationUnitPicker({
 
     const roots = data.result.organisationUnits.map(({ id }) => id)
 
-    const updateSelectedOrgUnits = ({ id, displayName, checked }) => {
+    const updateSelectedOrgUnits = ({ id, displayName, path, checked }) => {
         const itemIndex = selectedOrgUnits.findIndex(item => id === item.id)
 
         if (checked) {
             setSelectedOrgUnits([
                 ...selectedOrgUnits,
-                { id, name: displayName },
+                { id, name: displayName, path },
             ])
         } else {
             setSelectedOrgUnits([
@@ -42,28 +41,12 @@ export default function OrganisationUnitPicker({
         }
     }
 
-    const onChange = ({ path, checked }) => {
-        const pathIndex = selectedPaths.indexOf(path)
-
-        if (checked) {
-            setSelectedPaths([...selectedPaths, path])
-        } else {
-            setSelectedPaths([
-                ...selectedPaths.slice(0, pathIndex),
-                ...selectedPaths.slice(pathIndex + 1),
-            ])
-        }
-    }
-
     return (
         <div className="container">
             <OrganisationUnitTree
                 roots={roots}
-                onChange={args => {
-                    onChange(args)
-                    updateSelectedOrgUnits(args)
-                }}
-                selected={selectedPaths}
+                onChange={updateSelectedOrgUnits}
+                selected={selectedOrgUnits.map(({ path }) => path)}
             />
             <style jsx>{styles}</style>
         </div>
