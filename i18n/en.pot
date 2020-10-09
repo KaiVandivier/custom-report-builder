@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-09T04:58:00.918Z\n"
-"PO-Revision-Date: 2020-10-09T04:58:00.918Z\n"
+"POT-Creation-Date: 2020-10-09T21:52:17.387Z\n"
+"PO-Revision-Date: 2020-10-09T21:52:17.387Z\n"
 
 msgid "Back"
 msgstr ""
@@ -78,6 +78,9 @@ msgid "Custom reports"
 msgstr ""
 
 msgid "Hello, world!"
+msgstr ""
+
+msgid "No page found for URL {{url}}"
 msgstr ""
 
 msgid "Menu header"
@@ -167,7 +170,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-msgid "Save & Generate"
+msgid "Generate"
 msgstr ""
 
 msgid "Really delete this template?"
@@ -204,9 +207,6 @@ msgid "Organisation Unit(s)"
 msgstr ""
 
 msgid "Period(s)"
-msgstr ""
-
-msgid "Generate"
 msgstr ""
 
 msgid "Organisation Unit(s) - {{ou}}"
