@@ -93,7 +93,7 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
     function tableHeader() {
         return (
             <TableRowHead>
-                <TableCellHead>{i18n.t('Row name')}</TableCellHead>
+                <TableCellHead />
                 {savedTable.columns.map((col, idx) => (
                     <TableCellHead key={idx}>{col.name}</TableCellHead>
                 ))}

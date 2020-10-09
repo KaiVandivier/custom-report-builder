@@ -12,7 +12,6 @@ import {
 } from '@dhis2/ui'
 import { useSavedObject } from '@dhis2/app-service-datastore'
 import { useParams, useHistory } from 'react-router-dom'
-import i18n from '../../locales'
 
 import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/EditTableTemplate.style'
@@ -67,7 +66,7 @@ export function EditTableTemplate() {
     function tableColumns() {
         return (
             <TableRowHead>
-                <TableCellHead>{i18n.t('Row name')}</TableCellHead>
+                <TableCellHead />
                 {table.columns.map((col, idx, arr) => (
                     <ColumnControls
                         dispatch={dispatch}
