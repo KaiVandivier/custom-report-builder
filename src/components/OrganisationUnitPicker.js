@@ -5,6 +5,8 @@ import { useDataQuery } from '@dhis2/app-runtime'
 
 import styles from './styles/OrganisationUnitPicker.styles'
 
+// BONUS: Expand list to deepest selected org unit
+
 const ORG_UNIT_QUERY = {
     result: {
         resource: 'organisationUnits',
