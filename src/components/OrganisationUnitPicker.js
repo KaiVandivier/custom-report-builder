@@ -25,7 +25,7 @@ export default function OrganisationUnitPicker({
 
     const roots = data.result.organisationUnits.map(({ id }) => id)
 
-    const updateSelectedOrgUnits = ({ id, displayName, path, checked }) => {
+    const onChange = ({ id, displayName, path, checked }) => {
         const itemIndex = selectedOrgUnits.findIndex(item => id === item.id)
 
         if (checked) {
@@ -45,7 +45,7 @@ export default function OrganisationUnitPicker({
         <div className="container">
             <OrganisationUnitTree
                 roots={roots}
-                onChange={updateSelectedOrgUnits}
+                onChange={onChange}
                 selected={selectedOrgUnits.map(({ path }) => path)}
             />
             <style jsx>{styles}</style>
