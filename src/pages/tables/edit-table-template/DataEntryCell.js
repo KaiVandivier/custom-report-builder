@@ -16,6 +16,8 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
     const onModalSave = ({ item, ...metadata }) => {
         setModalOpen(false)
 
+        if (!item) return
+
         dispatch({
             type: UPDATE_CELL,
             payload: {
