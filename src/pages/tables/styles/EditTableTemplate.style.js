@@ -5,6 +5,7 @@ export default css`
         display: flex;
         align-items: center;
         margin-bottom: 1rem;
+        gap: 1rem;
     }
 
     h1 {
