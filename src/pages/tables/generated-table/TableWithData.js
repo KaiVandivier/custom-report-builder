@@ -17,22 +17,14 @@ import i18n from '../../../locales'
 import styles from './styles/TableWithData.styles'
 
 // TODO:
-// - Filter query based on pe & ou props
 // - Optimize DxIds fn
 // - Don't fire query if there's no data dimensions
-
-// Problem: not refetching in response to new props.
-// Possible solution:
-// 1. Make query 'lazy'
-// 2. Make a useEffect() block with deps of props (so it fires again with new props)
-// 3. refetch the query with vars = props in the useEffect hook
 
 const ANALYTICS_QUERY = {
     result: {
         resource: 'analytics',
         params: ({ dxIds, ouIds = 'LEVEL-1', peIds = '2020' }) => ({
             dimension: `dx:${dxIds.join(';')}`,
-            // TODO: Filter based on selected periods & ous
             filter: [
                 `ou:${ouIds.length ? ouIds : 'LEVEL-1'}`,
                 `pe:${peIds.length ? peIds : 'THIS_YEAR'}`,
@@ -55,42 +47,49 @@ function getDxIds(rows) {
     return dxIds
 }
 
-function getOuIds(selectedOrgUnits) {
-    return selectedOrgUnits.map(({ id }) => id).join(';')
+function getSelectedIds(selectedItems) {
+    return selectedItems.map(({ id }) => id).join(';')
 }
 
-function getPeIds(selectedPeriods) {
-    return selectedPeriods.map(({ id }) => id).join(';')
+function getSelectedNames(selectedItems) {
+    return selectedItems.map(({ name }) => name).join(', ')
 }
 
 export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
-    console.log(selectedPeriods, selectedOrgUnits)
-
     const { id } = useParams()
     const [savedTable] = useSavedObject(id)
 
-    useEffect(
-        () =>
-            console.log('Using effect', { selectedOrgUnits, selectedPeriods }),
-        [selectedOrgUnits, selectedPeriods]
-    )
+    const {
+        data,
+        loading,
+        error,
+        called,
+        refetch,
+    } = useDataQuery(ANALYTICS_QUERY, { lazy: true })
 
-    // 1. Filter ids from saved table + make a big list
-    const dxIds = getDxIds(savedTable.rows)
-    const ouIds = getOuIds(selectedOrgUnits)
-    const peIds = getPeIds(selectedPeriods)
+    useEffect(() => {
+        // TODO: Remove after testing
+        console.log('Using effect', { selectedOrgUnits, selectedPeriods })
 
-    // 3. Make analytics query
-    const { data, loading, error } = useDataQuery(ANALYTICS_QUERY, {
-        variables: { dxIds, ouIds, peIds },
-    })
+        // TODO: Handle if no cells require table-wide ou or pe
+        // e.g. 'if (no cells require table-wide vals) continue'
+        if (!selectedOrgUnits.length && !selectedPeriods.length) return
+
+        const dxIds = getDxIds(savedTable.rows)
+        const ouIds = getSelectedIds(selectedOrgUnits)
+        const peIds = getSelectedIds(selectedPeriods)
+
+        refetch({ dxIds, ouIds, peIds })
+    }, [savedTable, selectedOrgUnits, selectedPeriods])
+
+    if (!called) return <p>Waiting for params...</p>
     if (loading) return <p>Loading...</p>
     if (error) return <p>Oops! There was an error.</p>
 
-    // 4. Map results: id: value
+    // Convert results to map - id: value
     const resultMap = new Map(data.result.rows)
 
-    // 5. Render table by iterating over all cells, and for each, looking up value in map
+    // Render table by iterating over all cells, and for each, looking up value in map
     function tableHeader() {
         return (
             <TableRowHead>
@@ -122,10 +121,19 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
     return (
         <>
             <h2 className="title">{savedTable.name}</h2>
-            <p>{i18n.t('Organisation Unit')}: Sierra Leone</p>
-            <p>{i18n.t('Period')}: 2020</p>
             <p>
-                {i18n.t('Date')}: {new Date().toLocaleDateString()}
+                {i18n.t('Organisation Unit(s) - {{ou}}', {
+                    ou: getSelectedNames(selectedOrgUnits),
+                })}
+            </p>
+            <p>
+                {i18n.t('Period(s) - {{pe}}', {
+                    pe: getSelectedNames(selectedPeriods),
+                })}
+            </p>
+            <p>
+                {i18n.t('Date - ')}
+                {new Date().toLocaleDateString()}
             </p>
             <Table>
                 <TableHead>{tableHeader()}</TableHead>
