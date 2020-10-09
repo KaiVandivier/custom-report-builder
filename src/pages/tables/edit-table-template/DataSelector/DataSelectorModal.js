@@ -198,7 +198,7 @@ export class DataSelectorModal extends Component {
         }
 
         return (
-            <Modal className={modal}>
+            <Modal onClose={this.props.onClose} className={modal}>
                 <ModalTitle>{i18n.t('Choose data for cell')}</ModalTitle>
                 <ModalContent className={modalContent}>
                     {/* TODO: Row & column names */}
