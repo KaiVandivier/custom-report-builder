@@ -1,7 +1,5 @@
 .topButtons {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-flow: column;
+    display: flex;
     align-items: center;
     margin-bottom: 1rem;
     gap: 1rem;
