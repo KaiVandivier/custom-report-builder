@@ -5,7 +5,7 @@ import './modalFix.css'
 
 import classes from './App.module.css'
 import { Navigation } from './navigation'
-import { Home, Tables } from './pages'
+import { Home, Tables, Reports } from './pages'
 
 const MyApp = () => {
     return (
@@ -18,7 +18,7 @@ const MyApp = () => {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/tables" component={Tables} />
-                        <Route path="/reports" component={null} />
+                        <Route path="/reports" component={Reports} />
                     </Switch>
                 </main>
             </div>
