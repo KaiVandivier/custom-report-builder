@@ -13,7 +13,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import i18n from '../../locales'
 
 import tableReducer from '../../reducers/tableReducer'
-import styles from './edit-table-template/styles/EditTableTemplate.style'
+import styles from './styles/EditTableTemplate.style'
 import {
     DataEntryCell,
     AddTableDimension,
@@ -107,11 +107,13 @@ export function EditTableTemplate() {
 
     return (
         <>
-            <h1>
+            <div className="header">
                 <BackButton to="/tables" />
-                {savedTable.name}{' '}
+                <div>
+                    <h1>{savedTable.name}</h1>
+                </div>
                 <RenameTable name={savedTable.name} onRename={renameTable} />
-            </h1>
+            </div>
             <EditTableTemplateActions
                 onSave={saveTemplate}
                 onGenerate={onGenerate}
