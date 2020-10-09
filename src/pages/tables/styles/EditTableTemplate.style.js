@@ -22,4 +22,8 @@ export default css`
         justify-content: space-between;
         margin-bottom: 0.75rem;
     }
+
+    .cardContainer {
+        height: min-content;
+    }
 `

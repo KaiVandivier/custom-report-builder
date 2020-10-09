@@ -2,6 +2,7 @@ import React, { useReducer } from 'react'
 // import PropTypes from 'prop-types'
 import {
     ButtonStrip,
+    Card,
     Table,
     TableHead,
     TableRowHead,
@@ -129,10 +130,14 @@ export function EditTableTemplate() {
                     onDelete={onDelete}
                 />
             </div>
-            <Table>
-                <TableHead>{tableColumns()}</TableHead>
-                <TableBody>{tableRows()}</TableBody>
-            </Table>
+            <div className="cardContainer">
+                <Card>
+                    <Table>
+                        <TableHead>{tableColumns()}</TableHead>
+                        <TableBody>{tableRows()}</TableBody>
+                    </Table>
+                </Card>
+            </div>
             <style jsx>{styles}</style>
         </>
     )
