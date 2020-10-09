@@ -117,14 +117,16 @@ export function EditTableTemplate() {
                     />
                 </div>
             </div>
-            <EditTableTemplateActions
-                onSave={saveTemplate}
-                onGenerate={onGenerate}
-                onDelete={onDelete}
-            />
-            <div className="dimension-buttons">
-                <AddTableDimension type="Row" dispatch={dispatch} />
-                <AddTableDimension type="Column" dispatch={dispatch} />
+            <div className="tableButtons">
+                <div className="dimension-buttons">
+                    <AddTableDimension type="Row" dispatch={dispatch} />
+                    <AddTableDimension type="Column" dispatch={dispatch} />
+                </div>
+                <EditTableTemplateActions
+                    onSave={saveTemplate}
+                    onGenerate={onGenerate}
+                    onDelete={onDelete}
+                />
             </div>
             <Table>
                 <TableHead>{tableColumns()}</TableHead>

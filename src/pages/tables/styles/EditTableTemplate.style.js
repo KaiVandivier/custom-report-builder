@@ -10,6 +10,7 @@ export default css`
     .header {
         display: flex;
         align-items: center;
+        margin-bottom: 1rem;
     }
 
     h1 {
@@ -19,5 +20,11 @@ export default css`
 
     .editButton {
         margin-right: auto;
+    }
+
+    .tableButtons {
+        display: flex;
+        align-items: bottom;
+        justify-content: space-between;
     }
 `

@@ -3,22 +3,22 @@ import { Button, ButtonStrip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import i18n from '../../../locales'
 import ConfirmModal from '../../../components/ConfirmModal'
+import Icon from '../../../components/Icon'
 
 export function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     const toggleModal = () => setDeleteModalIsOpen(state => !state)
 
     return (
-        <div style={{ marginBottom: '0.5rem' }}>
+        <div>
             <ButtonStrip middle>
                 {/* Save & Exit? */}
                 {/* Exit? */}
-                <Button small primary onClick={onSave}>
+                <Button icon={<Icon name="save" />} onClick={onSave}>
                     {i18n.t('Save')}
                 </Button>
                 <Button
-                    small
-                    primary
+                    icon={<Icon name="play_arrow" />}
                     onClick={() => {
                         onSave()
                         onGenerate()
@@ -26,7 +26,7 @@ export function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
                 >
                     {i18n.t('Save & Generate')}
                 </Button>
-                <Button small destructive onClick={toggleModal}>
+                <Button icon={<Icon name="delete" />} onClick={toggleModal}>
                     {i18n.t('Delete')}
                 </Button>
             </ButtonStrip>
