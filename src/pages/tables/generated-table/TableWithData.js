@@ -104,7 +104,7 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
     function mapCellValues(cell, idx) {
         return (
             <TableCell key={idx}>
-                {resultMap.get(cell?.item?.id) || 'no value'}
+                {resultMap.get(cell?.item?.id) || null}
             </TableCell>
         )
     }
