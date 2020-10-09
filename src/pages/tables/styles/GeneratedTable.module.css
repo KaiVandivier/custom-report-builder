@@ -1,8 +1,10 @@
 .topButtons {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-flow: column;
     align-items: center;
     margin-bottom: 1rem;
+    gap: 1rem;
 }
 
 .print {

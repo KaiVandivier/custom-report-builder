@@ -27,15 +27,15 @@ export function GeneratedTable() {
                 toggleModal={toggleReportParamsDialog}
                 onGenerate={setReportParams}
             />
-            <Button
-                large
-                icon={<Icon name="play_arrow" />}
-                onClick={toggleReportParamsDialog}
-            >
-                {i18n.t('Choose Parameters')}
-            </Button>
             <div className={classes.topButtons}>
                 <BackButton to="/tables" />
+                <Button
+                    large
+                    icon={<Icon name="play_arrow" />}
+                    onClick={toggleReportParamsDialog}
+                >
+                    {i18n.t('Choose Parameters')}
+                </Button>
                 <Button
                     large
                     icon={<Icon name="print" />}
