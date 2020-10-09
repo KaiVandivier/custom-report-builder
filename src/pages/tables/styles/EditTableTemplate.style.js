@@ -1,12 +1,6 @@
 import css from 'styled-jsx/css'
 
 export default css`
-    .dimension-buttons {
-        margin-bottom: 0.75rem;
-        display: flex;
-        gap: 1rem;
-    }
-
     .header {
         display: flex;
         align-items: center;
@@ -26,5 +20,6 @@ export default css`
         display: flex;
         align-items: bottom;
         justify-content: space-between;
+        margin-bottom: 0.75rem;
     }
 `

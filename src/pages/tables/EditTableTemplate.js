@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react'
 // import PropTypes from 'prop-types'
 import {
+    ButtonStrip,
     Table,
     TableHead,
     TableRowHead,
@@ -118,10 +119,10 @@ export function EditTableTemplate() {
                 </div>
             </div>
             <div className="tableButtons">
-                <div className="dimension-buttons">
+                <ButtonStrip className="dimension-buttons">
                     <AddTableDimension type="Row" dispatch={dispatch} />
                     <AddTableDimension type="Column" dispatch={dispatch} />
-                </div>
+                </ButtonStrip>
                 <EditTableTemplateActions
                     onSave={saveTemplate}
                     onGenerate={onGenerate}

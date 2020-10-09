@@ -10,10 +10,8 @@ export function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
     const toggleModal = () => setDeleteModalIsOpen(state => !state)
 
     return (
-        <div>
+        <>
             <ButtonStrip middle>
-                {/* Save & Exit? */}
-                {/* Exit? */}
                 <Button icon={<Icon name="save" />} onClick={onSave}>
                     {i18n.t('Save')}
                 </Button>
@@ -43,7 +41,7 @@ export function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
                     destructive={true}
                 />
             )}
-        </div>
+        </>
     )
 }
 
