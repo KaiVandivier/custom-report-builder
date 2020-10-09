@@ -73,7 +73,7 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
 
         // TODO: Handle if no cells require table-wide ou or pe
         // e.g. 'if (no cells require table-wide vals) continue'
-        if (!selectedOrgUnits.length && !selectedPeriods.length) return
+        if (!selectedOrgUnits.length || !selectedPeriods.length) return
 
         const dxIds = getDxIds(savedTable.rows)
         const ouIds = getSelectedIds(selectedOrgUnits)
