@@ -109,10 +109,13 @@ export function EditTableTemplate() {
         <>
             <div className="header">
                 <BackButton to="/tables" />
-                <div>
-                    <h1>{savedTable.name}</h1>
+                <h1>{savedTable.name}</h1>
+                <div className="editButton">
+                    <RenameTable
+                        name={savedTable.name}
+                        onRename={renameTable}
+                    />
                 </div>
-                <RenameTable name={savedTable.name} onRename={renameTable} />
             </div>
             <EditTableTemplateActions
                 onSave={saveTemplate}

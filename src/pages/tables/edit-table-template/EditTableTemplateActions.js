@@ -9,7 +9,7 @@ export function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
     const toggleModal = () => setDeleteModalIsOpen(state => !state)
 
     return (
-        <div style={{ marginBottom: '0.5rem', marginTop: '-1rem' }}>
+        <div style={{ marginBottom: '0.5rem' }}>
             <ButtonStrip middle>
                 {/* Save & Exit? */}
                 {/* Exit? */}
