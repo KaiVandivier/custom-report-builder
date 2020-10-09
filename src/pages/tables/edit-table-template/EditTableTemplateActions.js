@@ -5,24 +5,15 @@ import i18n from '../../../locales'
 import ConfirmModal from '../../../components/ConfirmModal'
 import Icon from '../../../components/Icon'
 
-export function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
+export function EditTableTemplateActions({ onGenerate, onDelete }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     const toggleModal = () => setDeleteModalIsOpen(state => !state)
 
     return (
         <>
-            <ButtonStrip middle>
-                <Button icon={<Icon name="save" />} onClick={onSave}>
-                    {i18n.t('Save')}
-                </Button>
-                <Button
-                    icon={<Icon name="play_arrow" />}
-                    onClick={() => {
-                        onSave()
-                        onGenerate()
-                    }}
-                >
-                    {i18n.t('Save & Generate')}
+            <ButtonStrip>
+                <Button icon={<Icon name="play_arrow" />} onClick={onGenerate}>
+                    {i18n.t('Generate')}
                 </Button>
                 <Button icon={<Icon name="delete" />} onClick={toggleModal}>
                     {i18n.t('Delete')}
@@ -48,7 +39,6 @@ export function EditTableTemplateActions({ onSave, onGenerate, onDelete }) {
 EditTableTemplateActions.propTypes = {
     onDelete: PropTypes.func.isRequired,
     onGenerate: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
 }
 
 export default EditTableTemplateActions

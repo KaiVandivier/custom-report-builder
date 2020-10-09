@@ -51,10 +51,6 @@ export function EditTableTemplate() {
         savedTableActions.update({ ...table })
     }, [table])
 
-    function saveTemplate() {
-        savedTableActions.update({ ...table })
-    }
-
     function onDelete() {
         savedTableActions.remove(params.id)
         history.push('/tables')
@@ -129,7 +125,6 @@ export function EditTableTemplate() {
                     <AddTableDimension type="Column" dispatch={dispatch} />
                 </ButtonStrip>
                 <EditTableTemplateActions
-                    onSave={saveTemplate}
                     onGenerate={onGenerate}
                     onDelete={onDelete}
                 />
