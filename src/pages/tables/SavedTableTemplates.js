@@ -3,6 +3,7 @@ import React from 'react'
 import i18n from '../../locales'
 import { useSavedObjectList } from '@dhis2/app-service-datastore'
 import {
+    Card,
     Table,
     TableHead,
     TableBody,
@@ -18,7 +19,6 @@ import {
     CreateNewTableTemplate,
     SavedTableTemplateActions,
 } from './saved-table-templates'
-
 import defaultTable from '../../modules/defaultTable'
 
 // TODO:
@@ -71,15 +71,21 @@ export function SavedTableTemplates() {
         <>
             <h1>Table Templates</h1>
             <CreateNewTableTemplate createNew={createNew} />
-            <Table suppressZebraStriping>
-                <TableHead>
-                    <TableRowHead>
-                        <TableCellHead>{i18n.t('Name')}</TableCellHead>
-                        <TableCellHead>{i18n.t('Actions')}</TableCellHead>
-                    </TableRowHead>
-                </TableHead>
-                <TableBody>{mapTemplatesToRows()}</TableBody>
-            </Table>
+            <div style={{ height: 'min-content' }}>
+                <Card>
+                    <Table suppressZebraStriping>
+                        <TableHead>
+                            <TableRowHead>
+                                <TableCellHead>{i18n.t('Name')}</TableCellHead>
+                                <TableCellHead>
+                                    {i18n.t('Actions')}
+                                </TableCellHead>
+                            </TableRowHead>
+                        </TableHead>
+                        <TableBody>{mapTemplatesToRows()}</TableBody>
+                    </Table>
+                </Card>
+            </div>
         </>
     )
 }
