@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Switch, Route } from 'react-router-dom'
 import './locales'
 import './modalFix.css'
 
@@ -8,8 +8,13 @@ import { Navigation } from './navigation'
 import { Home, Tables, Reports, NoMatch } from './pages'
 
 const MyApp = () => {
+    // HashRouter solves the problem of route issues on DHIS instances deployed
+    // at addresses other than a base domain, e.g. `play.dhis2.org/2.34.1/` or
+    // `academy.demos.dhis2.org/app-dev-academy`.
+    // BrowserRouter with `basename="/api/apps/app-name" can work for apps
+    // deployed at domain level.
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className={classes.container}>
                 <nav className={classes.left}>
                     <Navigation />
@@ -23,7 +28,7 @@ const MyApp = () => {
                     </Switch>
                 </main>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
