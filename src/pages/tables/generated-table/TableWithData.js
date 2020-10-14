@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useSavedObject } from '@dhis2/app-service-datastore'
 import { useParams } from 'react-router-dom'
-import { useDataQuery } from '@dhis2/app-runtime'
 import {
     Table,
     TableHead,
@@ -10,46 +9,11 @@ import {
     TableCellHead,
     TableBody,
     TableRow,
-    TableCell,
 } from '@dhis2/ui'
 import i18n from '../../../locales'
 
 import styles from './styles/TableWithData.styles'
-
-// TODO:
-// - Optimize DxIds fn
-// - Don't fire query if there's no data dimensions
-
-const ANALYTICS_QUERY = {
-    result: {
-        resource: 'analytics',
-        params: ({ dxIds, ouIds = 'LEVEL-1', peIds = '2020' }) => ({
-            dimension: `dx:${dxIds.join(';')}`,
-            filter: [
-                `ou:${ouIds.length ? ouIds : 'LEVEL-1'}`,
-                `pe:${peIds.length ? peIds : 'THIS_YEAR'}`,
-            ],
-            skipMeta: true,
-        }),
-    },
-}
-
-// TODO: Memoize
-function getDxIds(rows) {
-    // 1. Get all cells in a flat array
-    const allCells = rows.map(row => row.cells).flat()
-
-    // 2. Filter out cells without data dimension
-    const cellsWithData = allCells.filter(cell => cell?.item?.id)
-
-    // 3. Map to cell.item.id
-    const dxIds = cellsWithData.map(cell => cell.item?.id)
-    return dxIds
-}
-
-function getSelectedIds(selectedItems) {
-    return selectedItems.map(({ id }) => id).join(';')
-}
+import GeneratedTableCell from './GeneratedTableCell'
 
 function getSelectedNames(selectedItems) {
     return selectedItems.map(({ name }) => name).join(', ')
@@ -59,35 +23,8 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
     const { id } = useParams()
     const [savedTable] = useSavedObject(id)
 
-    const {
-        data,
-        loading,
-        error,
-        called,
-        refetch,
-    } = useDataQuery(ANALYTICS_QUERY, { lazy: true })
-
-    useEffect(() => {
-        // TODO: Remove after testing
-        console.log('Using effect', { selectedOrgUnits, selectedPeriods })
-
-        // TODO: Handle if no cells require table-wide ou or pe
-        // e.g. 'if (no cells require table-wide vals) continue'
-        if (!selectedOrgUnits.length || !selectedPeriods.length) return
-
-        const dxIds = getDxIds(savedTable.rows)
-        const ouIds = getSelectedIds(selectedOrgUnits)
-        const peIds = getSelectedIds(selectedPeriods)
-
-        refetch({ dxIds, ouIds, peIds })
-    }, [savedTable, selectedOrgUnits, selectedPeriods])
-
-    if (!called) return <p>Waiting for params...</p>
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Oops! There was an error.</p>
-
-    // Convert results to map - id: value
-    const resultMap = new Map(data.result.rows)
+    if (!selectedPeriods.length || !selectedOrgUnits.length)
+        return <p>Waiting for parameters...</p>
 
     // Render table by iterating over all cells, and for each, looking up value in map
     function tableHeader() {
@@ -103,9 +40,12 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
 
     function mapCellValues(cell, idx) {
         return (
-            <TableCell key={idx}>
-                {resultMap.get(cell?.item?.id) || null}
-            </TableCell>
+            <GeneratedTableCell
+                key={idx}
+                cell={cell}
+                selectedOrgUnits={selectedOrgUnits}
+                selectedPeriods={selectedPeriods}
+            />
         )
     }
 
@@ -160,3 +100,76 @@ TableWithData.propTypes = {
 }
 
 export default TableWithData
+
+// Preious data queries:
+/* 
+// TODO:
+// - Optimize DxIds fn
+// - Don't fire query if there's no data dimensions
+
+const ANALYTICS_QUERY = {
+    result: {
+        resource: 'analytics',
+        params: ({ dxIds, ouIds = 'LEVEL-1', peIds = '2020' }) => ({
+            dimension: `dx:${dxIds.join(';')}`,
+            filter: [
+                `ou:${ouIds.length ? ouIds : 'LEVEL-1'}`,
+                `pe:${peIds.length ? peIds : 'THIS_YEAR'}`,
+            ],
+            skipMeta: true,
+        }),
+    },
+}
+
+// TODO: Memoize
+function getDxIds(rows) {
+    // 1. Get all cells in a flat array
+    const allCells = rows.map(row => row.cells).flat()
+
+    // 2. Filter out cells without data dimension
+    const cellsWithData = allCells.filter(cell => cell?.item?.id)
+
+    // 3. Map to cell.item.id
+    const dxIds = cellsWithData.map(cell => cell.item?.id)
+    return dxIds
+}
+
+function getSelectedIds(selectedItems) {
+    return selectedItems.map(({ id }) => id).join(';')
+}
+
+
+    const {
+        data,
+        loading,
+        error,
+        called,
+        refetch,
+    } = useDataQuery(ANALYTICS_QUERY, { lazy: true })
+
+    useEffect(() => {
+        // TODO: Remove after testing
+        console.log('Using effect', { selectedOrgUnits, selectedPeriods })
+
+        // TODO: Handle if no cells require table-wide ou or pe
+        // e.g. 'if (no cells require table-wide vals) continue'
+        if (!selectedOrgUnits.length || !selectedPeriods.length) return
+
+        const dxIds = getDxIds(savedTable.rows)
+        const ouIds = getSelectedIds(selectedOrgUnits)
+        const peIds = getSelectedIds(selectedPeriods)
+
+        refetch({ dxIds, ouIds, peIds })
+    }, [savedTable, selectedOrgUnits, selectedPeriods])
+
+    if (!called) return <p>Waiting for params...</p>
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>Oops! There was an error.</p>
+
+    // Convert results to map - id: value
+    const resultMap = new Map(data.result.rows)
+*/
+
+// <TableCell key={idx}>
+//     {resultMap.get(cell?.item?.id) || null}
+// </TableCell>
