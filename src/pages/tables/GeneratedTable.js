@@ -44,6 +44,11 @@ export function GeneratedTable() {
                     {i18n.t('Print')}
                 </Button>
             </div>
+            <p style={{ textAlign: 'left', color: '#333' }}>
+                {i18n.t(
+                    'Tip - hover the mouse over a data cell to see its information.'
+                )}
+            </p>
             <Card>
                 <div ref={printRef} className={classes.print}>
                     <TableWithData {...reportParams} />
