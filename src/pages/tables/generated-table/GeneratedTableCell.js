@@ -8,6 +8,7 @@ export function GeneratedTableCell({
     selectedOrgUnits,
     selectedPeriods,
 }) {
+    // TODO: Tooltips
     function getCellContents() {
         if (!cell) return null
         switch (cell.contentType) {
