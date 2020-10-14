@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CircularLoader, TableCell } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
@@ -34,14 +34,20 @@ export function GeneratedTableCell({
     // (Maybe cells should get different components based on their content type)
     if (cell.contentType === 'text') return <TableCell>{cell.text}</TableCell>
 
+    const queryVars = {
+        dxId: cell.item.id,
+        ouId: cell.orgUnit?.id || getSelectedIds(selectedOrgUnits),
+        peId: cell.period?.id || getSelectedIds(selectedPeriods),
+    }
+
     // Problem: this doesn't update with props
-    const { data, loading, error } = useDataQuery(CELL_QUERY, {
-        variables: {
-            dxId: cell.item.id,
-            ouId: cell.orgUnit?.id || getSelectedIds(selectedOrgUnits),
-            peId: cell.period?.id || getSelectedIds(selectedPeriods),
-        },
+    const { data, loading, error, refetch } = useDataQuery(CELL_QUERY, {
+        variables: queryVars,
     })
+
+    useEffect(() => {
+        refetch(queryVars)
+    }, [cell, selectedOrgUnits, selectedPeriods])
 
     // TODO: Make a nice glow, like storybook (transparent text, background, animate background opacity): /src/index.css/ -> '.glow-text'
     if (loading)
