@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import InputModal from '../../../components/InputModal'
-import styles from './styles/RenameTable.style'
 import i18n from '../../../locales'
 import IconTooltipButton from '../../../components/IconTooltipButton'
 
@@ -30,7 +29,6 @@ export function RenameTable({ name, onRename }) {
                     initialValue={name}
                 />
             )}
-            <style jsx>{styles}</style>
         </>
     )
 }
