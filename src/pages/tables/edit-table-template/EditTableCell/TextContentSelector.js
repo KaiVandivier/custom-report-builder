@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Divider } from '@dhis2/ui'
-import InputModal from '../../../components/InputModal'
-import Icon from '../../../components/Icon'
-import styles from './styles/RenameTable.style'
-import i18n from '../../../locales'
+import InputModal from '../../../../components/InputModal'
+import IconTooltipButton from '../../../../components/IconTooltipButton'
+import i18n from '../../../../locales'
 
 // TODO: Use a tooltip to say `rename`
 // TODO: Refactor to 'tooltip icon button'
@@ -24,9 +23,7 @@ export function TextContentSelector({ text, onChange }) {
                 }}
             >
                 <p>{i18n.t('Text - {{-text}}', { text })}</p>
-                <button onClick={toggleModal}>
-                    <Icon name="edit" />
-                </button>
+                <IconTooltipButton icon="edit" tooltip={i18n.t('Edit text')} />
             </div>
             {modalIsOpen && (
                 <InputModal
@@ -42,7 +39,6 @@ export function TextContentSelector({ text, onChange }) {
                     initialValue={text}
                 />
             )}
-            <style jsx>{styles}</style>
         </>
     )
 }

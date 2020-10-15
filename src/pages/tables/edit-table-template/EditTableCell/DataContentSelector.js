@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Divider } from '@dhis2/ui'
-import i18n from '../../../locales'
+import i18n from '../../../../locales'
 
-import { UPDATE_CELL } from '../../../reducers/tableReducer'
-import { dataTypes } from '../../../modules/dataTypes'
-import DataEngine from '../../../components/DataEngine'
-import DataSelectorModal from './DataSelector/DataSelectorModal'
-import styles from './styles/DataContentSelector.style'
-import IconTooltipButton from '../../../components/IconTooltipButton'
+import { UPDATE_CELL } from '../../../../reducers/tableReducer'
+import { dataTypes } from '../../../../modules/dataTypes'
+import DataEngine from '../../../../components/DataEngine'
+import DataSelectorModal from '../DataSelector/DataSelectorModal'
+import styles from '../styles/DataContentSelector.style'
+import IconTooltipButton from '../../../../components/IconTooltipButton'
 
 export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
     const [modalOpen, setModalOpen] = useState(false)

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
-import i18n from '../../../locales'
-import contentTypes from '../../../modules/contentTypes'
+import i18n from '../../../../locales'
+import contentTypes from '../../../../modules/contentTypes'
 
 export function ContentTypeSelector({ currentContentType, onChange }) {
     return (
