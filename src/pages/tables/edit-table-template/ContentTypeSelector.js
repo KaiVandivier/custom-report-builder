@@ -10,6 +10,7 @@ export function ContentTypeSelector({ currentContentType, onChange }) {
             label={i18n.t('Content type')}
             onChange={({ selected }) => onChange(selected)}
             selected={currentContentType}
+            dense
         >
             {Object.values(contentTypes).map(({ id, getName }) => (
                 <SingleSelectOption value={id} label={getName()} key={id} />
