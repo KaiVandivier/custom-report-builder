@@ -56,16 +56,13 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
         }
     }
 
-    // TODO: Handle different cell content types
     return (
         <TableCell>
-            {cell && (
-                <ContentTypeSelector
-                    currentContentType={cell.contentType || EMPTY}
-                    onChange={onContentTypeChange}
-                />
-            )}
-            {cell && getContentSelectorByType()}
+            <ContentTypeSelector
+                currentContentType={cell.contentType || EMPTY}
+                onChange={onContentTypeChange}
+            />
+            {getContentSelectorByType()}
         </TableCell>
     )
 }
