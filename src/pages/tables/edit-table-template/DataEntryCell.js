@@ -12,7 +12,7 @@ import ContentTypeSelector from './ContentTypeSelector'
 export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
     const [modalOpen, setModalOpen] = useState(false)
 
-    const onModalClose = () => setModalOpen(false)
+    const toggleModal = () => setModalOpen(state => !state)
 
     const onModalSave = ({ item, ...metadata }) => {
         setModalOpen(false)
@@ -64,7 +64,7 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
             ) : (
                 <p>{i18n.t('No data selected')}</p>
             )}
-            <Button small onClick={() => setModalOpen(true)}>
+            <Button small onClick={toggleModal}>
                 {i18n.t('Choose data...')}
             </Button>
             {modalOpen && (
@@ -72,7 +72,7 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
                     {engine => (
                         <DataSelectorModal
                             engine={engine}
-                            onClose={onModalClose}
+                            onClose={toggleModal}
                             onSave={onModalSave}
                             initialValues={cell?.item ? { ...cell } : {}}
                         />
