@@ -1,36 +1,14 @@
-import React, { useState } from 'react'
-import { TableCell, Button, Divider } from '@dhis2/ui'
+import React from 'react'
+import { TableCell } from '@dhis2/ui'
 import { PropTypes } from '@dhis2/prop-types'
-import i18n from '../../../locales'
 
 import { UPDATE_CELL } from '../../../reducers/tableReducer'
-import { dataTypes } from '../../../modules/dataTypes'
 import { DATA, TEXT, EMPTY } from '../../../modules/contentTypes'
-import DataEngine from '../../../components/DataEngine'
-import DataSelectorModal from './DataSelector/DataSelectorModal'
 import ContentTypeSelector from './ContentTypeSelector'
 import TextContentSelector from './TextContentSelector'
+import DataContentSelector from './DataContentSelector'
 
 export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
-    const [modalOpen, setModalOpen] = useState(false)
-
-    const toggleModal = () => setModalOpen(state => !state)
-
-    const onModalSave = ({ item, ...metadata }) => {
-        setModalOpen(false)
-
-        if (!item) return
-
-        dispatch({
-            type: UPDATE_CELL,
-            payload: {
-                cell: { data: { item, ...metadata } },
-                rowIdx,
-                cellIdx,
-            },
-        })
-    }
-
     const onContentTypeChange = contentType => {
         dispatch({
             type: UPDATE_CELL,
@@ -44,48 +22,16 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
 
     const getContentSelectorByType = () => {
         // TODO: could be a '.get()' function on contentTypes
-        // TODO: Refactor these into smaller, bite-size pieces
+        // TODO: Refactor these to use same props?
         switch (cell.contentType) {
             case DATA: {
-                const { data } = cell
                 return (
-                    <>
-                        <Divider />
-                        {data.item ? (
-                            <>
-                                <p>
-                                    <strong>{i18n.t('Name:')}</strong>{' '}
-                                    {data.item.name}
-                                </p>
-                                <p>
-                                    <strong>{i18n.t('Data Type:')}</strong>{' '}
-                                    {/* TODO: Shorten name if too long */}
-                                    {dataTypes[data.dataType]
-                                        .getName()
-                                        .replace(/s$/, '')}
-                                </p>
-                            </>
-                        ) : (
-                            <p>{i18n.t('No data selected')}</p>
-                        )}
-                        <Button small onClick={toggleModal}>
-                            {i18n.t('Choose data...')}
-                        </Button>
-                        {modalOpen && (
-                            <DataEngine>
-                                {engine => (
-                                    <DataSelectorModal
-                                        engine={engine}
-                                        onClose={toggleModal}
-                                        onSave={onModalSave}
-                                        initialValues={
-                                            data?.item ? { ...data } : {}
-                                        }
-                                    />
-                                )}
-                            </DataEngine>
-                        )}{' '}
-                    </>
+                    <DataContentSelector
+                        cell={cell}
+                        dispatch={dispatch}
+                        rowIdx={rowIdx}
+                        cellIdx={cellIdx}
+                    />
                 )
             }
             case TEXT:
