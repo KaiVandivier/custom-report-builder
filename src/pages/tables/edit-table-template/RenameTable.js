@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import InputModal from '../../../components/InputModal'
-import Icon from '../../../components/Icon'
 import styles from './styles/RenameTable.style'
 import i18n from '../../../locales'
-
-// TODO: Use a tooltip to say `rename`
+import IconTooltipButton from '../../../components/IconTooltipButton'
 
 export function RenameTable({ name, onRename }) {
     const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -13,9 +11,11 @@ export function RenameTable({ name, onRename }) {
 
     return (
         <>
-            <button onClick={toggleModal}>
-                <Icon name="edit" />
-            </button>
+            <IconTooltipButton
+                icon="edit"
+                tooltip="Rename table"
+                onClick={toggleModal}
+            />
             {modalIsOpen && (
                 <InputModal
                     confirmText={i18n.t('Save')}
