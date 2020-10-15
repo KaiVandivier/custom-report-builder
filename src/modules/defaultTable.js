@@ -1,5 +1,5 @@
 export const defaultCell = {
-    contentType: 'empty',
+    contentType: 'data',
     data: {
         item: null,
         dataType: null,
