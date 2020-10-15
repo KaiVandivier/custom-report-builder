@@ -6,7 +6,7 @@ import i18n from '../../../../locales'
 import { UPDATE_CELL } from '../../../../reducers/tableReducer'
 import { dataTypes } from '../../../../modules/dataTypes'
 import DataEngine from '../../../../components/DataEngine'
-import DataSelectorModal from '../DataSelector/DataSelectorModal'
+import DataSelectorModal from '../DataSelectorModal/DataSelectorModal'
 import styles from './styles/DataContentSelector.style'
 import IconTooltipButton from '../../../../components/IconTooltipButton'
 
