@@ -19,7 +19,7 @@ export const Home = () => {
                 recent updates.
             </p>
             <IconTooltipButton
-                icon="delete"
+                icon="mood"
                 tooltip="hello!"
                 onClick={() => console.log('hello!')}
                 size={'32px'}
