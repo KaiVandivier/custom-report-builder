@@ -5,13 +5,22 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-14T23:18:50.456Z\n"
-"PO-Revision-Date: 2020-10-14T23:18:50.456Z\n"
+"POT-Creation-Date: 2020-10-15T04:41:14.114Z\n"
+"PO-Revision-Date: 2020-10-15T04:41:14.114Z\n"
 
 msgid "Back"
 msgstr ""
 
 msgid "Cancel"
+msgstr ""
+
+msgid "Data"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Empty"
 msgstr ""
 
 msgid "Reporting rate"
@@ -146,19 +155,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-msgid "Select cell content type"
-msgstr ""
-
-msgid "Text"
-msgstr ""
-
-msgid "Data"
-msgstr ""
-
-msgid "Empty"
-msgstr ""
-
-msgid "No data selected"
+msgid "Content type"
 msgstr ""
 
 msgid "Choose data..."
@@ -210,6 +207,18 @@ msgid "Row name"
 msgstr ""
 
 msgid "Enter row name"
+msgstr ""
+
+msgid "Text - {{-text}}"
+msgstr ""
+
+msgid "Cell text"
+msgstr ""
+
+msgid "Enter text"
+msgstr ""
+
+msgid "Enter static text for cell"
 msgstr ""
 
 msgid "Oops! Something went wrong."
