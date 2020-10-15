@@ -24,12 +24,12 @@ function getSelectedNames(selectedItems) {
 
 export function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
     const queryVars = {
-        dxId: cell.item.id,
-        ouId: cell.orgUnits?.length
-            ? getSelectedIds(cell.orgUnits)
+        dxId: cell.data.item.id,
+        ouId: cell.data.orgUnits?.length
+            ? getSelectedIds(cell.data.orgUnits)
             : getSelectedIds(selectedOrgUnits),
-        peId: cell.periods?.length
-            ? getSelectedIds(cell.periods)
+        peId: cell.data.periods?.length
+            ? getSelectedIds(cell.data.periods)
             : getSelectedIds(selectedPeriods),
     }
 
@@ -49,15 +49,15 @@ export function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
     }
 
     const tooltipContent = `\
-        Data item: ${cell.item.name}.
+        Data item: ${cell.data.item.name}.
         Org. unit: ${
-            cell.orgUnits?.length
-                ? getSelectedNames(cell.orgUnits)
+            cell.data.orgUnits?.length
+                ? getSelectedNames(cell.data.orgUnits)
                 : getSelectedNames(selectedOrgUnits)
         }.
         Period: ${
-            cell.periods?.length
-                ? getSelectedNames(cell.periods)
+            cell.data.periods?.length
+                ? getSelectedNames(cell.data.periods)
                 : getSelectedNames(selectedPeriods)
         }.
     `

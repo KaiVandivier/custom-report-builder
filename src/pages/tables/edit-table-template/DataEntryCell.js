@@ -24,7 +24,7 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
         dispatch({
             type: UPDATE_CELL,
             payload: {
-                cell: { item, ...metadata },
+                cell: { data: { item, ...metadata } },
                 rowIdx,
                 cellIdx,
             },
@@ -46,20 +46,28 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
         // TODO: could be a '.get()' function on contentTypes
         // TODO: Refactor these into smaller, bite-size pieces
         switch (cell.contentType) {
-            case DATA:
+            case DATA: {
+                const { data } = cell
                 return (
                     <>
                         <Divider />
-                        <p>
-                            <strong>{i18n.t('Name:')}</strong> {cell.item.name}
-                        </p>
-                        <p>
-                            <strong>{i18n.t('Data Type:')}</strong>{' '}
-                            {/* TODO: Shorten name if too long */}
-                            {dataTypes[cell.dataType]
-                                .getName()
-                                .replace(/s$/, '')}
-                        </p>
+                        {data.item ? (
+                            <>
+                                <p>
+                                    <strong>{i18n.t('Name:')}</strong>{' '}
+                                    {data.item.name}
+                                </p>
+                                <p>
+                                    <strong>{i18n.t('Data Type:')}</strong>{' '}
+                                    {/* TODO: Shorten name if too long */}
+                                    {dataTypes[data.dataType]
+                                        .getName()
+                                        .replace(/s$/, '')}
+                                </p>
+                            </>
+                        ) : (
+                            <p>{i18n.t('No data selected')}</p>
+                        )}
                         <Button small onClick={toggleModal}>
                             {i18n.t('Choose data...')}
                         </Button>
@@ -71,7 +79,7 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
                                         onClose={toggleModal}
                                         onSave={onModalSave}
                                         initialValues={
-                                            cell?.item ? { ...cell } : {}
+                                            data?.item ? { ...data } : {}
                                         }
                                     />
                                 )}
@@ -79,6 +87,7 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
                         )}{' '}
                     </>
                 )
+            }
             case TEXT:
                 return (
                     <TextContentSelector
@@ -121,10 +130,15 @@ DataEntryCell.propTypes = {
     rowIdx: PropTypes.number.isRequired,
     cell: PropTypes.shape({
         contentType: PropTypes.string,
-        dataType: PropTypes.string,
-        groupDetail: PropTypes.string,
-        groupId: PropTypes.string,
-        item: PropTypes.shape({ id: PropTypes.string, name: PropTypes.string }),
+        data: PropTypes.shape({
+            dataType: PropTypes.string,
+            groupDetail: PropTypes.string,
+            groupId: PropTypes.string,
+            item: PropTypes.shape({
+                id: PropTypes.string,
+                name: PropTypes.string,
+            }),
+        }),
         text: PropTypes.string,
     }),
 }
