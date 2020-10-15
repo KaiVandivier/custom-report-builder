@@ -243,3 +243,5 @@ DataSelectorModal.propTypes = {
 DataSelectorModal.defaultProps = {
     displayNameProp: 'displayName',
 }
+
+export default DataSelectorModal
