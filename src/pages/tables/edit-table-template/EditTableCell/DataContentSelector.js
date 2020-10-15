@@ -7,7 +7,7 @@ import { UPDATE_CELL } from '../../../../reducers/tableReducer'
 import { dataTypes } from '../../../../modules/dataTypes'
 import DataEngine from '../../../../components/DataEngine'
 import DataSelectorModal from '../DataSelector/DataSelectorModal'
-import styles from '../styles/DataContentSelector.style'
+import styles from './styles/DataContentSelector.style'
 import IconTooltipButton from '../../../../components/IconTooltipButton'
 
 export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
