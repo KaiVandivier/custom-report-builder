@@ -7,6 +7,7 @@ import { UPDATE_CELL } from '../../../reducers/tableReducer'
 import { dataTypes } from '../../../modules/dataTypes'
 import DataEngine from '../../../components/DataEngine'
 import DataSelectorModal from './DataSelector/DataSelectorModal'
+import styles from './styles/DataContentSelector.style'
 
 export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
     const [modalOpen, setModalOpen] = useState(false)
@@ -34,14 +35,16 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
             <Divider />
             {data.item ? (
                 <>
+                    <div className="header">{i18n.t('Name')}</div>
+                    <p>{data.item.name}</p>
+                    <div className="header">{i18n.t('Data Type')}</div>
                     <p>
-                        <strong>{i18n.t('Name:')}</strong> {data.item.name}
-                    </p>
-                    <p>
-                        <strong>{i18n.t('Data Type:')}</strong>{' '}
-                        {/* TODO: Shorten name if too long */}
                         {dataTypes[data.dataType].getName().replace(/s$/, '')}
                     </p>
+                    <div className="header">{i18n.t('Org. Unit(s)')}</div>
+                    <p>{i18n.t('Same as table')}</p>
+                    <div className="header">{i18n.t('Period(s)')}</div>
+                    <p>{i18n.t('Same as table')}</p>
                 </>
             ) : (
                 <p>{i18n.t('No data selected')}</p>
@@ -61,6 +64,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                     )}
                 </DataEngine>
             )}{' '}
+            <style jsx>{styles}</style>
         </>
     )
 }
