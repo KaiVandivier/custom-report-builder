@@ -2,6 +2,7 @@ import React from 'react'
 import { TableCell } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import CellData from './CellData'
+import { DATA, TEXT, EMPTY } from '../../../modules/contentTypes'
 
 export function GeneratedTableCell({
     cell,
@@ -12,26 +13,19 @@ export function GeneratedTableCell({
     function getCellContents() {
         if (!cell) return null
         switch (cell.contentType) {
-            case 'text':
+            case DATA:
+                return (
+                    <CellData
+                        cell={cell}
+                        selectedOrgUnits={selectedOrgUnits}
+                        selectedPeriods={selectedPeriods}
+                    />
+                )
+            case TEXT:
                 return <span>{cell.text}</span>
-            case 'data':
-                return (
-                    <CellData
-                        cell={cell}
-                        selectedOrgUnits={selectedOrgUnits}
-                        selectedPeriods={selectedPeriods}
-                    />
-                )
+            case EMPTY:
             default:
-                // TODO: This should only be for proper data cells
-                return (
-                    <CellData
-                        cell={cell}
-                        selectedOrgUnits={selectedOrgUnits}
-                        selectedPeriods={selectedPeriods}
-                    />
-                )
-            // break
+                return null
         }
     }
 
