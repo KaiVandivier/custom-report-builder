@@ -8,7 +8,7 @@ export function ContentTypeSelector({ currentContentType, onChange }) {
     return (
         <SingleSelectField
             label={i18n.t('Content type')}
-            onChange={onChange}
+            onChange={({ selected }) => onChange(selected)}
             selected={currentContentType}
         >
             {Object.values(contentTypes).map(({ id, getName }) => (
