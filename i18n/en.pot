@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-15T09:38:49.141Z\n"
-"PO-Revision-Date: 2020-10-15T09:38:49.141Z\n"
+"POT-Creation-Date: 2020-10-15T23:32:01.329Z\n"
+"PO-Revision-Date: 2020-10-15T23:32:01.329Z\n"
 
 msgid "Back"
 msgstr ""
@@ -161,13 +161,22 @@ msgstr ""
 msgid "Data Type"
 msgstr ""
 
+msgid "Select data"
+msgstr ""
+
 msgid "Org. Unit(s)"
 msgstr ""
 
 msgid "Same as table"
 msgstr ""
 
+msgid "Select org. unit(s)"
+msgstr ""
+
 msgid "Period(s)"
+msgstr ""
+
+msgid "Select period(s)"
 msgstr ""
 
 msgid "No data selected"
