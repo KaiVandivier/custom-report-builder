@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 // import PeriodSelectTest from './home/PeriodSelectTest'
 // import OrganisationUnitPicker from '../components/OrganisationUnitPicker'
 // import ReportParameters from './tables/generated-table/ReportParameters'
+import ContentTypeSelector from './tables/edit-table-template/ContentTypeSelector'
 
 export const Home = () => {
     return (
@@ -16,6 +17,10 @@ export const Home = () => {
                 <Link to="/tables">&ldquo;Custom tables&rdquo; page</Link> for
                 recent updates.
             </p>
+            <ContentTypeSelector
+                currentContentType="data"
+                onChange={console.log}
+            />
         </div>
     )
 }
