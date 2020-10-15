@@ -2,11 +2,11 @@ import React from 'react'
 import { TableCell } from '@dhis2/ui'
 import { PropTypes } from '@dhis2/prop-types'
 
-import { UPDATE_CELL } from '../../../reducers/tableReducer'
-import { DATA, TEXT, EMPTY } from '../../../modules/contentTypes'
-import ContentTypeSelector from './ContentTypeSelector'
-import TextContentSelector from './TextContentSelector'
-import DataContentSelector from './DataContentSelector'
+import { UPDATE_CELL } from '../../../../reducers/tableReducer'
+import { DATA, TEXT, EMPTY } from '../../../../modules/contentTypes'
+import ContentTypeSelector from '../ContentTypeSelector'
+import TextContentSelector from '../TextContentSelector'
+import DataContentSelector from '../DataContentSelector'
 
 export const EditTableCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
     const onContentTypeChange = contentType => {
