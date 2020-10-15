@@ -16,7 +16,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/EditTableTemplate.style'
 import {
-    DataEntryCell,
+    EditTableCell,
     AddTableDimension,
     RowControls,
     ColumnControls,
@@ -83,7 +83,7 @@ export function EditTableTemplate() {
 
     function mapCellsToJsx(cells, rowIdx) {
         return cells.map((cell, idx) => (
-            <DataEntryCell
+            <EditTableCell
                 rowIdx={rowIdx}
                 cellIdx={idx}
                 cell={cell}

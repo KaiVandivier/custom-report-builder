@@ -8,7 +8,7 @@ import ContentTypeSelector from './ContentTypeSelector'
 import TextContentSelector from './TextContentSelector'
 import DataContentSelector from './DataContentSelector'
 
-export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
+export const EditTableCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
     const onContentTypeChange = contentType => {
         dispatch({
             type: UPDATE_CELL,
@@ -67,7 +67,7 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
     )
 }
 
-DataEntryCell.propTypes = {
+EditTableCell.propTypes = {
     cellIdx: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired,
     rowIdx: PropTypes.number.isRequired,
@@ -86,4 +86,4 @@ DataEntryCell.propTypes = {
     }),
 }
 
-export default DataEntryCell
+export default EditTableCell
