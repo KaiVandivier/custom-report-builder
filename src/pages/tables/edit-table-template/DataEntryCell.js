@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { TableCell, Button } from '@dhis2/ui'
+import { TableCell, Button, Divider } from '@dhis2/ui'
 import { PropTypes } from '@dhis2/prop-types'
 import i18n from '../../../locales'
 
-import { DataSelectorModal } from './DataSelector/DataSelectorModal'
-import DataEngine from '../../../components/DataEngine'
-import { dataTypes } from '../../../modules/dataTypes'
 import { UPDATE_CELL } from '../../../reducers/tableReducer'
+import { dataTypes } from '../../../modules/dataTypes'
+import DataEngine from '../../../components/DataEngine'
+import DataSelectorModal from './DataSelector/DataSelectorModal'
+import ContentTypeSelector from './ContentTypeSelector'
 
 export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
     const [modalOpen, setModalOpen] = useState(false)
@@ -28,10 +29,29 @@ export const DataEntryCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
         })
     }
 
+    const onContentTypeChange = contentType => {
+        dispatch({
+            type: UPDATE_CELL,
+            payload: {
+                cell: { contentType },
+                rowIdx,
+                cellIdx,
+            },
+        })
+    }
+
+    // TODO: Handle different cell content types
     return (
         <TableCell>
+            {cell && (
+                <ContentTypeSelector
+                    currentContentType={cell.contentType || 'empty'}
+                    onChange={onContentTypeChange}
+                />
+            )}
             {cell ? (
                 <>
+                    <Divider />
                     <p>
                         <strong>{i18n.t('Name:')}</strong> {cell.item.name}
                     </p>
@@ -68,6 +88,7 @@ DataEntryCell.propTypes = {
     dispatch: PropTypes.func.isRequired,
     rowIdx: PropTypes.number.isRequired,
     cell: PropTypes.shape({
+        contentType: PropTypes.string,
         dataType: PropTypes.string,
         groupDetail: PropTypes.string,
         groupId: PropTypes.string,
