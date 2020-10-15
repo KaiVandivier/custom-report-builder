@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-09T23:43:04.189Z\n"
-"PO-Revision-Date: 2020-10-09T23:43:04.189Z\n"
+"POT-Creation-Date: 2020-10-14T23:18:50.456Z\n"
+"PO-Revision-Date: 2020-10-14T23:18:50.456Z\n"
 
 msgid "Back"
 msgstr ""
@@ -98,6 +98,9 @@ msgstr ""
 msgid "Print"
 msgstr ""
 
+msgid "Tip - hover the mouse over a data cell to see its information."
+msgstr ""
+
 msgid "Name"
 msgstr ""
 
@@ -141,6 +144,18 @@ msgid "Enter column name"
 msgstr ""
 
 msgid "Save"
+msgstr ""
+
+msgid "Select cell content type"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Data"
+msgstr ""
+
+msgid "Empty"
 msgstr ""
 
 msgid "No data selected"
@@ -195,6 +210,9 @@ msgid "Row name"
 msgstr ""
 
 msgid "Enter row name"
+msgstr ""
+
+msgid "Oops! Something went wrong."
 msgstr ""
 
 msgid "Report parameters"
