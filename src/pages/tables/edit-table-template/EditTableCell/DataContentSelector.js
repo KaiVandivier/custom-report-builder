@@ -10,6 +10,7 @@ import { DataSelectorModal } from './DataSelectorModal'
 import styles from './styles/DataContentSelector.style'
 import IconTooltipButton from '../../../../components/IconTooltipButton'
 import OrgUnitSelectorDialog from './OrgUnitSelectorDialog'
+import PeriodSelectorDialog from './PeriodSelectorDialog'
 
 // TODO: Handle styles; make DRY
 
@@ -20,11 +21,11 @@ function getSelectedNames(arr) {
 export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
     const [dataDialogOpen, setDataDialogOpen] = useState(false)
     const [orgUnitDialogOpen, setOrgUnitDialogOpen] = useState(false)
-    // const [periodDialogOpen, setPeriodDialogOpen] = useState(false)
+    const [periodDialogOpen, setPeriodDialogOpen] = useState(false)
 
     const toggleDataDialog = () => setDataDialogOpen(state => !state)
     const toggleOrgUnitDialog = () => setOrgUnitDialogOpen(state => !state)
-    // const togglePeriodDialog = () => setPeriodDialogOpen(state => !state)
+    const togglePeriodDialog = () => setPeriodDialogOpen(state => !state)
 
     const onDataDialogSave = ({ item, ...metadata }) => {
         setDataDialogOpen(false)
@@ -52,14 +53,16 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
         })
     }
 
-    // const onPeriodDialogSave = periods => {
-    //     dispatch({
-    //         type: UPDATE_CELL,
-    //         payload: {
-    //             cell: { data: { ...cell.data, periods } },
-    //         },
-    //     })
-    // }
+    const onPeriodDialogSave = periods => {
+        dispatch({
+            type: UPDATE_CELL,
+            payload: {
+                cell: { data: { ...cell.data, periods } },
+                rowIdx,
+                cellIdx,
+            },
+        })
+    }
 
     const { data } = cell
     return (
@@ -122,11 +125,16 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                     >
                         <div>
                             <div className="header">{i18n.t('Period(s)')}</div>
-                            <p>{i18n.t('Same as table')}</p>
+                            <p>
+                                {data.periods?.length
+                                    ? getSelectedNames(data.periods)
+                                    : i18n.t('Same as table')}
+                            </p>
                         </div>
                         <IconTooltipButton
                             icon="edit"
                             tooltip={i18n.t('Select period(s)')}
+                            onClick={togglePeriodDialog}
                         />
                     </div>
                 </>
@@ -152,9 +160,15 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
             )}
             <OrgUnitSelectorDialog
                 open={orgUnitDialogOpen}
-                currentlySelected={cell.data.orgUnits}
+                currentlySelected={data.orgUnits}
                 toggleModal={toggleOrgUnitDialog}
                 onSave={onOrgUnitDialogSave}
+            />
+            <PeriodSelectorDialog
+                open={periodDialogOpen}
+                currentlySelected={data.periods}
+                toggleModal={togglePeriodDialog}
+                onSave={onPeriodDialogSave}
             />
             <style jsx>{styles}</style>
         </>
@@ -180,6 +194,12 @@ DataContentSelector.propTypes = {
                     id: PropTypes.string,
                     name: PropTypes.string,
                     path: PropTypes.string,
+                })
+            ),
+            periods: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.string,
+                    name: PropTypes.string,
                 })
             ),
         }),
