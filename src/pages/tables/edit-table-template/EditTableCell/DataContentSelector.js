@@ -90,6 +90,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                         <IconTooltipButton
                             icon="edit"
                             tooltip={i18n.t('Select data')}
+                            onClick={toggleDataDialog}
                         />
                     </div>
 
