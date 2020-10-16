@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-16T02:03:25.404Z\n"
-"PO-Revision-Date: 2020-10-16T02:03:25.404Z\n"
+"POT-Creation-Date: 2020-10-16T10:03:32.848Z\n"
+"PO-Revision-Date: 2020-10-16T10:03:32.848Z\n"
 
 msgid "Back"
 msgstr ""
@@ -200,6 +200,9 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+msgid "Select organisation unit(s)"
+msgstr ""
+
 msgid "Text - {{-text}}"
 msgstr ""
 
@@ -219,9 +222,6 @@ msgid "Generate"
 msgstr ""
 
 msgid "Really delete this template?"
-msgstr ""
-
-msgid "Select organisation unit(s)"
 msgstr ""
 
 msgid "Table name"
