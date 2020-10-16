@@ -23,7 +23,11 @@ export function TextContentSelector({ text, onChange }) {
                 }}
             >
                 <p>{i18n.t('Text - {{-text}}', { text })}</p>
-                <IconTooltipButton icon="edit" tooltip={i18n.t('Edit text')} />
+                <IconTooltipButton
+                    icon="edit"
+                    tooltip={i18n.t('Edit text')}
+                    onClick={toggleModal}
+                />
             </div>
             {modalIsOpen && (
                 <InputModal
