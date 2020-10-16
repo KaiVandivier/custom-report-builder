@@ -78,7 +78,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                         }}
                     >
                         <div>
-                            <div className="header">{i18n.t('Name')}</div>
+                            <div className="header">{i18n.t('Data Item')}</div>
                             <p>{data.item.name}</p>
                             <div className="header">{i18n.t('Data Type')}</div>
                             <p>
