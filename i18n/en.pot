@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-15T23:32:01.329Z\n"
-"PO-Revision-Date: 2020-10-15T23:32:01.329Z\n"
+"POT-Creation-Date: 2020-10-16T02:03:25.404Z\n"
+"PO-Revision-Date: 2020-10-16T02:03:25.404Z\n"
 
 msgid "Back"
 msgstr ""
@@ -200,10 +200,28 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+msgid "Text - {{-text}}"
+msgstr ""
+
+msgid "Edit text"
+msgstr ""
+
+msgid "Cell text"
+msgstr ""
+
+msgid "Enter text"
+msgstr ""
+
+msgid "Enter static text for cell"
+msgstr ""
+
 msgid "Generate"
 msgstr ""
 
 msgid "Really delete this template?"
+msgstr ""
+
+msgid "Select organisation unit(s)"
 msgstr ""
 
 msgid "Table name"
@@ -228,18 +246,6 @@ msgid "Row name"
 msgstr ""
 
 msgid "Enter row name"
-msgstr ""
-
-msgid "Text - {{-text}}"
-msgstr ""
-
-msgid "Cell text"
-msgstr ""
-
-msgid "Enter text"
-msgstr ""
-
-msgid "Enter static text for cell"
 msgstr ""
 
 msgid "Oops! Something went wrong."
