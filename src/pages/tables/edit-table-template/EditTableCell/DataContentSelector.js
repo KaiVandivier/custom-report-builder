@@ -9,26 +9,57 @@ import DataEngine from '../../../../components/DataEngine'
 import { DataSelectorModal } from './DataSelectorModal'
 import styles from './styles/DataContentSelector.style'
 import IconTooltipButton from '../../../../components/IconTooltipButton'
+import OrgUnitSelectorDialog from '../OrgUnitSelectorDialog'
+
+// TODO: Handle styles; make DRY
+
+function getSelectedNames(arr) {
+    return arr.map(({ name }) => name).join(', ')
+}
 
 export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
-    const [modalOpen, setModalOpen] = useState(false)
+    const [dataDialogOpen, setDataDialogOpen] = useState(false)
+    const [orgUnitDialogOpen, setOrgUnitDialogOpen] = useState(false)
+    // const [peDialogOpen, setPeDialogOpen] = useState(false)
 
-    const toggleModal = () => setModalOpen(state => !state)
+    const toggleDataDialog = () => setDataDialogOpen(state => !state)
+    const toggleOrgUnitDialog = () => setOrgUnitDialogOpen(state => !state)
+    // const togglePeDialog = () => setPeDialogOpen(state => !state)
 
-    const onModalSave = ({ item, ...metadata }) => {
-        setModalOpen(false)
+    const onDataDialogSave = ({ item, ...metadata }) => {
+        setDataDialogOpen(false)
 
         if (!item) return
 
         dispatch({
             type: UPDATE_CELL,
             payload: {
-                cell: { data: { item, ...metadata } },
+                cell: { data: { ...cell.data, item, ...metadata } },
                 rowIdx,
                 cellIdx,
             },
         })
     }
+
+    const onOrgUnitDialogSave = orgUnits => {
+        dispatch({
+            type: UPDATE_CELL,
+            payload: {
+                cell: { data: { ...cell.data, orgUnits } },
+                rowIdx,
+                cellIdx,
+            },
+        })
+    }
+
+    // const onPeDialogSave = periods => {
+    //     dispatch({
+    //         type: UPDATE_CELL,
+    //         payload: {
+    //             cell: { data: { ...cell.data, periods } },
+    //         },
+    //     })
+    // }
 
     const { data } = cell
     return (
@@ -53,10 +84,10 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                                     .replace(/s$/, '')}
                             </p>
                         </div>
-                        {/* <IconTooltipButton
+                        <IconTooltipButton
                             icon="edit"
                             tooltip={i18n.t('Select data')}
-                        /> */}
+                        />
                     </div>
 
                     <div
@@ -70,11 +101,16 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                             <div className="header">
                                 {i18n.t('Org. Unit(s)')}
                             </div>
-                            <p>{i18n.t('Same as table')}</p>
+                            <p>
+                                {data.orgUnits?.length
+                                    ? getSelectedNames(data.orgUnits)
+                                    : i18n.t('Same as table')}
+                            </p>
                         </div>
                         <IconTooltipButton
                             icon="edit"
                             tooltip={i18n.t('Select org. unit(s)')}
+                            onClick={toggleOrgUnitDialog}
                         />
                     </div>
                     <div
@@ -95,23 +131,31 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                     </div>
                 </>
             ) : (
-                <p>{i18n.t('No data selected')}</p>
+                <>
+                    <p>{i18n.t('No data selected')}</p>
+                    <Button small onClick={toggleDataDialog}>
+                        {i18n.t('Choose data...')}
+                    </Button>
+                </>
             )}
-            <Button small onClick={toggleModal}>
-                {i18n.t('Choose data...')}
-            </Button>
-            {modalOpen && (
+            {dataDialogOpen && (
                 <DataEngine>
                     {engine => (
                         <DataSelectorModal
                             engine={engine}
-                            onClose={toggleModal}
-                            onSave={onModalSave}
+                            onClose={toggleDataDialog}
+                            onSave={onDataDialogSave}
                             initialValues={data?.item ? { ...data } : {}}
                         />
                     )}
                 </DataEngine>
-            )}{' '}
+            )}
+            <OrgUnitSelectorDialog
+                open={orgUnitDialogOpen}
+                currentlySelected={cell.data.orgUnits}
+                toggleModal={toggleOrgUnitDialog}
+                onSave={onOrgUnitDialogSave}
+            />
             <style jsx>{styles}</style>
         </>
     )
@@ -131,6 +175,13 @@ DataContentSelector.propTypes = {
                 id: PropTypes.string,
                 name: PropTypes.string,
             }),
+            orgUnits: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.string,
+                    name: PropTypes.string,
+                    path: PropTypes.string,
+                })
+            ),
         }),
         text: PropTypes.string,
     }),
