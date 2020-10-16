@@ -9,7 +9,7 @@ import DataEngine from '../../../../components/DataEngine'
 import { DataSelectorModal } from './DataSelectorModal'
 import styles from './styles/DataContentSelector.style'
 import IconTooltipButton from '../../../../components/IconTooltipButton'
-import OrgUnitSelectorDialog from '../OrgUnitSelectorDialog'
+import OrgUnitSelectorDialog from './OrgUnitSelectorDialog'
 
 // TODO: Handle styles; make DRY
 
@@ -20,11 +20,11 @@ function getSelectedNames(arr) {
 export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
     const [dataDialogOpen, setDataDialogOpen] = useState(false)
     const [orgUnitDialogOpen, setOrgUnitDialogOpen] = useState(false)
-    // const [peDialogOpen, setPeDialogOpen] = useState(false)
+    // const [periodDialogOpen, setPeriodDialogOpen] = useState(false)
 
     const toggleDataDialog = () => setDataDialogOpen(state => !state)
     const toggleOrgUnitDialog = () => setOrgUnitDialogOpen(state => !state)
-    // const togglePeDialog = () => setPeDialogOpen(state => !state)
+    // const togglePeriodDialog = () => setPeriodDialogOpen(state => !state)
 
     const onDataDialogSave = ({ item, ...metadata }) => {
         setDataDialogOpen(false)
@@ -52,7 +52,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
         })
     }
 
-    // const onPeDialogSave = periods => {
+    // const onPeriodDialogSave = periods => {
     //     dispatch({
     //         type: UPDATE_CELL,
     //         payload: {

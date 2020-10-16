@@ -8,8 +8,8 @@ import {
     ModalActions,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import i18n from '../../../locales'
-import OrganisationUnitPicker from '../../../components/OrganisationUnitPicker'
+import i18n from '../../../../locales'
+import OrganisationUnitPicker from '../../../../components/OrganisationUnitPicker'
 
 function OrgUnitSelectorDialog({
     open,
