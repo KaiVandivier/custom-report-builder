@@ -9,7 +9,7 @@ import {
     ButtonStrip,
 } from '@dhis2/ui'
 import { debounce } from 'lodash'
-import i18n from '../../../../locales'
+import i18n from '../../../../../locales'
 
 import DataTypes from './DataTypesSelector'
 import Groups from './Groups'
@@ -23,8 +23,8 @@ import {
     dataTypes,
     defaultGroupId,
     defaultGroupDetail,
-} from '../../../../modules/dataTypes'
-import { fetchGroups, fetchAlternatives } from '../../../../api/dimensions'
+} from '../../../../../modules/dataTypes'
+import { fetchGroups, fetchAlternatives } from '../../../../../api/dimensions'
 
 const FIRST_PAGE = 1
 
