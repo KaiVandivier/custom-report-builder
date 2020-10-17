@@ -5,13 +5,16 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-17T00:43:14.302Z\n"
-"PO-Revision-Date: 2020-10-17T00:43:14.302Z\n"
+"POT-Creation-Date: 2020-10-17T04:44:41.168Z\n"
+"PO-Revision-Date: 2020-10-17T04:44:41.168Z\n"
 
 msgid "Back"
 msgstr ""
 
 msgid "Cancel"
+msgstr ""
+
+msgid "Menu"
 msgstr ""
 
 msgid "Data"
@@ -128,6 +131,9 @@ msgstr ""
 msgid "Enter a name"
 msgstr ""
 
+msgid "Column actions"
+msgstr ""
+
 msgid "Move column left"
 msgstr ""
 
@@ -233,6 +239,9 @@ msgstr ""
 msgid "Rename table"
 msgstr ""
 
+msgid "Row actions"
+msgstr ""
+
 msgid "Move row up"
 msgstr ""
 
@@ -282,4 +291,7 @@ msgid "Confirm delete"
 msgstr ""
 
 msgid "Are you sure you want to delete this template?"
+msgstr ""
+
+msgid "Table actions"
 msgstr ""
