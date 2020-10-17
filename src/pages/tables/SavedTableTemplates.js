@@ -27,6 +27,7 @@ import defaultTable from '../../modules/defaultTable'
 // DONE - Make functions to edit, rename, and delete each table template
 // DONE - Make a default table to create
 // - Remove padding from clickable cell
+// - Rename 'template' to 'table'
 
 export function SavedTableTemplates() {
     const history = useHistory()
