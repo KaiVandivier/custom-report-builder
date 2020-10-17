@@ -24,6 +24,7 @@ import {
     EditTableTemplateActions,
 } from './edit-table-template'
 import BackButton from '../../components/BackButton'
+import utils from '../../styles/utils.module.css'
 
 // TODO:
 // DONE - Apply reducer to manage table state
@@ -129,14 +130,12 @@ export function EditTableTemplate() {
                     onDelete={onDelete}
                 />
             </div>
-            <div className="cardContainer">
-                <Card>
-                    <Table>
-                        <TableHead>{tableColumns()}</TableHead>
-                        <TableBody>{tableRows()}</TableBody>
-                    </Table>
-                </Card>
-            </div>
+            <Card className={utils.card}>
+                <Table className={utils.noBorder}>
+                    <TableHead>{tableColumns()}</TableHead>
+                    <TableBody>{tableRows()}</TableBody>
+                </Table>
+            </Card>
             <style jsx>{styles}</style>
         </>
     )

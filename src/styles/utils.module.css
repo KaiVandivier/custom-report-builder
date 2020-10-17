@@ -1,0 +1,8 @@
+.card {
+    height: min-content !important;
+    padding: 3px;
+}
+
+.noBorder {
+    border: none !important;
+}

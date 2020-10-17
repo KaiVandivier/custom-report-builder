@@ -20,6 +20,7 @@ import {
     SavedTableTemplateActions,
 } from './saved-table-templates'
 import defaultTable from '../../modules/defaultTable'
+import utils from '../../styles/utils.module.css'
 
 // TODO:
 // DONE - Add a 'Create New' Button
@@ -72,21 +73,17 @@ export function SavedTableTemplates() {
         <>
             <h1>Table Templates</h1>
             <CreateNewTableTemplate createNew={createNew} />
-            <div style={{ height: 'min-content' }}>
-                <Card>
-                    <Table suppressZebraStriping>
-                        <TableHead>
-                            <TableRowHead>
-                                <TableCellHead>{i18n.t('Name')}</TableCellHead>
-                                <TableCellHead>
-                                    {i18n.t('Actions')}
-                                </TableCellHead>
-                            </TableRowHead>
-                        </TableHead>
-                        <TableBody>{mapTemplatesToRows()}</TableBody>
-                    </Table>
-                </Card>
-            </div>
+            <Card className={utils.card}>
+                <Table className={utils.noBorder} suppressZebraStriping>
+                    <TableHead>
+                        <TableRowHead>
+                            <TableCellHead>{i18n.t('Name')}</TableCellHead>
+                            <TableCellHead>{i18n.t('Actions')}</TableCellHead>
+                        </TableRowHead>
+                    </TableHead>
+                    <TableBody>{mapTemplatesToRows()}</TableBody>
+                </Table>
+            </Card>
         </>
     )
 }

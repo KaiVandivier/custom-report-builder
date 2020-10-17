@@ -6,6 +6,7 @@ import { useReactToPrint } from 'react-to-print'
 import BackButton from '../../components/BackButton'
 import Icon from '../../components/Icon'
 import classes from './styles/GeneratedTable.module.css'
+import utils from '../../styles/utils.module.css'
 import { ReportParameters, TableWithData } from './generated-table'
 
 export function GeneratedTable() {
@@ -49,7 +50,7 @@ export function GeneratedTable() {
                     'Tip - hover the mouse over a data cell to see its information.'
                 )}
             </p>
-            <Card>
+            <Card className={utils.card}>
                 <div ref={printRef} className={classes.print}>
                     <TableWithData {...reportParams} />
                 </div>
