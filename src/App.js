@@ -1,8 +1,9 @@
 import React from 'react'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 import './locales'
-import './modalFix.css'
+import './styles/modalFix.css'
 
+import globalStyles from './styles/global.style'
 import classes from './App.module.css'
 import { Navigation } from './navigation'
 import { Home, Tables, Reports, NoMatch } from './pages'
@@ -30,6 +31,9 @@ const MyApp = () => {
                     </Switch>
                 </main>
             </div>
+            <style jsx global>
+                {globalStyles}
+            </style>
         </HashRouter>
     )
 }
