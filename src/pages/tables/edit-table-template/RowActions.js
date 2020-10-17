@@ -52,7 +52,7 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
     }
 
     return (
-        <PopoverMenu>
+        <PopoverMenu tooltip={i18n.t('Row actions')}>
             {togglePopover => (
                 <>
                     <MenuItem
