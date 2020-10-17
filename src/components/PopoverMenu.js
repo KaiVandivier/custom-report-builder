@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { Button, FlyoutMenu, Popover } from '@dhis2/ui'
+import { FlyoutMenu, Popover } from '@dhis2/ui'
 
-import Icon from './Icon'
+import IconTooltipButton from './IconTooltipButton'
+import i18n from '../locales'
 
-export default function PopoverMenu({ renderButton, children }) {
+export default function PopoverMenu({ renderButton, tooltip, children }) {
     const [popoverIsOpen, setPopoverIsOpen] = useState(false)
     const buttonRef = useRef()
 
@@ -18,9 +19,11 @@ export default function PopoverMenu({ renderButton, children }) {
                 {renderButton ? (
                     renderButton(togglePopover)
                 ) : (
-                    <Button small onClick={togglePopover}>
-                        <Icon name="more_horiz" />
-                    </Button>
+                    <IconTooltipButton
+                        icon="more_vert"
+                        tooltip={tooltip || i18n.t('Menu')}
+                        onClick={togglePopover}
+                    />
                 )}
             </span>
             {popoverIsOpen && (
@@ -40,4 +43,5 @@ export default function PopoverMenu({ renderButton, children }) {
 PopoverMenu.propTypes = {
     children: PropTypes.func,
     renderButton: PropTypes.func,
+    tooltip: PropTypes.string,
 }
