@@ -6,3 +6,7 @@
 .noBorder {
     border: none !important;
 }
+
+table.noBorder tbody tr:last-child td {
+    border-bottom: none;
+}
