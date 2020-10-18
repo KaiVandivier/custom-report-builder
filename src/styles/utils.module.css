@@ -7,6 +7,6 @@
     border: none !important;
 }
 
-table.noBorder tbody tr:last-child td {
+table.noBorder tbody tr:last-child > * {
     border-bottom: none;
 }
