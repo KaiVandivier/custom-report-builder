@@ -14,7 +14,7 @@ export default function PopoverMenu({ renderButton, tooltip, children }) {
     }
 
     return (
-        <div>
+        <>
             <span ref={buttonRef}>
                 {renderButton ? (
                     renderButton(togglePopover)
@@ -36,7 +36,7 @@ export default function PopoverMenu({ renderButton, tooltip, children }) {
                     <FlyoutMenu>{children(togglePopover)}</FlyoutMenu>
                 </Popover>
             )}
-        </div>
+        </>
     )
 }
 
