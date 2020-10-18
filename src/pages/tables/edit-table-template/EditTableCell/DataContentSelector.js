@@ -93,9 +93,11 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                                 {i18n.t('Org. Unit(s)')}
                             </div>
                             <p>
-                                {data.orgUnits?.length
-                                    ? getSelectedNames(data.orgUnits)
-                                    : i18n.t('Same as table')}
+                                {data.orgUnits?.length ? (
+                                    getSelectedNames(data.orgUnits)
+                                ) : (
+                                    <em>{i18n.t('None selected*')}</em>
+                                )}
                             </p>
                         </div>
                         <IconTooltipButton
@@ -110,9 +112,11 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                         <div>
                             <div className="header">{i18n.t('Period(s)')}</div>
                             <p>
-                                {data.periods?.length
-                                    ? getSelectedNames(data.periods)
-                                    : i18n.t('Same as table')}
+                                {data.periods?.length ? (
+                                    getSelectedNames(data.periods)
+                                ) : (
+                                    <em>{i18n.t('None selected*')}</em>
+                                )}
                             </p>
                         </div>
                         <IconTooltipButton
