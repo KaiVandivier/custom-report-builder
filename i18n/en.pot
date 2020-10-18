@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-17T04:44:41.168Z\n"
-"PO-Revision-Date: 2020-10-17T04:44:41.168Z\n"
+"POT-Creation-Date: 2020-10-18T05:37:13.500Z\n"
+"PO-Revision-Date: 2020-10-18T05:37:13.500Z\n"
 
 msgid "Back"
 msgstr ""
@@ -104,6 +104,15 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Back to Tables"
+msgstr ""
+
+msgid ""
+"*Organisation units and periods can be selected as filters on a "
+"cell-by-cell basis.  Any cells with unspecified organisation units or "
+"periods will use the parameters selected during report generation."
+msgstr ""
+
 msgid "Choose Parameters"
 msgstr ""
 
@@ -176,7 +185,7 @@ msgstr ""
 msgid "Org. Unit(s)"
 msgstr ""
 
-msgid "Same as table"
+msgid "None selected*"
 msgstr ""
 
 msgid "Select org. unit(s)"
@@ -212,7 +221,10 @@ msgstr ""
 msgid "Select organisation unit(s)"
 msgstr ""
 
-msgid "Text - {{-text}}"
+msgid "Static Text"
+msgstr ""
+
+msgid "No text selected"
 msgstr ""
 
 msgid "Edit text"
