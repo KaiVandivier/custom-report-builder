@@ -70,13 +70,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
             <Divider />
             {data.item ? (
                 <>
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
-                    >
+                    <div className="flex-container">
                         <div>
                             <div className="header">{i18n.t('Data Item')}</div>
                             <p>{data.item.name}</p>
@@ -94,13 +88,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                         />
                     </div>
 
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
-                    >
+                    <div className="flex-container">
                         <div>
                             <div className="header">
                                 {i18n.t('Org. Unit(s)')}
@@ -117,13 +105,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                             onClick={toggleOrgUnitDialog}
                         />
                     </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
-                    >
+                    <div className="flex-container">
                         <div>
                             <div className="header">{i18n.t('Period(s)')}</div>
                             <p>
