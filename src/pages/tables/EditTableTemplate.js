@@ -27,21 +27,6 @@ import BackButton from '../../components/BackButton'
 import utils from '../../styles/utils.module.css'
 import i18n from '../../locales'
 
-// TODO:
-// DONE - Apply reducer to manage table state
-// DONE - Template out table components from state
-// DONE - (Start with cells; rows and columns will follow with later todos)
-// DONE - create `add row/column` modals
-// DONE - Give subcomponents `dispatch` functionality to modify state (import action types)
-// DONE - create controls to update/reorder/delete on each row and column
-// DONE - Load in initial template datastore using params.id
-// DONE - Save template to datastore
-// DONE - Add rename button
-// DONE - Add `save & generate` & `delete` buttons
-
-// - `save & exit`?
-// - Exit
-
 export function EditTableTemplate() {
     const params = useParams()
     const [savedTable, savedTableActions] = useSavedObject(params.id)
@@ -131,6 +116,13 @@ export function EditTableTemplate() {
                     onDelete={onDelete}
                 />
             </div>
+            <p className="note">
+                <em>
+                    {i18n.t(
+                        '*Organisation units and periods can be selected as filters on a cell-by-cell basis.  Any cells with unspecified organisation units or periods will use the parameters selected during report generation.'
+                    )}
+                </em>
+            </p>
             <Card className={utils.card}>
                 <Table className={utils.noBorder}>
                     <TableHead>{tableColumns()}</TableHead>

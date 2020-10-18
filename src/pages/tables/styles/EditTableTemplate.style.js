@@ -1,4 +1,5 @@
 import css from 'styled-jsx/css'
+import { colors } from '@dhis2/ui'
 
 export default css`
     .header {
@@ -26,5 +27,9 @@ export default css`
 
     .cardContainer {
         height: min-content;
+    }
+
+    .note {
+        color: ${colors.grey700};
     }
 `
