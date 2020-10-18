@@ -11,7 +11,6 @@ import {
     TableRowHead,
     TableCell,
     TableCellHead,
-    MenuItem,
 } from '@dhis2/ui'
 import { useHistory } from 'react-router-dom'
 
@@ -21,13 +20,9 @@ import {
 } from './saved-table-templates'
 import defaultTable from '../../modules/defaultTable'
 import utils from '../../styles/utils.module.css'
+import classes from './styles/SavedTableTemplates.module.css'
 
 // TODO:
-// DONE - Add a 'Create New' Button
-// DONE - Render a list of saved table templates: paginated table?
-// DONE - Make functions to edit, rename, and delete each table template
-// DONE - Make a default table to create
-// - Remove padding from clickable cell
 // - Rename 'template' to 'table'
 
 export function SavedTableTemplates() {
@@ -44,26 +39,32 @@ export function SavedTableTemplates() {
     function mapTemplatesToRows() {
         return savedTableTemplates.map(template => (
             <TableRow key={template.id}>
-                <TableCell>
-                    <MenuItem
-                        label={template.name}
-                        onClick={() =>
-                            history.push(`/tables/edit/${template.id}`)
-                        }
-                    />
-                </TableCell>
-                <TableCell>
-                    <SavedTableTemplateActions
-                        onGenerate={() =>
-                            history.push(`tables/generated/${template.id}`)
-                        }
-                        onEdit={() =>
-                            history.push(`tables/edit/${template.id}`)
-                        }
-                        onDelete={() =>
-                            tableTemplateActions.remove(template.id)
-                        }
-                    />
+                <TableCell className={classes.tableCell}>
+                    <div className={classes.container}>
+                        <div
+                            className={classes.tableItem}
+                            onClick={() =>
+                                history.push(`tables/generated/${template.id}`)
+                            }
+                        >
+                            {template.name}
+                        </div>
+                        <div className={classes.actions}>
+                            <SavedTableTemplateActions
+                                onGenerate={() =>
+                                    history.push(
+                                        `tables/generated/${template.id}`
+                                    )
+                                }
+                                onEdit={() =>
+                                    history.push(`tables/edit/${template.id}`)
+                                }
+                                onDelete={() =>
+                                    tableTemplateActions.remove(template.id)
+                                }
+                            />
+                        </div>
+                    </div>
                 </TableCell>
             </TableRow>
         ))
@@ -71,14 +72,13 @@ export function SavedTableTemplates() {
 
     return (
         <>
-            <h1>Table Templates</h1>
+            <h1>{i18n.t('Custom Tables')}</h1>
             <CreateNewTableTemplate createNew={createNew} />
             <Card className={utils.card}>
                 <Table className={utils.noBorder} suppressZebraStriping>
                     <TableHead>
                         <TableRowHead>
                             <TableCellHead>{i18n.t('Name')}</TableCellHead>
-                            <TableCellHead>{i18n.t('Actions')}</TableCellHead>
                         </TableRowHead>
                     </TableHead>
                     <TableBody>{mapTemplatesToRows()}</TableBody>

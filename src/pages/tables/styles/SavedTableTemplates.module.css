@@ -1,0 +1,23 @@
+.tableCell {
+    padding: 0 !important;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.tableItem {
+    cursor: pointer;
+    padding: 1.25rem 1.5rem;
+    flex-grow: 1;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.tableItem:hover {
+    background-color: #f3f5f7
+}
+
+.actions {
+    flex-grow: 0;
+}
