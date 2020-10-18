@@ -25,6 +25,7 @@ import {
 } from './edit-table-template'
 import BackButton from '../../components/BackButton'
 import utils from '../../styles/utils.module.css'
+import i18n from '../../locales'
 
 // TODO:
 // DONE - Apply reducer to manage table state
@@ -111,7 +112,7 @@ export function EditTableTemplate() {
     return (
         <>
             <div className="header">
-                <BackButton to="/tables" />
+                <BackButton to="/tables" tooltip={i18n.t('Back to Tables')} />
                 <h1>{savedTable.name}</h1>
                 <div className="editButton">
                     <RenameTable

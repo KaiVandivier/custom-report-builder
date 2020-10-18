@@ -29,7 +29,7 @@ export function GeneratedTable() {
                 onGenerate={setReportParams}
             />
             <div className={classes.topButtons}>
-                <BackButton to="/tables" />
+                <BackButton to="/tables" tooltip={i18n.t('Back to Tables')} />
                 <Button
                     large
                     icon={<Icon name="play_arrow" />}

@@ -5,9 +5,9 @@ import Icon from './Icon'
 import { Tooltip } from '@dhis2/ui'
 import i18n from '../locales'
 
-export function BackButton({ to }) {
+export function BackButton({ to, tooltip }) {
     return (
-        <Tooltip placement="right" content={i18n.t('Back')}>
+        <Tooltip placement="right" content={tooltip || i18n.t('Back')}>
             {props => (
                 <div className="container" {...props}>
                     <Link to={to}>
@@ -27,6 +27,7 @@ export function BackButton({ to }) {
 
 BackButton.propTypes = {
     to: PropTypes.string.isRequired,
+    tooltip: PropTypes.string,
 }
 
 export default BackButton
