@@ -3,6 +3,7 @@ import React, { useReducer, useEffect } from 'react'
 import {
     ButtonStrip,
     Card,
+    Help,
     Table,
     TableHead,
     TableRowHead,
@@ -122,12 +123,12 @@ export function EditTableTemplate() {
                     <TableBody>{tableRows()}</TableBody>
                 </Table>
             </Card>
-            <p className="note">
-                <em>
+            <p>
+                <Help>
                     {i18n.t(
                         '*Organisation units and periods can be selected as filters on a cell-by-cell basis.  Any cells with unspecified organisation units or periods will use the parameters selected during report generation.'
                     )}
-                </em>
+                </Help>
             </p>
             <style jsx>{styles}</style>
         </>
