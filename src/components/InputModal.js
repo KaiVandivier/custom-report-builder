@@ -22,7 +22,7 @@ function InputModal({
 }) {
     const [inputText, setInputText] = useState(initialValue)
     return (
-        <Modal>
+        <Modal onClose={onCancel}>
             <ModalTitle>{title}</ModalTitle>
             <ModalContent>
                 <InputField
