@@ -2,18 +2,24 @@ import css from 'styled-jsx/css'
 import { colors, spacers } from '@dhis2/ui'
 
 export default css`
-    .flex-container {
+    .container {
         display: flex;
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
+        padding: ${spacers.dp4} ${spacers.dp8} 0 ${spacers.dp8};
+        border-radius: ${spacers.dp4};
+    }
+
+    .container:hover {
+        background: rgba(0, 0, 0, 0.05);
     }
 
     .header {
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
-        color: ${colors.grey900};
+        color: ${colors.grey800};
         text-decoration: underline;
     }
 

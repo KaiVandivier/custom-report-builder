@@ -7,12 +7,10 @@ import { UPDATE_CELL } from '../../../../reducers/tableReducer'
 import { dataTypes } from '../../../../modules/dataTypes'
 import DataEngine from '../../../../components/DataEngine'
 import { DataSelectorModal } from './DataSelectorModal'
-import styles from './styles/DataContentSelector.style'
+import styles from './styles/ContentSelector.style'
 import IconTooltipButton from '../../../../components/IconTooltipButton'
 import OrgUnitSelectorDialog from './OrgUnitSelectorDialog'
 import PeriodSelectorDialog from './PeriodSelectorDialog'
-
-// TODO: Handle styles; make DRY
 
 function getSelectedNames(arr) {
     return arr.map(({ name }) => name).join(', ')
@@ -70,7 +68,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
             <Divider />
             {data.item ? (
                 <>
-                    <div className="flex-container">
+                    <div className="container" onClick={toggleDataDialog}>
                         <div>
                             <div className="header">{i18n.t('Data Item')}</div>
                             <p>{data.item.name}</p>
@@ -84,11 +82,12 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                         <IconTooltipButton
                             icon="edit"
                             tooltip={i18n.t('Select data')}
+                            size={'18px'}
                             onClick={toggleDataDialog}
                         />
                     </div>
-
-                    <div className="flex-container">
+                    <Divider />
+                    <div className="container" onClick={toggleOrgUnitDialog}>
                         <div>
                             <div className="header">
                                 {i18n.t('Org. Unit(s)')}
@@ -102,10 +101,12 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                         <IconTooltipButton
                             icon="edit"
                             tooltip={i18n.t('Select org. unit(s)')}
+                            size={'18px'}
                             onClick={toggleOrgUnitDialog}
                         />
                     </div>
-                    <div className="flex-container">
+                    <Divider />
+                    <div className="container" onClick={togglePeriodDialog}>
                         <div>
                             <div className="header">{i18n.t('Period(s)')}</div>
                             <p>
@@ -117,6 +118,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                         <IconTooltipButton
                             icon="edit"
                             tooltip={i18n.t('Select period(s)')}
+                            size={'18px'}
                             onClick={togglePeriodDialog}
                         />
                     </div>
