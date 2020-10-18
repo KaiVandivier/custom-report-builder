@@ -16,7 +16,7 @@ export default css`
     }
 
     .header {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
         font-weight: 700;
         text-transform: uppercase;
         color: ${colors.grey800};
