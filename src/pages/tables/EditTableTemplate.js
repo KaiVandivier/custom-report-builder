@@ -126,7 +126,7 @@ export function EditTableTemplate() {
             <p>
                 <Help>
                     {i18n.t(
-                        '*Organisation units and periods can be selected as filters on a cell-by-cell basis.  Any cells with unspecified organisation units or periods will use the parameters selected during report generation.'
+                        '*Organisation units and periods can be selected as filters on a cell-by-cell basis.  Any cells with unspecified organisation units or periods will use the respective parameters selected during report generation.'
                     )}
                 </Help>
             </p>
