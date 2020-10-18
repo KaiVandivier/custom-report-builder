@@ -20,7 +20,7 @@ export default css`
 
     .tableButtons {
         display: flex;
-        align-items: bottom;
+        align-items: end;
         justify-content: space-between;
         margin-bottom: 0.75rem;
     }
