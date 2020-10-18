@@ -116,6 +116,12 @@ export function EditTableTemplate() {
                     onDelete={onDelete}
                 />
             </div>
+            <Card className={utils.card}>
+                <Table className={utils.noBorder}>
+                    <TableHead>{tableColumns()}</TableHead>
+                    <TableBody>{tableRows()}</TableBody>
+                </Table>
+            </Card>
             <p className="note">
                 <em>
                     {i18n.t(
@@ -123,12 +129,6 @@ export function EditTableTemplate() {
                     )}
                 </em>
             </p>
-            <Card className={utils.card}>
-                <Table className={utils.noBorder}>
-                    <TableHead>{tableColumns()}</TableHead>
-                    <TableBody>{tableRows()}</TableBody>
-                </Table>
-            </Card>
             <style jsx>{styles}</style>
         </>
     )
