@@ -44,7 +44,7 @@ export function SavedTableTemplates() {
                         <div
                             className={classes.tableItem}
                             onClick={() =>
-                                history.push(`tables/generated/${template.id}`)
+                                history.push(`tables/edit/${template.id}`)
                             }
                         >
                             {template.name}
