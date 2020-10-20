@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
-import { MenuItem } from '@dhis2/ui'
+import { FlyoutMenu, MenuItem } from '@dhis2/ui'
 import {
     DELETE_COLUMN,
     REORDER_COLUMN,
@@ -9,7 +9,7 @@ import {
 import i18n from '../../../locales'
 
 import Icon from '../../../components/Icon'
-import PopoverMenu from '../../../components/PopoverMenu'
+import PopoverButton from '../../../components/PopoverButton'
 import ConfirmModal from '../../../components/ConfirmModal'
 import InputModal from '../../../components/InputModal'
 
@@ -52,9 +52,25 @@ export function ColumnActions({ dispatch, name, idx, maxIdx }) {
     }
 
     return (
-        <PopoverMenu tooltip={i18n.t('Column actions')}>
+        <PopoverButton tooltip={i18n.t('Column actions')}>
             {togglePopover => (
-                <>
+                <FlyoutMenu>
+                    <MenuItem
+                        dense
+                        icon={<Icon name="assignment" dense />}
+                        label={i18n.t('Assign dimensions to column')}
+                        onClick={args => {
+                            console.log(args)
+                            console.log('Assigning')
+                        }}
+                    >
+                        <MenuItem dense label={i18n.t('Data Item')} />
+                        <MenuItem
+                            dense
+                            label={i18n.t('Organisation Unit(s)')}
+                        />
+                        <MenuItem dense label={i18n.t('Period(s)')} />
+                    </MenuItem>
                     <MenuItem
                         dense
                         disabled={idx <= 0}
@@ -108,9 +124,9 @@ export function ColumnActions({ dispatch, name, idx, maxIdx }) {
                             initialValue={name}
                         />
                     )}
-                </>
+                </FlyoutMenu>
             )}
-        </PopoverMenu>
+        </PopoverButton>
     )
 }
 

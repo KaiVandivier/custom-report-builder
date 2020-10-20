@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { FlyoutMenu, Popover } from '@dhis2/ui'
+import { Popover } from '@dhis2/ui'
 
 import IconTooltipButton from './IconTooltipButton'
 import i18n from '../locales'
 
-export default function PopoverMenu({ renderButton, tooltip, children }) {
+export default function PopoverButton({ renderButton, tooltip, children }) {
     const [popoverIsOpen, setPopoverIsOpen] = useState(false)
     const buttonRef = useRef()
 
@@ -33,14 +33,14 @@ export default function PopoverMenu({ renderButton, tooltip, children }) {
                     placement="bottom-start"
                     onClickOutside={togglePopover}
                 >
-                    <FlyoutMenu>{children(togglePopover)}</FlyoutMenu>
+                    {children(togglePopover)}
                 </Popover>
             )}
         </>
     )
 }
 
-PopoverMenu.propTypes = {
+PopoverButton.propTypes = {
     children: PropTypes.func,
     renderButton: PropTypes.func,
     tooltip: PropTypes.string,
