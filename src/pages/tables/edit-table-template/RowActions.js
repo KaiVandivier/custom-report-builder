@@ -5,6 +5,7 @@ import {
     DELETE_ROW,
     REORDER_ROW,
     UPDATE_ROW,
+    UPDATE_ROW_DIMENSIONS,
 } from '../../../reducers/tableReducer'
 import i18n from '../../../locales'
 
@@ -12,25 +13,24 @@ import Icon from '../../../components/Icon'
 import PopoverButton from '../../../components/PopoverButton'
 import ConfirmModal from '../../../components/ConfirmModal'
 import InputModal from '../../../components/InputModal'
-// import DataEngine from '../../../components/DataEngine'
-// import {
-//     DataSelectorDialog,
-//     OrgUnitSelectorDialog,
-//     PeriodSelectorDialog,
-// } from './EditTableCell'
+import DataEngine from '../../../components/DataEngine'
+import {
+    DataSelectorDialog,
+    OrgUnitSelectorDialog,
+    PeriodSelectorDialog,
+} from './EditTableCell'
 
-// TODO: Need to get whole row in here
 export function RowActions({ dispatch, row, idx, maxIdx }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
-    // const [dataDialogOpen, setDataDialogOpen] = useState(false)
-    // const [orgUnitDialogOpen, setOrgUnitDialogOpen] = useState(false)
-    // const [periodDialogOpen, setPeriodDialogOpen] = useState(false)
+    const [dataDialogOpen, setDataDialogOpen] = useState(false)
+    const [orgUnitDialogOpen, setOrgUnitDialogOpen] = useState(false)
+    const [periodDialogOpen, setPeriodDialogOpen] = useState(false)
 
-    // const toggleDataDialog = () => setDataDialogOpen(state => !state)
-    // const toggleOrgUnitDialog = () => setOrgUnitDialogOpen(state => !state)
-    // const togglePeriodDialog = () => setPeriodDialogOpen(state => !state)
+    const toggleDataDialog = () => setDataDialogOpen(state => !state)
+    const toggleOrgUnitDialog = () => setOrgUnitDialogOpen(state => !state)
+    const togglePeriodDialog = () => setPeriodDialogOpen(state => !state)
 
     function onMoveUp(togglePopover) {
         if (idx <= 0) return
@@ -66,6 +66,36 @@ export function RowActions({ dispatch, row, idx, maxIdx }) {
         togglePopover()
     }
 
+    function onDataDialogSave(data) {
+        dispatch({
+            type: UPDATE_ROW_DIMENSIONS,
+            payload: {
+                idx,
+                dimensions: { ...data },
+            },
+        })
+    }
+
+    function onOrgUnitDialogSave(orgUnits) {
+        dispatch({
+            type: UPDATE_ROW_DIMENSIONS,
+            payload: {
+                idx,
+                dimensions: { orgUnits },
+            },
+        })
+    }
+
+    function onPeriodDialogSave(periods) {
+        dispatch({
+            type: UPDATE_ROW_DIMENSIONS,
+            payload: {
+                idx,
+                dimensions: { periods },
+            },
+        })
+    }
+
     return (
         <>
             <PopoverButton tooltip={i18n.t('Row actions')}>
@@ -81,12 +111,30 @@ export function RowActions({ dispatch, row, idx, maxIdx }) {
                                 console.log('Assigning')
                             }}
                         >
-                            <MenuItem dense label={i18n.t('Data Item')} />
+                            <MenuItem
+                                dense
+                                label={i18n.t('Data Item')}
+                                onClick={() => {
+                                    toggleDataDialog()
+                                    togglePopover()
+                                }}
+                            />
                             <MenuItem
                                 dense
                                 label={i18n.t('Organisation Unit(s)')}
+                                onClick={() => {
+                                    toggleOrgUnitDialog()
+                                    togglePopover()
+                                }}
                             />
-                            <MenuItem dense label={i18n.t('Period(s)')} />
+                            <MenuItem
+                                dense
+                                label={i18n.t('Period(s)')}
+                                onClick={() => {
+                                    togglePeriodDialog()
+                                    togglePopover()
+                                }}
+                            />
                         </MenuItem>
                         <MenuItem
                             dense
@@ -144,30 +192,34 @@ export function RowActions({ dispatch, row, idx, maxIdx }) {
                     </FlyoutMenu>
                 )}
             </PopoverButton>
-            {/* {dataDialogOpen && (
+            {dataDialogOpen && (
                 <DataEngine>
                     {engine => (
                         <DataSelectorDialog
                             engine={engine}
                             onClose={toggleDataDialog}
                             onSave={onDataDialogSave}
-                            initialValues={data?.item ? { ...data } : {}}
+                            initialValues={
+                                row.dimensions?.item
+                                    ? { ...row.dimensions }
+                                    : {}
+                            }
                         />
                     )}
                 </DataEngine>
             )}
             <OrgUnitSelectorDialog
                 open={orgUnitDialogOpen}
-                currentlySelected={data.orgUnits}
+                currentlySelected={row.dimensions?.orgUnits}
                 toggleModal={toggleOrgUnitDialog}
                 onSave={onOrgUnitDialogSave}
             />
             <PeriodSelectorDialog
                 open={periodDialogOpen}
-                currentlySelected={data.periods}
+                currentlySelected={row.dimensions?.periods}
                 toggleModal={togglePeriodDialog}
                 onSave={onPeriodDialogSave}
-            /> */}
+            />
         </>
     )
 }
@@ -178,6 +230,27 @@ RowActions.propTypes = {
     maxIdx: PropTypes.number.isRequired,
     row: PropTypes.shape({
         name: PropTypes.string.isRequired,
+        dimensions: PropTypes.shape({
+            dataType: PropTypes.string,
+            group: PropTypes.string,
+            groupDetail: PropTypes.string,
+            item: PropTypes.shape({
+                id: PropTypes.string,
+                name: PropTypes.string,
+            }),
+            orgUnits: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.string,
+                    name: PropTypes.string,
+                })
+            ),
+            periods: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.string,
+                    name: PropTypes.string,
+                })
+            ),
+        }),
     }),
 }
 
