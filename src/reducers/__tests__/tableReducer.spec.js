@@ -8,6 +8,7 @@ import tableReducer, {
     REORDER_COLUMN,
     DELETE_COLUMN,
     UPDATE_CELL,
+    UPDATE_ROW_DIMENSIONS,
 } from '../tableReducer'
 import testTable from '../../modules/testTable'
 
@@ -39,7 +40,20 @@ describe('row actions', () => {
         expect(res.rows[0].cells).toEqual(testTable.rows[0].cells)
     })
 
-    it.todo('updates row dimensions')
+    it('updates row dimensions (and cell data)', () => {
+        const dimensions = {
+            orgUnits: [{ id: 'fakeID', name: 'Test orgUnit' }],
+        }
+        const res = tableReducer(testTable, {
+            type: UPDATE_ROW_DIMENSIONS,
+            payload: {
+                idx: 0,
+                dimensions,
+            },
+        })
+        expect(res.rows[0].dimensions).toMatchObject(dimensions)
+        expect(res.rows[0].cells[0].data).toMatchObject(dimensions)
+    })
 
     it('reorders a row', () => {
         const res = tableReducer(testTable, {

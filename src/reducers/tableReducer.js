@@ -10,9 +10,8 @@ export const UPDATE_COLUMN = 'UPDATE_COLUMN'
 export const REORDER_COLUMN = 'REORDER_COLUMN'
 export const DELETE_COLUMN = 'DELETE_COLUMN'
 export const UPDATE_CELL = 'UPDATE_CELL'
-
-// TODO: Define default values for cells to replace 'null'
-// const defaultCell = 'todo'
+export const UPDATE_ROW_DIMENSIONS = 'UPDATE_ROW_DIMENSIONS'
+export const UPDATE_COLUMN_DIMENSIONS = 'UPDATE_COLUMN_DIMENSIONS'
 
 export function tableReducer(table, { type, payload }) {
     switch (type) {
@@ -31,6 +30,26 @@ export function tableReducer(table, { type, payload }) {
                 rows: table.rows.map((row, idx) =>
                     idx === payload.idx ? { ...row, ...payload.row } : row
                 ),
+            }
+        case UPDATE_ROW_DIMENSIONS:
+            // accepts payload = { idx (the row idx), dimensions }
+            // and adds content of `dimensions` to `row.dimensions` and `cell.data`
+            return {
+                ...table,
+                rows: table.rows.map((row, idx) => {
+                    if (idx !== payload.idx) return row
+                    return {
+                        ...row,
+                        dimensions: {
+                            ...row.dimensions,
+                            ...payload.dimensions,
+                        },
+                        cells: row.cells.map(cell => ({
+                            ...cell,
+                            data: { ...cell.data, ...payload.dimensions },
+                        })),
+                    }
+                }),
             }
         case REORDER_ROW:
             return {
