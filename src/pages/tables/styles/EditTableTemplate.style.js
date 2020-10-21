@@ -1,5 +1,4 @@
 import css from 'styled-jsx/css'
-import { colors } from '@dhis2/ui'
 
 export default css`
     .header {
@@ -29,7 +28,8 @@ export default css`
         height: min-content;
     }
 
-    .note {
-        color: ${colors.grey700};
+    .help {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 `
