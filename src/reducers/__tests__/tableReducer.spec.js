@@ -39,6 +39,8 @@ describe('row actions', () => {
         expect(res.rows[0].cells).toEqual(testTable.rows[0].cells)
     })
 
+    it.todo('updates row dimensions')
+
     it('reorders a row', () => {
         const res = tableReducer(testTable, {
             type: REORDER_ROW,
@@ -112,6 +114,6 @@ describe('cell actions', () => {
             type: UPDATE_CELL,
             payload: { rowIdx: 0, cellIdx: 0, cell: { ...newCell } },
         })
-        expect(res.rows[0].cells[0]).toEqual(newCell)
+        expect(res.rows[0].cells[0]).toMatchObject(newCell)
     })
 })
