@@ -19,7 +19,7 @@ import {
     OrgUnitSelectorDialog,
     PeriodSelectorDialog,
 } from './EditTableCell'
-import styles from './styles/ColumnControls.style'
+import styles from './styles/RowColumnControls.style'
 
 export function ColumnControls({ dispatch, col, idx, maxIdx }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
