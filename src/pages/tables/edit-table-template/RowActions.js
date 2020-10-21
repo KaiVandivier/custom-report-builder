@@ -105,11 +105,6 @@ export function RowActions({ dispatch, row, idx, maxIdx }) {
                             dense
                             icon={<Icon name="assignment" dense />}
                             label={i18n.t('Assign dimensions to row')}
-                            onClick={args => {
-                                // TODO
-                                console.log(args)
-                                console.log('Assigning')
-                            }}
                         >
                             <MenuItem
                                 dense
