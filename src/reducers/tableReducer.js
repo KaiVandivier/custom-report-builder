@@ -62,12 +62,12 @@ export function tableReducer(table, { type, payload }) {
                 rows: table.rows.filter((row, idx) => idx !== payload.idx),
             }
         case ADD_COLUMN:
+            // TODO: Add dimensions from column defaults
             return {
-                // ...table,
+                ...table,
                 columns: table.columns.concat({ name: payload.name }),
                 rows: table.rows.map(row => ({
                     ...row,
-                    // TODO: default cell value?
                     cells: row.cells.concat(defaultCell),
                 })),
             }
@@ -77,6 +77,33 @@ export function tableReducer(table, { type, payload }) {
                 columns: table.columns.map((col, idx) =>
                     idx === payload.idx ? { ...col, ...payload.column } : col
                 ),
+            }
+        case UPDATE_COLUMN_DIMENSIONS:
+            // adds dimensions to `col.dimensions` and all `cell.data` in column
+            return {
+                ...table,
+                columns: table.columns.map((col, idx) => {
+                    if (idx !== payload.idx) return col
+                    return {
+                        ...col,
+                        dimensions: {
+                            ...col.dimensions,
+                            ...payload.dimensions,
+                        },
+                    }
+                }),
+                rows: table.rows.map(row => {
+                    return {
+                        ...row,
+                        cells: row.cells.map((cell, cellIdx) => {
+                            if (cellIdx !== payload.idx) return cell
+                            return {
+                                ...cell,
+                                data: { ...cell.data, ...payload.dimensions },
+                            }
+                        }),
+                    }
+                }),
             }
         case REORDER_COLUMN:
             return {

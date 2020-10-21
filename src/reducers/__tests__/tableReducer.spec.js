@@ -9,6 +9,7 @@ import tableReducer, {
     DELETE_COLUMN,
     UPDATE_CELL,
     UPDATE_ROW_DIMENSIONS,
+    UPDATE_COLUMN_DIMENSIONS,
 } from '../tableReducer'
 import testTable from '../../modules/testTable'
 
@@ -94,6 +95,25 @@ describe('column actions', () => {
             payload: { idx: 0, column: { name: 'Updated column' } },
         })
         expect(res.columns[0].name).toBe('Updated column')
+    })
+
+    it('updates column dimensions (and cell data)', () => {
+        const idx = 2
+        const dimensions = {
+            periods: [{ id: 'THIS_MONTH', name: 'This month' }],
+            item: { id: '1234', name: 'Test data' },
+        }
+        const res = tableReducer(testTable, {
+            type: UPDATE_COLUMN_DIMENSIONS,
+            payload: {
+                idx,
+                dimensions,
+            },
+        })
+        expect(res.columns[idx].dimensions).toMatchObject(dimensions)
+        res.rows.forEach(row => {
+            expect(row.cells[idx].data).toMatchObject(dimensions)
+        })
     })
 
     it('reorders a column and all the appropriate cells in rows', () => {
