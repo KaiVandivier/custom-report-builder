@@ -1,5 +1,4 @@
 export * from './AddTableDimension'
-export * from './ColumnActions'
 export * from './ColumnControls'
 export * from './EditTableTemplateActions'
 export * from './RenameTable'
