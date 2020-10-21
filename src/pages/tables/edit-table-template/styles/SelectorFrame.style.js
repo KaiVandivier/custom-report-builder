@@ -7,6 +7,7 @@ export default css`
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
+        font-weight: normal;
         padding: ${spacers.dp4} ${spacers.dp8} 0 ${spacers.dp8};
         border-radius: ${spacers.dp4};
     }
