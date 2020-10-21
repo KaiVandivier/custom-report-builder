@@ -86,7 +86,7 @@ export function EditTableTemplate() {
             <TableRow idx={idx} key={idx}>
                 <RowControls
                     dispatch={dispatch}
-                    name={row.name}
+                    row={row}
                     idx={idx}
                     maxIdx={arr.length - 1}
                 />
