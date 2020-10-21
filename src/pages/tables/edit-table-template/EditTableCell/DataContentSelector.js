@@ -4,7 +4,6 @@ import { Button, Divider } from '@dhis2/ui'
 import i18n from '../../../../locales'
 
 import { UPDATE_CELL } from '../../../../reducers/tableReducer'
-import { dataTypes } from '../../../../modules/dataTypes'
 import DataEngine from '../../../../components/DataEngine'
 import { DataSelectorDialog } from './DataSelectorDialog'
 import styles from './styles/ContentSelector.style'
@@ -70,12 +69,6 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                         <div>
                             <div className="header">{i18n.t('Data Item')}</div>
                             <p>{data.item.name}</p>
-                            <div className="header">{i18n.t('Data Type')}</div>
-                            <p>
-                                {dataTypes[data.dataType]
-                                    .getName()
-                                    .replace(/s$/, '')}
-                            </p>
                         </div>
                         <IconTooltipButton
                             icon="edit"
