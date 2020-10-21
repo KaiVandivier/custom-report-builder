@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-19T21:52:14.769Z\n"
-"PO-Revision-Date: 2020-10-19T21:52:14.769Z\n"
+"POT-Creation-Date: 2020-10-20T23:51:35.877Z\n"
+"PO-Revision-Date: 2020-10-20T23:51:35.877Z\n"
 
 msgid "Back"
 msgstr ""
@@ -144,6 +144,18 @@ msgstr ""
 msgid "Column actions"
 msgstr ""
 
+msgid "Assign dimensions to column"
+msgstr ""
+
+msgid "Data Item"
+msgstr ""
+
+msgid "Organisation Unit(s)"
+msgstr ""
+
+msgid "Period(s)"
+msgstr ""
+
 msgid "Move column left"
 msgstr ""
 
@@ -174,9 +186,6 @@ msgstr ""
 msgid "Content type"
 msgstr ""
 
-msgid "Data Item"
-msgstr ""
-
 msgid "Data Type"
 msgstr ""
 
@@ -190,9 +199,6 @@ msgid "None selected*"
 msgstr ""
 
 msgid "Select org. unit(s)"
-msgstr ""
-
-msgid "Period(s)"
 msgstr ""
 
 msgid "Select period(s)"
@@ -277,9 +283,6 @@ msgid "Oops! Something went wrong."
 msgstr ""
 
 msgid "Report parameters"
-msgstr ""
-
-msgid "Organisation Unit(s)"
 msgstr ""
 
 msgid "Organisation Unit(s) - {{ou}}"
