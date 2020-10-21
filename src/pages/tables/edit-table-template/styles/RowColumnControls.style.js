@@ -1,7 +1,9 @@
 import css from 'styled-jsx/css'
+import { spacers } from '@dhis2/ui'
 
 export default css`
     .titleContainer {
+        padding: ${spacers.dp4} ${spacers.dp8} 0 ${spacers.dp8};
         display: flex;
         align-items: center;
     }
