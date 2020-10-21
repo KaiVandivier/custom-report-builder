@@ -20,6 +20,11 @@ import {
     PeriodSelectorDialog,
 } from './EditTableCell'
 import styles from './styles/RowColumnControls.style'
+import SelectorFrame from './SelectorFrame'
+
+function getSelectedNames(arr) {
+    return arr.map(({ name }) => name).join(', ')
+}
 
 export function RowControls({ dispatch, row, idx, maxIdx }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
@@ -193,6 +198,42 @@ export function RowControls({ dispatch, row, idx, maxIdx }) {
                     )}
                 </PopoverButton>
             </div>
+            {row.dimensions?.item && (
+                <SelectorFrame
+                    title={i18n.t('Data item')}
+                    content={row.dimensions.item.name}
+                    tooltip={i18n.t('Select data item for row')}
+                    onClick={toggleDataDialog}
+                />
+            )}
+            {row.dimensions?.orgUnits && (
+                <SelectorFrame
+                    title={i18n.t('Organisation unit(s)')}
+                    content={
+                        row.dimensions.orgUnits?.length ? (
+                            getSelectedNames(row.dimensions.orgUnits)
+                        ) : (
+                            <em>{i18n.t('None selected*')}</em>
+                        )
+                    }
+                    tooltip={i18n.t('Select organisation unit(s) for row')}
+                    onClick={toggleOrgUnitDialog}
+                />
+            )}
+            {row.dimensions?.periods && (
+                <SelectorFrame
+                    title={i18n.t('Period(s)')}
+                    content={
+                        row.dimensions.periods?.length ? (
+                            getSelectedNames(row.dimensions.periods)
+                        ) : (
+                            <em>{i18n.t('None selected*')}</em>
+                        )
+                    }
+                    tooltip={i18n.t('Select period(s)')}
+                    onClick={togglePeriodDialog}
+                />
+            )}
             {dataDialogOpen && (
                 <DataEngine>
                     {engine => (
