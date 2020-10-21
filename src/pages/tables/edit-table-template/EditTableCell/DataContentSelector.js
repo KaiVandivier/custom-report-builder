@@ -6,7 +6,7 @@ import i18n from '../../../../locales'
 import { UPDATE_CELL } from '../../../../reducers/tableReducer'
 import { dataTypes } from '../../../../modules/dataTypes'
 import DataEngine from '../../../../components/DataEngine'
-import { DataSelectorModal } from './DataSelectorModal'
+import { DataSelectorDialog } from './DataSelectorDialog'
 import styles from './styles/ContentSelector.style'
 import IconTooltipButton from '../../../../components/IconTooltipButton'
 import OrgUnitSelectorDialog from './OrgUnitSelectorDialog'
@@ -138,7 +138,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
             {dataDialogOpen && (
                 <DataEngine>
                     {engine => (
-                        <DataSelectorModal
+                        <DataSelectorDialog
                             engine={engine}
                             onClose={toggleDataDialog}
                             onSave={onDataDialogSave}

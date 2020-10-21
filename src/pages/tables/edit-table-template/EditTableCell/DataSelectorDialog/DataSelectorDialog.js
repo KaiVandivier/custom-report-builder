@@ -15,7 +15,7 @@ import DataTypes from './DataTypesSelector'
 import Groups from './Groups'
 import FilterField from './FilterField'
 import DimensionItemsMenu from './DimensionItemsMenu'
-import { modal, modalContent } from './styles/DataSelectorModal.module.css'
+import { modal, modalContent } from './styles/DataSelectorDialog.module.css'
 
 import {
     ALL_ID,
@@ -33,7 +33,7 @@ const DEFAULT_ALTERNATIVES = {
     nextPage: FIRST_PAGE,
 }
 
-export class DataSelectorModal extends Component {
+export class DataSelectorDialog extends Component {
     // defaults
     state = {
         dataType: this.props.initialValues.dataType || DEFAULT_DATATYPE_ID,
@@ -227,7 +227,7 @@ export class DataSelectorModal extends Component {
     }
 }
 
-DataSelectorModal.propTypes = {
+DataSelectorDialog.propTypes = {
     engine: PropTypes.shape({ query: PropTypes.func }).isRequired,
     displayNameProp: PropTypes.string,
     initialValues: PropTypes.shape({
@@ -240,8 +240,8 @@ DataSelectorModal.propTypes = {
     onSave: PropTypes.func,
 }
 
-DataSelectorModal.defaultProps = {
+DataSelectorDialog.defaultProps = {
     displayNameProp: 'displayName',
 }
 
-export default DataSelectorModal
+export default DataSelectorDialog

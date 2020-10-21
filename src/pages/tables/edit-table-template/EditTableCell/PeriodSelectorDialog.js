@@ -11,7 +11,7 @@ import {
 import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '../../../../locales'
 
-function PeriodSelectorDialog({
+export function PeriodSelectorDialog({
     open,
     currentlySelected = [],
     toggleModal,

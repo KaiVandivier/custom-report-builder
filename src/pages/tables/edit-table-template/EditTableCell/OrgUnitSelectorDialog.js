@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import i18n from '../../../../locales'
 import OrganisationUnitPicker from '../../../../components/OrganisationUnitPicker'
 
-function OrgUnitSelectorDialog({
+export function OrgUnitSelectorDialog({
     open,
     currentlySelected = [],
     onSave,
