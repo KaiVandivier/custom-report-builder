@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-20T23:51:35.877Z\n"
-"PO-Revision-Date: 2020-10-20T23:51:35.877Z\n"
+"POT-Creation-Date: 2020-10-21T00:37:38.138Z\n"
+"PO-Revision-Date: 2020-10-21T00:37:38.138Z\n"
 
 msgid "Back"
 msgstr ""
@@ -259,6 +259,9 @@ msgid "Rename table"
 msgstr ""
 
 msgid "Row actions"
+msgstr ""
+
+msgid "Assign dimensions to row"
 msgstr ""
 
 msgid "Move row up"
