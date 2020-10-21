@@ -20,6 +20,11 @@ import {
     PeriodSelectorDialog,
 } from './EditTableCell'
 import styles from './styles/RowColumnControls.style'
+import SelectorFrame from './SelectorFrame'
+
+function getSelectedNames(arr) {
+    return arr.map(({ name }) => name).join(', ')
+}
 
 export function ColumnControls({ dispatch, col, idx, maxIdx }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
@@ -195,6 +200,30 @@ export function ColumnControls({ dispatch, col, idx, maxIdx }) {
                     )}
                 </PopoverButton>
             </div>
+            {col.dimensions?.item && (
+                <SelectorFrame
+                    title={i18n.t('Data item')}
+                    content={col.dimensions.item.name}
+                    tooltip={i18n.t('Select data item for column')}
+                    onClick={toggleDataDialog}
+                />
+            )}
+            {col.dimensions?.orgUnits?.length ? (
+                <SelectorFrame
+                    title={i18n.t('Organisation unit(s)')}
+                    content={getSelectedNames(col.dimensions.orgUnits)}
+                    tooltip={i18n.t('Select organisation unit(s) for column')}
+                    onClick={toggleOrgUnitDialog}
+                />
+            ) : null}
+            {col.dimensions?.periods?.length ? (
+                <SelectorFrame
+                    title={i18n.t('Period(s)')}
+                    content={getSelectedNames(col.dimensions.periods)}
+                    tooltip={i18n.t('Select period(s) for column')}
+                    onClick={togglePeriodDialog}
+                />
+            ) : null}
             {dataDialogOpen && (
                 <DataEngine>
                     {engine => (

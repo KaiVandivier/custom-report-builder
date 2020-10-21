@@ -206,34 +206,22 @@ export function RowControls({ dispatch, row, idx, maxIdx }) {
                     onClick={toggleDataDialog}
                 />
             )}
-            {row.dimensions?.orgUnits && (
+            {row.dimensions?.orgUnits?.length ? (
                 <SelectorFrame
                     title={i18n.t('Organisation unit(s)')}
-                    content={
-                        row.dimensions.orgUnits?.length ? (
-                            getSelectedNames(row.dimensions.orgUnits)
-                        ) : (
-                            <em>{i18n.t('None selected*')}</em>
-                        )
-                    }
+                    content={getSelectedNames(row.dimensions.orgUnits)}
                     tooltip={i18n.t('Select organisation unit(s) for row')}
                     onClick={toggleOrgUnitDialog}
                 />
-            )}
-            {row.dimensions?.periods && (
+            ) : null}
+            {row.dimensions?.periods?.length ? (
                 <SelectorFrame
                     title={i18n.t('Period(s)')}
-                    content={
-                        row.dimensions.periods?.length ? (
-                            getSelectedNames(row.dimensions.periods)
-                        ) : (
-                            <em>{i18n.t('None selected*')}</em>
-                        )
-                    }
+                    content={getSelectedNames(row.dimensions.periods)}
                     tooltip={i18n.t('Select period(s)')}
                     onClick={togglePeriodDialog}
                 />
-            )}
+            ) : null}
             {dataDialogOpen && (
                 <DataEngine>
                     {engine => (
