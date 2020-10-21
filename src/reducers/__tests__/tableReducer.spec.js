@@ -52,7 +52,9 @@ describe('row actions', () => {
             },
         })
         expect(res.rows[0].dimensions).toMatchObject(dimensions)
-        expect(res.rows[0].cells[0].data).toMatchObject(dimensions)
+        res.rows[0].cells.forEach(cell => {
+            expect(cell.data).toMatchObject(dimensions)
+        })
     })
 
     it('reorders a row', () => {
