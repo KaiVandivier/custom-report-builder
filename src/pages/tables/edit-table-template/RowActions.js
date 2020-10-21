@@ -57,6 +57,23 @@ export function RowActions({ dispatch, name, idx, maxIdx }) {
                 <FlyoutMenu>
                     <MenuItem
                         dense
+                        icon={<Icon name="assignment" dense />}
+                        label={i18n.t('Assign dimensions to row')}
+                        onClick={args => {
+                            // TODO
+                            console.log(args)
+                            console.log('Assigning')
+                        }}
+                    >
+                        <MenuItem dense label={i18n.t('Data Item')} />
+                        <MenuItem
+                            dense
+                            label={i18n.t('Organisation Unit(s)')}
+                        />
+                        <MenuItem dense label={i18n.t('Period(s)')} />
+                    </MenuItem>
+                    <MenuItem
+                        dense
                         disabled={idx <= 0}
                         icon={<Icon name="arrow_drop_up" dense />}
                         label={i18n.t('Move row up')}

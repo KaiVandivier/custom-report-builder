@@ -60,6 +60,7 @@ export function ColumnActions({ dispatch, name, idx, maxIdx }) {
                         icon={<Icon name="assignment" dense />}
                         label={i18n.t('Assign dimensions to column')}
                         onClick={args => {
+                            // TODO
                             console.log(args)
                             console.log('Assigning')
                         }}
