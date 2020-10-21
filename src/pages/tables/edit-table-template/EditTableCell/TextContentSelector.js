@@ -28,7 +28,7 @@ export function TextContentSelector({ text, onChange }) {
                     icon="edit"
                     tooltip={i18n.t('Edit text')}
                     size={'18px'}
-                    onClick={toggleModal}
+                    // onClick={toggleModal}
                 />
             </div>
             {modalIsOpen && (

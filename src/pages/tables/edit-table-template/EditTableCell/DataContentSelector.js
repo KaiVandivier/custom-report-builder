@@ -81,7 +81,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                             icon="edit"
                             tooltip={i18n.t('Select data')}
                             size={'18px'}
-                            onClick={toggleDataDialog}
+                            // onClick={toggleDataDialog}
                         />
                     </div>
                     <Divider />
@@ -102,7 +102,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                             icon="edit"
                             tooltip={i18n.t('Select org. unit(s)')}
                             size={'18px'}
-                            onClick={toggleOrgUnitDialog}
+                            // onClick={toggleOrgUnitDialog}
                         />
                     </div>
                     <Divider />
@@ -121,7 +121,7 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                             icon="edit"
                             tooltip={i18n.t('Select period(s)')}
                             size={'18px'}
-                            onClick={togglePeriodDialog}
+                            // onClick={togglePeriodDialog}
                         />
                     </div>
                 </>
