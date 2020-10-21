@@ -59,7 +59,7 @@ export function EditTableTemplate() {
                 {table.columns.map((col, idx, arr) => (
                     <ColumnControls
                         dispatch={dispatch}
-                        name={col.name}
+                        col={col}
                         idx={idx}
                         maxIdx={arr.length - 1}
                         key={idx}

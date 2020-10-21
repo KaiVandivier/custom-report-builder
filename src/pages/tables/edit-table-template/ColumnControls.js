@@ -5,14 +5,14 @@ import { TableCellHead } from '@dhis2/ui'
 import styles from './styles/ColumnControls.style'
 import ColumnActions from './ColumnActions'
 
-export function ColumnControls({ dispatch, name, idx, maxIdx }) {
+export function ColumnControls({ dispatch, col, idx, maxIdx }) {
     return (
         <TableCellHead>
             <div className="container">
-                <span>{name}</span>
+                <span>{col.name}</span>
                 <ColumnActions
                     dispatch={dispatch}
-                    name={name}
+                    col={col}
                     idx={idx}
                     maxIdx={maxIdx}
                 />
@@ -26,7 +26,9 @@ ColumnControls.propTypes = {
     dispatch: PropTypes.func.isRequired,
     idx: PropTypes.number.isRequired,
     maxIdx: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
+    col: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+    }),
 }
 
 export default ColumnControls

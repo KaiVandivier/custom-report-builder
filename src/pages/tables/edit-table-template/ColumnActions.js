@@ -13,7 +13,7 @@ import PopoverButton from '../../../components/PopoverButton'
 import ConfirmModal from '../../../components/ConfirmModal'
 import InputModal from '../../../components/InputModal'
 
-export function ColumnActions({ dispatch, name, idx, maxIdx }) {
+export function ColumnActions({ dispatch, col, idx, maxIdx }) {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
@@ -122,7 +122,7 @@ export function ColumnActions({ dispatch, name, idx, maxIdx }) {
                                 onEdit(togglePopover, inputText)
                                 setEditModalIsOpen(false)
                             }}
-                            initialValue={name}
+                            initialValue={col.name}
                         />
                     )}
                 </FlyoutMenu>
@@ -135,7 +135,9 @@ ColumnActions.propTypes = {
     dispatch: PropTypes.func.isRequired,
     idx: PropTypes.number.isRequired,
     maxIdx: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
+    col: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+    }),
 }
 
 export default ColumnActions
