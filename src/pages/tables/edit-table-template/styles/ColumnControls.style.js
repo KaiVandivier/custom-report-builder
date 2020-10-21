@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css'
 
 export default css`
-    .container {
+    .titleContainer {
         display: flex;
         align-items: center;
     }
