@@ -6,7 +6,6 @@ import i18n from '../../../../locales'
 import { UPDATE_CELL } from '../../../../reducers/tableReducer'
 import DataEngine from '../../../../components/DataEngine'
 import { DataSelectorDialog } from './DataSelectorDialog'
-import styles from './styles/ContentSelector.style'
 import OrgUnitSelectorDialog from './OrgUnitSelectorDialog'
 import PeriodSelectorDialog from './PeriodSelectorDialog'
 import SelectorFrame from '../SelectorFrame'
@@ -128,7 +127,6 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                 toggleModal={togglePeriodDialog}
                 onSave={onPeriodDialogSave}
             />
-            <style jsx>{styles}</style>
         </>
     )
 }

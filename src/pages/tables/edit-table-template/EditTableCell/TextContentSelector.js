@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Divider } from '@dhis2/ui'
 import InputModal from '../../../../components/InputModal'
-import IconTooltipButton from '../../../../components/IconTooltipButton'
 import i18n from '../../../../locales'
-import styles from './styles/ContentSelector.style'
+import SelectorFrame from '../SelectorFrame'
 
 export function TextContentSelector({ text, onChange }) {
     const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -12,25 +10,14 @@ export function TextContentSelector({ text, onChange }) {
 
     return (
         <>
-            <Divider></Divider>
-            <div className="container" onClick={toggleModal}>
-                <div>
-                    <div className="header">{i18n.t('Static Text')}</div>
-                    <p>
-                        {text.length ? (
-                            text
-                        ) : (
-                            <em>{i18n.t('No text selected')}</em>
-                        )}
-                    </p>
-                </div>
-                <IconTooltipButton
-                    icon="edit"
-                    tooltip={i18n.t('Edit text')}
-                    size={'18px'}
-                    // onClick={toggleModal}
-                />
-            </div>
+            <SelectorFrame
+                title={i18n.t('Static Text')}
+                content={
+                    text.length ? text : <em>{i18n.t('No text selected')}</em>
+                }
+                tooltip={i18n.t('Edit text')}
+                onClick={toggleModal}
+            />
             {modalIsOpen && (
                 <InputModal
                     confirmText={i18n.t('Save')}
@@ -45,7 +32,6 @@ export function TextContentSelector({ text, onChange }) {
                     initialValue={text}
                 />
             )}
-            <style jsx>{styles}</style>
         </>
     )
 }
