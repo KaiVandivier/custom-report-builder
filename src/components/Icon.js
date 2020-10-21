@@ -7,13 +7,20 @@ export function Icon({
     dense = false,
     large = false,
     color = colors.grey800,
+    size,
 }) {
     return (
         <span
             className="material-icons"
             style={{
                 color,
-                fontSize: dense ? '16px' : large ? '42px' : '24px',
+                fontSize: size
+                    ? size
+                    : dense
+                    ? '16px'
+                    : large
+                    ? '42px'
+                    : '24px',
             }}
         >
             {name}
@@ -26,6 +33,7 @@ Icon.propTypes = {
     color: PropTypes.string,
     dense: PropTypes.bool,
     large: PropTypes.bool,
+    size: PropTypes.string,
 }
 
 export default Icon
