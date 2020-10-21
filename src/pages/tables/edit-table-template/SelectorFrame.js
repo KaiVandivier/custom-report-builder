@@ -28,7 +28,7 @@ export function SelectorFrame({ title, content, tooltip, onClick }) {
 
 SelectorFrame.propTypes = {
     onClick: PropTypes.func.isRequired,
-    content: PropTypes.string,
+    content: PropTypes.node,
     title: PropTypes.string,
     tooltip: PropTypes.string,
 }
