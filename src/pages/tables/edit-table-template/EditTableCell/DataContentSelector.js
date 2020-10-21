@@ -26,8 +26,6 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
     const togglePeriodDialog = () => setPeriodDialogOpen(state => !state)
 
     const onDataDialogSave = ({ item, ...metadata }) => {
-        setDataDialogOpen(false)
-
         if (!item) return
 
         dispatch({

@@ -170,6 +170,7 @@ export class DataSelectorDialog extends Component {
             groupId: this.state.groupId,
             groupDetail: this.state.groupDetail,
         })
+        this.props.onClose()
     }
 
     render() {
