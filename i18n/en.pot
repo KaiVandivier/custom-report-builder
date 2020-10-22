@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-22T03:49:06.992Z\n"
-"PO-Revision-Date: 2020-10-22T03:49:06.992Z\n"
+"POT-Creation-Date: 2020-10-22T08:41:12.356Z\n"
+"PO-Revision-Date: 2020-10-22T08:41:12.356Z\n"
 
 msgid "Back"
 msgstr ""
@@ -89,6 +89,9 @@ msgstr ""
 msgid "Custom reports"
 msgstr ""
 
+msgid "Information"
+msgstr ""
+
 msgid "Hello, world!"
 msgstr ""
 
@@ -113,6 +116,9 @@ msgid ""
 msgstr ""
 
 msgid "Choose Parameters"
+msgstr ""
+
+msgid "Edit Template"
 msgstr ""
 
 msgid "Print"
