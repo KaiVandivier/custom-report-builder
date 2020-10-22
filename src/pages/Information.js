@@ -2,7 +2,6 @@
 
 import React from 'react'
 // import PropTypes from 'prop-types'
-import { Divider } from '@dhis2/ui'
 import Icon from '../components/Icon'
 import styles from './styles/Information.style'
 
@@ -10,6 +9,9 @@ export function Information() {
     return (
         <section className="main">
             <h1>Information</h1>
+
+            <div className="divider" />
+
             <h2>Custom Tables</h2>
             <h3>Editing a table template</h3>
             <ol>
@@ -107,7 +109,7 @@ export function Information() {
                 </li>
             </ol>
 
-            <Divider />
+            <div className="divider" />
 
             <h2>Custom Reports</h2>
             <p>This feature will be added in the future.</p>
