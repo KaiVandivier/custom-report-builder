@@ -3,7 +3,7 @@ import { colors } from '@dhis2/ui'
 
 export default css`
     .card-internal {
-        padding: 1.5rem 2rem 1.5rem;
+        padding: 1.5rem 2rem;
     }
 
     .header {
