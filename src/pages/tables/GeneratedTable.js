@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Button, Card } from '@dhis2/ui'
+import { Button, Card, Help } from '@dhis2/ui'
 import i18n from '../../locales'
 import { useReactToPrint } from 'react-to-print'
 import { useHistory, useParams } from 'react-router-dom'
@@ -56,11 +56,13 @@ export function GeneratedTable() {
                     {i18n.t('Print')}
                 </Button>
             </div>
-            <p style={{ textAlign: 'left', color: '#333' }}>
-                {i18n.t(
-                    'Tip - hover the mouse over a data cell to see its information.'
-                )}
-            </p>
+            <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                <Help>
+                    {i18n.t(
+                        'Tip - hover the mouse over a data cell to see its information.'
+                    )}
+                </Help>
+            </div>
             <Card className={utils.card}>
                 <div ref={printRef} className={classes.print}>
                     <TableWithData {...reportParams} />
