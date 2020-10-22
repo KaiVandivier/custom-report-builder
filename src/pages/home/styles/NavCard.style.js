@@ -21,7 +21,7 @@ export default css`
 
     .content {
         font-size: 0.875rem;
-        color: ${colors.grey700};
+        color: ${colors.grey600};
         margin-bottom: 2rem;
     }
 
