@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Divider } from '@dhis2/ui'
+import { Button } from '@dhis2/ui'
 import i18n from '../../../../locales'
 
 import { UPDATE_CELL } from '../../../../reducers/tableReducer'
@@ -96,7 +96,6 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
                 </>
             ) : (
                 <>
-                    <Divider />
                     <p>{i18n.t('No data selected')}</p>
                     <Button small onClick={toggleDataDialog}>
                         {i18n.t('Choose data...')}
