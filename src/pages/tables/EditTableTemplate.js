@@ -13,7 +13,7 @@ import {
     colors,
 } from '@dhis2/ui'
 import { useSavedObject } from '@dhis2/app-service-datastore'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 
 import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/EditTableTemplate.style'
@@ -116,12 +116,17 @@ export function EditTableTemplate() {
                         <AddTableDimension type="Column" dispatch={dispatch} />
                     </ButtonStrip>
                 </div>
-                <IconTooltipButton
-                    tooltip={i18n.t('Information')}
-                    icon="help"
-                    color={colors.blue700}
-                    onClick={() => {}}
-                />
+                <Link
+                    to={'/information'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <IconTooltipButton
+                        tooltip={i18n.t('Information')}
+                        icon="help"
+                        color={colors.blue700}
+                    />
+                </Link>
                 <div className="tableButtons__right">
                     <EditTableTemplateActions
                         onGenerate={onGenerate}
