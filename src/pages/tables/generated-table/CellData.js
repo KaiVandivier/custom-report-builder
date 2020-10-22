@@ -23,6 +23,8 @@ function getSelectedNames(selectedItems) {
 }
 
 export function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
+    if (!cell.data.item) return null
+
     const queryVars = {
         dxId: cell.data.item.id,
         ouId: cell.data.orgUnits?.length
