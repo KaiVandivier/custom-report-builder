@@ -21,6 +21,7 @@ export function Icon({
                     : large
                     ? '42px'
                     : '24px',
+                verticalAlign: 'middle',
             }}
         >
             {name}
