@@ -10,7 +10,7 @@ export function IconTooltipButton({ size, icon, tooltip, className, onClick }) {
                 <ButtonBase
                     {...props}
                     onClick={onClick}
-                    className={`${className} button`}
+                    className={className}
                     style={{
                         borderRadius: '100%',
                         color: colors.grey800,
