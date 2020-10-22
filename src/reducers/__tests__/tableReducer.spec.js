@@ -12,6 +12,7 @@ import tableReducer, {
     UPDATE_COLUMN_DIMENSIONS,
 } from '../tableReducer'
 import testTable from '../../modules/testTable'
+import { defaultCell } from '../../modules/defaultTable'
 
 describe('no action given', () => {
     it('returns state', () => {
@@ -21,14 +22,38 @@ describe('no action given', () => {
 })
 
 describe('row actions', () => {
-    it('adds a row', () => {
-        const res = tableReducer(testTable, {
-            type: ADD_ROW,
-            payload: { name: 'New row' },
+    describe('adding rows', () => {
+        it('adds a row', () => {
+            const res = tableReducer(testTable, {
+                type: ADD_ROW,
+                payload: { name: 'New row' },
+            })
+            expect(res.rows).toHaveLength(4)
+            expect(res.rows[3].name).toBe('New row')
+            expect(res.rows[3].cells).toHaveLength(3)
         })
-        expect(res.rows).toHaveLength(4)
-        expect(res.rows[3].name).toBe('New row')
-        expect(res.rows[3].cells).toHaveLength(3)
+
+        it('applies values from dimensions defined on columns to data values on new cells', () => {
+            const testDimensions = {
+                orgUnits: [{ id: 'testOrgUnit', name: 'Test Org Unit' }],
+                periods: [{ id: 'testPeriod', name: 'Test Period' }],
+                item: { id: 'testItem', name: 'Test Item' },
+            }
+            const testCol = {
+                name: 'test Col',
+                dimensions: testDimensions,
+            }
+            const dimensionTestTable = {
+                ...testTable,
+                columns: [testCol, ...testTable.columns],
+            }
+            const res = tableReducer(dimensionTestTable, {
+                type: ADD_ROW,
+                payload: { name: 'New row' },
+            })
+            const newRow = res.rows[res.rows.length - 1]
+            expect(newRow.cells[0].data).toMatchObject(testDimensions)
+        })
     })
 
     it('updates a row', () => {
@@ -78,15 +103,40 @@ describe('row actions', () => {
 })
 
 describe('column actions', () => {
-    it('adds a column and adds new cells to each row', () => {
-        // Huh, not working
-        const res = tableReducer(testTable, {
-            type: ADD_COLUMN,
-            payload: { name: 'New column' },
+    describe('adding columns', () => {
+        it('adds a column and adds new cells to each row', () => {
+            const res = tableReducer(testTable, {
+                type: ADD_COLUMN,
+                payload: { name: 'New column' },
+            })
+            expect(res.columns).toHaveLength(4)
+            expect(res.rows[0].cells).toHaveLength(4)
+            expect(res.columns[3].name).toBe('New column')
         })
-        expect(res.columns).toHaveLength(4)
-        expect(res.rows[0].cells).toHaveLength(4)
-        expect(res.columns[3].name).toBe('New column')
+
+        it('applies values from dimensions defined on rows to data values on new cells', () => {
+            const testDimensions = {
+                orgUnits: [{ id: 'testOrgUnit', name: 'Test Org Unit' }],
+                periods: [{ id: 'testPeriod', name: 'Test Period' }],
+                item: { id: 'testItem', name: 'Test Item' },
+            }
+            const testRow = {
+                name: 'test row',
+                dimensions: testDimensions,
+                cells: Array(testTable.columns.length).fill(defaultCell),
+            }
+            const dimensionTestTable = {
+                ...testTable,
+                rows: [testRow, ...testTable.rows],
+            }
+            const res = tableReducer(dimensionTestTable, {
+                type: ADD_COLUMN,
+                payload: { name: 'New column' },
+            })
+            const newlyAddedCell =
+                res.rows[0].cells[res.rows[0].cells.length - 1]
+            expect(newlyAddedCell.data).toMatchObject(testDimensions)
+        })
     })
 
     it('updates a column', () => {
