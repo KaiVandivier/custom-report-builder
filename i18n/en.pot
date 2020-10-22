@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-21T00:37:38.138Z\n"
-"PO-Revision-Date: 2020-10-21T00:37:38.138Z\n"
+"POT-Creation-Date: 2020-10-22T03:49:06.992Z\n"
+"PO-Revision-Date: 2020-10-22T03:49:06.992Z\n"
 
 msgid "Back"
 msgstr ""
@@ -108,10 +108,8 @@ msgid "Back to Tables"
 msgstr ""
 
 msgid ""
-"*Organisation units and periods can be selected as filters on a "
-"cell-by-cell basis.  Any cells with unspecified organisation units or "
-"periods will use the respective parameters selected during report "
-"generation."
+"*Any cells with unspecified organisation units or periods will use the "
+"respective parameters selected during report generation."
 msgstr ""
 
 msgid "Choose Parameters"
@@ -183,34 +181,43 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+msgid "Data item"
+msgstr ""
+
+msgid "Select data item for column"
+msgstr ""
+
+msgid "Organisation unit(s)"
+msgstr ""
+
+msgid "Select organisation unit(s) for column"
+msgstr ""
+
+msgid "Select period(s) for column"
+msgstr ""
+
 msgid "Content type"
 msgstr ""
 
-msgid "Data Type"
+msgid "None"
 msgstr ""
 
 msgid "Select data"
 msgstr ""
 
-msgid "Org. Unit(s)"
+msgid "None*"
 msgstr ""
 
-msgid "None selected*"
-msgstr ""
-
-msgid "Select org. unit(s)"
+msgid "Select organisation unit(s)"
 msgstr ""
 
 msgid "Select period(s)"
 msgstr ""
 
-msgid "No data selected"
-msgstr ""
-
-msgid "Choose data..."
-msgstr ""
-
 msgid "Choose data for cell"
+msgstr ""
+
+msgid "Data Type"
 msgstr ""
 
 msgid "Totals"
@@ -223,9 +230,6 @@ msgid "Detail"
 msgstr ""
 
 msgid "Search"
-msgstr ""
-
-msgid "Select organisation unit(s)"
 msgstr ""
 
 msgid "Static Text"
@@ -280,6 +284,12 @@ msgid "Row name"
 msgstr ""
 
 msgid "Enter row name"
+msgstr ""
+
+msgid "Select data item for row"
+msgstr ""
+
+msgid "Select organisation unit(s) for row"
 msgstr ""
 
 msgid "Oops! Something went wrong."
