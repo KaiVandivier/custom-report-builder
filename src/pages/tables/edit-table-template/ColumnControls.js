@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
-import { FlyoutMenu, MenuItem, TableCellHead } from '@dhis2/ui'
+import { Divider, FlyoutMenu, MenuItem, TableCellHead } from '@dhis2/ui'
 import {
     DELETE_COLUMN,
     REORDER_COLUMN,
@@ -201,6 +201,11 @@ export function ColumnControls({ dispatch, col, idx, maxIdx }) {
                     )}
                 </PopoverButton>
             </div>
+            {col.dimensions?.item ||
+            col.dimensions?.periods?.length ||
+            col.dimensions?.orgUnits?.length ? (
+                <Divider />
+            ) : null}
             {col.dimensions?.item && (
                 <SelectorFrame
                     title={i18n.t('Data item')}

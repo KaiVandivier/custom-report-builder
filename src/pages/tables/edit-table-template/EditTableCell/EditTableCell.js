@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableCell } from '@dhis2/ui'
+import { Divider, TableCell } from '@dhis2/ui'
 import { PropTypes } from '@dhis2/prop-types'
 
 import { UPDATE_CELL } from '../../../../reducers/tableReducer'
@@ -63,6 +63,7 @@ export const EditTableCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
                 currentContentType={cell.contentType || EMPTY}
                 onChange={onContentTypeChange}
             />
+            {cell.contentType !== EMPTY && <Divider />}
             {getContentSelectorByType()}
         </TableCell>
     )

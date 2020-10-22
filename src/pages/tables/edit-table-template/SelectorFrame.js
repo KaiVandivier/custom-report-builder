@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Tooltip } from '@dhis2/ui'
+import { Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import Icon from '../../../components/Icon'
 import styles from './styles/SelectorFrame.style'
@@ -9,7 +9,7 @@ import styles from './styles/SelectorFrame.style'
 export function SelectorFrame({ title, content, tooltip, onClick }) {
     return (
         <>
-            <Divider />
+            {/* <Divider /> */}
             <Tooltip content={tooltip} placement="top">
                 {props => (
                     <div {...props} className="container" onClick={onClick}>
