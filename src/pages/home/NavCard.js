@@ -16,7 +16,7 @@ export function NavCard({ title, icon, content, action, path }) {
                         <h2 className="title">{title}</h2>
                         <Icon name={icon} size="48px" color={colors.grey600} />
                     </header>
-                    <p>{content}</p>
+                    <p className="content">{content}</p>
                     <p className="action">{action}</p>
                 </div>
             </Card>
