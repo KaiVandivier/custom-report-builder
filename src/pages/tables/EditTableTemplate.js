@@ -10,6 +10,7 @@ import {
     TableCellHead,
     TableBody,
     TableRow,
+    colors,
 } from '@dhis2/ui'
 import { useSavedObject } from '@dhis2/app-service-datastore'
 import { useParams, useHistory } from 'react-router-dom'
@@ -27,6 +28,7 @@ import {
 import BackButton from '../../components/BackButton'
 import utils from '../../styles/utils.module.css'
 import i18n from '../../locales'
+import IconTooltipButton from '../../components/IconTooltipButton'
 
 export function EditTableTemplate() {
     const params = useParams()
@@ -108,14 +110,24 @@ export function EditTableTemplate() {
                 </div>
             </div>
             <div className="tableButtons">
-                <ButtonStrip className="dimension-buttons">
-                    <AddTableDimension type="Row" dispatch={dispatch} />
-                    <AddTableDimension type="Column" dispatch={dispatch} />
-                </ButtonStrip>
-                <EditTableTemplateActions
-                    onGenerate={onGenerate}
-                    onDelete={onDelete}
+                <div className="tableButtons__left">
+                    <ButtonStrip className="dimension-buttons">
+                        <AddTableDimension type="Row" dispatch={dispatch} />
+                        <AddTableDimension type="Column" dispatch={dispatch} />
+                    </ButtonStrip>
+                </div>
+                <IconTooltipButton
+                    tooltip={i18n.t('Information')}
+                    icon="help"
+                    color={colors.blue700}
+                    onClick={() => {}}
                 />
+                <div className="tableButtons__right">
+                    <EditTableTemplateActions
+                        onGenerate={onGenerate}
+                        onDelete={onDelete}
+                    />
+                </div>
             </div>
             <div className="help">
                 <Help>
