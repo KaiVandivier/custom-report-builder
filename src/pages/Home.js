@@ -9,7 +9,9 @@ export const Home = () => {
             <NavCard
                 title={i18n.t('Custom Tables')}
                 icon="table_view"
-                content={i18n.t('Choose contents on a cell-by-cell basis.')}
+                content={i18n.t(
+                    'Create, view, and edit custom tables. Text and data contents of the table can be chosen on a cell-by-cell basis.'
+                )}
                 action={i18n.t('View Tables')}
                 path="/tables"
             />
@@ -17,7 +19,7 @@ export const Home = () => {
                 title={i18n.t('Custom Reports')}
                 icon="article"
                 content={i18n.t(
-                    'Add text, images, and DHIS assets to a printable report.'
+                    'Create, view, and edit custom reports. Add text, images, and DHIS assets to a printable and downloadable report document.'
                 )}
                 action={i18n.t('View Reports')}
                 path="/reports"
@@ -26,7 +28,7 @@ export const Home = () => {
                 title={i18n.t('Information')}
                 icon="help"
                 content={i18n.t(
-                    'View instructions for use of the Custom Tables and Custom Reports tools.'
+                    'View instructions for using the Custom Tables and Custom Reports tools.'
                 )}
                 action={i18n.t('View Tables')}
                 path="/information"
