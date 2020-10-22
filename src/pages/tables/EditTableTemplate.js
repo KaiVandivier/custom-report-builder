@@ -116,13 +116,9 @@ export function EditTableTemplate() {
                         <AddTableDimension type="Column" dispatch={dispatch} />
                     </ButtonStrip>
                 </div>
-                <Link
-                    to={'/information'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+                <Link to={'/help'} target="_blank" rel="noopener noreferrer">
                     <IconTooltipButton
-                        tooltip={i18n.t('Information')}
+                        tooltip={i18n.t('Help')}
                         icon="help"
                         color={colors.blue700}
                         size="32px"

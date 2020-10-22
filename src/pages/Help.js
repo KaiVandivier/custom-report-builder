@@ -3,12 +3,12 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
 import Icon from '../components/Icon'
-import styles from './styles/Information.style'
+import styles from './styles/Help'
 
-export function Information() {
+export function Help() {
     return (
         <section className="main">
-            <h1>Information</h1>
+            <h1>Help</h1>
 
             <div className="divider" />
 
@@ -118,6 +118,6 @@ export function Information() {
     )
 }
 
-Information.propTypes = {}
+Help.propTypes = {}
 
-export default Information
+export default Help

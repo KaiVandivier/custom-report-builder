@@ -6,7 +6,7 @@ import './styles/modalFix.css'
 import globalStyles from './styles/global.style'
 import classes from './App.module.css'
 import { Navigation } from './navigation'
-import { Home, Tables, Reports, NoMatch, Information } from './pages'
+import { Home, Tables, Reports, NoMatch, Help } from './pages'
 
 /*
  * HashRouter solves the problem of route issues on DHIS instances deployed
@@ -27,7 +27,7 @@ const MyApp = () => {
                         <Route exact path="/" component={Home} />
                         <Route path="/tables" component={Tables} />
                         <Route path="/reports" component={Reports} />
-                        <Route path="/information" component={Information} />
+                        <Route path="/help" component={Help} />
                         <Route component={NoMatch} />
                     </Switch>
                 </main>

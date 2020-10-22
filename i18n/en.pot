@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-22T08:41:12.356Z\n"
-"PO-Revision-Date: 2020-10-22T08:41:12.356Z\n"
+"POT-Creation-Date: 2020-10-22T23:46:14.443Z\n"
+"PO-Revision-Date: 2020-10-22T23:46:14.443Z\n"
 
 msgid "Back"
 msgstr ""
@@ -89,10 +89,35 @@ msgstr ""
 msgid "Custom reports"
 msgstr ""
 
+msgid "Help"
+msgstr ""
+
+msgid "Custom Tables"
+msgstr ""
+
+msgid ""
+"Create, view, and edit custom tables. Text and data contents of the table "
+"can be chosen on a cell-by-cell basis."
+msgstr ""
+
+msgid "View Tables"
+msgstr ""
+
+msgid "Custom Reports"
+msgstr ""
+
+msgid ""
+"Create, view, and edit custom reports. Add text, images, and DHIS assets to "
+"a printable and downloadable report document."
+msgstr ""
+
+msgid "View Reports"
+msgstr ""
+
 msgid "Information"
 msgstr ""
 
-msgid "Hello, world!"
+msgid "View instructions for using the Custom Tables and Custom Reports tools."
 msgstr ""
 
 msgid "Menu header"
@@ -125,9 +150,6 @@ msgid "Print"
 msgstr ""
 
 msgid "Tip - hover the mouse over a data cell to see its information."
-msgstr ""
-
-msgid "Custom Tables"
 msgstr ""
 
 msgid "Name"

@@ -25,13 +25,13 @@ export const Home = () => {
                 path="/reports"
             />
             <NavCard
-                title={i18n.t('Information')}
+                title={i18n.t('Help')}
                 icon="help"
                 content={i18n.t(
                     'View instructions for using the Custom Tables and Custom Reports tools.'
                 )}
                 action={i18n.t('View Tables')}
-                path="/information"
+                path="/help"
             />
             <style jsx>{styles}</style>
         </div>
