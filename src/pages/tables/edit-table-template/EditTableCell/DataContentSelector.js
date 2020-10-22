@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '@dhis2/ui'
 import i18n from '../../../../locales'
 
 import { UPDATE_CELL } from '../../../../reducers/tableReducer'
@@ -61,47 +60,36 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
     const { data } = cell
     return (
         <>
-            {data.item ? (
-                <>
-                    <SelectorFrame
-                        title={i18n.t('Data Item')}
-                        content={data.item.name}
-                        tooltip={i18n.t('Select data')}
-                        onClick={toggleDataDialog}
-                    />
-                    <SelectorFrame
-                        title={i18n.t('Organisation unit(s)')}
-                        content={
-                            data.orgUnits?.length ? (
-                                getSelectedNames(data.orgUnits)
-                            ) : (
-                                <em>{i18n.t('None selected*')}</em>
-                            )
-                        }
-                        tooltip={i18n.t('Select organisation unit(s)')}
-                        onClick={toggleOrgUnitDialog}
-                    />
-                    <SelectorFrame
-                        title={i18n.t('Period(s)')}
-                        content={
-                            data.periods?.length ? (
-                                getSelectedNames(data.periods)
-                            ) : (
-                                <em>{i18n.t('None selected*')}</em>
-                            )
-                        }
-                        tooltip={i18n.t('Select period(s)')}
-                        onClick={togglePeriodDialog}
-                    />
-                </>
-            ) : (
-                <>
-                    <p>{i18n.t('No data selected')}</p>
-                    <Button small onClick={toggleDataDialog}>
-                        {i18n.t('Choose data...')}
-                    </Button>
-                </>
-            )}
+            <SelectorFrame
+                title={i18n.t('Data Item')}
+                content={data.item ? data.item.name : <em>{i18n.t('None')}</em>}
+                tooltip={i18n.t('Select data')}
+                onClick={toggleDataDialog}
+            />
+            <SelectorFrame
+                title={i18n.t('Organisation unit(s)')}
+                content={
+                    data.orgUnits?.length ? (
+                        getSelectedNames(data.orgUnits)
+                    ) : (
+                        <em>{i18n.t('None*')}</em>
+                    )
+                }
+                tooltip={i18n.t('Select organisation unit(s)')}
+                onClick={toggleOrgUnitDialog}
+            />
+            <SelectorFrame
+                title={i18n.t('Period(s)')}
+                content={
+                    data.periods?.length ? (
+                        getSelectedNames(data.periods)
+                    ) : (
+                        <em>{i18n.t('None*')}</em>
+                    )
+                }
+                tooltip={i18n.t('Select period(s)')}
+                onClick={togglePeriodDialog}
+            />
             {dataDialogOpen && (
                 <DataEngine>
                     {engine => (
