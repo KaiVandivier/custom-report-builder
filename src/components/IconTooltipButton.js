@@ -3,7 +3,14 @@ import PropTypes from 'prop-types'
 import { colors, Tooltip } from '@dhis2/ui'
 import ButtonBase from '@material-ui/core/ButtonBase'
 
-export function IconTooltipButton({ size, icon, tooltip, className, onClick }) {
+export function IconTooltipButton({
+    size,
+    color,
+    icon,
+    tooltip,
+    className,
+    onClick,
+}) {
     return (
         <Tooltip content={tooltip} placement="bottom">
             {props => (
@@ -13,7 +20,7 @@ export function IconTooltipButton({ size, icon, tooltip, className, onClick }) {
                     className={className}
                     style={{
                         borderRadius: '100%',
-                        color: colors.grey800,
+                        color: color || colors.grey800,
                         fontSize: size || '24px',
                     }}
                 >
@@ -33,6 +40,7 @@ IconTooltipButton.propTypes = {
     icon: PropTypes.string.isRequired,
     tooltip: PropTypes.string.isRequired,
     className: PropTypes.string,
+    color: PropTypes.string,
     size: PropTypes.string,
     onClick: PropTypes.func,
 }
