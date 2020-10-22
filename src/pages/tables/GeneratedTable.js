@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Button, Card } from '@dhis2/ui'
 import i18n from '../../locales'
 import { useReactToPrint } from 'react-to-print'
+import { useHistory, useParams } from 'react-router-dom'
 
 import BackButton from '../../components/BackButton'
 import Icon from '../../components/Icon'
@@ -10,6 +11,9 @@ import utils from '../../styles/utils.module.css'
 import { ReportParameters, TableWithData } from './generated-table'
 
 export function GeneratedTable() {
+    const history = useHistory()
+    const { id } = useParams()
+
     const [reportParams, setReportParams] = useState({
         selectedOrgUnits: [],
         selectedPeriods: [],
@@ -36,6 +40,13 @@ export function GeneratedTable() {
                     onClick={toggleReportParamsDialog}
                 >
                     {i18n.t('Choose Parameters')}
+                </Button>
+                <Button
+                    large
+                    icon={<Icon name="edit" />}
+                    onClick={() => history.push(`/tables/edit/${id}`)}
+                >
+                    {i18n.t('Edit Template')}
                 </Button>
                 <Button
                     large
