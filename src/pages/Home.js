@@ -1,29 +1,39 @@
 import React from 'react'
 import i18n from '../locales'
-import { Link } from 'react-router-dom'
-
-// import IconTest from './home/IconTest'
-// import PeriodSelectTest from './home/PeriodSelectTest'
-// import OrganisationUnitPicker from '../components/OrganisationUnitPicker'
-// import ReportParameters from './tables/generated-table/ReportParameters'
-// import ContentTypeSelector from './tables/edit-table-template/ContentTypeSelector'
-import IconTooltipButton from '../components/IconTooltipButton'
+import styles from './styles/Home.style'
+import { NavCard } from './home'
 
 export const Home = () => {
     return (
         <div>
-            <h1>{i18n.t('Hello, world!')}</h1>
-            <p>
-                Hello! This is a work in progress. Take a look at the{' '}
-                <Link to="/tables">&ldquo;Custom tables&rdquo; page</Link> for
-                recent updates.
-            </p>
-            <IconTooltipButton
-                icon="mood"
-                tooltip="hello!"
-                onClick={() => console.log('hello!')}
-                size={'32px'}
-            />
+            <div className="grid-container">
+                <NavCard
+                    title={i18n.t('Custom Tables')}
+                    icon="table_view"
+                    content={i18n.t('Choose contents on a cell-by-cell basis.')}
+                    action={i18n.t('View Tables')}
+                    path="/tables"
+                />
+                <NavCard
+                    title={i18n.t('Custom Reports')}
+                    icon="article"
+                    content={i18n.t(
+                        'Add text, images, and DHIS assets to a printable report.'
+                    )}
+                    action={i18n.t('View Reports')}
+                    path="/reports"
+                />
+                <NavCard
+                    title={i18n.t('Information')}
+                    icon="help"
+                    content={i18n.t(
+                        'View instructions for use of the Custom Tables and Custom Reports tools.'
+                    )}
+                    action={i18n.t('View Tables')}
+                    path="/information"
+                />
+            </div>
+            <style jsx>{styles}</style>
         </div>
     )
 }
