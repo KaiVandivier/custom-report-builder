@@ -117,19 +117,19 @@ export function EditTableTemplate() {
                     onDelete={onDelete}
                 />
             </div>
+            <div className="help">
+                <Help>
+                    {i18n.t(
+                        '*Any cells with unspecified organisation units or periods will use the respective parameters selected during report generation.'
+                    )}
+                </Help>
+            </div>
             <Card className={utils.card}>
                 <Table className={utils.noBorder}>
                     <TableHead>{tableColumns()}</TableHead>
                     <TableBody>{tableRows()}</TableBody>
                 </Table>
             </Card>
-            <div className="help">
-                <Help>
-                    {i18n.t(
-                        '*Organisation units and periods can be selected as filters on a cell-by-cell basis.  Any cells with unspecified organisation units or periods will use the respective parameters selected during report generation.'
-                    )}
-                </Help>
-            </div>
             <style jsx>{styles}</style>
         </>
     )
