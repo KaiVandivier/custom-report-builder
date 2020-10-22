@@ -15,6 +15,6 @@
 .right {
     flex-grow: 1;
     min-height: 100vh;
-    padding: 26px 3rem 0;
+    padding: 26px 3rem 5rem;
     background: #f0f0f0;
 }
