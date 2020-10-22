@@ -19,9 +19,17 @@ export default css`
 
     .tableButtons {
         display: flex;
-        align-items: end;
+        align-items: center;
         justify-content: space-between;
         margin-bottom: 0.75rem;
+    }
+
+    .tableButtons__left {
+        margin-right: auto;
+    }
+
+    .tableButtons__right {
+        margin-left: auto;
     }
 
     .cardContainer {
