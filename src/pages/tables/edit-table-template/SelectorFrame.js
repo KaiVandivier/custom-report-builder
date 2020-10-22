@@ -17,7 +17,9 @@ export function SelectorFrame({ title, content, tooltip, onClick }) {
                             <p className="title">{title}</p>
                             <p className="content">{content}</p>
                         </div>
-                        <Icon name="edit" size={'18px'} />
+                        <div className="icon">
+                            <Icon name="edit" size={'18px'} />
+                        </div>
                     </div>
                 )}
             </Tooltip>

@@ -16,6 +16,11 @@ export default css`
         background: rgba(0, 0, 0, 0.05);
     }
 
+    .container:not(:hover):not(:focus) > .icon {
+        height: 0;
+        overflow: hidden;
+    }
+
     .title {
         font-size: 0.75rem;
         color: ${colors.grey700};
