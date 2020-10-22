@@ -105,7 +105,7 @@ export function RowControls({ dispatch, row, idx, maxIdx }) {
 
     return (
         <TableCellHead className={utils.cell}>
-            <div className="titleContainer">
+            <div className="titleContainer rowTitle">
                 {row.name}
                 <PopoverButton tooltip={i18n.t('Row actions')}>
                     {togglePopover => (

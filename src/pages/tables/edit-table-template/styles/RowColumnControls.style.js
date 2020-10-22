@@ -7,4 +7,8 @@ export default css`
         display: flex;
         align-items: center;
     }
+
+    .rowTitle {
+        height: 60px; // to match height of 'ContentTypeSelector'
+    }
 `
