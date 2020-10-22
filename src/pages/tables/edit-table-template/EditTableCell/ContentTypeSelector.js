@@ -6,16 +6,23 @@ import contentTypes from '../../../../modules/contentTypes'
 
 export function ContentTypeSelector({ currentContentType, onChange }) {
     return (
-        <SingleSelectField
-            label={i18n.t('Content type')}
-            onChange={({ selected }) => onChange(selected)}
-            selected={currentContentType}
-            dense
-        >
-            {Object.values(contentTypes).map(({ id, getName }) => (
-                <SingleSelectOption value={id} label={getName()} key={id} />
-            ))}
-        </SingleSelectField>
+        <div className="container">
+            <SingleSelectField
+                label={i18n.t('Content type')}
+                onChange={({ selected }) => onChange(selected)}
+                selected={currentContentType}
+                dense
+            >
+                {Object.values(contentTypes).map(({ id, getName }) => (
+                    <SingleSelectOption value={id} label={getName()} key={id} />
+                ))}
+            </SingleSelectField>
+            <style jsx>{`
+                .container {
+                    padding: 0 8px;
+                }
+            `}</style>
+        </div>
     )
 }
 
