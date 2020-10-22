@@ -20,8 +20,10 @@ export function tableReducer(table, { type, payload }) {
                 ...table,
                 rows: table.rows.concat({
                     name: payload.name,
-                    // TODO: Default cell value?
-                    cells: Array(table.columns.length).fill(defaultCell),
+                    cells: table.columns.map(col => ({
+                        ...defaultCell,
+                        data: { ...defaultCell.data, ...col.dimensions },
+                    })),
                 }),
             }
         case UPDATE_ROW:
@@ -32,8 +34,7 @@ export function tableReducer(table, { type, payload }) {
                 ),
             }
         case UPDATE_ROW_DIMENSIONS:
-            // accepts payload = { idx (the row idx), dimensions }
-            // and adds content of `dimensions` to `row.dimensions` and `cell.data`
+            // adds dimensions to `row.dimensions` and all `cell.data` in row
             return {
                 ...table,
                 rows: table.rows.map((row, idx) => {
@@ -62,13 +63,15 @@ export function tableReducer(table, { type, payload }) {
                 rows: table.rows.filter((row, idx) => idx !== payload.idx),
             }
         case ADD_COLUMN:
-            // TODO: Add dimensions from column defaults
             return {
                 ...table,
                 columns: table.columns.concat({ name: payload.name }),
                 rows: table.rows.map(row => ({
                     ...row,
-                    cells: row.cells.concat(defaultCell),
+                    cells: row.cells.concat({
+                        ...defaultCell,
+                        data: { ...defaultCell.data, ...row.dimensions },
+                    }),
                 })),
             }
         case UPDATE_COLUMN:
