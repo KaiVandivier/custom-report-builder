@@ -6,6 +6,7 @@ export default css`
         padding: ${spacers.dp4} ${spacers.dp8} 0 ${spacers.dp8};
         display: flex;
         align-items: center;
+        gap: 0.5rem;
     }
 
     .rowTitle {
