@@ -125,6 +125,7 @@ export function EditTableTemplate() {
                         tooltip={i18n.t('Information')}
                         icon="help"
                         color={colors.blue700}
+                        size="32px"
                     />
                 </Link>
                 <div className="tableButtons__right">
