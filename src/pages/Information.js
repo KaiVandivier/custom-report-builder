@@ -68,8 +68,8 @@ export function Information() {
                                 or period as filter(s)
                             </strong>{' '}
                             for a data cell, leave the respective values as
-                            undefined in the template, and choose those values
-                            when a table is generated from the template.
+                            undefined in the template, and then choose those
+                            values when a table is generated from the template.
                         </li>
                     </ul>
                 </li>
