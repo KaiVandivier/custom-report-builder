@@ -20,6 +20,7 @@ import {
     PeriodSelectorDialog,
 } from './EditTableCell'
 import styles from './styles/RowColumnControls.style'
+import utils from '../../../styles/utils.module.css'
 import SelectorFrame from './SelectorFrame'
 
 function getSelectedNames(arr) {
@@ -103,7 +104,7 @@ export function RowControls({ dispatch, row, idx, maxIdx }) {
     }
 
     return (
-        <TableCellHead>
+        <TableCellHead className={utils.cell}>
             <div className="titleContainer">
                 {row.name}
                 <PopoverButton tooltip={i18n.t('Row actions')}>

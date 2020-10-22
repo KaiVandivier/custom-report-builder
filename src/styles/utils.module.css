@@ -10,3 +10,7 @@
 table.noBorder tbody tr:last-child > * {
     border-bottom: none;
 }
+
+.cell {
+    vertical-align: top;
+}
