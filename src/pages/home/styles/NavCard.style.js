@@ -4,6 +4,9 @@ import { colors } from '@dhis2/ui'
 export default css`
     .card-internal {
         padding: 1.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
     .header {
@@ -28,6 +31,7 @@ export default css`
     .action {
         font-weight: 600;
         color: ${colors.blue500};
+        margin-top: auto;
         margin-bottom: 0;
     }
 `
