@@ -30,7 +30,7 @@ export const Home = () => {
                 content={i18n.t(
                     'View instructions for using the Custom Tables and Custom Reports tools.'
                 )}
-                action={i18n.t('View Tables')}
+                action={i18n.t('View Instructions')}
                 path="/help"
             />
             <style jsx>{styles}</style>
