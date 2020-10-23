@@ -27,6 +27,7 @@ function InputModal({
             <form onSubmit={() => onConfirm(inputText)}>
                 <ModalContent>
                     <InputField
+                        initialFocus
                         label={inputLabel}
                         placeholder={inputPlaceholder}
                         onChange={ref => setInputText(ref.value)}
