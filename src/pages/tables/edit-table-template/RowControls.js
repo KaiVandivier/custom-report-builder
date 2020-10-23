@@ -12,7 +12,7 @@ import i18n from '../../../locales'
 import Icon from '../../../components/Icon'
 import PopoverButton from '../../../components/PopoverButton'
 import ConfirmModal from '../../../components/ConfirmModal'
-import InputModal from '../../../components/InputModal'
+import InputDialog from '../../../components/InputDialog'
 import DataEngine from '../../../components/DataEngine'
 import {
     DataSelectorDialog,
@@ -182,7 +182,7 @@ export function RowControls({ dispatch, row, idx, maxIdx }) {
                                 />
                             )}
                             {editModalIsOpen && (
-                                <InputModal
+                                <InputDialog
                                     title={i18n.t('Edit row')}
                                     inputLabel={i18n.t('Row name')}
                                     inputPlaceholder={i18n.t('Enter row name')}

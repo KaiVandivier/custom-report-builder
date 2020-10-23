@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import i18n from '../../../locales'
 import PropTypes from 'prop-types'
 import { Button, ButtonStrip } from '@dhis2/ui'
-import InputModal from '../../../components/InputModal'
+import InputDialog from '../../../components/InputDialog'
 import Icon from '../../../components/Icon'
 
 export function CreateNewTableTemplate({ createNew }) {
@@ -24,7 +24,7 @@ export function CreateNewTableTemplate({ createNew }) {
                 </Button>
             </ButtonStrip>
             {modalOpen && (
-                <InputModal
+                <InputDialog
                     title={i18n.t('Create new table template')}
                     inputLabel={i18n.t('Table name')}
                     inputPlaceholder={i18n.t('Enter a name')}

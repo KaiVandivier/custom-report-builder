@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import InputModal from '../../../../components/InputModal'
+import InputDialog from '../../../../components/InputDialog'
 import i18n from '../../../../locales'
 import SelectorFrame from '../SelectorFrame'
 
@@ -19,7 +19,7 @@ export function TextContentSelector({ text, onChange }) {
                 onClick={toggleModal}
             />
             {modalIsOpen && (
-                <InputModal
+                <InputDialog
                     confirmText={i18n.t('Save')}
                     inputLabel={i18n.t('Cell text')}
                     inputPlaceholder={i18n.t('Enter text')}

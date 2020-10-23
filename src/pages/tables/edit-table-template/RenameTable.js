@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import InputModal from '../../../components/InputModal'
+import InputDialog from '../../../components/InputDialog'
 import i18n from '../../../locales'
 import IconTooltipButton from '../../../components/IconTooltipButton'
 
@@ -16,7 +16,7 @@ export function RenameTable({ name, onRename }) {
                 onClick={toggleModal}
             />
             {modalIsOpen && (
-                <InputModal
+                <InputDialog
                     confirmText={i18n.t('Save')}
                     inputLabel={i18n.t('Table name')}
                     inputPlaceholder={i18n.t('Enter a name')}

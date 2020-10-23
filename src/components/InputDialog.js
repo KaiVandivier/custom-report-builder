@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import i18n from '../locales'
 
-function InputModal({
+function InputDialog({
     confirmText,
     inputLabel,
     inputPlaceholder,
@@ -51,7 +51,7 @@ function InputModal({
     )
 }
 
-InputModal.propTypes = {
+InputDialog.propTypes = {
     confirmText: PropTypes.string.isRequired,
     inputLabel: PropTypes.string.isRequired,
     inputPlaceholder: PropTypes.string.isRequired,
@@ -61,4 +61,4 @@ InputModal.propTypes = {
     initialValue: PropTypes.string,
 }
 
-export default InputModal
+export default InputDialog
