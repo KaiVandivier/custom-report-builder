@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-22T23:51:24.964Z\n"
-"PO-Revision-Date: 2020-10-22T23:51:24.964Z\n"
+"POT-Creation-Date: 2020-10-23T22:34:53.903Z\n"
+"PO-Revision-Date: 2020-10-23T22:34:53.903Z\n"
 
 msgid "Back"
 msgstr ""
@@ -115,6 +115,9 @@ msgid "View Reports"
 msgstr ""
 
 msgid "View instructions for using the Custom Tables and Custom Reports tools."
+msgstr ""
+
+msgid "View Instructions"
 msgstr ""
 
 msgid "Menu header"
