@@ -1,35 +1,26 @@
 import React, { useState } from 'react'
 import { PropTypes } from '@dhis2/prop-types'
-import {
-    Modal,
-    ModalTitle,
-    ModalContent,
-    ModalActions,
-    InputField,
-    Button,
-    ButtonStrip,
-} from '@dhis2/ui'
+import { Button } from '@dhis2/ui'
 import i18n from '../../../locales'
 import { ADD_ROW, ADD_COLUMN } from '../../../reducers/tableReducer'
 import Icon from '../../../components/Icon'
+import InputModal from '../../../components/InputModal'
 
 export function AddTableDimension({ dispatch, type }) {
     const [modalOpen, setModalOpen] = useState(false)
-    const [name, setName] = useState('')
 
     const onCancel = () => setModalOpen(false)
 
-    const onConfirm = () => {
+    const onConfirm = inputText => {
         dispatch({
             type: type === 'Row' ? ADD_ROW : ADD_COLUMN,
-            payload: { name },
+            payload: { name: inputText },
         })
         setModalOpen(false)
     }
 
     const onOpen = () => {
         setModalOpen(true)
-        setName('')
     }
 
     return (
@@ -38,28 +29,14 @@ export function AddTableDimension({ dispatch, type }) {
                 {i18n.t('Add {{type}}', { type })}
             </Button>
             {modalOpen && (
-                <Modal>
-                    <ModalTitle>{i18n.t('New {{type}}', { type })}</ModalTitle>
-                    <ModalContent>
-                        <InputField
-                            label={i18n.t('{{type}} Name', { type })}
-                            name="name"
-                            placeholder={i18n.t('Enter a name')}
-                            onChange={ref => setName(ref.value)}
-                            value={name}
-                        />
-                    </ModalContent>
-                    <ModalActions>
-                        <ButtonStrip end>
-                            <Button onClick={onCancel}>
-                                {i18n.t('Cancel')}
-                            </Button>
-                            <Button primary onClick={onConfirm}>
-                                {i18n.t('Add {{type}}', { type })}
-                            </Button>
-                        </ButtonStrip>
-                    </ModalActions>
-                </Modal>
+                <InputModal
+                    title={i18n.t('New {{type}}', { type })}
+                    inputLabel={i18n.t('{{type}} Name', { type })}
+                    inputPlaceholder={i18n.t('Enter a name')}
+                    confirmText={i18n.t('Add {{type}}', { type })}
+                    onCancel={onCancel}
+                    onConfirm={onConfirm}
+                />
             )}
         </>
     )
