@@ -24,22 +24,28 @@ function InputModal({
     return (
         <Modal onClose={onCancel}>
             <ModalTitle>{title}</ModalTitle>
-            <ModalContent>
-                <InputField
-                    label={inputLabel}
-                    placeholder={inputPlaceholder}
-                    onChange={ref => setInputText(ref.value)}
-                    value={inputText}
-                />
-            </ModalContent>
-            <ModalActions>
-                <ButtonStrip end>
-                    <Button onClick={onCancel}>{i18n.t('Cancel')}</Button>
-                    <Button primary onClick={() => onConfirm(inputText)}>
-                        {confirmText}
-                    </Button>
-                </ButtonStrip>
-            </ModalActions>
+            <form onSubmit={() => onConfirm(inputText)}>
+                <ModalContent>
+                    <InputField
+                        label={inputLabel}
+                        placeholder={inputPlaceholder}
+                        onChange={ref => setInputText(ref.value)}
+                        value={inputText}
+                    />
+                </ModalContent>
+                <ModalActions>
+                    <ButtonStrip end>
+                        <Button onClick={onCancel}>{i18n.t('Cancel')}</Button>
+                        <Button
+                            primary
+                            type="submit"
+                            onClick={() => onConfirm(inputText)}
+                        >
+                            {confirmText}
+                        </Button>
+                    </ButtonStrip>
+                </ModalActions>
+            </form>
         </Modal>
     )
 }
