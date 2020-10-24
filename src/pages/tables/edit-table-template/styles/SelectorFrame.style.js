@@ -12,7 +12,8 @@ export default css`
         border-radius: ${spacers.dp4};
     }
 
-    .container:hover {
+    .container:hover,
+    .container:focus {
         background: rgba(0, 0, 0, 0.05);
     }
 

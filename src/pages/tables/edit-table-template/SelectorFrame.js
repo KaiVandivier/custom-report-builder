@@ -6,14 +6,30 @@ import Icon from '../../../components/Icon'
 import styles from './styles/SelectorFrame.style'
 import IconTooltipButton from '../../../components/IconTooltipButton'
 
-// TODO: Refactor to use 'button base' from MUI
-
 export function SelectorFrame({ title, content, tooltip, onClick, onClear }) {
     return (
         <>
             <Tooltip content={tooltip} placement="top">
                 {props => (
-                    <div {...props} className="container" onClick={onClick}>
+                    <div
+                        {...props}
+                        className="container"
+                        onClick={onClick}
+                        tabIndex="0"
+                        onKeyDown={e => {
+                            const key = e.key || e.keyCode
+                            if (
+                                key === 'Enter' ||
+                                key === ' ' ||
+                                key === '13' || // Enter
+                                key === '32' // Space
+                            ) {
+                                e.preventDefault()
+                                console.log(e)
+                                onClick()
+                            }
+                        }}
+                    >
                         <div>
                             <p className="title">{title}</p>
                             <p className="content">{content}</p>
