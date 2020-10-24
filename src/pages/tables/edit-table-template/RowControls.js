@@ -83,6 +83,16 @@ export function RowControls({ dispatch, row, idx, maxIdx }) {
         })
     }
 
+    function onDataSelectorClear() {
+        dispatch({
+            type: UPDATE_ROW_DIMENSIONS,
+            payload: {
+                idx,
+                dimensions: { item: null },
+            },
+        })
+    }
+
     function onOrgUnitDialogSave(orgUnits) {
         dispatch({
             type: UPDATE_ROW_DIMENSIONS,
@@ -210,6 +220,7 @@ export function RowControls({ dispatch, row, idx, maxIdx }) {
                     content={row.dimensions.item.name}
                     tooltip={i18n.t('Select data item for row')}
                     onClick={toggleDataDialog}
+                    onClear={onDataSelectorClear}
                 />
             )}
             {row.dimensions?.orgUnits?.length ? (

@@ -8,7 +8,7 @@ export default css`
         align-items: center;
         cursor: pointer;
         font-weight: normal;
-        padding: ${spacers.dp4} ${spacers.dp8} 0 ${spacers.dp8};
+        padding: ${spacers.dp4} ${spacers.dp8};
         border-radius: ${spacers.dp4};
     }
 
@@ -16,7 +16,7 @@ export default css`
         background: rgba(0, 0, 0, 0.05);
     }
 
-    .container:not(:hover):not(:focus) > .icon {
+    .container:not(:hover):not(:focus) > .icons {
         height: 0;
         overflow: hidden;
     }
@@ -30,6 +30,12 @@ export default css`
 
     .content {
         margin-top: ${spacers.dp4};
-        margin-bottom: ${spacers.dp8};
+        margin-bottom: 0;
+    }
+
+    .icons {
+        display: flex;
+        gap: 0.5rem;
+        padding-right: 0.5rem;
     }
 `
