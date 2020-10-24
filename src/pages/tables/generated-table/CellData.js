@@ -10,6 +10,7 @@ const ANALYTICS_QUERY = {
         params: ({ dxId, ouId, peId }) => ({
             dimension: `dx:${dxId}`,
             filter: [`ou:${ouId}`, `pe:${peId}`],
+            skipMeta: true,
         }),
     },
 }
