@@ -83,6 +83,16 @@ export function ColumnControls({ dispatch, col, idx, maxIdx }) {
         })
     }
 
+    function onDataSelectorClear() {
+        dispatch({
+            type: UPDATE_COLUMN_DIMENSIONS,
+            payload: {
+                idx,
+                dimensions: { item: null },
+            },
+        })
+    }
+
     function onOrgUnitDialogSave(orgUnits) {
         dispatch({
             type: UPDATE_COLUMN_DIMENSIONS,
@@ -212,6 +222,7 @@ export function ColumnControls({ dispatch, col, idx, maxIdx }) {
                     content={col.dimensions.item.name}
                     tooltip={i18n.t('Select data item for column')}
                     onClick={toggleDataDialog}
+                    onClear={onDataSelectorClear}
                 />
             )}
             {col.dimensions?.orgUnits?.length ? (
