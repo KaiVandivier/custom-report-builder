@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-23T22:34:53.903Z\n"
-"PO-Revision-Date: 2020-10-23T22:34:53.903Z\n"
+"POT-Creation-Date: 2020-10-24T03:32:58.431Z\n"
+"PO-Revision-Date: 2020-10-24T03:32:58.431Z\n"
 
 msgid "Back"
 msgstr ""
@@ -318,6 +318,9 @@ msgid "Select data item for row"
 msgstr ""
 
 msgid "Select organisation unit(s) for row"
+msgstr ""
+
+msgid "Clear"
 msgstr ""
 
 msgid "Oops! Something went wrong."
