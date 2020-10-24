@@ -21,6 +21,7 @@ import {
 import defaultTable from '../../modules/defaultTable'
 import utils from '../../styles/utils.module.css'
 import classes from './styles/SavedTableTemplates.module.css'
+import { EDIT_TABLE, GENERATED_TABLE, getPath } from '../../modules/paths'
 
 // TODO:
 // - Rename 'template' to 'table'
@@ -33,7 +34,7 @@ export function SavedTableTemplates() {
 
     async function createNew(name) {
         const { id } = await tableTemplateActions.add({ ...defaultTable, name })
-        history.push(`tables/edit/${id}`)
+        history.push(getPath(EDIT_TABLE, id))
     }
 
     function mapTemplatesToRows() {
@@ -44,7 +45,7 @@ export function SavedTableTemplates() {
                         <div
                             className={classes.tableItem}
                             onClick={() =>
-                                history.push(`tables/edit/${template.id}`)
+                                history.push(getPath(EDIT_TABLE, template.id))
                             }
                         >
                             {template.name}
@@ -53,11 +54,13 @@ export function SavedTableTemplates() {
                             <SavedTableTemplateActions
                                 onGenerate={() =>
                                     history.push(
-                                        `tables/generated/${template.id}`
+                                        getPath(GENERATED_TABLE, template.id)
                                     )
                                 }
                                 onEdit={() =>
-                                    history.push(`tables/edit/${template.id}`)
+                                    history.push(
+                                        getPath(EDIT_TABLE, template.id)
+                                    )
                                 }
                                 onDelete={() =>
                                     tableTemplateActions.remove(template.id)

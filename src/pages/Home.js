@@ -2,6 +2,7 @@ import React from 'react'
 import i18n from '../locales'
 import styles from './styles/Home.style'
 import { NavCard } from './home'
+import { TABLES, REPORTS, HELP } from '../modules/paths'
 
 export const Home = () => {
     return (
@@ -13,7 +14,7 @@ export const Home = () => {
                     'Create, view, and edit custom tables. Text and data contents of the table can be chosen on a cell-by-cell basis.'
                 )}
                 action={i18n.t('View Tables')}
-                path="/tables"
+                path={TABLES}
             />
             <NavCard
                 title={i18n.t('Custom Reports')}
@@ -22,7 +23,7 @@ export const Home = () => {
                     'Create, view, and edit custom reports. Add text, images, and DHIS assets to a printable and downloadable report document.'
                 )}
                 action={i18n.t('View Reports')}
-                path="/reports"
+                path={REPORTS}
             />
             <NavCard
                 title={i18n.t('Help')}
@@ -31,7 +32,7 @@ export const Home = () => {
                     'View instructions for using the Custom Tables and Custom Reports tools.'
                 )}
                 action={i18n.t('View Instructions')}
-                path="/help"
+                path={HELP}
             />
             <style jsx>{styles}</style>
         </div>

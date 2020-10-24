@@ -6,6 +6,7 @@ import './styles/modalFix.css'
 import globalStyles from './styles/global.style'
 import classes from './App.module.css'
 import { Navigation } from './navigation'
+import { TABLES, REPORTS, HELP } from './modules/paths'
 import { Home, Tables, Reports, NoMatch, Help } from './pages'
 
 /*
@@ -25,9 +26,9 @@ const MyApp = () => {
                 <main className={classes.right}>
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route path="/tables" component={Tables} />
-                        <Route path="/reports" component={Reports} />
-                        <Route path="/help" component={Help} />
+                        <Route path={TABLES} component={Tables} />
+                        <Route path={REPORTS} component={Reports} />
+                        <Route path={HELP} component={Help} />
                         <Route component={NoMatch} />
                     </Switch>
                 </main>

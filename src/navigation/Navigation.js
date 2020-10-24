@@ -3,6 +3,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import { PropTypes } from '@dhis2/prop-types'
 import { Menu, MenuItem } from '@dhis2/ui'
 import i18n from '../locales'
+import { TABLES, REPORTS, HELP } from '../modules/paths'
 
 const NavigationItem = ({ path, label }) => {
     // browser history object
@@ -27,8 +28,8 @@ NavigationItem.propTypes = {
 export const Navigation = () => (
     <Menu>
         {/* <NavigationItem label={i18n.t('Home')} path="/" /> */}
-        <NavigationItem label={i18n.t('Custom tables')} path="/tables" />
-        <NavigationItem label={i18n.t('Custom reports')} path="/reports" />
-        <NavigationItem label={i18n.t('Help')} path="/help" />
+        <NavigationItem label={i18n.t('Custom tables')} path={TABLES} />
+        <NavigationItem label={i18n.t('Custom reports')} path={REPORTS} />
+        <NavigationItem label={i18n.t('Help')} path={HELP} />
     </Menu>
 )

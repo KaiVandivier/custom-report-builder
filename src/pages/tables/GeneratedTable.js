@@ -9,6 +9,7 @@ import Icon from '../../components/Icon'
 import classes from './styles/GeneratedTable.module.css'
 import utils from '../../styles/utils.module.css'
 import { ReportParameters, TableWithData } from './generated-table'
+import { EDIT_TABLE, getPath, TABLES } from '../../modules/paths'
 
 export function GeneratedTable() {
     const history = useHistory()
@@ -33,7 +34,7 @@ export function GeneratedTable() {
                 onGenerate={setReportParams}
             />
             <div className={classes.topButtons}>
-                <BackButton to="/tables" tooltip={i18n.t('Back to Tables')} />
+                <BackButton to={TABLES} tooltip={i18n.t('Back to Tables')} />
                 <Button
                     large
                     icon={<Icon name="play_arrow" />}
@@ -44,7 +45,7 @@ export function GeneratedTable() {
                 <Button
                     large
                     icon={<Icon name="edit" />}
-                    onClick={() => history.push(`/tables/edit/${id}`)}
+                    onClick={() => history.push(getPath(EDIT_TABLE, id))}
                 >
                     {i18n.t('Edit Template')}
                 </Button>

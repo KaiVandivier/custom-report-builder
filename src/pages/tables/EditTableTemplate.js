@@ -29,6 +29,7 @@ import BackButton from '../../components/BackButton'
 import utils from '../../styles/utils.module.css'
 import i18n from '../../locales'
 import IconTooltipButton from '../../components/IconTooltipButton'
+import { TABLES, HELP, getPath, GENERATED_TABLE } from '../../modules/paths'
 
 export function EditTableTemplate() {
     const params = useParams()
@@ -43,11 +44,11 @@ export function EditTableTemplate() {
 
     function onDelete() {
         savedTableActions.remove(params.id)
-        history.push('/tables')
+        history.push(TABLES)
     }
 
     function onGenerate() {
-        history.push(`/tables/generated/${params.id}`)
+        history.push(getPath(GENERATED_TABLE, params.id))
     }
 
     function renameTable(name) {
@@ -100,7 +101,7 @@ export function EditTableTemplate() {
     return (
         <>
             <div className="header">
-                <BackButton to="/tables" tooltip={i18n.t('Back to Tables')} />
+                <BackButton to={TABLES} tooltip={i18n.t('Back to Tables')} />
                 <h1>{savedTable.name}</h1>
                 <div className="editButton">
                     <RenameTable
@@ -116,7 +117,7 @@ export function EditTableTemplate() {
                         <AddTableDimension type="Column" dispatch={dispatch} />
                     </ButtonStrip>
                 </div>
-                <Link to={'/help'} target="_blank" rel="noopener noreferrer">
+                <Link to={HELP} target="_blank" rel="noopener noreferrer">
                     <IconTooltipButton
                         tooltip={i18n.t('Help')}
                         icon="help"
