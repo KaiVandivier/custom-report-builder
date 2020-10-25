@@ -11,6 +11,15 @@ import utils from '../../styles/utils.module.css'
 import { ReportParameters, TableWithData } from './generated-table'
 import { EDIT_TABLE, getPath, TABLES } from '../../modules/paths'
 
+export function isAllPopulatedInTable(key, table) {
+    return table.rows.every(row =>
+        row.cells.every(cell => {
+            if (!cell.data.item) return true
+            return cell.data[key].length > 0
+        })
+    )
+}
+
 export function GeneratedTable() {
     const history = useHistory()
     const { id } = useParams()
@@ -44,8 +53,6 @@ export function GeneratedTable() {
         setReportParamsErrors(errors)
         setReportParams(params)
     }
-
-    // TODO: TableWithData will need to manage rendering 'Waiting for params...' differently if we load the table without ou or pe params selected
 
     return (
         <div id="generated-table">
