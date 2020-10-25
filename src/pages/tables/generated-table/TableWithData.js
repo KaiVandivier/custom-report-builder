@@ -23,8 +23,7 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
     const { id } = useParams()
     const [savedTable] = useSavedObject(id)
 
-    if (!selectedPeriods.length || !selectedOrgUnits.length)
-        return <p>Waiting for parameters...</p>
+    if (!selectedPeriods.length) return <p>Waiting for parameters...</p>
 
     // Render table by iterating over all cells, and for each, looking up value in map
     function tableHeader() {
@@ -61,13 +60,17 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
     return (
         <>
             <h2 className="title">{savedTable.name}</h2>
+            {selectedOrgUnits.length ? (
+                <p>
+                    {i18n.t('Organisation Unit{{s}} - {{ou}}', {
+                        s: selectedOrgUnits.length > 1 ? 's' : '',
+                        ou: getSelectedNames(selectedOrgUnits),
+                    })}
+                </p>
+            ) : null}
             <p>
-                {i18n.t('Organisation Unit(s) - {{ou}}', {
-                    ou: getSelectedNames(selectedOrgUnits),
-                })}
-            </p>
-            <p>
-                {i18n.t('Period(s) - {{pe}}', {
+                {i18n.t('Period{{s}} - {{pe}}', {
+                    s: selectedPeriods.length > 1 ? 's' : '',
                     pe: getSelectedNames(selectedPeriods),
                 })}
             </p>
