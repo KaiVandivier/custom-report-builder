@@ -19,11 +19,16 @@ function getSelectedNames(selectedItems) {
     return selectedItems.map(({ name }) => name).join(', ')
 }
 
-export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
+export function TableWithData({
+    periodParamNeeded,
+    selectedOrgUnits,
+    selectedPeriods,
+}) {
     const { id } = useParams()
     const [savedTable] = useSavedObject(id)
 
-    if (!selectedPeriods.length) return <p>Waiting for parameters...</p>
+    if (periodParamNeeded && !selectedPeriods.length)
+        return <p>Waiting for parameters...</p>
 
     // Render table by iterating over all cells, and for each, looking up value in map
     function tableHeader() {
@@ -68,12 +73,14 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
                     })}
                 </p>
             ) : null}
-            <p>
-                {i18n.t('Period{{s}} - {{pe}}', {
-                    s: selectedPeriods.length > 1 ? 's' : '',
-                    pe: getSelectedNames(selectedPeriods),
-                })}
-            </p>
+            {selectedPeriods.length ? (
+                <p>
+                    {i18n.t('Period{{s}} - {{pe}}', {
+                        s: selectedPeriods.length > 1 ? 's' : '',
+                        pe: getSelectedNames(selectedPeriods),
+                    })}
+                </p>
+            ) : null}
             <p>
                 {i18n.t('Date - ')}
                 {new Date().toLocaleDateString()}
@@ -88,6 +95,7 @@ export function TableWithData({ selectedOrgUnits, selectedPeriods }) {
 }
 
 TableWithData.propTypes = {
+    periodParamNeeded: PropTypes.bool.isRequired,
     selectedOrgUnits: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string,
