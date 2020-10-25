@@ -9,7 +9,7 @@ const ANALYTICS_QUERY = {
         resource: 'analytics',
         params: ({ dxId, ouId, peId }) => ({
             dimension: `dx:${dxId}`,
-            filter: [`ou:${ouId}`, `pe:${peId}`],
+            filter: [ouId.length ? `ou:${ouId}` : '', `pe:${peId}`],
             skipMeta: true,
         }),
     },

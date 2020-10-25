@@ -11,6 +11,7 @@ import utils from '../../styles/utils.module.css'
 import { ReportParameters, TableWithData } from './generated-table'
 import { EDIT_TABLE, getPath, TABLES } from '../../modules/paths'
 import { DATA } from '../../modules/contentTypes'
+import { useSavedObject } from '@dhis2/app-service-datastore'
 
 export function isAllPopulatedInTable(key, table) {
     return table.rows.every(row =>
@@ -24,6 +25,7 @@ export function isAllPopulatedInTable(key, table) {
 export function GeneratedTable() {
     const history = useHistory()
     const { id } = useParams()
+    const [savedTable] = useSavedObject(id)
 
     const [reportParams, setReportParams] = useState({
         selectedOrgUnits: [],
@@ -39,10 +41,12 @@ export function GeneratedTable() {
         setReportParamsDialogOpen(state => !state)
 
     // ou / periodParamNeeded function should be memoized w/ useCallback?
+    // const ouParamNeeded = !isAllPopulatedInTable('orgUnits', savedTable)
+    const periodParamNeeded = !isAllPopulatedInTable('periods', savedTable)
 
     function onGenerate(params) {
         const errors = []
-        const periodParamNeeded = true
+        // const periodParamNeeded = true
         if (periodParamNeeded && params.selectedPeriods.length === 0) {
             errors.push(
                 i18n.t(
@@ -96,7 +100,10 @@ export function GeneratedTable() {
             </div>
             <Card className={utils.card}>
                 <div ref={printRef} className={classes.print}>
-                    <TableWithData {...reportParams} />
+                    <TableWithData
+                        {...reportParams}
+                        periodParamNeeded={periodParamNeeded}
+                    />
                 </div>
             </Card>
         </div>
