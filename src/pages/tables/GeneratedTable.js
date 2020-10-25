@@ -10,11 +10,12 @@ import classes from './styles/GeneratedTable.module.css'
 import utils from '../../styles/utils.module.css'
 import { ReportParameters, TableWithData } from './generated-table'
 import { EDIT_TABLE, getPath, TABLES } from '../../modules/paths'
+import { DATA } from '../../modules/contentTypes'
 
 export function isAllPopulatedInTable(key, table) {
     return table.rows.every(row =>
         row.cells.every(cell => {
-            if (!cell.data.item) return true
+            if (cell.contentType !== DATA || !cell.data.item) return true
             return cell.data[key].length > 0
         })
     )
