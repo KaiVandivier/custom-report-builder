@@ -13,7 +13,14 @@ import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '../../../locales'
 import OrganisationUnitPicker from '../../../components/OrganisationUnitPicker'
 
-export function ReportParameters({ open, errors, toggleModal, onGenerate }) {
+export function ReportParameters({
+    open,
+    errors,
+    pickPeriods = true,
+    pickOrgUnits = true,
+    toggleModal,
+    onGenerate,
+}) {
     const [selectedOrgUnits, setSelectedOrgUnits] = useState([])
     const [selectedPeriods, setSelectedPeriods] = useState([])
 
@@ -25,19 +32,27 @@ export function ReportParameters({ open, errors, toggleModal, onGenerate }) {
             <ModalContent>
                 <Help>
                     {i18n.t(
-                        'These parameters will apply to all data cells that do not have organisation unit(s) or period(s) specified in the template.'
+                        'The parameter(s) chosen below will apply to all data cells that do not have that parameter specified in the template.'
                     )}
                 </Help>
-                <h3>{i18n.t('Organisation Unit(s)')}</h3>
-                <OrganisationUnitPicker
-                    selectedOrgUnits={selectedOrgUnits}
-                    setSelectedOrgUnits={setSelectedOrgUnits}
-                />
-                <h3>{i18n.t('Period(s)')}</h3>
-                <PeriodDimension
-                    selectedPeriods={selectedPeriods}
-                    onSelect={({ items }) => setSelectedPeriods(items)}
-                />
+                {pickOrgUnits && (
+                    <>
+                        <h3>{i18n.t('Organisation Unit(s)')}</h3>
+                        <OrganisationUnitPicker
+                            selectedOrgUnits={selectedOrgUnits}
+                            setSelectedOrgUnits={setSelectedOrgUnits}
+                        />
+                    </>
+                )}
+                {pickPeriods && (
+                    <>
+                        <h3>{i18n.t('Period(s)')}</h3>
+                        <PeriodDimension
+                            selectedPeriods={selectedPeriods}
+                            onSelect={({ items }) => setSelectedPeriods(items)}
+                        />
+                    </>
+                )}
                 {!errors.length ? null : (
                     <div style={{ marginTop: '1rem' }}>
                         {errors.map(error => (
@@ -73,6 +88,8 @@ ReportParameters.propTypes = {
     toggleModal: PropTypes.func.isRequired,
     onGenerate: PropTypes.func.isRequired,
     errors: PropTypes.arrayOf(PropTypes.string),
+    pickOrgUnits: PropTypes.bool,
+    pickPeriods: PropTypes.bool,
 }
 
 export default ReportParameters

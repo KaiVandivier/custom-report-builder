@@ -41,7 +41,7 @@ export function GeneratedTable() {
         setReportParamsDialogOpen(state => !state)
 
     // ou / periodParamNeeded function should be memoized w/ useCallback?
-    // const ouParamNeeded = !isAllPopulatedInTable('orgUnits', savedTable)
+    const orgUnitParamNeeded = !isAllPopulatedInTable('orgUnits', savedTable)
     const periodParamNeeded = !isAllPopulatedInTable('periods', savedTable)
 
     function onGenerate(params) {
@@ -61,12 +61,16 @@ export function GeneratedTable() {
 
     return (
         <div id="generated-table">
-            <ReportParameters
-                open={reportParamsDialogOpen}
-                errors={reportParamsErrors}
-                toggleModal={toggleReportParamsDialog}
-                onGenerate={onGenerate}
-            />
+            {(orgUnitParamNeeded || periodParamNeeded) && (
+                <ReportParameters
+                    open={reportParamsDialogOpen}
+                    errors={reportParamsErrors}
+                    pickOrgUnits={orgUnitParamNeeded}
+                    pickPeriods={periodParamNeeded}
+                    toggleModal={toggleReportParamsDialog}
+                    onGenerate={onGenerate}
+                />
+            )}
             <div className={classes.topButtons}>
                 <BackButton to={TABLES} tooltip={i18n.t('Back to Tables')} />
                 <Button
