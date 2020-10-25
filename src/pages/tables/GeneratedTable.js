@@ -17,21 +17,43 @@ export function GeneratedTable() {
 
     const [reportParams, setReportParams] = useState({
         selectedOrgUnits: [],
-        selectedPeriods: [],
+        selectedPeriods: [], // Maybe the root ous?
     })
     const [reportParamsDialogOpen, setReportParamsDialogOpen] = useState(true)
-    const toggleReportParamsDialog = () =>
-        setReportParamsDialogOpen(state => !state)
+    const [reportParamsErrors, setReportParamsErrors] = useState([])
 
     const printRef = useRef()
     const handlePrint = useReactToPrint({ content: () => printRef.current })
+
+    const toggleReportParamsDialog = () =>
+        setReportParamsDialogOpen(state => !state)
+
+    // ou / periodParamNeeded function should be memoized w/ useCallback?
+
+    function onGenerate(params) {
+        const errors = []
+        const periodParamNeeded = true
+        if (periodParamNeeded && params.selectedPeriods.length === 0) {
+            errors.push(
+                i18n.t(
+                    'One or more periods are required to query data for this table.'
+                )
+            )
+            setReportParamsDialogOpen(true)
+        }
+        setReportParamsErrors(errors)
+        setReportParams(params)
+    }
+
+    // TODO: TableWithData will need to manage rendering 'Waiting for params...' differently if we load the table without ou or pe params selected
 
     return (
         <div id="generated-table">
             <ReportParameters
                 open={reportParamsDialogOpen}
+                errors={reportParamsErrors}
                 toggleModal={toggleReportParamsDialog}
-                onGenerate={setReportParams}
+                onGenerate={onGenerate}
             />
             <div className={classes.topButtons}>
                 <BackButton to={TABLES} tooltip={i18n.t('Back to Tables')} />
