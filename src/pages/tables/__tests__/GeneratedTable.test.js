@@ -2,7 +2,7 @@ import { isAllPopulatedInTable } from '../GeneratedTable'
 
 // if all are populated, should cause 'true'
 const populatedDataCell = {
-    type: 'data',
+    contentType: 'data',
     data: {
         item: { id: '123', name: 'abc' },
         orgUnits: [{ id: '123', name: 'abc' }],
@@ -12,7 +12,7 @@ const populatedDataCell = {
 
 // should cause 'false'
 const unpopulatedDataCellWithItem = {
-    type: 'data',
+    contentType: 'data',
     data: {
         item: { id: '123', name: 'abc' },
         orgUnits: [],
@@ -22,7 +22,7 @@ const unpopulatedDataCellWithItem = {
 
 // should be ignored
 const unpopulatedDataCellWithoutItem = {
-    type: 'data',
+    contentType: 'data',
     data: {
         item: null,
         orgUnits: [],
@@ -32,7 +32,7 @@ const unpopulatedDataCellWithoutItem = {
 
 // should be ignored
 const nonDataCell = {
-    type: 'text',
+    contentType: 'text',
     data: { item: null },
 }
 
