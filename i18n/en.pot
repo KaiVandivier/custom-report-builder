@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-24T03:32:58.431Z\n"
-"PO-Revision-Date: 2020-10-24T03:32:58.431Z\n"
+"POT-Creation-Date: 2020-10-25T05:17:01.418Z\n"
+"PO-Revision-Date: 2020-10-25T05:17:01.418Z\n"
 
 msgid "Back"
 msgstr ""
@@ -138,6 +138,9 @@ msgstr ""
 msgid ""
 "*Any cells with unspecified organisation units or periods will use the "
 "respective parameters selected during report generation."
+msgstr ""
+
+msgid "One or more periods are required to query data for this table."
 msgstr ""
 
 msgid "Choose Parameters"
@@ -329,10 +332,15 @@ msgstr ""
 msgid "Report parameters"
 msgstr ""
 
-msgid "Organisation Unit(s) - {{ou}}"
+msgid ""
+"The parameter(s) chosen below will apply to all data cells that do not have "
+"that parameter specified in the template."
 msgstr ""
 
-msgid "Period(s) - {{pe}}"
+msgid "Organisation Unit{{s}} - {{ou}}"
+msgstr ""
+
+msgid "Period{{s}} - {{pe}}"
 msgstr ""
 
 msgid "Date - "
