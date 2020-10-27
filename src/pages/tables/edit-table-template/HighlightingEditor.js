@@ -1,15 +1,31 @@
-import React from 'react'
-import { Switch } from '@dhis2/ui'
+import React, { useState } from 'react'
+import { InputField, Switch, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import i18n from '../../../locales'
 import { UPDATE_TABLE } from '../../../reducers/tableReducer'
 
+const defaultIntervals = [
+    { lowerBound: 90, color: colors.green100 },
+    { lowerBound: 70, color: colors.yellow100 },
+    { lowerBound: -Infinity, color: colors.red100 },
+]
+
 export function HighlightingEditor({ table, dispatch }) {
+    const [intervals, setIntervals] = useState(defaultIntervals)
+
     function onSwitch() {
         dispatch({
             type: UPDATE_TABLE,
             payload: { highlightingOn: !table.highlightingOn },
         })
+    }
+
+    function onInputChange(value, idx) {
+        setIntervals([
+            ...intervals.slice(0, idx),
+            { ...intervals[idx], lowerBound: value },
+            ...intervals.slice(idx + 1),
+        ])
     }
 
     return (
@@ -21,29 +37,28 @@ export function HighlightingEditor({ table, dispatch }) {
             />
             {table.highlightingOn && (
                 <div className="container">
-                    <div className="interval-container">
-                        <div className="color-swatch-container">
-                            <div className="color-swatch green" />
+                    {intervals.map((interval, idx) => (
+                        <div className="interval-container" key={idx}>
+                            <div className="color-swatch-container">
+                                <div
+                                    className="color-swatch"
+                                    style={{ backgroundColor: interval.color }}
+                                />
+                            </div>
+                            <span>Value &ge;</span>
+                            <InputField
+                                dense
+                                value={String(interval.lowerBound)}
+                                onChange={({ value }) =>
+                                    onInputChange(value, idx)
+                                }
+                                required
+                            />
                         </div>
-                        <span>Value &ge; 90.0</span>
-                    </div>
-
-                    <div className="interval-container">
-                        <div className="color-swatch-container">
-                            <div className="color-swatch yellow" />
-                        </div>
-                        <span>Value &ge; 70.0</span>
-                    </div>
-
-                    <div className="interval-container">
-                        <div className="color-swatch-container">
-                            <div className="color-swatch red" />
-                        </div>
-                        <span>Value &lt; 70.0</span>
-                        {/* Should be 'less than' the same number the above is 'greater than' */}
-                    </div>
+                    ))}
                 </div>
             )}
+            {/* Should be 'less than' the same number the above is 'greater than' */}
             <style jsx>{`
                 .container {
                     display: block;
@@ -55,6 +70,7 @@ export function HighlightingEditor({ table, dispatch }) {
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
+                    margin-bottom: 0.5rem;
                 }
 
                 .color-swatch-container {
