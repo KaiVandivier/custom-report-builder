@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-25T05:17:01.418Z\n"
-"PO-Revision-Date: 2020-10-25T05:17:01.418Z\n"
+"POT-Creation-Date: 2020-10-27T08:26:50.966Z\n"
+"PO-Revision-Date: 2020-10-27T08:26:50.966Z\n"
 
 msgid "Back"
 msgstr ""
@@ -285,6 +285,9 @@ msgid "Generate"
 msgstr ""
 
 msgid "Really delete this template?"
+msgstr ""
+
+msgid "Highlight cells based on value"
 msgstr ""
 
 msgid "Table name"
