@@ -1,15 +1,31 @@
-import React from 'react'
-import { TableCell } from '@dhis2/ui'
+import React, { useState } from 'react'
+import { TableCell, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import CellData from './CellData'
 import { DATA, TEXT, EMPTY } from '../../../modules/contentTypes'
+
+function getColorByValue(value) {
+    // what about a switch?
+    if (value > 90) {
+        return colors.green100
+    } else if (value > 70) {
+        return colors.yellow100
+    }
+    return colors.red100
+}
 
 export function GeneratedTableCell({
     cell,
     selectedOrgUnits,
     selectedPeriods,
 }) {
-    // TODO: Tooltips
+    const [cellColor, setCellColor] = useState()
+
+    function onLoad(value) {
+        const color = getColorByValue(value)
+        setCellColor(color)
+    }
+
     function getCellContents() {
         if (!cell) return null
         switch (cell.contentType) {
@@ -19,6 +35,7 @@ export function GeneratedTableCell({
                         cell={cell}
                         selectedOrgUnits={selectedOrgUnits}
                         selectedPeriods={selectedPeriods}
+                        onLoad={onLoad}
                     />
                 )
             case TEXT:
@@ -29,7 +46,21 @@ export function GeneratedTableCell({
         }
     }
 
-    return <TableCell>{getCellContents()}</TableCell>
+    return (
+        <TableCell>
+            <div>
+                {getCellContents()}
+                <style jsx>{`
+                    div {
+                        display: inline-block;
+                        padding: 0.5rem;
+                        margin: -0.5rem;
+                        background-color: ${cellColor};
+                    }
+                `}</style>
+            </div>
+        </TableCell>
+    )
 }
 
 GeneratedTableCell.propTypes = {

@@ -23,7 +23,7 @@ function getSelectedNames(selectedItems) {
     return selectedItems.map(({ name }) => name).join(', ')
 }
 
-export function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
+export function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
     if (!cell.data.item) return null
 
     const queryVars = {
@@ -38,6 +38,8 @@ export function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
 
     const { data, loading, error, refetch } = useDataQuery(ANALYTICS_QUERY, {
         variables: queryVars,
+        onComplete: ({ result }) =>
+            result.rows.length && onLoad(result.rows[0][1]),
     })
 
     // Make sure query updates in response to new props
@@ -90,6 +92,7 @@ CellData.propTypes = {
             name: PropTypes.string,
         })
     ),
+    onLoad: PropTypes.func,
 }
 
 export default CellData
