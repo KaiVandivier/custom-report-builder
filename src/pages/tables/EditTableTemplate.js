@@ -21,6 +21,7 @@ import {
     EditTableCell,
     AddTableDimension,
     RowControls,
+    HighlightingEditor,
     ColumnControls,
     RenameTable,
     EditTableTemplateActions,
@@ -30,7 +31,6 @@ import utils from '../../styles/utils.module.css'
 import i18n from '../../locales'
 import IconTooltipButton from '../../components/IconTooltipButton'
 import { TABLES, HELP, getPath, GENERATED_TABLE } from '../../modules/paths'
-import HighlightingEditor from './edit-table-template/HighlightingEditor'
 
 export function EditTableTemplate() {
     const params = useParams()

@@ -1,6 +1,7 @@
 export * from './AddTableDimension'
 export * from './ColumnControls'
 export * from './EditTableTemplateActions'
+export * from './HighlightingEditor'
 export * from './RenameTable'
 export * from './RowControls'
 export * from './SelectorFrame'
