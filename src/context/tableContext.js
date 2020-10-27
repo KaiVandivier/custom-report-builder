@@ -9,6 +9,7 @@ const TableDispatchContext = React.createContext()
 const TableActionsContext = React.createContext()
 
 export function TableProvider({ children }) {
+    // TODO: validate params.id
     const params = useParams()
     const [savedTable, savedTableActions] = useSavedObject(params.id)
     const [table, dispatch] = useReducer(tableReducer, savedTable)
@@ -16,9 +17,9 @@ export function TableProvider({ children }) {
     return (
         <TableStateContext.Provider value={table}>
             <TableDispatchContext.Provider value={dispatch}>
-                <TableActionsContext value={savedTableActions}>
+                <TableActionsContext.Provider value={savedTableActions}>
                     {children}
-                </TableActionsContext>
+                </TableActionsContext.Provider>
             </TableDispatchContext.Provider>
         </TableStateContext.Provider>
     )
