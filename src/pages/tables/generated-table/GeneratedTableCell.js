@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import CellData from './CellData'
 import { DATA, TEXT, EMPTY } from '../../../modules/contentTypes'
 
+// TODO: Switch out for table (or cell) definition
 function getColorByValue(value) {
     // what about a switch?
     if (value > 90) {
