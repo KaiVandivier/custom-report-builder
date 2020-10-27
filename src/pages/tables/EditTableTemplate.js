@@ -30,6 +30,7 @@ import utils from '../../styles/utils.module.css'
 import i18n from '../../locales'
 import IconTooltipButton from '../../components/IconTooltipButton'
 import { TABLES, HELP, getPath, GENERATED_TABLE } from '../../modules/paths'
+import HighlightingEditor from './edit-table-template/HighlightingEditor'
 
 export function EditTableTemplate() {
     const params = useParams()
@@ -38,6 +39,7 @@ export function EditTableTemplate() {
     const history = useHistory()
 
     // Save table in response to changes
+    // TODO: Move to TableProvider?
     useEffect(() => {
         savedTableActions.update({ ...table })
     }, [table])
@@ -139,6 +141,7 @@ export function EditTableTemplate() {
                     )}
                 </Help>
             </div>
+            <HighlightingEditor table={table} dispatch={dispatch} />
             <Card className={utils.card}>
                 <Table className={utils.noBorder}>
                     <TableHead>{tableColumns()}</TableHead>
