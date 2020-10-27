@@ -1,4 +1,5 @@
 import tableReducer, {
+    UPDATE_TABLE,
     ADD_ROW,
     UPDATE_ROW,
     REORDER_ROW,
@@ -19,6 +20,14 @@ describe('no action given', () => {
         const res = tableReducer(testTable, { type: 'invalid type' })
         expect(res).toEqual(testTable)
     })
+})
+
+it('updates the table', () => {
+    const res = tableReducer(testTable, {
+        type: UPDATE_TABLE,
+        payload: { highlightingOn: true },
+    })
+    expect(res.highlightingOn).toBe(true)
 })
 
 describe('row actions', () => {

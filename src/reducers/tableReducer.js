@@ -1,6 +1,7 @@
 import reorderArray from '../modules/reorderArray'
 import { defaultCell } from '../modules/defaultTable'
 
+export const UPDATE_TABLE = 'UPDATE_TABLE'
 export const ADD_ROW = 'ADD_ROW'
 export const UPDATE_ROW = 'UPDATE_ROW'
 export const REORDER_ROW = 'REORDER_ROW'
@@ -15,6 +16,11 @@ export const UPDATE_COLUMN_DIMENSIONS = 'UPDATE_COLUMN_DIMENSIONS'
 
 export function tableReducer(table, { type, payload }) {
     switch (type) {
+        case UPDATE_TABLE:
+            return {
+                ...table,
+                ...payload,
+            }
         case ADD_ROW:
             return {
                 ...table,
