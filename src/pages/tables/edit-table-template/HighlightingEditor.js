@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
-import { InputField, Switch, colors } from '@dhis2/ui'
+import { Button, ButtonStrip, InputFieldFF, Switch, colors } from '@dhis2/ui'
+import {
+    ReactFinalForm,
+    hasValue,
+    number,
+    createMinNumber,
+    createMaxNumber,
+    composeValidators,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import i18n from '../../../locales'
 import { UPDATE_TABLE } from '../../../reducers/tableReducer'
+import styles from './styles/HighlightingEditor.style'
 
 const defaultIntervals = [
     { lowerBound: 90, color: colors.green100 },
@@ -10,8 +19,13 @@ const defaultIntervals = [
     { lowerBound: -Infinity, color: colors.red100 },
 ]
 
+const { Form, Field } = ReactFinalForm
+
 export function HighlightingEditor({ table, dispatch }) {
-    const [intervals, setIntervals] = useState(defaultIntervals)
+    // TODO: Get intervals from the table itself
+    const [intervals, setIntervals] = useState(
+        table.highlightingIntervals || defaultIntervals
+    )
 
     function onSwitch() {
         dispatch({
@@ -20,12 +34,75 @@ export function HighlightingEditor({ table, dispatch }) {
         })
     }
 
-    function onInputChange(value, idx) {
-        setIntervals([
-            ...intervals.slice(0, idx),
-            { ...intervals[idx], lowerBound: value },
-            ...intervals.slice(idx + 1),
-        ])
+    function onSubmit(values) {
+        console.log(values)
+        setIntervals([...Object.values(values)])
+    }
+
+    function getIntervalEditors(values) {
+        /**
+         * 'lowerBound' must have a value greater than the interval below and
+         * lesser than the interval above. It must also do so dynamically as
+         * the fields change with user input.
+         */
+        const validateField = (idx, arr) =>
+            composeValidators(
+                hasValue,
+                number,
+                createMinNumber(
+                    idx === arr.length - 1
+                        ? -Infinity
+                        : Number(
+                              values[`lowerBound-${idx + 1}`] ||
+                                  arr[idx + 1].lowerBound
+                          )
+                ),
+                createMaxNumber(
+                    idx === 0
+                        ? Infinity
+                        : Number(
+                              values[`lowerBound-${idx - 1}`] ||
+                                  arr[idx - 1].lowerBound
+                          )
+                )
+            )
+
+        return intervals.map((interval, idx, arr) => (
+            <div className="interval-container" key={idx}>
+                <div
+                    className="color-swatch"
+                    style={{
+                        backgroundColor: interval.color,
+                    }}
+                />
+                {idx === arr.length - 1 ? (
+                    idx === 0 ? (
+                        <span>All values</span>
+                    ) : (
+                        <>
+                            <span>
+                                {i18n.t('Value {{-lt}} {{value}}', {
+                                    lt: '\x3C',
+                                    value: values[`lowerBound-${idx - 1}`],
+                                })}
+                            </span>
+                        </>
+                    )
+                ) : (
+                    <>
+                        <span>Value &ge;</span>
+                        <Field
+                            dense
+                            name={`lowerBound-${idx}`}
+                            component={InputFieldFF}
+                            validate={validateField(idx, arr)}
+                            initialValue={String(interval.lowerBound)}
+                        />
+                    </>
+                )}
+                <style jsx>{styles}</style>
+            </div>
+        ))
     }
 
     return (
@@ -36,69 +113,42 @@ export function HighlightingEditor({ table, dispatch }) {
                 onChange={onSwitch}
             />
             {table.highlightingOn && (
-                <div className="container">
-                    {intervals.map((interval, idx) => (
-                        <div className="interval-container" key={idx}>
-                            <div className="color-swatch-container">
-                                <div
-                                    className="color-swatch"
-                                    style={{ backgroundColor: interval.color }}
-                                />
+                // TODO: Investigate 'name' and 'values' options
+                <Form onSubmit={onSubmit}>
+                    {({
+                        handleSubmit,
+                        form,
+                        submitting,
+                        pristine,
+                        values,
+                        initialValues,
+                    }) => (
+                        <form onSubmit={handleSubmit}>
+                            <div className="container">
+                                {getIntervalEditors(values)}
                             </div>
-                            <span>Value &ge;</span>
-                            <InputField
-                                dense
-                                value={String(interval.lowerBound)}
-                                onChange={({ value }) =>
-                                    onInputChange(value, idx)
-                                }
-                                required
-                            />
-                        </div>
-                    ))}
-                </div>
+                            <ButtonStrip>
+                                <Button
+                                    primary
+                                    small
+                                    type="submit"
+                                    disabled={submitting}
+                                >
+                                    {i18n.t('Save')}
+                                </Button>
+                                <Button
+                                    small
+                                    onClick={() => form.reset(initialValues)}
+                                    disabled={submitting || pristine}
+                                >
+                                    {i18n.t('Reset')}
+                                </Button>
+                            </ButtonStrip>
+                        </form>
+                    )}
+                </Form>
             )}
-            {/* Should be 'less than' the same number the above is 'greater than' */}
-            <style jsx>{`
-                .container {
-                    display: block;
-                    max-width: 400px;
-                    margin-top: 0.5rem;
-                }
-
-                .interval-container {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    margin-bottom: 0.5rem;
-                }
-
-                .color-swatch-container {
-                    display: inline-block;
-                    padding: 0.25rem;
-                    // background-color: white;
-                    // border: 1px solid #ccc; // TODO: Get right color
-                    border-radius: 0.25rem;
-                }
-
-                .color-swatch {
-                    height: 1rem;
-                    width: 2rem;
-                    border: 1px solid #666; // TODO: Get right color
-                }
-
-                .color-swatch.green {
-                    background-color: #e8f5e9; // TODO: Get right color
-                }
-
-                .color-swatch.yellow {
-                    background-color: #ffecb3; // TODO: Get right color
-                }
-
-                .color-swatch.red {
-                    background-color: #ffe5e8; // TODO: Get right color
-                }
-            `}</style>
+            <style jsx>{styles}</style>
         </div>
     )
 }
@@ -106,6 +156,7 @@ export function HighlightingEditor({ table, dispatch }) {
 HighlightingEditor.propTypes = {
     dispatch: PropTypes.func.isRequired,
     table: PropTypes.shape({
+        highlightingIntervals: PropTypes.array,
         highlightingOn: PropTypes.bool,
     }).isRequired,
 }
