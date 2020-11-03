@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-27T08:26:50.966Z\n"
-"PO-Revision-Date: 2020-10-27T08:26:50.966Z\n"
+"POT-Creation-Date: 2020-11-03T23:00:03.830Z\n"
+"PO-Revision-Date: 2020-11-03T23:00:03.830Z\n"
 
 msgid "Back"
 msgstr ""
@@ -287,7 +287,16 @@ msgstr ""
 msgid "Really delete this template?"
 msgstr ""
 
+msgid "Value {{-lt}} {{value}}"
+msgstr ""
+
 msgid "Highlight cells based on value"
+msgstr ""
+
+msgid "Edit Highlighting Intervals"
+msgstr ""
+
+msgid "Reset"
 msgstr ""
 
 msgid "Table name"
