@@ -134,6 +134,7 @@ export function EditTableTemplate() {
                     />
                 </div>
             </div>
+            <HighlightingEditor table={table} dispatch={dispatch} />
             <div className="help">
                 <Help>
                     {i18n.t(
@@ -141,7 +142,6 @@ export function EditTableTemplate() {
                     )}
                 </Help>
             </div>
-            <HighlightingEditor table={table} dispatch={dispatch} />
             <Card className={utils.card}>
                 <Table className={utils.noBorder}>
                     <TableHead>{tableColumns()}</TableHead>
