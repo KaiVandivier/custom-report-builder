@@ -1,7 +1,13 @@
 import css from 'styled-jsx/css'
 
 export default css`
-    .container {
+    .switch-container {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .editor-container {
         display: block;
         max-width: 400px;
         margin-top: 0.5rem;
