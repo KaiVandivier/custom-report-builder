@@ -8,8 +8,6 @@ import {
     ReactFinalForm,
     hasValue,
     number,
-    createMinNumber,
-    createMaxNumber,
     composeValidators,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -25,71 +23,28 @@ const defaultIntervals = [
 
 const { Form, Field } = ReactFinalForm
 
-// function IntervalEditor({ values, intervals }) {
-//     /**
-//      * 'lowerBound' must have a value greater than the interval below and
-//      * lesser than the interval above. It must also do so dynamically as
-//      * the fields change with user input.
-//      */
-//     const validateField = (idx, arr) =>
-//         composeValidators(
-//             hasValue,
-//             number,
-//             createMinNumber(
-//                 idx === arr.length - 1
-//                     ? -Infinity
-//                     : Number(
-//                           values[`lowerBound-${idx + 1}`] ||
-//                               arr[idx + 1].lowerBound
-//                       )
-//             ),
-//             createMaxNumber(
-//                 idx === 0
-//                     ? Infinity
-//                     : Number(
-//                           values[`lowerBound-${idx - 1}`] ||
-//                               arr[idx - 1].lowerBound
-//                       )
-//             )
-//         )
+function betweenNeighbors(key, idx) {
+    const tooHighMessage = i18n.t(
+        'This value must be lower than the lower bound of the interval above it.'
+    )
+    const tooLowMessage = i18n.t(
+        'This value must be higher than the lower bound of the interval below it.'
+    )
 
-//     return intervals.map((interval, idx, arr) => (
-//         <div className="interval-container" key={idx}>
-//             <div
-//                 className="color-swatch"
-//                 style={{
-//                     backgroundColor: interval.color,
-//                 }}
-//             />
-//             {idx === arr.length - 1 ? (
-//                 idx === 0 ? (
-//                     <span>All values</span>
-//                 ) : (
-//                     <>
-//                         <span>
-//                             {i18n.t('Value {{-lt}} {{value}}', {
-//                                 lt: '\x3C',
-//                                 value: values[`lowerBound-${idx - 1}`],
-//                             })}
-//                         </span>
-//                     </>
-//                 )
-//             ) : (
-//                 <>
-//                     <span>Value &ge;</span>
-//                     <Field
-//                         dense
-//                         name={`lowerBound-${idx}`}
-//                         component={InputFieldFF}
-//                         validate={validateField(idx, arr)}
-//                         initialValue={String(interval.lowerBound)}
-//                     />
-//                 </>
-//             )}
-//             <style jsx>{styles}</style>
-//         </div>
-//     ))
-// }
+    return (value, allValues) => {
+        if (!allValues[key])
+            throw new Error(`Form value with key '${key}' not found`)
+
+        const length = allValues[key].length
+        const tooHigh =
+            idx > 0 && Number(value) > Number(allValues[key]?.[idx - 1])
+        // The last (lowest) interval is not represented in allValues
+        const tooLow =
+            idx < length && Number(value) < Number(allValues[key]?.[idx + 1])
+
+        return tooHigh ? tooHighMessage : tooLow ? tooLowMessage : undefined
+    }
+}
 
 export function HighlightingEditor({ table, dispatch }) {
     // TODO: Get intervals from the table itself
@@ -108,37 +63,32 @@ export function HighlightingEditor({ table, dispatch }) {
     }
 
     function onSubmit(values) {
-        console.log(values)
+        toggleModal()
+
+        const highlightingIntervals = defaultIntervals.map(
+            (interval, idx, arr) => {
+                if (idx === arr.length - 1) return interval
+                return {
+                    ...interval,
+                    lowerBound: values.lowerBounds[idx],
+                }
+            }
+        )
+
+        dispatch({
+            type: UPDATE_TABLE,
+            payload: { highlightingIntervals },
+        })
         // TODO: Fix me
-        setIntervals([...Object.values(values)])
+        setIntervals(highlightingIntervals)
     }
 
     function getIntervalEditors(values) {
-        /**
-         * 'lowerBound' must have a value greater than the interval below and
-         * lesser than the interval above. It must also do so dynamically as
-         * the fields change with user input.
-         */
-        const validateField = (idx, arr) =>
+        const validateField = idx =>
             composeValidators(
                 hasValue,
                 number,
-                createMinNumber(
-                    idx === arr.length - 1
-                        ? -Infinity
-                        : Number(
-                              values[`lowerBound-${idx + 1}`] ||
-                                  arr[idx + 1].lowerBound
-                          )
-                ),
-                createMaxNumber(
-                    idx === 0
-                        ? Infinity
-                        : Number(
-                              values[`lowerBound-${idx - 1}`] ||
-                                  arr[idx - 1].lowerBound
-                          )
-                )
+                betweenNeighbors('lowerBounds', idx)
             )
 
         return intervals.map((interval, idx, arr) => (
@@ -153,23 +103,23 @@ export function HighlightingEditor({ table, dispatch }) {
                     idx === 0 ? (
                         <span>All values</span>
                     ) : (
-                        <>
-                            <span>
-                                {i18n.t('Value {{-lt}} {{value}}', {
-                                    lt: '\x3C',
-                                    value: values[`lowerBound-${idx - 1}`],
-                                })}
-                            </span>
-                        </>
+                        <span>
+                            {i18n.t('Value {{-lt}} {{value}}', {
+                                lt: '\x3C',
+                                value: values.lowerBounds?.[idx - 1],
+                            })}
+                        </span>
                     )
                 ) : (
                     <>
-                        <span>Value &ge;</span>
+                        <span>
+                            {i18n.t('Value {{-gte}}', { gte: '\u2265' })}
+                        </span>
                         <Field
                             dense
-                            name={`lowerBound-${idx}`}
+                            name={`lowerBounds[${idx}]`}
                             component={InputFieldFF}
-                            validate={validateField(idx, arr)}
+                            validate={validateField(idx)}
                             initialValue={String(interval.lowerBound)}
                         />
                     </>
@@ -198,7 +148,6 @@ export function HighlightingEditor({ table, dispatch }) {
                     <ModalTitle>
                         {i18n.t('Edit Highlighting Intervals')}
                     </ModalTitle>
-                    {/*TODO: Investigate 'name' and 'values' options */}
                     <Form onSubmit={onSubmit}>
                         {({
                             handleSubmit,
@@ -207,44 +156,37 @@ export function HighlightingEditor({ table, dispatch }) {
                             pristine,
                             values,
                             initialValues,
-                        }) => {
-                            console.log(values)
-                            return (
-                                <form onSubmit={handleSubmit}>
-                                    <ModalContent>
-                                        <div className="editor-container">
-                                            {getIntervalEditors(values)}
-                                        </div>
-                                    </ModalContent>
-                                    <ModalActions>
-                                        <ButtonStrip end>
-                                            <Button onClick={toggleModal}>
-                                                {i18n.t('Cancel')}
-                                            </Button>
-                                            <Button
-                                                onClick={() =>
-                                                    form.reset(initialValues)
-                                                }
-                                                disabled={
-                                                    submitting || pristine
-                                                }
-                                            >
-                                                {i18n.t('Reset')}
-                                            </Button>
-                                            <Button
-                                                primary
-                                                type="submit"
-                                                disabled={submitting}
-                                                // How to do?
-                                                // onClick={toggleModal}
-                                            >
-                                                {i18n.t('Save')}
-                                            </Button>
-                                        </ButtonStrip>
-                                    </ModalActions>
-                                </form>
-                            )
-                        }}
+                        }) => (
+                            <form onSubmit={handleSubmit}>
+                                <ModalContent>
+                                    <div className="editor-container">
+                                        {getIntervalEditors(values)}
+                                    </div>
+                                </ModalContent>
+                                <ModalActions>
+                                    <ButtonStrip end>
+                                        <Button onClick={toggleModal}>
+                                            {i18n.t('Cancel')}
+                                        </Button>
+                                        <Button
+                                            onClick={() =>
+                                                form.reset(initialValues)
+                                            }
+                                            disabled={submitting || pristine}
+                                        >
+                                            {i18n.t('Reset')}
+                                        </Button>
+                                        <Button
+                                            primary
+                                            type="submit"
+                                            disabled={submitting}
+                                        >
+                                            {i18n.t('Save')}
+                                        </Button>
+                                    </ButtonStrip>
+                                </ModalActions>
+                            </form>
+                        )}
                     </Form>
                 </Modal>
             )}
