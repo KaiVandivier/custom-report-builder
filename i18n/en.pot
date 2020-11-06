@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-03T23:00:03.830Z\n"
-"PO-Revision-Date: 2020-11-03T23:00:03.830Z\n"
+"POT-Creation-Date: 2020-11-06T06:26:15.504Z\n"
+"PO-Revision-Date: 2020-11-06T06:26:15.504Z\n"
 
 msgid "Back"
 msgstr ""
@@ -291,6 +291,9 @@ msgid "Value {{-lt}} {{value}}"
 msgstr ""
 
 msgid "Highlight cells based on value"
+msgstr ""
+
+msgid "Configure"
 msgstr ""
 
 msgid "Edit Highlighting Intervals"
