@@ -8,16 +8,21 @@ import {
     SavedTableTemplates,
     GeneratedTable,
 } from './tables'
+import { TableProvider } from '../context/tableContext'
 
 export function Tables({ match }) {
     return (
         <DataStoreProvider namespace="tableTemplates">
             <Switch>
                 <Route path={match.url + '/edit/:id'}>
-                    <EditTableTemplate />
+                    <TableProvider>
+                        <EditTableTemplate />
+                    </TableProvider>
                 </Route>
                 <Route path={match.url + '/generated/:id'}>
-                    <GeneratedTable />
+                    <TableProvider>
+                        <GeneratedTable />
+                    </TableProvider>
                 </Route>
                 <Route exact path={match.url}>
                     <SavedTableTemplates />
