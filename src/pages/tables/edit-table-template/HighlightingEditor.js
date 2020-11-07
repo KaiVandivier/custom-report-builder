@@ -159,9 +159,7 @@ export function HighlightingEditor({ table, dispatch }) {
                         }) => (
                             <form onSubmit={handleSubmit}>
                                 <ModalContent>
-                                    <div className="editor-container">
-                                        {getIntervalEditors(values)}
-                                    </div>
+                                    {getIntervalEditors(values)}
                                 </ModalContent>
                                 <ModalActions>
                                     <ButtonStrip end>

@@ -7,12 +7,6 @@ export default css`
         margin-bottom: 1rem;
     }
 
-    .editor-container {
-        display: block;
-        max-width: 400px;
-        margin-top: 0.5rem;
-    }
-
     .interval-container {
         display: flex;
         align-items: center;
