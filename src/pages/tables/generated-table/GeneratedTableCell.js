@@ -20,7 +20,7 @@ export function GeneratedTableCell({
     const table = useTableState()
 
     function onLoad(value) {
-        if (table.highlightingIntervals) {
+        if (table.highlightingOn) {
             const color = getColor(table.highlightingIntervals, value)
             setCellColor(color)
         }
