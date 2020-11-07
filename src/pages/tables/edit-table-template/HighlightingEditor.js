@@ -55,10 +55,16 @@ export function HighlightingEditor({ table, dispatch }) {
 
     const toggleModal = () => setModalIsOpen(state => !state)
 
-    function onSwitch() {
+    function onSwitch({ checked }) {
         dispatch({
             type: UPDATE_TABLE,
-            payload: { highlightingOn: !table.highlightingOn },
+            payload: {
+                highlightingOn: !table.highlightingOn,
+                highlightingIntervals:
+                    checked && !table.highlightingIntervals
+                        ? defaultIntervals
+                        : table.highlightingIntervals,
+            },
         })
     }
 
