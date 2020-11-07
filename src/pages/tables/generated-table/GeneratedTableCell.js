@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
-import { TableCell, colors } from '@dhis2/ui'
+import { TableCell } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import CellData from './CellData'
 import { DATA, TEXT, EMPTY } from '../../../modules/contentTypes'
+import { useTableState } from '../../../context/tableContext'
 
-// TODO: Switch out for table (or cell) definition
-function getColorByValue(value) {
-    // what about a switch?
-    if (value > 90) {
-        return colors.green100
-    } else if (value > 70) {
-        return colors.yellow100
+function getColor(intervals, value) {
+    for (const { lowerBound, color } of intervals) {
+        if (Number(value) > Number(lowerBound)) return color
     }
-    return colors.red100
 }
 
 export function GeneratedTableCell({
@@ -21,10 +17,13 @@ export function GeneratedTableCell({
     selectedPeriods,
 }) {
     const [cellColor, setCellColor] = useState()
+    const table = useTableState()
 
     function onLoad(value) {
-        const color = getColorByValue(value)
-        setCellColor(color)
+        if (table.highlightingIntervals) {
+            const color = getColor(table.highlightingIntervals, value)
+            setCellColor(color)
+        }
     }
 
     function getCellContents() {
