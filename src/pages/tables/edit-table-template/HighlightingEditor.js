@@ -47,10 +47,6 @@ function betweenNeighbors(key, idx) {
 }
 
 export function HighlightingEditor({ table, dispatch }) {
-    // TODO: Get intervals from the table itself
-    const [intervals, setIntervals] = useState(
-        table.highlightingIntervals || defaultIntervals
-    )
     const [modalIsOpen, setModalIsOpen] = useState(false)
 
     const toggleModal = () => setModalIsOpen(state => !state)
@@ -85,8 +81,6 @@ export function HighlightingEditor({ table, dispatch }) {
             type: UPDATE_TABLE,
             payload: { highlightingIntervals },
         })
-        // TODO: Fix me
-        setIntervals(highlightingIntervals)
     }
 
     function getIntervalEditors(values) {
@@ -97,7 +91,7 @@ export function HighlightingEditor({ table, dispatch }) {
                 betweenNeighbors('lowerBounds', idx)
             )
 
-        return intervals.map((interval, idx, arr) => (
+        return table.highlightingIntervals.map((interval, idx, arr) => (
             <div className="interval-container" key={idx}>
                 <div
                     className="color-swatch"
