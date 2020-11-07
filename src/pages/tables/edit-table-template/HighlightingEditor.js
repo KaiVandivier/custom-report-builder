@@ -99,17 +99,15 @@ export function HighlightingEditor({ table, dispatch }) {
                         backgroundColor: interval.color,
                     }}
                 />
-                {idx === arr.length - 1 ? (
-                    idx === 0 ? (
-                        <span>All values</span>
-                    ) : (
-                        <span>
-                            {i18n.t('Value {{-lt}} {{value}}', {
-                                lt: '\x3C',
-                                value: values.lowerBounds?.[idx - 1],
-                            })}
-                        </span>
-                    )
+                {arr.length === 1 ? (
+                    <span>All values</span>
+                ) : idx === arr.length - 1 ? (
+                    <span>
+                        {i18n.t('Value {{-lt}} {{value}}', {
+                            lt: '\x3C',
+                            value: values.lowerBounds?.[idx - 1],
+                        })}
+                    </span>
                 ) : (
                     <>
                         <span>
