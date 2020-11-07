@@ -8,6 +8,9 @@ const TableStateContext = React.createContext()
 const TableDispatchContext = React.createContext()
 const TableActionsContext = React.createContext()
 
+// Possible: accept 'id' prop from parent? (e.g. `match.params.id`)
+// It may not be necessary.
+
 export function TableProvider({ children }) {
     // TODO: validate params.id
     const params = useParams()
@@ -25,7 +28,9 @@ export function TableProvider({ children }) {
     )
 }
 
-TableProvider.propTypes = { children: PropTypes.element }
+TableProvider.propTypes = {
+    children: PropTypes.element,
+}
 
 export function useTableState() {
     const table = useContext(TableStateContext)
