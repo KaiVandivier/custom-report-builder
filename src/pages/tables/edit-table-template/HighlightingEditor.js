@@ -38,9 +38,10 @@ function betweenNeighbors(key, idx) {
         const length = allValues[key].length
         const tooHigh =
             idx > 0 && Number(value) > Number(allValues[key]?.[idx - 1])
-        // The last (lowest) interval is not represented in allValues
+        // The last lower bound is always -Infinity, and won't have an input
         const tooLow =
-            idx < length && Number(value) < Number(allValues[key]?.[idx + 1])
+            idx < length - 1 &&
+            Number(value) < Number(allValues[key]?.[idx + 1])
 
         return tooHigh ? tooHighMessage : tooLow ? tooLowMessage : undefined
     }
