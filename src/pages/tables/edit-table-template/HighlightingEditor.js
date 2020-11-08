@@ -10,10 +10,11 @@ import {
     number,
     composeValidators,
 } from '@dhis2/ui'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import i18n from '../../../locales'
 import { UPDATE_TABLE } from '../../../reducers/tableReducer'
 import styles from './styles/HighlightingEditor.style'
+import { useTableDispatch, useTableState } from '../../../context/tableContext'
 
 const defaultIntervals = [
     { lowerBound: 90, color: colors.green100 },
@@ -47,7 +48,9 @@ function betweenNeighbors(key, idx) {
     }
 }
 
-export function HighlightingEditor({ table, dispatch }) {
+export function HighlightingEditor() {
+    const table = useTableState()
+    const dispatch = useTableDispatch()
     const [modalIsOpen, setModalIsOpen] = useState(false)
 
     const toggleModal = () => setModalIsOpen(state => !state)
@@ -192,12 +195,6 @@ export function HighlightingEditor({ table, dispatch }) {
     )
 }
 
-HighlightingEditor.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    table: PropTypes.shape({
-        highlightingIntervals: PropTypes.array,
-        highlightingOn: PropTypes.bool,
-    }).isRequired,
-}
+HighlightingEditor.propTypes = {}
 
 export default HighlightingEditor
