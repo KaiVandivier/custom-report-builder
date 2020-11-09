@@ -49,4 +49,24 @@ Here you can define the layout and contents of the table.
 
 ## Generating a table from a template
 
-To do.
+This is where a table is populated with data according to a template.
+
+Upon generation, you can choose table-wide parameters that will act as filters for all the cells in the table. For example, a user may choose to generate a report for a specific organisation unit or for a specific time period.
+
+### Choosing report parameters
+
+Upon entering the **Generate** page, a dialog will open to choose table-wide organisation unit or period values.
+
+-   The organisation unit or period values chosen here will apply to all the cells which do not have that value specified in the template.
+-   If all the cells have an organisation unit specified in the template, the organisation unit selector will not show in this dialog. The same applies to periods.
+-   Data for the table can be queried without organisation units specified, but one or more periods **must** be specified.
+
+Once the table has loaded, new data can be loaded with different parameters by clicking on the **Choose Parameters** button.
+
+### Other tools
+
+Once the table has loaded, you can see the definition for any data cell by mousing over the cell. A tooltip will show the data item, organisation unit, and period used to query data for that cell.
+
+The generated report can be printed using the **Print** button.
+
+Clicking on **Edit Template** will take you back to the template editing page.
