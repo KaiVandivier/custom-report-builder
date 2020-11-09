@@ -22,12 +22,14 @@ import {
 import styles from './styles/RowColumnControls.style'
 import utils from '../../../styles/utils.module.css'
 import SelectorFrame from './SelectorFrame'
+import { useTableDispatch } from '../../../context/tableContext'
 
 function getSelectedNames(arr) {
     return arr.map(({ name }) => name).join(', ')
 }
 
-export function RowControls({ dispatch, row, idx, maxIdx }) {
+export function RowControls({ row, idx, maxIdx }) {
+    const dispatch = useTableDispatch()
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
@@ -273,7 +275,6 @@ export function RowControls({ dispatch, row, idx, maxIdx }) {
 }
 
 RowControls.propTypes = {
-    dispatch: PropTypes.func.isRequired,
     idx: PropTypes.number.isRequired,
     maxIdx: PropTypes.number.isRequired,
     row: PropTypes.shape({

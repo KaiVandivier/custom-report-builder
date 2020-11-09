@@ -61,7 +61,6 @@ export function EditTableTemplate() {
                 <TableCellHead />
                 {table.columns.map((col, idx, arr) => (
                     <ColumnControls
-                        dispatch={dispatch}
                         col={col}
                         idx={idx}
                         maxIdx={arr.length - 1}
@@ -87,12 +86,7 @@ export function EditTableTemplate() {
     function tableRows() {
         return table.rows.map((row, idx, arr) => (
             <TableRow idx={idx} key={idx}>
-                <RowControls
-                    dispatch={dispatch}
-                    row={row}
-                    idx={idx}
-                    maxIdx={arr.length - 1}
-                />
+                <RowControls row={row} idx={idx} maxIdx={arr.length - 1} />
                 {mapCellsToJsx(row.cells, idx)}
             </TableRow>
         ))
