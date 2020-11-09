@@ -24,6 +24,16 @@ export const EditTableCell = ({ cell, cellIdx, rowIdx }) => {
         })
     }
 
+    const onTextContentChange = text =>
+        dispatch({
+            type: UPDATE_CELL,
+            payload: {
+                cell: { text },
+                rowIdx,
+                cellIdx,
+            },
+        })
+
     const getContentSelectorByType = () => {
         // TODO: could be a '.get()' function on contentTypes
         // TODO: Refactor these to use same props?
@@ -41,16 +51,7 @@ export const EditTableCell = ({ cell, cellIdx, rowIdx }) => {
                 return (
                     <TextContentSelector
                         text={cell.text || ''}
-                        onChange={text =>
-                            dispatch({
-                                type: UPDATE_CELL,
-                                payload: {
-                                    cell: { text },
-                                    rowIdx,
-                                    cellIdx,
-                                },
-                            })
-                        }
+                        onChange={onTextContentChange}
                     />
                 )
             case EMPTY:
