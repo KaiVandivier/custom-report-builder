@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useEffect } from 'react'
 // import PropTypes from 'prop-types'
 import {
     ButtonStrip,
@@ -12,10 +12,8 @@ import {
     TableRow,
     colors,
 } from '@dhis2/ui'
-import { useSavedObject } from '@dhis2/app-service-datastore'
 import { useParams, useHistory, Link } from 'react-router-dom'
 
-import tableReducer from '../../reducers/tableReducer'
 import styles from './styles/EditTableTemplate.style'
 import {
     EditTableCell,
@@ -31,21 +29,21 @@ import utils from '../../styles/utils.module.css'
 import i18n from '../../locales'
 import IconTooltipButton from '../../components/IconTooltipButton'
 import { TABLES, HELP, getPath, GENERATED_TABLE } from '../../modules/paths'
+import { useTable } from '../../context/tableContext'
 
 export function EditTableTemplate() {
     const params = useParams()
-    const [savedTable, savedTableActions] = useSavedObject(params.id)
-    const [table, dispatch] = useReducer(tableReducer, savedTable)
+    const [table, dispatch, dataStoreActions] = useTable()
     const history = useHistory()
 
-    // Save table in response to changes
+    // Save table to datastore in response to changes
     // TODO: Move to TableProvider?
     useEffect(() => {
-        savedTableActions.update({ ...table })
+        dataStoreActions.update({ ...table })
     }, [table])
 
     function onDelete() {
-        savedTableActions.remove(params.id)
+        dataStoreActions.remove()
         history.push(TABLES)
     }
 
@@ -54,7 +52,7 @@ export function EditTableTemplate() {
     }
 
     function renameTable(name) {
-        savedTableActions.update({ name })
+        dataStoreActions.update({ name })
     }
 
     function tableColumns() {
@@ -104,12 +102,9 @@ export function EditTableTemplate() {
         <>
             <div className="header">
                 <BackButton to={TABLES} tooltip={i18n.t('Back to Tables')} />
-                <h1>{savedTable.name}</h1>
+                <h1>{table.name}</h1>
                 <div className="editButton">
-                    <RenameTable
-                        name={savedTable.name}
-                        onRename={renameTable}
-                    />
+                    <RenameTable name={table.name} onRename={renameTable} />
                 </div>
             </div>
             <div className="tableButtons">
@@ -134,7 +129,7 @@ export function EditTableTemplate() {
                     />
                 </div>
             </div>
-            <HighlightingEditor table={table} dispatch={dispatch} />
+            <HighlightingEditor />
             <div className="help">
                 <Help>
                     {i18n.t(
