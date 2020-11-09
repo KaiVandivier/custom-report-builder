@@ -8,12 +8,14 @@ import { DataSelectorDialog } from './DataSelectorDialog'
 import OrgUnitSelectorDialog from './OrgUnitSelectorDialog'
 import PeriodSelectorDialog from './PeriodSelectorDialog'
 import SelectorFrame from '../SelectorFrame'
+import { useTableDispatch } from '../../../../context/tableContext'
 
 function getSelectedNames(arr) {
     return arr.map(({ name }) => name).join(', ')
 }
 
-export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
+export function DataContentSelector({ cell, rowIdx, cellIdx }) {
+    const dispatch = useTableDispatch()
     const [dataDialogOpen, setDataDialogOpen] = useState(false)
     const [orgUnitDialogOpen, setOrgUnitDialogOpen] = useState(false)
     const [periodDialogOpen, setPeriodDialogOpen] = useState(false)
@@ -120,7 +122,6 @@ export function DataContentSelector({ cell, dispatch, rowIdx, cellIdx }) {
 
 DataContentSelector.propTypes = {
     cellIdx: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired,
     rowIdx: PropTypes.number.isRequired,
     cell: PropTypes.shape({
         contentType: PropTypes.string,

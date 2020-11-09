@@ -32,7 +32,6 @@ export const EditTableCell = ({ cell, cellIdx, rowIdx }) => {
                 return (
                     <DataContentSelector
                         cell={cell}
-                        dispatch={dispatch}
                         rowIdx={rowIdx}
                         cellIdx={cellIdx}
                     />
