@@ -29,11 +29,12 @@ import utils from '../../styles/utils.module.css'
 import i18n from '../../locales'
 import IconTooltipButton from '../../components/IconTooltipButton'
 import { TABLES, HELP, getPath, GENERATED_TABLE } from '../../modules/paths'
-import { useTable } from '../../context/tableContext'
+import { useTableActions, useTableState } from '../../context/tableContext'
 
 export function EditTableTemplate() {
     const params = useParams()
-    const [table, dispatch, dataStoreActions] = useTable()
+    const table = useTableState()
+    const dataStoreActions = useTableActions()
     const history = useHistory()
 
     // Save table to datastore in response to changes
@@ -77,7 +78,6 @@ export function EditTableTemplate() {
                 rowIdx={rowIdx}
                 cellIdx={idx}
                 cell={cell}
-                dispatch={dispatch}
                 key={idx}
             />
         ))

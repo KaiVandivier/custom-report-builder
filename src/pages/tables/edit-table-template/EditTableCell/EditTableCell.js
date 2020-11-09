@@ -8,8 +8,11 @@ import utils from '../../../../styles/utils.module.css'
 import ContentTypeSelector from './ContentTypeSelector'
 import TextContentSelector from './TextContentSelector'
 import DataContentSelector from './DataContentSelector'
+import { useTableDispatch } from '../../../../context/tableContext'
 
-export const EditTableCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
+export const EditTableCell = ({ cell, cellIdx, rowIdx }) => {
+    const dispatch = useTableDispatch()
+
     const onContentTypeChange = contentType => {
         dispatch({
             type: UPDATE_CELL,
@@ -71,7 +74,6 @@ export const EditTableCell = ({ cell, dispatch, cellIdx, rowIdx }) => {
 
 EditTableCell.propTypes = {
     cellIdx: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired,
     rowIdx: PropTypes.number.isRequired,
     cell: PropTypes.shape({
         contentType: PropTypes.string,
