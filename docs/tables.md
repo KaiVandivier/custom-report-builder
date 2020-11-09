@@ -10,7 +10,7 @@ Create a new table by clicking **+ Create New** button and entering a name for t
 
 Edit an existing table by clicking on the name of the table in the list.
 
-Open a menu of options for a table by clicking on the **three vertical dots** to the right of the . Options include **Generate a report** from the template, **Edit** the template, or **Delete** the table.
+Open a menu of options for a table by clicking on the **three vertical dots** to the right of the name of the table. Options include **Generate a report** from the template, **Edit** the template, or **Delete** the table.
 
 ## Editing a table template
 
