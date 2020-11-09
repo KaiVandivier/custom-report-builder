@@ -110,8 +110,8 @@ export function EditTableTemplate() {
             <div className="tableButtons">
                 <div className="tableButtons__left">
                     <ButtonStrip className="dimension-buttons">
-                        <AddTableDimension type="Row" dispatch={dispatch} />
-                        <AddTableDimension type="Column" dispatch={dispatch} />
+                        <AddTableDimension type="Row" />
+                        <AddTableDimension type="Column" />
                     </ButtonStrip>
                 </div>
                 <Link to={HELP} target="_blank" rel="noopener noreferrer">

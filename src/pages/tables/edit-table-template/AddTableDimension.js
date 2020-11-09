@@ -5,8 +5,10 @@ import i18n from '../../../locales'
 import { ADD_ROW, ADD_COLUMN } from '../../../reducers/tableReducer'
 import Icon from '../../../components/Icon'
 import InputDialog from '../../../components/InputDialog'
+import { useTableDispatch } from '../../../context/tableContext'
 
-export function AddTableDimension({ dispatch, type }) {
+export function AddTableDimension({ type }) {
+    const dispatch = useTableDispatch()
     const [modalOpen, setModalOpen] = useState(false)
 
     const onCancel = () => setModalOpen(false)
@@ -43,7 +45,6 @@ export function AddTableDimension({ dispatch, type }) {
 }
 
 AddTableDimension.propTypes = {
-    dispatch: PropTypes.func.isRequired,
     type: PropTypes.oneOf(['Row', 'Column']).isRequired,
 }
 
