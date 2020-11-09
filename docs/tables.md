@@ -18,27 +18,27 @@ Here you can define the layout and contents of the table.
 
 ### General Options
 
-**Change the name** of the table by clicking on the pencil icon to the right of the table name.
+Change the name of the table by clicking on the pencil icon to the right of the table name.
 
-**Generate a report** from the template by clicking the **Generate** button. This will take you to the report page, where you can choose the appropriate parameters to populate the table with data from analytics.
+Generate a report from the template by clicking the **Generate** button. This will take you to the report page, where you can choose the appropriate parameters to populate the table with data from analytics.
 
-**Choose highlighting** for the table by switching the switch and opening the highlighting editor dialog by pressing the **Configure** button. This will highlight data in the table with different colors depending on the values of the data. Edit the value thresholds in the editor dialog.
+Choose highlighting for the table by switching the switch and opening the highlighting editor dialog by pressing the **Configure** button. This will highlight data in the table with different colors depending on the values of the data. Edit the value thresholds in the editor dialog.
 
 ### Choosing Table Contents
 
-**Add rows or columns** using the buttons to the top left of the table and entering a name in the following dialog. The name can be changed later using the row or column options.
+Add rows or columns using the buttons to the top left of the table and entering a name in the following dialog. The name can be changed later using the row or column options.
 
 -   By default, the new cells added will be **Data** cells but can be changed later (to **Text** or **Empty** cells).
 -   New cells will receive any dimensions set on the rows or columns they are added to, and those dimensions can be changed later.
 
-**Choose dimensions for a row or column** (i.e. a data item, organisation unit(s), or period(s)) by opening the row or column options menu by clicking the **three vertical dots** icon next to the row or column name, selecting **Add dimensions to Row/Colum**, then selecting the dimension you wish to add. A dialog will open to select the desired dimension.
+Choose dimensions for a row or column (i.e. a data item, organisation unit(s), or period(s)) by opening the row or column options menu by clicking the **three vertical dots** icon next to the row or column name, selecting **Add dimensions to Row/Colum**, then selecting the dimension you wish to add. A dialog will open to select the desired dimension.
 
 -   Once the dimension is selected, it will be visible under the row or column name, and can be changed or removed by clicking on it.
 -   All three dimensions can be defined on a row or column.
 -   Each cell in the row or column can still choose dimensions for that cell that are different from its parent row or column. Values chosen for individual cells take precedence over the row or column values.
 -   New cells added to the row or column will use the dimensions defined on the existing row or column, but as above, those dimensions can be changed later.
 
-**Choose individual cell contents** by using the selectors inside each cell.Cells can have one of three content types.
+Choose individual cell contents by using the selectors inside each cell. Cells can have one of three content types.
 
 -   **Data** cells receive a value queried from analytics.
     -   A data item can be selected using the selector dialog, and organisation unit(s) and period(s) can be selected as filters for the data in the cell.
