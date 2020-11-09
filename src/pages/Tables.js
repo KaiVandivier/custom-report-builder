@@ -30,7 +30,9 @@ export function Tables({ match }) {
         <DataStoreProvider namespace="tableTemplates">
             <Switch>
                 <Route path={match.url + '/edit/:id'}>
-                    <EditTableTemplate />
+                    <TableProvider>
+                        <EditTableTemplate />
+                    </TableProvider>
                 </Route>
                 <Route path={match.url + '/generated/:id'}>
                     <TableProvider>
