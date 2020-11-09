@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSavedObject } from '@dhis2/app-service-datastore'
-import { useParams } from 'react-router-dom'
 import {
     Table,
     TableHead,
@@ -14,6 +12,7 @@ import i18n from '../../../locales'
 
 import styles from './styles/TableWithData.styles'
 import GeneratedTableCell from './GeneratedTableCell'
+import { useTableState } from '../../../context/tableContext'
 
 function getSelectedNames(selectedItems) {
     return selectedItems.map(({ name }) => name).join(', ')
@@ -24,8 +23,7 @@ export function TableWithData({
     selectedOrgUnits,
     selectedPeriods,
 }) {
-    const { id } = useParams()
-    const [savedTable] = useSavedObject(id)
+    const table = useTableState()
 
     if (periodParamNeeded && !selectedPeriods.length)
         return <p>Waiting for parameters...</p>
@@ -35,7 +33,7 @@ export function TableWithData({
         return (
             <TableRowHead>
                 <TableCellHead />
-                {savedTable.columns.map((col, idx) => (
+                {table.columns.map((col, idx) => (
                     <TableCellHead key={idx}>{col.name}</TableCellHead>
                 ))}
             </TableRowHead>
@@ -54,7 +52,7 @@ export function TableWithData({
     }
 
     function tableBody() {
-        return savedTable.rows.map((row, idx) => (
+        return table.rows.map((row, idx) => (
             <TableRow key={idx}>
                 <TableCellHead>{row.name}</TableCellHead>
                 {row.cells.map(mapCellValues)}
@@ -64,7 +62,7 @@ export function TableWithData({
 
     return (
         <>
-            <h2 className="title">{savedTable.name}</h2>
+            <h2 className="title">{table.name}</h2>
             {selectedOrgUnits.length ? (
                 <p>
                     {i18n.t('Organisation Unit{{s}} - {{ou}}', {
@@ -166,7 +164,7 @@ function getSelectedIds(selectedItems) {
         // e.g. 'if (no cells require table-wide vals) continue'
         if (!selectedOrgUnits.length || !selectedPeriods.length) return
 
-        const dxIds = getDxIds(savedTable.rows)
+        const dxIds = getDxIds(table.rows)
         const ouIds = getSelectedIds(selectedOrgUnits)
         const peIds = getSelectedIds(selectedPeriods)
 
