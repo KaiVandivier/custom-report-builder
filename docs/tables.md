@@ -38,14 +38,13 @@ Here you can define the layout and contents of the table.
 -   Each cell in the row or column can still choose dimensions for that cell that are different from its parent row or column. Values chosen for individual cells take precedence over the row or column values.
 -   New cells added to the row or column will use the dimensions defined on the existing row or column, but as above, those dimensions can be changed later.
 
-**Choose individual cell contents** by using the selectors inside each cell.
+**Choose individual cell contents** by using the selectors inside each cell.Cells can have one of three content types.
 
--   Cells can have three content types:
-    -   **Data** cells receive a value queried from analytics.
-        -   A data item can be selected using the selector dialog, and organisation unit(s) and period(s) can be selected as filters for the data in the cell.
-        -   Organisation unit and period filters can also be chosen on a table-wide basis using the report parameters during report generation. Leave the organisation unit and/or period dimensions as undefined in the template to take advantage of the table-wide values.
-    -   **Text** cells can have statically defined text. Click on the text to edit it.
-    -   **Empty** cells will have no value.
+-   **Data** cells receive a value queried from analytics.
+    -   A data item can be selected using the selector dialog, and organisation unit(s) and period(s) can be selected as filters for the data in the cell.
+    -   Organisation unit and period filters can also be chosen on a table-wide basis using the report parameters during report generation. Leave the organisation unit and/or period dimensions as undefined in the template to take advantage of the table-wide values.
+-   **Text** cells can have statically defined text. Click on the text to edit it.
+-   **Empty** cells will have no value.
 
 ## Generating a table from a template
 
