@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Button, Card, Help } from '@dhis2/ui'
+import { Button, ButtonStrip, Card, Help, colors } from '@dhis2/ui'
 import i18n from '../../locales'
 import { useReactToPrint } from 'react-to-print'
 import { useHistory, useParams } from 'react-router-dom'
@@ -9,9 +9,10 @@ import Icon from '../../components/Icon'
 import classes from './styles/GeneratedTable.module.css'
 import utils from '../../styles/utils.module.css'
 import { ReportParameters, TableWithData } from './generated-table'
-import { EDIT_TABLE, getPath, TABLES } from '../../modules/paths'
+import { EDIT_TABLE, getPath, HELP, TABLES } from '../../modules/paths'
 import { DATA } from '../../modules/contentTypes'
 import { useTableState } from '../../context/tableContext'
+import IconTooltipButton from '../../components/IconTooltipButton'
 
 export function isAllPopulatedInTable(key, table) {
     return table.rows.every(row =>
@@ -71,37 +72,59 @@ export function GeneratedTable() {
                     onGenerate={onGenerate}
                 />
             )}
-            <div className={classes.topButtons}>
-                <BackButton to={TABLES} tooltip={i18n.t('Back to Tables')} />
-                <Button
-                    large
-                    icon={<Icon name="play_arrow" />}
-                    onClick={toggleReportParamsDialog}
-                >
-                    {i18n.t('Choose Parameters')}
-                </Button>
-                <Button
-                    large
-                    icon={<Icon name="edit" />}
-                    onClick={() => history.push(getPath(EDIT_TABLE, id))}
-                >
-                    {i18n.t('Edit Template')}
-                </Button>
-                <Button
-                    large
-                    icon={<Icon name="print" />}
-                    onClick={handlePrint}
-                >
-                    {i18n.t('Print')}
-                </Button>
-            </div>
-            <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                <Help>
-                    {i18n.t(
-                        'Tip - hover the mouse over a data cell to see its information.'
-                    )}
-                </Help>
-            </div>
+            <header className={classes.header}>
+                <div>
+                    <BackButton
+                        to={TABLES}
+                        text={i18n.t('Back to Saved Tables')}
+                    />
+                    <div className={classes.title}>
+                        <h1 className={classes.h1}>
+                            {i18n.t('Generate Report')}
+                        </h1>
+                        <a
+                            href={`${HELP}#editing-a-table-template`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <IconTooltipButton
+                                tooltip={i18n.t('Help')}
+                                icon="help"
+                                color={colors.blue700}
+                                size="32px"
+                            />
+                        </a>
+                    </div>
+                    <Help>
+                        {i18n.t(
+                            'Tip - hover the mouse over a data cell to see its information.'
+                        )}
+                    </Help>
+                </div>
+                <ButtonStrip>
+                    <Button
+                        large
+                        icon={<Icon name="play_arrow" />}
+                        onClick={toggleReportParamsDialog}
+                    >
+                        {i18n.t('Choose Parameters')}
+                    </Button>
+                    <Button
+                        large
+                        icon={<Icon name="edit" />}
+                        onClick={() => history.push(getPath(EDIT_TABLE, id))}
+                    >
+                        {i18n.t('Edit Template')}
+                    </Button>
+                    <Button
+                        large
+                        icon={<Icon name="print" />}
+                        onClick={handlePrint}
+                    >
+                        {i18n.t('Print')}
+                    </Button>
+                </ButtonStrip>
+            </header>
             <Card className={utils.card}>
                 <div ref={printRef} className={classes.print}>
                     <TableWithData
