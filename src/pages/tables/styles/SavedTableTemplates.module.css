@@ -3,6 +3,11 @@
     margin: 0 auto;
 }
 
+.noTables {
+    padding: 1.25rem 1.5rem;
+    color: #4a5768;
+}
+
 .tableCell {
     padding: 0 !important;
 }

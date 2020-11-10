@@ -38,6 +38,17 @@ export function SavedTableTemplates() {
     }
 
     function mapTemplatesToRows() {
+        if (!savedTableTemplates?.length)
+            return (
+                <TableRow>
+                    <TableCell className={classes.tableCell}>
+                        <div className={classes.noTables}>
+                            <em>No tables have been created yet.</em>
+                        </div>
+                    </TableCell>
+                </TableRow>
+            )
+
         return savedTableTemplates.map(template => (
             <TableRow key={template.id}>
                 <TableCell className={classes.tableCell}>
