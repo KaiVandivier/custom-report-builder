@@ -74,7 +74,7 @@ export function DataContentSelector({ cell, rowIdx, cellIdx }) {
                     data.orgUnits?.length ? (
                         getSelectedNames(data.orgUnits)
                     ) : (
-                        <em>{i18n.t('None*')}</em>
+                        <em>{i18n.t('Select during generation')}</em>
                     )
                 }
                 tooltip={i18n.t('Select organisation unit(s)')}
@@ -86,7 +86,7 @@ export function DataContentSelector({ cell, rowIdx, cellIdx }) {
                     data.periods?.length ? (
                         getSelectedNames(data.periods)
                     ) : (
-                        <em>{i18n.t('None*')}</em>
+                        <em>{i18n.t('Select during generation')}</em>
                     )
                 }
                 tooltip={i18n.t('Select period(s)')}
