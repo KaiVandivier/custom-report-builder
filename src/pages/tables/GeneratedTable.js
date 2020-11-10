@@ -83,7 +83,7 @@ export function GeneratedTable() {
                             {i18n.t('Generate Report')}
                         </h1>
                         <a
-                            href={`${HELP}#editing-a-table-template`}
+                            href={`${HELP}#generating-a-table-from-a-template`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
