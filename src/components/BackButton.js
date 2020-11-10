@@ -17,7 +17,6 @@ export function BackButton({ to, text }) {
                     display: inline-flex;
                     align-items: center;
                     gap: 0.5rem;
-                    height: 30px;
                 }
             `}</style>
         </Link>
