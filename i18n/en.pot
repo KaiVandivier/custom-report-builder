@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-08T23:40:37.364Z\n"
-"PO-Revision-Date: 2020-11-08T23:40:37.364Z\n"
+"POT-Creation-Date: 2020-11-10T05:02:55.288Z\n"
+"PO-Revision-Date: 2020-11-10T05:02:55.288Z\n"
 
 msgid "Back"
 msgstr ""
@@ -135,11 +135,6 @@ msgstr ""
 msgid "Back to Tables"
 msgstr ""
 
-msgid ""
-"*Any cells with unspecified organisation units or periods will use the "
-"respective parameters selected during report generation."
-msgstr ""
-
 msgid "One or more periods are required to query data for this table."
 msgstr ""
 
@@ -153,6 +148,9 @@ msgid "Print"
 msgstr ""
 
 msgid "Tip - hover the mouse over a data cell to see its information."
+msgstr ""
+
+msgid "Saved Tables"
 msgstr ""
 
 msgid "Name"
@@ -236,7 +234,7 @@ msgstr ""
 msgid "Select data"
 msgstr ""
 
-msgid "None*"
+msgid "Select during generation"
 msgstr ""
 
 msgid "Select organisation unit(s)"
