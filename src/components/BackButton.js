@@ -2,32 +2,31 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Icon from './Icon'
-import { Tooltip } from '@dhis2/ui'
 import i18n from '../locales'
+import classes from './styles/BackButton.module.css'
 
-export function BackButton({ to, tooltip }) {
+export function BackButton({ to, text }) {
     return (
-        <Tooltip placement="right" content={tooltip || i18n.t('Back')}>
-            {props => (
-                <div className="container" {...props}>
-                    <Link to={to}>
-                        <Icon name="arrow_back" large />
-                    </Link>
-                    <style jsx>{`
-                        .container {
-                            height: 42px;
-                            margin-right: auto;
-                        }
-                    `}</style>
-                </div>
-            )}
-        </Tooltip>
+        <Link to={to} className={classes.link}>
+            <div>
+                <Icon name="arrow_back" color="inherit" size="18px" />{' '}
+                <span>{text || i18n.t('Back to Saved Tables')}</span>
+            </div>
+            <style jsx>{`
+                div {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    height: 30px;
+                }
+            `}</style>
+        </Link>
     )
 }
 
 BackButton.propTypes = {
     to: PropTypes.string.isRequired,
-    tooltip: PropTypes.string,
+    text: PropTypes.string,
 }
 
 export default BackButton
