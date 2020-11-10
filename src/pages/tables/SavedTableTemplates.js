@@ -74,8 +74,8 @@ export function SavedTableTemplates() {
     }
 
     return (
-        <>
-            <h1>{i18n.t('Custom Tables')}</h1>
+        <section className={classes.sectionContainer}>
+            <h1>{i18n.t('Saved Tables')}</h1>
             <CreateNewTableTemplate createNew={createNew} />
             <Card className={utils.card}>
                 <Table className={utils.noBorder} suppressZebraStriping>
@@ -87,7 +87,7 @@ export function SavedTableTemplates() {
                     <TableBody>{mapTemplatesToRows()}</TableBody>
                 </Table>
             </Card>
-        </>
+        </section>
     )
 }
 

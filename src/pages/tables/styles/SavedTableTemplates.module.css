@@ -1,3 +1,8 @@
+.sectionContainer {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
 .tableCell {
     padding: 0 !important;
 }
