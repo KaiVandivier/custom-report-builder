@@ -109,7 +109,9 @@ export function HighlightingEditor() {
                     <span>
                         {i18n.t('Value {{-lt}} {{value}}', {
                             lt: '\x3C',
-                            value: values.lowerBounds?.[idx - 1],
+                            value: values.lowerBounds
+                                ? values.lowerBounds[idx - 1]
+                                : '',
                         })}
                     </span>
                 ) : (
