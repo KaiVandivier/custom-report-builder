@@ -52,16 +52,17 @@ export function SavedTableTemplates() {
         return savedTableTemplates.map(template => (
             <TableRow key={template.id}>
                 <TableCell className={classes.tableCell}>
-                    <div className={classes.container}>
+                    <div
+                        className={classes.container}
+                        onClick={() =>
+                            history.push(getPath(EDIT_TABLE, template.id))
+                        }
+                    >
+                        <div className={classes.tableItem}>{template.name}</div>
                         <div
-                            className={classes.tableItem}
-                            onClick={() =>
-                                history.push(getPath(EDIT_TABLE, template.id))
-                            }
+                            className={classes.actions}
+                            onClick={e => e.stopPropagation()}
                         >
-                            {template.name}
-                        </div>
-                        <div className={classes.actions}>
                             <SavedTableTemplateActions
                                 onGenerate={() =>
                                     history.push(
