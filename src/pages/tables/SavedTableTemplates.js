@@ -3,6 +3,7 @@ import React from 'react'
 import i18n from '../../locales'
 import { useSavedObjectList } from '@dhis2/app-service-datastore'
 import {
+    colors,
     Card,
     Table,
     TableHead,
@@ -21,7 +22,8 @@ import {
 import defaultTable from '../../modules/defaultTable'
 import utils from '../../styles/utils.module.css'
 import classes from './styles/SavedTableTemplates.module.css'
-import { EDIT_TABLE, GENERATED_TABLE, getPath } from '../../modules/paths'
+import { EDIT_TABLE, GENERATED_TABLE, getPath, HELP } from '../../modules/paths'
+import IconTooltipButton from '../../components/IconTooltipButton'
 
 // TODO:
 // - Rename 'template' to 'table'
@@ -87,8 +89,22 @@ export function SavedTableTemplates() {
 
     return (
         <section className={classes.sectionContainer}>
-            <h1>{i18n.t('Saved Tables')}</h1>
-            <CreateNewTableTemplate createNew={createNew} />
+            <header className={classes.header}>
+                <h1>{i18n.t('Saved Tables')}</h1>
+                <a
+                    href={`${HELP}#saved-tables`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <IconTooltipButton
+                        tooltip={i18n.t('Help')}
+                        icon="help"
+                        color={colors.blue700}
+                        size="32px"
+                    />
+                </a>
+                <CreateNewTableTemplate createNew={createNew} />
+            </header>
             <Card className={utils.card}>
                 <Table className={utils.noBorder} suppressZebraStriping>
                     <TableHead>

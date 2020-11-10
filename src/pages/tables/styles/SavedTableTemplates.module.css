@@ -3,6 +3,16 @@
     margin: 0 auto;
 }
 
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header > *:last-child {
+    margin-left: auto;
+}
+
 .noTables {
     padding: 1.25rem 1.5rem;
     color: #4a5768;
