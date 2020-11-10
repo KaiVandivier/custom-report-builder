@@ -7,7 +7,7 @@ import { useTableState } from '../../../context/tableContext'
 
 function getColor(intervals, value) {
     for (const { lowerBound, color } of intervals) {
-        if (Number(value) > Number(lowerBound)) return color
+        if (Number(value) >= Number(lowerBound)) return color
     }
 }
 
