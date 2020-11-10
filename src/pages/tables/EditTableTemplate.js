@@ -12,7 +12,7 @@ import {
     TableRow,
     colors,
 } from '@dhis2/ui'
-import { useParams, useHistory, Link } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 import styles from './styles/EditTableTemplate.style'
 import {
@@ -108,14 +108,18 @@ export function EditTableTemplate() {
                         <AddTableDimension type="Column" />
                     </ButtonStrip>
                 </div>
-                <Link to={HELP} target="_blank" rel="noopener noreferrer">
+                <a
+                    href={`${HELP}#editing-a-table-template`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <IconTooltipButton
                         tooltip={i18n.t('Help')}
                         icon="help"
                         color={colors.blue700}
                         size="32px"
                     />
-                </Link>
+                </a>
                 <div className="tableButtons__right">
                     <EditTableTemplateActions
                         onGenerate={onGenerate}

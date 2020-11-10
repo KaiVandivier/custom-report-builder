@@ -4,7 +4,8 @@ export const TABLES = '/tables'
 export const EDIT_TABLE = '/tables/edit'
 export const GENERATED_TABLE = '/tables/generated'
 
-export const HELP = '/help'
+export const HELP =
+    'https://github.com/KaiVandivier/custom-report-builder/blob/master/docs/tables.md'
 
 export const REPORTS = '/reports'
 
