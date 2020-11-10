@@ -1,5 +1,4 @@
 export * from './Home'
 export * from './Tables'
 export * from './Reports'
-export * from './Help'
 export * from './NoMatch'
