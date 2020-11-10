@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import {
     ButtonStrip,
     Card,
-    Help,
     Table,
     TableHead,
     TableRowHead,
@@ -128,13 +127,6 @@ export function EditTableTemplate() {
                 </div>
             </div>
             <HighlightingEditor />
-            <div className="help">
-                <Help>
-                    {i18n.t(
-                        '*Any cells with unspecified organisation units or periods will use the respective parameters selected during report generation.'
-                    )}
-                </Help>
-            </div>
             <Card className={utils.card}>
                 <Table className={utils.noBorder}>
                     <TableHead>{tableColumns()}</TableHead>
