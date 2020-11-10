@@ -121,6 +121,7 @@ export function HighlightingEditor() {
                         </span>
                         <Field
                             dense
+                            initialFocus={idx === 0}
                             name={`lowerBounds[${idx}]`}
                             component={InputFieldFF}
                             validate={validateField(idx)}
