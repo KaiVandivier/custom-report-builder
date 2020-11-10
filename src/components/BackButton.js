@@ -10,7 +10,7 @@ export function BackButton({ to, text }) {
         <Link to={to} className={classes.link}>
             <div>
                 <Icon name="arrow_back" color="inherit" size="18px" />{' '}
-                <span>{text || i18n.t('Back to Saved Tables')}</span>
+                <span>{text || i18n.t('Back')}</span>
             </div>
             <style jsx>{`
                 div {
