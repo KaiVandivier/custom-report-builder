@@ -5,9 +5,14 @@ import './styles/modalFix.css'
 
 import globalStyles from './styles/global.style'
 import classes from './App.module.css'
-import { Navigation } from './navigation'
-import { TABLES, REPORTS, HELP } from './modules/paths'
-import { Home, Tables, Reports, NoMatch, Help } from './pages'
+import { TABLES } from './modules/paths'
+import { Tables, NoMatch } from './pages'
+// import { Navigation } from './navigation'
+
+// If reports are added to this app:
+// - Add navigation, with layout container and sidebar
+// - Add homepage
+// - Add paths for reports
 
 /*
  * HashRouter solves the problem of route issues on DHIS instances deployed
@@ -20,15 +25,14 @@ const MyApp = () => {
     return (
         <HashRouter>
             <div className={classes.container}>
-                <nav className={classes.left}>
-                    <Navigation />
-                </nav>
+                {/* <nav className={classes.left}> */}
+                {/* <Navigation /> */}
+                {/* </nav> */}
                 <main className={classes.right}>
                     <Switch>
-                        <Route exact path="/" component={Home} />
+                        {/* <Route exact path="/" component={Home} /> */}
+                        {/* <Route path={REPORTS} component={Reports} /> */}
                         <Route path={TABLES} component={Tables} />
-                        <Route path={REPORTS} component={Reports} />
-                        <Route path={HELP} component={Help} />
                         <Route component={NoMatch} />
                     </Switch>
                 </main>
