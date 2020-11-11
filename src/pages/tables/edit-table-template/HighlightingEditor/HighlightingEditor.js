@@ -18,11 +18,14 @@ import {
     composeValidators,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import i18n from '../../../locales'
-import { UPDATE_TABLE } from '../../../reducers/tableReducer'
-import styles from './styles/HighlightingEditor.style'
-import utils from '../../../styles/utils.module.css'
-import { useTableDispatch, useTableState } from '../../../context/tableContext'
+import i18n from '../../../../locales'
+import { UPDATE_TABLE } from '../../../../reducers/tableReducer'
+import styles from '../styles/HighlightingEditor.style'
+import utils from '../../../../styles/utils.module.css'
+import {
+    useTableDispatch,
+    useTableState,
+} from '../../../../context/tableContext'
 
 const defaultIntervals = [
     { lowerBound: 90, color: colors.green100 },
