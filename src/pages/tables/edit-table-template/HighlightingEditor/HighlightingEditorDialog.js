@@ -19,7 +19,7 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import i18n from '../../../../locales'
-import styles from './styles/HighlightingEditor.style'
+import styles from './styles/HighlightingEditorDialog.style'
 import utils from '../../../../styles/utils.module.css'
 import { useTableState } from '../../../../context/tableContext'
 
