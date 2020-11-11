@@ -9,7 +9,6 @@ import {
     TableCellHead,
     TableBody,
     TableRow,
-    colors,
 } from '@dhis2/ui'
 import { useParams, useHistory } from 'react-router-dom'
 
@@ -26,9 +25,9 @@ import {
 import BackButton from '../../components/BackButton'
 import utils from '../../styles/utils.module.css'
 import i18n from '../../locales'
-import IconTooltipButton from '../../components/IconTooltipButton'
-import { TABLES, HELP, getPath, GENERATED_TABLE } from '../../modules/paths'
+import { TABLES, getPath, GENERATED_TABLE } from '../../modules/paths'
 import { useTableActions, useTableState } from '../../context/tableContext'
+import HelpButton from '../../components/HelpButton'
 
 export function EditTableTemplate() {
     const params = useParams()
@@ -101,18 +100,7 @@ export function EditTableTemplate() {
                     />
                     <div className="pageTitle">
                         <h1>{i18n.t('Edit Table Template')}</h1>
-                        <a
-                            href={`${HELP}#editing-a-table-template`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <IconTooltipButton
-                                tooltip={i18n.t('Help')}
-                                icon="help"
-                                color={colors.blue700}
-                                size="32px"
-                            />
-                        </a>
+                        <HelpButton subsection="#editing-a-table-template" />
                     </div>
                 </div>
                 <EditTableTemplateActions
