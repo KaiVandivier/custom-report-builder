@@ -19,7 +19,7 @@ function HelpButton({ subsection }) {
                 tooltip={i18n.t('Help')}
                 icon="help"
                 color={colors.blue700}
-                size="32px"
+                size="24px"
             />
         </a>
     )
