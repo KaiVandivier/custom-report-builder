@@ -115,9 +115,7 @@ export function EditTableTemplate() {
                 <h6 className="label">{i18n.t('Table name')}</h6>
                 <div className="tableName">
                     <h3>{table.name}</h3>
-                    <div className="editButton">
-                        <RenameTable name={table.name} onRename={renameTable} />
-                    </div>
+                    <RenameTable name={table.name} onRename={renameTable} />
                 </div>
             </section>
             <section className="container">
