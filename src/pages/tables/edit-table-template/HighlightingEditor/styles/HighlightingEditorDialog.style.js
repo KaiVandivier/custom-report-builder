@@ -8,6 +8,16 @@ export default css`
         border: 1px solid ${colors.grey600};
     }
 
+    .text-container {
+        padding-left: 0.25rem;
+        line-height: 33px;
+    }
+
+    .field-container {
+        max-width: 200px;
+        margin-right: auto;
+    }
+
     .color-swatch.green {
         background-color: ${colors.green100};
     }

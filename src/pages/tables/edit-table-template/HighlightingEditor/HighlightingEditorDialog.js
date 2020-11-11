@@ -65,9 +65,13 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
             <TableRow key={idx}>
                 <TableCell>
                     {arr.length === 1 ? (
-                        'All values'
+                        <span className="text-container">
+                            {i18n.t('All values')}
+                        </span>
                     ) : idx === arr.length - 1 ? (
-                        <em className="no-lb">{i18n.t('No lower bound')}</em>
+                        <span className="text-container">
+                            <em>{i18n.t('No lower bound')}</em>
+                        </span>
                     ) : (
                         <div className="field-container">
                             <Field
@@ -89,15 +93,6 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
                         }}
                     />
                 </TableCell>
-                <style jsx>{`
-                    .no-lb {
-                        padding-left: 0.5rem;
-                    }
-                    .field-container {
-                        max-width: 200px;
-                        margin-right: auto;
-                    }
-                `}</style>
                 <style jsx>{styles}</style>
             </TableRow>
         ))
