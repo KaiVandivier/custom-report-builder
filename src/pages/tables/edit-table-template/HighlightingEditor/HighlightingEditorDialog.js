@@ -86,13 +86,13 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
                     )}
                 </TableCell>
                 <TableCell>
-                    <div
-                        className="color-swatch"
-                        style={{
-                            backgroundColor: interval.color,
-                        }}
-                    />
+                    <div className="color-swatch" />
                 </TableCell>
+                <style jsx>{`
+                    .color-swatch {
+                        background-color: ${interval.color};
+                    }
+                `}</style>
                 <style jsx>{styles}</style>
             </TableRow>
         ))
