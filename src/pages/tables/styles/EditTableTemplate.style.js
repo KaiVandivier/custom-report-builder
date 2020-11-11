@@ -2,6 +2,11 @@ import css from 'styled-jsx/css'
 import { colors } from '@dhis2/ui'
 
 export default css`
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .pageTitle {
         display: flex;
         align-items: center;
@@ -10,10 +15,16 @@ export default css`
         margin-bottom: 1.5rem;
     }
 
-    h1,
-    h3 {
+    h1 {
         margin-top: 0;
         margin-bottom: 0;
+    }
+
+    .controls {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 1rem;
     }
 
     .container {
@@ -38,15 +49,7 @@ export default css`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 0.75rem;
-    }
-
-    .tableButtons__left {
-        margin-right: auto;
-    }
-
-    .tableButtons__right {
-        margin-left: auto;
+        margin-bottom: 0.5rem;
     }
 
     .cardContainer {

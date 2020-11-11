@@ -93,56 +93,63 @@ export function EditTableTemplate() {
 
     return (
         <>
-            <header>
-                <BackButton to={TABLES} text={i18n.t('Back to Saved Tables')} />
-                <div className="pageTitle">
-                    <h1>{i18n.t('Edit Table Template')}</h1>
-                    <a
-                        href={`${HELP}#editing-a-table-template`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <IconTooltipButton
-                            tooltip={i18n.t('Help')}
-                            icon="help"
-                            color={colors.blue700}
-                            size="32px"
-                        />
-                    </a>
-                </div>
-            </header>
-            <section className="container">
-                <h6 className="label">{i18n.t('Table name')}</h6>
-                <div className="tableName">
-                    <h3>{table.name}</h3>
-                    <RenameTable name={table.name} onRename={renameTable} />
-                </div>
-            </section>
-            <section className="container">
-                <h6 className="label">{i18n.t('Highlighting')}</h6>
-                <HighlightingEditor />
-            </section>
-            <div className="tableButtons">
-                <div className="tableButtons__left">
-                    <ButtonStrip className="dimension-buttons">
-                        <AddTableDimension type="Row" />
-                        <AddTableDimension type="Column" />
-                    </ButtonStrip>
-                </div>
-
-                <div className="tableButtons__right">
-                    <EditTableTemplateActions
-                        onGenerate={onGenerate}
-                        onDelete={onDelete}
+            <header className="header">
+                <div>
+                    <BackButton
+                        to={TABLES}
+                        text={i18n.t('Back to Saved Tables')}
                     />
+                    <div className="pageTitle">
+                        <h1>{i18n.t('Edit Table Template')}</h1>
+                        <a
+                            href={`${HELP}#editing-a-table-template`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <IconTooltipButton
+                                tooltip={i18n.t('Help')}
+                                icon="help"
+                                color={colors.blue700}
+                                size="32px"
+                            />
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <Card className={utils.card}>
-                <Table className={utils.noBorder}>
-                    <TableHead>{tableColumns()}</TableHead>
-                    <TableBody>{tableRows()}</TableBody>
-                </Table>
-            </Card>
+                <EditTableTemplateActions
+                    onGenerate={onGenerate}
+                    onDelete={onDelete}
+                />
+            </header>
+            <section className="controls">
+                <div>
+                    <div className="container">
+                        <h6 className="label">{i18n.t('Table name')}</h6>
+                        <div className="tableName">
+                            <div>{table.name}</div>
+                            <RenameTable
+                                name={table.name}
+                                onRename={renameTable}
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <h6 className="label">{i18n.t('Highlighting')}</h6>
+                        <HighlightingEditor />
+                    </div>
+                </div>
+                <ButtonStrip end>
+                    <AddTableDimension type="Row" />
+                    <AddTableDimension type="Column" />
+                </ButtonStrip>
+            </section>
+            <section>
+                <Card className={utils.card}>
+                    <Table className={utils.noBorder}>
+                        <TableHead>{tableColumns()}</TableHead>
+                        <TableBody>{tableRows()}</TableBody>
+                    </Table>
+                </Card>
+            </section>
             <style jsx>{styles}</style>
         </>
     )
