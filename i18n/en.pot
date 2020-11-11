@@ -5,13 +5,16 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-10T05:02:55.288Z\n"
-"PO-Revision-Date: 2020-11-10T05:02:55.288Z\n"
+"POT-Creation-Date: 2020-11-11T06:13:02.426Z\n"
+"PO-Revision-Date: 2020-11-11T06:13:02.426Z\n"
 
 msgid "Back"
 msgstr ""
 
 msgid "Cancel"
+msgstr ""
+
+msgid "Help"
 msgstr ""
 
 msgid "Menu"
@@ -89,9 +92,6 @@ msgstr ""
 msgid "Custom reports"
 msgstr ""
 
-msgid "Help"
-msgstr ""
-
 msgid "Custom Tables"
 msgstr ""
 
@@ -132,10 +132,25 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-msgid "Back to Tables"
+msgid "Back to Saved Tables"
+msgstr ""
+
+msgid "Edit Table Template"
+msgstr ""
+
+msgid "Table name"
+msgstr ""
+
+msgid "Highlighting"
 msgstr ""
 
 msgid "One or more periods are required to query data for this table."
+msgstr ""
+
+msgid "Generate Report"
+msgstr ""
+
+msgid "Tip - hover the mouse over a data cell to see its information."
 msgstr ""
 
 msgid "Choose Parameters"
@@ -145,9 +160,6 @@ msgid "Edit Template"
 msgstr ""
 
 msgid "Print"
-msgstr ""
-
-msgid "Tip - hover the mouse over a data cell to see its information."
 msgstr ""
 
 msgid "Saved Tables"
@@ -307,9 +319,6 @@ msgid "Edit Highlighting Intervals"
 msgstr ""
 
 msgid "Reset"
-msgstr ""
-
-msgid "Table name"
 msgstr ""
 
 msgid "Rename table"
