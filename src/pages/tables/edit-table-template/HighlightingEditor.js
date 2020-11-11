@@ -135,17 +135,15 @@ export function HighlightingEditor() {
     }
 
     return (
-        <div className="switch-container">
-            <Switch
-                checked={table.highlightingOn}
-                label={i18n.t('Highlight cells based on value')}
-                onChange={onSwitch}
-            />
-            <Button
-                small
-                disabled={!table.highlightingOn}
-                onClick={toggleModal}
-            >
+        <div>
+            <div className="switch-container">
+                <Switch
+                    checked={table.highlightingOn}
+                    label={i18n.t('Highlight cells based on value')}
+                    onChange={onSwitch}
+                />
+            </div>
+            <Button disabled={!table.highlightingOn} onClick={toggleModal}>
                 {i18n.t('Configure')}
             </Button>
             {modalIsOpen && (

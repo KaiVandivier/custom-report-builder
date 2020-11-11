@@ -3,10 +3,7 @@ import { colors } from '@dhis2/ui'
 
 export default css`
     .switch-container {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        gap: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     .interval-container {
