@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Switch, colors } from '@dhis2/ui'
 import i18n from '../../../../locales'
 import { UPDATE_TABLE } from '../../../../reducers/tableReducer'
-import styles from '../styles/HighlightingEditor.style'
+import styles from './styles/HighlightingEditor.style'
 import {
     useTableDispatch,
     useTableState,
