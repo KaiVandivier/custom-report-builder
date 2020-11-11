@@ -34,10 +34,6 @@ export default css`
         gap: 1rem;
     }
 
-    .editButton {
-        margin-right: auto;
-    }
-
     .tableButtons {
         display: flex;
         align-items: center;
