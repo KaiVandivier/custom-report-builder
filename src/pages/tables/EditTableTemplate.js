@@ -93,13 +93,37 @@ export function EditTableTemplate() {
 
     return (
         <>
-            <div className="header">
-                <BackButton to={TABLES} tooltip={i18n.t('Back to Tables')} />
-                <h1>{table.name}</h1>
-                <div className="editButton">
-                    <RenameTable name={table.name} onRename={renameTable} />
+            <header>
+                <BackButton to={TABLES} text={i18n.t('Back to Saved Tables')} />
+                <div className="pageTitle">
+                    <h1>{i18n.t('Edit Table Template')}</h1>
+                    <a
+                        href={`${HELP}#editing-a-table-template`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <IconTooltipButton
+                            tooltip={i18n.t('Help')}
+                            icon="help"
+                            color={colors.blue700}
+                            size="32px"
+                        />
+                    </a>
                 </div>
-            </div>
+            </header>
+            <section className="container">
+                <h6 className="label">{i18n.t('Table name')}</h6>
+                <div className="tableName">
+                    <h3>{table.name}</h3>
+                    <div className="editButton">
+                        <RenameTable name={table.name} onRename={renameTable} />
+                    </div>
+                </div>
+            </section>
+            <section className="container">
+                <h6 className="label">{i18n.t('Highlighting')}</h6>
+                <HighlightingEditor />
+            </section>
             <div className="tableButtons">
                 <div className="tableButtons__left">
                     <ButtonStrip className="dimension-buttons">
@@ -107,18 +131,7 @@ export function EditTableTemplate() {
                         <AddTableDimension type="Column" />
                     </ButtonStrip>
                 </div>
-                <a
-                    href={`${HELP}#editing-a-table-template`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <IconTooltipButton
-                        tooltip={i18n.t('Help')}
-                        icon="help"
-                        color={colors.blue700}
-                        size="32px"
-                    />
-                </a>
+
                 <div className="tableButtons__right">
                     <EditTableTemplateActions
                         onGenerate={onGenerate}
@@ -126,7 +139,6 @@ export function EditTableTemplate() {
                     />
                 </div>
             </div>
-            <HighlightingEditor />
             <Card className={utils.card}>
                 <Table className={utils.noBorder}>
                     <TableHead>{tableColumns()}</TableHead>
