@@ -143,7 +143,11 @@ export function HighlightingEditor() {
                     onChange={onSwitch}
                 />
             </div>
-            <Button disabled={!table.highlightingOn} onClick={toggleModal}>
+            <Button
+                small
+                disabled={!table.highlightingOn}
+                onClick={toggleModal}
+            >
                 {i18n.t('Configure')}
             </Button>
             {modalIsOpen && (
