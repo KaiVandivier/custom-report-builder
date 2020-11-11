@@ -1,10 +1,12 @@
 import css from 'styled-jsx/css'
+import { colors } from '@dhis2/ui'
 
 export default css`
     .switch-container {
         display: flex;
-        gap: 1rem;
-        margin-bottom: 1rem;
+        flex-direction: column;
+        align-items: start;
+        gap: 0.5rem;
     }
 
     .interval-container {
@@ -18,26 +20,24 @@ export default css`
     .color-swatch-container {
         display: inline-block;
         padding: 0.25rem;
-        // background-color: white;
-        // border: 1px solid #ccc; // TODO: Get right color
         border-radius: 0.25rem;
     }
 
     .color-swatch {
         height: 1rem;
         width: 2rem;
-        border: 1px solid #666; // TODO: Get right color
+        border: 1px solid ${colors.grey600};
     }
 
     .color-swatch.green {
-        background-color: #e8f5e9; // TODO: Get right color
+        background-color: ${colors.green100};
     }
 
     .color-swatch.yellow {
-        background-color: #ffecb3; // TODO: Get right color
+        background-color: ${colors.yellow100};
     }
 
     .color-swatch.red {
-        background-color: #ffe5e8; // TODO: Get right color
+        background-color: ${colors.red100};
     }
 `
