@@ -13,6 +13,7 @@ export function RenameTable({ name, onRename }) {
             <IconTooltipButton
                 icon="edit"
                 tooltip="Rename table"
+                size="18px"
                 onClick={toggleModal}
             />
             {modalIsOpen && (
