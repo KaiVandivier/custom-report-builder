@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Button, ButtonStrip, Card, Help, colors } from '@dhis2/ui'
+import { Button, ButtonStrip, Card, Help } from '@dhis2/ui'
 import i18n from '../../locales'
 import { useReactToPrint } from 'react-to-print'
 import { useHistory, useParams } from 'react-router-dom'
@@ -9,10 +9,10 @@ import Icon from '../../components/Icon'
 import classes from './styles/GeneratedTable.module.css'
 import utils from '../../styles/utils.module.css'
 import { ReportParameters, TableWithData } from './generated-table'
-import { EDIT_TABLE, getPath, HELP, TABLES } from '../../modules/paths'
+import { EDIT_TABLE, getPath, TABLES } from '../../modules/paths'
 import { DATA } from '../../modules/contentTypes'
 import { useTableState } from '../../context/tableContext'
-import IconTooltipButton from '../../components/IconTooltipButton'
+import HelpButton from '../../components/HelpButton'
 
 export function isAllPopulatedInTable(key, table) {
     return table.rows.every(row =>
@@ -82,18 +82,7 @@ export function GeneratedTable() {
                         <h1 className={classes.h1}>
                             {i18n.t('Generate Report')}
                         </h1>
-                        <a
-                            href={`${HELP}#generating-a-table-from-a-template`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <IconTooltipButton
-                                tooltip={i18n.t('Help')}
-                                icon="help"
-                                color={colors.blue700}
-                                size="32px"
-                            />
-                        </a>
+                        <HelpButton subsection="#generating-a-table-from-a-template" />
                     </div>
                     <Help>
                         {i18n.t(

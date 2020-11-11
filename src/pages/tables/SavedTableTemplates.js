@@ -3,7 +3,6 @@ import React from 'react'
 import i18n from '../../locales'
 import { useSavedObjectList } from '@dhis2/app-service-datastore'
 import {
-    colors,
     Card,
     Table,
     TableHead,
@@ -22,8 +21,8 @@ import {
 import defaultTable from '../../modules/defaultTable'
 import utils from '../../styles/utils.module.css'
 import classes from './styles/SavedTableTemplates.module.css'
-import { EDIT_TABLE, GENERATED_TABLE, getPath, HELP } from '../../modules/paths'
-import IconTooltipButton from '../../components/IconTooltipButton'
+import { EDIT_TABLE, GENERATED_TABLE, getPath } from '../../modules/paths'
+import HelpButton from '../../components/HelpButton'
 
 // TODO:
 // - Rename 'template' to 'table'
@@ -91,18 +90,7 @@ export function SavedTableTemplates() {
         <section className={classes.sectionContainer}>
             <header className={classes.header}>
                 <h1>{i18n.t('Saved Tables')}</h1>
-                <a
-                    href={`${HELP}#saved-tables`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <IconTooltipButton
-                        tooltip={i18n.t('Help')}
-                        icon="help"
-                        color={colors.blue700}
-                        size="32px"
-                    />
-                </a>
+                <HelpButton subsection="#saved-tables" />
                 <CreateNewTableTemplate createNew={createNew} />
             </header>
             <Card className={utils.card}>
