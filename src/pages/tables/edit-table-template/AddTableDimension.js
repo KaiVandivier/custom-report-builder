@@ -27,7 +27,7 @@ export function AddTableDimension({ type }) {
 
     return (
         <>
-            <Button icon={<Icon name="add" />} onClick={onOpen}>
+            <Button large icon={<Icon name="add" />} onClick={onOpen}>
                 {i18n.t('Add {{type}}', { type })}
             </Button>
             {modalOpen && (
