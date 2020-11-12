@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-11T06:13:02.426Z\n"
-"PO-Revision-Date: 2020-11-11T06:13:02.426Z\n"
+"POT-Creation-Date: 2020-11-12T02:54:12.628Z\n"
+"PO-Revision-Date: 2020-11-12T02:54:12.628Z\n"
 
 msgid "Back"
 msgstr ""
@@ -297,25 +297,31 @@ msgstr ""
 msgid "Really delete this template?"
 msgstr ""
 
-msgid "This value must be lower than the lower bound of the interval above it."
-msgstr ""
-
-msgid "This value must be higher than the lower bound of the interval below it."
-msgstr ""
-
-msgid "Value {{-lt}} {{value}}"
-msgstr ""
-
-msgid "Value {{-gte}}"
-msgstr ""
-
 msgid "Highlight cells based on value"
 msgstr ""
 
 msgid "Configure"
 msgstr ""
 
+msgid "This value must be lower than the lower bound of the interval above it."
+msgstr ""
+
+msgid "This value must be higher than the lower bound of the interval below it."
+msgstr ""
+
+msgid "All values"
+msgstr ""
+
+msgid "No lower bound"
+msgstr ""
+
 msgid "Edit Highlighting Intervals"
+msgstr ""
+
+msgid "Lower bound of interval"
+msgstr ""
+
+msgid "Color"
 msgstr ""
 
 msgid "Reset"
