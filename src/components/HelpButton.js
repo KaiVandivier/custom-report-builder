@@ -21,6 +21,11 @@ function HelpButton({ subsection }) {
                 color={colors.blue700}
                 size="24px"
             />
+            <style jsx>{`
+                a {
+                    text-decoration: none;
+                }
+            `}</style>
         </a>
     )
 }
