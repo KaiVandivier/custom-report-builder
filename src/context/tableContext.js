@@ -8,8 +8,8 @@ const TableStateContext = React.createContext()
 const TableDispatchContext = React.createContext()
 const TableActionsContext = React.createContext()
 
-// Possible: accept 'id' prop from parent? (e.g. `match.params.id`)
-// It may not be necessary.
+// If this is adapted for use in other apps, accept `id` as a prop
+// In this app, parent Route can pass `id` via `match.params.id`
 
 export function TableProvider({ children }) {
     // TODO: validate params.id
