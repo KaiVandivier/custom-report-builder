@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import i18n from '../../../locales'
 import PropTypes from 'prop-types'
-import { Button, ButtonStrip } from '@dhis2/ui'
+import { Button } from '@dhis2/ui'
 import InputDialog from '../../../components/InputDialog'
 import Icon from '../../../components/Icon'
 
@@ -15,15 +15,13 @@ export function CreateNewTableTemplate({ createNew }) {
 
     return (
         <div>
-            <ButtonStrip>
-                <Button
-                    icon={<Icon name="add" color="white" />}
-                    onClick={() => setModalOpen(true)}
-                    primary
-                >
-                    {i18n.t('Create new')}
-                </Button>
-            </ButtonStrip>
+            <Button
+                icon={<Icon name="add" color="white" />}
+                onClick={() => setModalOpen(true)}
+                primary
+            >
+                {i18n.t('Create new')}
+            </Button>
             {modalOpen && (
                 <InputDialog
                     title={i18n.t('Create new table template')}
