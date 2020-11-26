@@ -4,6 +4,7 @@ import i18n from '../../locales'
 import { useSavedObjectList } from '@dhis2/app-service-datastore'
 import {
     Card,
+    ButtonStrip,
     Table,
     TableHead,
     TableBody,
@@ -23,6 +24,7 @@ import utils from '../../styles/utils.module.css'
 import classes from './styles/SavedTableTemplates.module.css'
 import { EDIT_TABLE, GENERATED_TABLE, getPath } from '../../modules/paths'
 import HelpButton from '../../components/HelpButton'
+import demoTable from '../../modules/demoTable'
 
 // TODO:
 // - Rename 'template' to 'table'
@@ -35,6 +37,11 @@ export function SavedTableTemplates() {
 
     async function createNew(name) {
         const { id } = await tableTemplateActions.add({ ...defaultTable, name })
+        history.push(getPath(EDIT_TABLE, id))
+    }
+
+    async function createDemo(name) {
+        const { id } = await tableTemplateActions.add({ ...demoTable, name })
         history.push(getPath(EDIT_TABLE, id))
     }
 
@@ -91,7 +98,13 @@ export function SavedTableTemplates() {
             <header className={classes.header}>
                 <h1>{i18n.t('Saved Tables')}</h1>
                 <HelpButton subsection="#saved-tables" />
-                <CreateNewTableTemplate createNew={createNew} />
+                <ButtonStrip>
+                    <CreateNewTableTemplate
+                        createNew={createDemo}
+                        demo={true}
+                    />
+                    <CreateNewTableTemplate createNew={createNew} />
+                </ButtonStrip>
             </header>
             <Card className={utils.card}>
                 <Table className={utils.noBorder} suppressZebraStriping>
