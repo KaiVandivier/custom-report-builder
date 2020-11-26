@@ -11,18 +11,12 @@ import {
 import { TableProvider } from '../context/tableContext'
 
 /**
- * A problem: find a way to use a TableProvider for context for multiple views.
- * Currently, changing 'highlighting intervals' or some other value on a table
- * in the 'edit' view, then navigating to the 'Generated' view will not show
- * the changes made in the 'edit' view. Maybe the table on the 'generated' view
- * is cached and regurgitated instead of being refreshed with a new query?
+ * A problem: editing some value on a table in the 'edit' view, then navigating
+ * to the 'Generated' view will not show the changes made in the 'edit' view.
+ * Refreshing page loads correct (newly updated) values.
+ * (Fixed by tracking table state more closely with context.)
  *
- * Indeed, refreshing the page refetches the correct highlighting interval
- * values from the saved table...
- *
- * Maybe I need to use the 'dispatch' function from the _context_ in the 'edit'
- * view to make sure the changes are read by the context, and maybe it's fine to
- * have the same context in two places
+ * UPDATE: This may be related to app-service-datastore behavior
  */
 
 export function Tables({ match }) {
