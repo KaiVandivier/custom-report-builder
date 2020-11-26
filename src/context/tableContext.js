@@ -34,6 +34,7 @@ TableProvider.propTypes = {
 
 export function useTableState() {
     const table = useContext(TableStateContext)
+    // This might also throw if a table is not found for the id in url params
     if (table === undefined) {
         throw new Error('useTableState must be used within a TableProvider')
     }
