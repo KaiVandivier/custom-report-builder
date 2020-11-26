@@ -9,10 +9,10 @@ import { TABLES } from './modules/paths'
 import { Tables, NoMatch } from './pages'
 // import { Navigation } from './navigation'
 
-// If reports are added to this app:
-// - Add navigation, with layout container and sidebar
+// If report documents are added to this app (may become separate app):
+// - Add navigation, with layout container and sidebar (styled `.left`)
 // - Add homepage
-// - Add paths for reports
+// - Add routes and paths for reports components
 
 /*
  * HashRouter solves the problem of route issues on DHIS instances deployed
@@ -25,13 +25,8 @@ const MyApp = () => {
     return (
         <HashRouter>
             <div className={classes.container}>
-                {/* <nav className={classes.left}> */}
-                {/* <Navigation /> */}
-                {/* </nav> */}
                 <main className={classes.right}>
                     <Switch>
-                        {/* <Route exact path="/" component={Home} /> */}
-                        {/* <Route path={REPORTS} component={Reports} /> */}
                         <Route path={TABLES} component={Tables} />
                         <Route component={NoMatch} />
                     </Switch>
