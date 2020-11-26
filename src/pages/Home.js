@@ -4,6 +4,11 @@ import styles from './styles/Home.style'
 import { NavCard } from './home'
 import { TABLES, REPORTS, HELP } from '../modules/paths'
 
+/**
+ * To be used as a home page if a tool to make report documents is added to
+ * this app
+ */
+
 export const Home = () => {
     return (
         <div className="grid-container">
