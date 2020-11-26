@@ -14,7 +14,7 @@ export function CreateNewTableTemplate({ createNew }) {
     }
 
     return (
-        <div /* style={{ marginBottom: '0.75rem' }} */>
+        <div>
             <ButtonStrip>
                 <Button
                     icon={<Icon name="add" color="white" />}
