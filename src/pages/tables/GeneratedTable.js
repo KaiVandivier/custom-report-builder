@@ -30,7 +30,7 @@ export function GeneratedTable() {
 
     const [reportParams, setReportParams] = useState({
         selectedOrgUnits: [],
-        selectedPeriods: [], // Maybe the root ous?
+        selectedPeriods: [], // Could be root OUs as default
     })
     const [reportParamsDialogOpen, setReportParamsDialogOpen] = useState(true)
     const [reportParamsErrors, setReportParamsErrors] = useState([])
@@ -41,13 +41,11 @@ export function GeneratedTable() {
     const toggleReportParamsDialog = () =>
         setReportParamsDialogOpen(state => !state)
 
-    // ou / periodParamNeeded function should be memoized w/ useCallback?
     const orgUnitParamNeeded = !isAllPopulatedInTable('orgUnits', table)
     const periodParamNeeded = !isAllPopulatedInTable('periods', table)
 
     function onGenerate(params) {
         const errors = []
-        // const periodParamNeeded = true
         if (periodParamNeeded && params.selectedPeriods.length === 0) {
             errors.push(
                 i18n.t(
