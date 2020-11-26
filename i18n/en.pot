@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-12T02:54:12.628Z\n"
-"PO-Revision-Date: 2020-11-12T02:54:12.628Z\n"
+"POT-Creation-Date: 2020-11-26T17:52:43.023Z\n"
+"PO-Revision-Date: 2020-11-26T17:52:43.023Z\n"
 
 msgid "Back"
 msgstr ""
@@ -383,7 +383,13 @@ msgstr ""
 msgid "Date - "
 msgstr ""
 
+msgid "Create demo table"
+msgstr ""
+
 msgid "Create new"
+msgstr ""
+
+msgid "Create demo table template"
 msgstr ""
 
 msgid "Create new table template"
