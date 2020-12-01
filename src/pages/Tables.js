@@ -9,6 +9,7 @@ import {
     GeneratedTable,
 } from './tables'
 import { TableProvider } from '../context/tableContext'
+import NoMatch from './NoMatch'
 
 /**
  * A problem: editing some value on a table in the 'edit' view, then navigating
@@ -24,18 +25,23 @@ export function Tables({ match }) {
         <DataStoreProvider namespace="tableTemplates">
             <Switch>
                 <Route path={match.url + '/edit/:id'}>
-                    <TableProvider>
-                        <EditTableTemplate />
-                    </TableProvider>
+                    {({ match: idMatch }) => (
+                        <TableProvider id={idMatch.params.id}>
+                            <EditTableTemplate />
+                        </TableProvider>
+                    )}
                 </Route>
                 <Route path={match.url + '/generated/:id'}>
-                    <TableProvider>
-                        <GeneratedTable />
-                    </TableProvider>
+                    {({ match: idMatch }) => (
+                        <TableProvider id={idMatch.params.id}>
+                            <GeneratedTable />
+                        </TableProvider>
+                    )}
                 </Route>
                 <Route exact path={match.url}>
                     <SavedTableTemplates />
                 </Route>
+                <Route component={NoMatch} />
             </Switch>
         </DataStoreProvider>
     )
