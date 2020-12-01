@@ -1,6 +1,6 @@
 import React, { useContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
-import { useParams } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { useSavedObject } from '@dhis2/app-service-datastore'
 import tableReducer from '../reducers/tableReducer'
 
@@ -8,14 +8,14 @@ const TableStateContext = React.createContext()
 const TableDispatchContext = React.createContext()
 const TableActionsContext = React.createContext()
 
-// If this is adapted for use in other apps, accept `id` as a prop
-// In this app, parent Route can pass `id` via `match.params.id`
-
-export function TableProvider({ children }) {
-    // TODO: validate params.id
-    const params = useParams()
-    const [savedTable, savedTableActions] = useSavedObject(params.id)
+export function TableProvider({ children, id }) {
+    const [savedTable, savedTableActions] = useSavedObject(id)
     const [table, dispatch] = useReducer(tableReducer, savedTable)
+
+    if (table === undefined) {
+        console.log(`No table found for ID '${id}'`)
+        return <Redirect to="/" />
+    }
 
     return (
         <TableStateContext.Provider value={table}>
@@ -29,12 +29,12 @@ export function TableProvider({ children }) {
 }
 
 TableProvider.propTypes = {
+    id: PropTypes.string.isRequired,
     children: PropTypes.element,
 }
 
 export function useTableState() {
     const table = useContext(TableStateContext)
-    // This might also throw if a table is not found for the id in url params
     if (table === undefined) {
         throw new Error('useTableState must be used within a TableProvider')
     }
