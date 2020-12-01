@@ -6,6 +6,10 @@ import {
     REORDER_ROW,
     UPDATE_ROW,
     UPDATE_ROW_DIMENSIONS,
+    DELETE_COLUMN,
+    REORDER_COLUMN,
+    UPDATE_COLUMN,
+    UPDATE_COLUMN_DIMENSIONS,
 } from '../../../reducers/tableReducer'
 import i18n from '../../../locales'
 
@@ -24,11 +28,55 @@ import utils from '../../../styles/utils.module.css'
 import SelectorFrame from './SelectorFrame'
 import { useTableDispatch } from '../../../context/tableContext'
 
+const ROW = 'row'
+const COL = 'column'
+
+const rowColTypes = {
+    [ROW]: {
+        id: ROW,
+        nameLower: 'row',
+        nameUpper: 'Row',
+        actions: {
+            delete: DELETE_ROW,
+            reorder: REORDER_ROW,
+            update: UPDATE_ROW,
+            updateDimensions: UPDATE_ROW_DIMENSIONS,
+        },
+        decrementPosition: {
+            icon: 'arrow_drop_up',
+            getLabel: () => i18n.t('Move row up'),
+        },
+        incrementPosition: {
+            icon: 'arrow_drop_down',
+            getLabel: () => i18n.t('Move row down'),
+        },
+    },
+    [COL]: {
+        id: COL,
+        nameLower: 'column',
+        nameUpper: 'Column',
+        actions: {
+            delete: DELETE_COLUMN,
+            reorder: REORDER_COLUMN,
+            update: UPDATE_COLUMN,
+            updateDimensions: UPDATE_COLUMN_DIMENSIONS,
+        },
+        decrementPosition: {
+            icon: 'arrow_left',
+            getLabel: () => i18n.t('Move column left'),
+        },
+        incrementPosition: {
+            icon: 'arrow_right',
+            getLabel: () => i18n.t('Move column right'),
+        },
+    },
+}
+
 function getSelectedNames(arr) {
     return arr.map(({ name }) => name).join(', ')
 }
 
-export function RowControls({ row, idx, maxIdx }) {
+export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
     const dispatch = useTableDispatch()
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
@@ -44,7 +92,7 @@ export function RowControls({ row, idx, maxIdx }) {
     function onMoveUp(togglePopover) {
         if (idx <= 0) return
         dispatch({
-            type: REORDER_ROW,
+            type: rowColTypes[type].actions.reorder,
             payload: { oldIdx: idx, newIdx: idx - 1 },
         })
         togglePopover()
@@ -53,7 +101,7 @@ export function RowControls({ row, idx, maxIdx }) {
     function onMoveDown(togglePopover) {
         if (idx >= maxIdx) return
         dispatch({
-            type: REORDER_ROW,
+            type: rowColTypes[type].actions.reorder,
             payload: { oldIdx: idx, newIdx: idx + 1 },
         })
         togglePopover()
@@ -61,15 +109,15 @@ export function RowControls({ row, idx, maxIdx }) {
 
     function onEdit(togglePopover, inputText) {
         dispatch({
-            type: UPDATE_ROW,
-            payload: { idx, row: { name: inputText } },
+            type: rowColTypes[type].actions.update,
+            payload: { idx, [rowColTypes[type].id]: { name: inputText } },
         })
         togglePopover()
     }
 
     function onDelete(togglePopover) {
         dispatch({
-            type: DELETE_ROW,
+            type: rowColTypes[type].actions.delete,
             payload: { idx },
         })
         togglePopover()
@@ -77,7 +125,7 @@ export function RowControls({ row, idx, maxIdx }) {
 
     function onDataDialogSave(data) {
         dispatch({
-            type: UPDATE_ROW_DIMENSIONS,
+            type: rowColTypes[type].actions.updateDimensions,
             payload: {
                 idx,
                 dimensions: { ...data },
@@ -87,7 +135,7 @@ export function RowControls({ row, idx, maxIdx }) {
 
     function onDataSelectorClear() {
         dispatch({
-            type: UPDATE_ROW_DIMENSIONS,
+            type: rowColTypes[type].actions.updateDimensions,
             payload: {
                 idx,
                 dimensions: { item: null },
@@ -97,7 +145,7 @@ export function RowControls({ row, idx, maxIdx }) {
 
     function onOrgUnitDialogSave(orgUnits) {
         dispatch({
-            type: UPDATE_ROW_DIMENSIONS,
+            type: rowColTypes[type].actions.updateDimensions,
             payload: {
                 idx,
                 dimensions: { orgUnits },
@@ -107,7 +155,7 @@ export function RowControls({ row, idx, maxIdx }) {
 
     function onPeriodDialogSave(periods) {
         dispatch({
-            type: UPDATE_ROW_DIMENSIONS,
+            type: rowColTypes[type].actions.updateDimensions,
             payload: {
                 idx,
                 dimensions: { periods },
@@ -118,14 +166,20 @@ export function RowControls({ row, idx, maxIdx }) {
     return (
         <TableCellHead className={utils.cell}>
             <div className="titleContainer rowTitle">
-                {row.name}
-                <PopoverButton tooltip={i18n.t('Row actions')}>
+                {rowColObj.name}
+                <PopoverButton
+                    tooltip={i18n.t('{{name}} actions', {
+                        name: rowColTypes[type].nameUpper,
+                    })}
+                >
                     {togglePopover => (
                         <FlyoutMenu>
                             <MenuItem
                                 dense
                                 icon={<Icon name="assignment" dense />}
-                                label={i18n.t('Assign dimensions to row')}
+                                label={i18n.t('Assign dimensions to {{name}}', {
+                                    name: rowColTypes[type].nameLower,
+                                })}
                             >
                                 <MenuItem
                                     dense
@@ -155,15 +209,35 @@ export function RowControls({ row, idx, maxIdx }) {
                             <MenuItem
                                 dense
                                 disabled={idx <= 0}
-                                icon={<Icon name="arrow_drop_up" dense />}
-                                label={i18n.t('Move row up')}
+                                icon={
+                                    <Icon
+                                        name={
+                                            rowColTypes[type].decrementPosition
+                                                .icon
+                                        }
+                                        dense
+                                    />
+                                }
+                                label={rowColTypes[
+                                    type
+                                ].decrementPosition.getLabel()}
                                 onClick={() => onMoveUp(togglePopover)}
                             />
                             <MenuItem
                                 dense
                                 disabled={idx >= maxIdx}
-                                icon={<Icon name="arrow_drop_down" dense />}
-                                label={i18n.t('Move row down')}
+                                icon={
+                                    <Icon
+                                        name={
+                                            rowColTypes[type].incrementPosition
+                                                .icon
+                                        }
+                                        dense
+                                    />
+                                }
+                                label={rowColTypes[
+                                    type
+                                ].incrementPosition.getLabel()}
                                 onClick={() => onMoveDown(togglePopover)}
                             />
                             <MenuItem
@@ -182,7 +256,8 @@ export function RowControls({ row, idx, maxIdx }) {
                                 <ConfirmModal
                                     confirmText={i18n.t('Delete')}
                                     text={i18n.t(
-                                        'Do you want to delete this row?'
+                                        'Do you want to delete this {{name}}?',
+                                        { name: rowColTypes[type].nameLower }
                                     )}
                                     title={i18n.t('Confirm deletion')}
                                     onCancel={() => setDeleteModalIsOpen(false)}
@@ -195,48 +270,64 @@ export function RowControls({ row, idx, maxIdx }) {
                             )}
                             {editModalIsOpen && (
                                 <InputDialog
-                                    title={i18n.t('Edit row')}
-                                    inputLabel={i18n.t('Row name')}
-                                    inputPlaceholder={i18n.t('Enter row name')}
+                                    title={i18n.t('Edit {{ name }}', {
+                                        name: rowColTypes[type].nameLower,
+                                    })}
+                                    inputLabel={i18n.t('{{name}} name', {
+                                        name: rowColTypes[type].nameUpper,
+                                    })}
+                                    inputPlaceholder={i18n.t(
+                                        'Enter {{name}} name',
+                                        {
+                                            name: rowColTypes[type].nameLower,
+                                        }
+                                    )}
                                     confirmText={i18n.t('Save')}
                                     onCancel={() => setEditModalIsOpen(false)}
                                     onConfirm={inputText => {
                                         onEdit(togglePopover, inputText)
                                         setEditModalIsOpen(false)
                                     }}
-                                    initialValue={row.name}
+                                    initialValue={rowColObj.name}
                                 />
                             )}
                         </FlyoutMenu>
                     )}
                 </PopoverButton>
             </div>
-            {row.dimensions?.item ||
-            row.dimensions?.periods?.length ||
-            row.dimensions?.orgUnits?.length ? (
+            {rowColObj.dimensions?.item ||
+            rowColObj.dimensions?.periods?.length ||
+            rowColObj.dimensions?.orgUnits?.length ? (
                 <Divider />
             ) : null}
-            {row.dimensions?.item && (
+            {rowColObj.dimensions?.item && (
                 <SelectorFrame
                     title={i18n.t('Data item')}
-                    content={row.dimensions.item.name}
-                    tooltip={i18n.t('Select data item for row')}
+                    content={rowColObj.dimensions.item.name}
+                    tooltip={i18n.t('Select data item for {{name}}', {
+                        name: rowColTypes[type].nameLower,
+                    })}
                     onClick={toggleDataDialog}
                     onClear={onDataSelectorClear}
                 />
             )}
-            {row.dimensions?.orgUnits?.length ? (
+            {rowColObj.dimensions?.orgUnits?.length ? (
                 <SelectorFrame
                     title={i18n.t('Organisation unit(s)')}
-                    content={getSelectedNames(row.dimensions.orgUnits)}
-                    tooltip={i18n.t('Select organisation unit(s) for row')}
+                    content={getSelectedNames(rowColObj.dimensions.orgUnits)}
+                    tooltip={i18n.t(
+                        'Select organisation unit(s) for {{name}}',
+                        {
+                            name: rowColTypes[type].nameLower,
+                        }
+                    )}
                     onClick={toggleOrgUnitDialog}
                 />
             ) : null}
-            {row.dimensions?.periods?.length ? (
+            {rowColObj.dimensions?.periods?.length ? (
                 <SelectorFrame
                     title={i18n.t('Period(s)')}
-                    content={getSelectedNames(row.dimensions.periods)}
+                    content={getSelectedNames(rowColObj.dimensions.periods)}
                     tooltip={i18n.t('Select period(s)')}
                     onClick={togglePeriodDialog}
                 />
@@ -249,8 +340,8 @@ export function RowControls({ row, idx, maxIdx }) {
                             onClose={toggleDataDialog}
                             onSave={onDataDialogSave}
                             initialValues={
-                                row.dimensions?.item
-                                    ? { ...row.dimensions }
+                                rowColObj.dimensions?.item
+                                    ? { ...rowColObj.dimensions }
                                     : {}
                             }
                         />
@@ -259,13 +350,13 @@ export function RowControls({ row, idx, maxIdx }) {
             )}
             <OrgUnitSelectorDialog
                 open={orgUnitDialogOpen}
-                currentlySelected={row.dimensions?.orgUnits}
+                currentlySelected={rowColObj.dimensions?.orgUnits}
                 toggleModal={toggleOrgUnitDialog}
                 onSave={onOrgUnitDialogSave}
             />
             <PeriodSelectorDialog
                 open={periodDialogOpen}
-                currentlySelected={row.dimensions?.periods}
+                currentlySelected={rowColObj.dimensions?.periods}
                 toggleModal={togglePeriodDialog}
                 onSave={onPeriodDialogSave}
             />
@@ -274,10 +365,11 @@ export function RowControls({ row, idx, maxIdx }) {
     )
 }
 
-RowControls.propTypes = {
+RowColControls.propTypes = {
     idx: PropTypes.number.isRequired,
     maxIdx: PropTypes.number.isRequired,
-    row: PropTypes.shape({
+    type: PropTypes.oneOf([ROW, COL]).isRequired,
+    rowColObj: PropTypes.shape({
         name: PropTypes.string.isRequired,
         dimensions: PropTypes.shape({
             dataType: PropTypes.string,
@@ -303,4 +395,4 @@ RowControls.propTypes = {
     }),
 }
 
-export default RowControls
+export default RowColControls
