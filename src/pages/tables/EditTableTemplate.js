@@ -16,9 +16,8 @@ import styles from './styles/EditTableTemplate.style'
 import {
     EditTableCell,
     AddTableDimension,
-    RowControls,
     HighlightingEditor,
-    ColumnControls,
+    RowColControls,
     RenameTable,
     EditTableTemplateActions,
 } from './edit-table-template'
@@ -59,8 +58,9 @@ export function EditTableTemplate() {
             <TableRowHead>
                 <TableCellHead />
                 {table.columns.map((col, idx, arr) => (
-                    <ColumnControls
-                        col={col}
+                    <RowColControls
+                        type="column"
+                        rowColObj={col}
                         idx={idx}
                         maxIdx={arr.length - 1}
                         key={idx}
@@ -84,7 +84,12 @@ export function EditTableTemplate() {
     function tableRows() {
         return table.rows.map((row, idx, arr) => (
             <TableRow idx={idx} key={idx}>
-                <RowControls row={row} idx={idx} maxIdx={arr.length - 1} />
+                <RowColControls
+                    type={'row'}
+                    rowColObj={row}
+                    idx={idx}
+                    maxIdx={arr.length - 1}
+                />
                 {mapCellsToJsx(row.cells, idx)}
             </TableRow>
         ))
