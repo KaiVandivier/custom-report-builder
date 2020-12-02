@@ -3,14 +3,7 @@ import PropTypes from 'prop-types'
 import { colors, Tooltip } from '@dhis2/ui'
 import ButtonBase from '@material-ui/core/ButtonBase'
 
-export function IconTooltipButton({
-    size,
-    color,
-    icon,
-    tooltip,
-    className,
-    onClick,
-}) {
+function IconTooltipButton({ size, color, icon, tooltip, className, onClick }) {
     return (
         <Tooltip content={tooltip} placement="bottom">
             {props => (

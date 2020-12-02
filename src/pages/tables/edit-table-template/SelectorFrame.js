@@ -6,7 +6,7 @@ import Icon from '../../../components/Icon'
 import styles from './styles/SelectorFrame.style'
 import IconTooltipButton from '../../../components/IconTooltipButton'
 
-export function SelectorFrame({ title, content, tooltip, onClick, onClear }) {
+function SelectorFrame({ title, content, tooltip, onClick, onClear }) {
     return (
         <>
             <Tooltip content={tooltip} placement="top">
