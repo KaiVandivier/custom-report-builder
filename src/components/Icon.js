@@ -2,7 +2,7 @@ import React from 'react'
 import { colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 
-export function Icon({
+function Icon({
     name,
     dense = false,
     large = false,
