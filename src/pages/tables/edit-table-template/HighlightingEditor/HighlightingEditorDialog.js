@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, ButtonStrip, InputFieldFF } from '@dhis2/ui'
 import {
+    colors,
     Modal,
     ModalTitle,
     ModalContent,
@@ -21,7 +22,12 @@ import PropTypes from 'prop-types'
 import i18n from '../../../../locales'
 import styles from './styles/HighlightingEditorDialog.style'
 import utils from '../../../../styles/utils.module.css'
-import { useTableState } from '../../../../context/tableContext'
+
+export const defaultIntervals = [
+    { lowerBound: 90, color: colors.green100 },
+    { lowerBound: 70, color: colors.yellow100 },
+    { lowerBound: -Infinity, color: colors.red100 },
+]
 
 const { Form, Field } = ReactFinalForm
 
@@ -49,8 +55,12 @@ function betweenNeighbors(key, idx) {
     }
 }
 
-export function HighlightingEditorDialog({ open, toggle, onSave }) {
-    const table = useTableState()
+export function HighlightingEditorDialog({
+    open,
+    toggle,
+    highlightingIntervals = defaultIntervals,
+    onSave,
+}) {
     if (!open) return null
 
     const getTableRows = () => {
@@ -61,7 +71,7 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
                 betweenNeighbors('lowerBounds', idx)
             )
 
-        return table.highlightingIntervals.map((interval, idx, arr) => (
+        return highlightingIntervals.map((interval, idx, arr) => (
             <TableRow key={idx}>
                 <TableCell>
                     {arr.length === 1 ? (
@@ -158,10 +168,15 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
     )
 }
 
+HighlightingEditorDialog.defaultProps = {
+    highlightingIntervals: defaultIntervals,
+}
+
 HighlightingEditorDialog.propTypes = {
     open: PropTypes.bool.isRequired,
     toggle: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
+    highlightingIntervals: PropTypes.array,
 }
 
 export default HighlightingEditorDialog

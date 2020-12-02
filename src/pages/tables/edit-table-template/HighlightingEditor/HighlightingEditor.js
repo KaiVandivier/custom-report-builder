@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Switch, colors } from '@dhis2/ui'
+import { Button, Switch } from '@dhis2/ui'
 import i18n from '../../../../locales'
 import { UPDATE_TABLE } from '../../../../reducers/tableReducer'
 import styles from './styles/HighlightingEditor.style'
@@ -7,13 +7,9 @@ import {
     useTableDispatch,
     useTableState,
 } from '../../../../context/tableContext'
-import HighlightingEditorDialog from './HighlightingEditorDialog'
-
-const defaultIntervals = [
-    { lowerBound: 90, color: colors.green100 },
-    { lowerBound: 70, color: colors.yellow100 },
-    { lowerBound: -Infinity, color: colors.red100 },
-]
+import HighlightingEditorDialog, {
+    defaultIntervals,
+} from './HighlightingEditorDialog'
 
 export function HighlightingEditor() {
     const table = useTableState()
@@ -73,6 +69,7 @@ export function HighlightingEditor() {
             <HighlightingEditorDialog
                 open={modalIsOpen}
                 toggle={toggleModal}
+                highlightingIntervals={table.highlightingIntervals}
                 onSave={onSubmit}
             />
             <style jsx>{styles}</style>
