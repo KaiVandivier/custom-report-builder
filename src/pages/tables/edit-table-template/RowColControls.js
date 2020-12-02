@@ -27,6 +27,7 @@ import styles from './styles/RowColumnControls.style'
 import utils from '../../../styles/utils.module.css'
 import SelectorFrame from './SelectorFrame'
 import { useTableDispatch } from '../../../context/tableContext'
+import { HighlightingEditorDialog } from './HighlightingEditor'
 
 const ROW = 'row'
 const COL = 'column'
@@ -84,10 +85,13 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
     const [dataDialogOpen, setDataDialogOpen] = useState(false)
     const [orgUnitDialogOpen, setOrgUnitDialogOpen] = useState(false)
     const [periodDialogOpen, setPeriodDialogOpen] = useState(false)
+    const [highlightingDialogOpen, setHighlightingDialogOpen] = useState(false)
 
     const toggleDataDialog = () => setDataDialogOpen(state => !state)
     const toggleOrgUnitDialog = () => setOrgUnitDialogOpen(state => !state)
     const togglePeriodDialog = () => setPeriodDialogOpen(state => !state)
+    const toggleHighlightingDialog = () =>
+        setHighlightingDialogOpen(state => !state)
 
     function onMoveUp(togglePopover) {
         if (idx <= 0) return
@@ -161,6 +165,11 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                 dimensions: { periods },
             },
         })
+    }
+
+    function onHighlightingDialogSave(values) {
+        // TODO: Get logic from highlighting editor
+        console.log(values)
     }
 
     return (
@@ -239,6 +248,15 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                                     type
                                 ].incrementPosition.getLabel()}
                                 onClick={() => onMoveDown(togglePopover)}
+                            />
+                            <MenuItem
+                                dense
+                                icon={<Icon name="border_color" dense />}
+                                label={i18n.t(
+                                    'Configure highlighting for {{name}}',
+                                    { name: rowColTypes[type].nameLower }
+                                )}
+                                onClick={toggleHighlightingDialog}
                             />
                             <MenuItem
                                 dense
@@ -360,6 +378,12 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                 toggleModal={togglePeriodDialog}
                 onSave={onPeriodDialogSave}
             />
+            <HighlightingEditorDialog
+                open={highlightingDialogOpen}
+                toggle={toggleHighlightingDialog}
+                highlightingIntervals={rowColObj.highlightingIntervals}
+                onSave={onHighlightingDialogSave}
+            />
             <style jsx>{styles}</style>
         </TableCellHead>
     )
@@ -392,6 +416,7 @@ RowColControls.propTypes = {
                 })
             ),
         }),
+        highlightingIntervals: PropTypes.array,
     }),
 }
 
