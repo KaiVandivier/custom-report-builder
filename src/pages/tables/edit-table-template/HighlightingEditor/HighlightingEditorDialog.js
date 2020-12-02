@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button, ButtonStrip, InputFieldFF } from '@dhis2/ui'
 import {
     colors,
+    Button,
+    ButtonStrip,
     Modal,
     ModalTitle,
     ModalContent,
@@ -14,6 +15,7 @@ import {
     TableRow,
     TableCell,
     ReactFinalForm,
+    InputFieldFF,
     hasValue,
     number,
     composeValidators,
