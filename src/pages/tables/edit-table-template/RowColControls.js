@@ -6,10 +6,12 @@ import {
     REORDER_ROW,
     UPDATE_ROW,
     UPDATE_ROW_DIMENSIONS,
+    UPDATE_ROW_HIGHLIGHTING,
     DELETE_COLUMN,
     REORDER_COLUMN,
     UPDATE_COLUMN,
     UPDATE_COLUMN_DIMENSIONS,
+    UPDATE_COLUMN_HIGHLIGHTING,
 } from '../../../reducers/tableReducer'
 import i18n from '../../../locales'
 
@@ -42,6 +44,7 @@ const rowColTypes = {
             reorder: REORDER_ROW,
             update: UPDATE_ROW,
             updateDimensions: UPDATE_ROW_DIMENSIONS,
+            updateHighlighting: UPDATE_ROW_HIGHLIGHTING,
         },
         decrementPosition: {
             icon: 'arrow_drop_up',
@@ -61,6 +64,7 @@ const rowColTypes = {
             reorder: REORDER_COLUMN,
             update: UPDATE_COLUMN,
             updateDimensions: UPDATE_COLUMN_DIMENSIONS,
+            updateHighlighting: UPDATE_COLUMN_HIGHLIGHTING,
         },
         decrementPosition: {
             icon: 'arrow_left',
@@ -167,9 +171,11 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
         })
     }
 
-    function onHighlightingDialogSave(values) {
-        // TODO: Get logic from highlighting editor
-        console.log(values)
+    function onHighlightingDialogSave(highlightingIntervals) {
+        dispatch({
+            type: rowColTypes[type].actions.updateHighlighting,
+            payload: { idx, highlightingIntervals },
+        })
     }
 
     return (
@@ -256,7 +262,10 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                                     'Configure highlighting for {{name}}',
                                     { name: rowColTypes[type].nameLower }
                                 )}
-                                onClick={toggleHighlightingDialog}
+                                onClick={() => {
+                                    toggleHighlightingDialog()
+                                    togglePopover()
+                                }}
                             />
                             <MenuItem
                                 dense
