@@ -209,6 +209,7 @@ export default function tableReducer(table, { type, payload }) {
                 }),
             }
         default:
+            console.error(`Action type '${type}' not valid.`)
             return table
     }
 }
