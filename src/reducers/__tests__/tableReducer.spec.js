@@ -184,6 +184,27 @@ describe('column actions', () => {
                 res.rows[0].cells[res.rows[0].cells.length - 1]
             expect(newlyAddedCell.data).toMatchObject(testDimensions)
         })
+
+        it('applies highlighting configuration from columns to new cells', () => {
+            const testIntervals = [{ text: 'test interval' }]
+            const testRow = {
+                name: 'test row',
+                highlightingIntervals: testIntervals,
+                cells: Array(testTable.columns.length).fill(defaultCell),
+            }
+            const highlightingTestTable = {
+                ...testTable,
+                rows: [testRow, ...testTable.rows],
+            }
+
+            const res = tableReducer(highlightingTestTable, {
+                type: ADD_COLUMN,
+                payload: { name: 'New col' },
+            })
+
+            const newCell = res.rows[0].cells[res.rows[0].cells.length - 1]
+            expect(newCell.highlightingIntervals).toEqual(testIntervals)
+        })
     })
 
     it('updates a column', () => {
