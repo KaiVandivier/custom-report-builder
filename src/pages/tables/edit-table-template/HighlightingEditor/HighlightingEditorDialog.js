@@ -65,6 +65,21 @@ export function HighlightingEditorDialog({
 }) {
     if (!open) return null
 
+    const onSubmit = values => {
+        toggle()
+
+        // Possible refactor: use constructor instead of the following logic
+        const newIntervals = highlightingIntervals.map((interval, idx, arr) => {
+            if (idx === arr.length - 1) return interval // remains -Infinity
+            return {
+                ...interval,
+                lowerBound: values.lowerBounds[idx],
+            }
+        })
+
+        onSave(newIntervals)
+    }
+
     const getTableRows = () => {
         const validateField = idx =>
             composeValidators(
@@ -113,7 +128,7 @@ export function HighlightingEditorDialog({
     return (
         <Modal small onClose={toggle}>
             <ModalTitle>{i18n.t('Edit Highlighting Intervals')}</ModalTitle>
-            <Form onSubmit={onSave}>
+            <Form onSubmit={onSubmit}>
                 {({
                     handleSubmit,
                     form,

@@ -32,19 +32,7 @@ export function HighlightingEditor() {
         })
     }
 
-    function onSubmit(values) {
-        toggleModal()
-
-        const highlightingIntervals = defaultIntervals.map(
-            (interval, idx, arr) => {
-                if (idx === arr.length - 1) return interval
-                return {
-                    ...interval,
-                    lowerBound: values.lowerBounds[idx],
-                }
-            }
-        )
-
+    function onSave(highlightingIntervals) {
         dispatch({
             type: UPDATE_TABLE,
             payload: { highlightingIntervals },
@@ -71,7 +59,7 @@ export function HighlightingEditor() {
                 open={modalIsOpen}
                 toggle={toggleModal}
                 highlightingIntervals={table.highlightingIntervals}
-                onSave={onSubmit}
+                onSave={onSave}
             />
             <style jsx>{styles}</style>
         </div>
