@@ -12,6 +12,7 @@ import tableReducer, {
     UPDATE_ROW_DIMENSIONS,
     UPDATE_COLUMN_DIMENSIONS,
     UPDATE_ROW_HIGHLIGHTING,
+    UPDATE_COLUMN_HIGHLIGHTING,
 } from '../tableReducer'
 import { testTable } from '../../modules/testTable'
 import { defaultCell } from '../../modules/defaultTable'
@@ -188,6 +189,20 @@ describe('column actions', () => {
         res.rows.forEach(row => {
             expect(row.cells[idx].data).toMatchObject(dimensions)
         })
+    })
+
+    it('updates column highlighting (and for all cells in column)', () => {
+        const intervals = [{ text: 'test interval' }]
+        const res = tableReducer(testTable, {
+            type: UPDATE_COLUMN_HIGHLIGHTING,
+            payload: { idx: 0, highlightingIntervals: intervals },
+        })
+
+        expect(res.columns[0].highlightingIntervals).toEqual(intervals)
+        const allCellsHaveNewIntervals = res.rows.every(
+            row => row.cells[0].highlightingIntervals == intervals
+        )
+        expect(allCellsHaveNewIntervals).toBe(true)
     })
 
     it('reorders a column and all the appropriate cells in rows', () => {
