@@ -31,6 +31,9 @@ export default function tableReducer(table, { type, payload }) {
                     cells: table.columns.map(col => ({
                         ...defaultCell,
                         data: { ...defaultCell.data, ...col.dimensions },
+                        highlightingIntervals: col.highlightingIntervals
+                            ? [...col.highlightingIntervals]
+                            : null,
                     })),
                 }),
             }
