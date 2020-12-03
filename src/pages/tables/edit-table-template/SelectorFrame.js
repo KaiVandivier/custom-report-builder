@@ -32,7 +32,7 @@ function SelectorFrame({ title, content, tooltip, onClick, onClear }) {
                     >
                         <div>
                             <p className="title">{title}</p>
-                            <p className="content">{content}</p>
+                            {content && <p className="content">{content}</p>}
                         </div>
                         <div className="icons">
                             <Icon name="edit" size={'18px'} />
