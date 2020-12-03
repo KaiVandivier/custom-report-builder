@@ -180,5 +180,3 @@ HighlightingEditorDialog.propTypes = {
     onSave: PropTypes.func.isRequired,
     highlightingIntervals: PropTypes.array,
 }
-
-export default HighlightingEditorDialog

@@ -7,7 +7,8 @@ import {
     useTableDispatch,
     useTableState,
 } from '../../../../context/tableContext'
-import HighlightingEditorDialog, {
+import {
+    HighlightingEditorDialog,
     defaultIntervals,
 } from './HighlightingEditorDialog'
 
