@@ -160,7 +160,9 @@ export default function tableReducer(table, { type, payload }) {
                             return {
                                 ...cell,
                                 highlightingIntervals:
-                                    payload.highlightingIntervals,
+                                    payload.highlightingIntervals ||
+                                    row.highlightingIntervals ||
+                                    null,
                             }
                         }),
                     }
