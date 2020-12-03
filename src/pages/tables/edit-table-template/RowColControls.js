@@ -13,6 +13,7 @@ import {
     UPDATE_COLUMN_DIMENSIONS,
     UPDATE_COLUMN_HIGHLIGHTING,
 } from '../../../reducers/tableReducer'
+import cx from 'classnames'
 import i18n from '../../../locales'
 
 import Icon from '../../../components/Icon'
@@ -181,7 +182,7 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
 
     return (
         <TableCellHead className={utils.cell}>
-            <div className="titleContainer rowTitle">
+            <div className={cx('titleContainer', { rowTitle: type === ROW })}>
                 {rowColObj.name}
                 <PopoverButton
                     tooltip={i18n.t('{{name}} actions', {
