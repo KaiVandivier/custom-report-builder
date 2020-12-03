@@ -58,12 +58,34 @@ describe('row actions', () => {
                 ...testTable,
                 columns: [testCol, ...testTable.columns],
             }
+
             const res = tableReducer(dimensionTestTable, {
                 type: ADD_ROW,
                 payload: { name: 'New row' },
             })
+
             const newRow = res.rows[res.rows.length - 1]
             expect(newRow.cells[0].data).toMatchObject(testDimensions)
+        })
+
+        it('applies highlighting configuration from columns to new cells', () => {
+            const testIntervals = [{ text: 'test interval' }]
+            const testCol = {
+                name: 'test col',
+                highlightingIntervals: testIntervals,
+            }
+            const highlightingTestTable = {
+                ...testTable,
+                columns: [testCol, ...testTable.columns],
+            }
+
+            const res = tableReducer(highlightingTestTable, {
+                type: ADD_ROW,
+                payload: { name: 'New row' },
+            })
+
+            const newRow = res.rows[res.rows.length - 1]
+            expect(newRow.cells[0].highlightingIntervals).toEqual(testIntervals)
         })
     })
 
