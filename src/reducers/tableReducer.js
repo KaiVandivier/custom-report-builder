@@ -100,6 +100,9 @@ export default function tableReducer(table, { type, payload }) {
                     cells: row.cells.concat({
                         ...defaultCell,
                         data: { ...defaultCell.data, ...row.dimensions },
+                        highlightingIntervals: row.highlightingIntervals
+                            ? [...row.highlightingIntervals]
+                            : null,
                     }),
                 })),
             }
