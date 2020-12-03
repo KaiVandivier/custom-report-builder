@@ -12,7 +12,7 @@ import tableReducer, {
     UPDATE_ROW_DIMENSIONS,
     UPDATE_COLUMN_DIMENSIONS,
 } from '../tableReducer'
-import testTable from '../../modules/testTable'
+import { testTable } from '../../modules/testTable'
 import { defaultCell } from '../../modules/defaultTable'
 
 describe('no action given', () => {

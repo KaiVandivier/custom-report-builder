@@ -14,7 +14,7 @@ export const UPDATE_CELL = 'UPDATE_CELL'
 export const UPDATE_ROW_DIMENSIONS = 'UPDATE_ROW_DIMENSIONS'
 export const UPDATE_COLUMN_DIMENSIONS = 'UPDATE_COLUMN_DIMENSIONS'
 
-export function tableReducer(table, { type, payload }) {
+export default function tableReducer(table, { type, payload }) {
     switch (type) {
         case UPDATE_TABLE:
             return {
@@ -160,5 +160,3 @@ export function tableReducer(table, { type, payload }) {
             return table
     }
 }
-
-export default tableReducer
