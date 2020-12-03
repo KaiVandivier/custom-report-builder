@@ -62,6 +62,7 @@ export default function tableReducer(table, { type, payload }) {
             }
         case UPDATE_ROW_HIGHLIGHTING:
             // add highlighting intervals to row and all cells within
+            // to clear, use payload `{ highlightingIntervals: null }`
             return {
                 ...table,
                 rows: table.rows.map((row, idx) => {
@@ -128,6 +129,32 @@ export default function tableReducer(table, { type, payload }) {
                             return {
                                 ...cell,
                                 data: { ...cell.data, ...payload.dimensions },
+                            }
+                        }),
+                    }
+                }),
+            }
+        case UPDATE_COLUMN_HIGHLIGHTING:
+            // adds highlighting interval to column and all cells in column
+            // to clear, use payload `{ highlightingIntervals: null }`
+            return {
+                ...table,
+                columns: table.columns.map((col, idx) => {
+                    if (idx !== payload.idx) return col
+                    return {
+                        ...col,
+                        highlightingIntervals: payload.highlightingIntervals,
+                    }
+                }),
+                rows: table.rows.map(row => {
+                    return {
+                        ...row,
+                        cells: row.cells.map((cell, idx) => {
+                            if (idx !== payload.idx) return cell
+                            return {
+                                ...cell,
+                                highlightingIntervals:
+                                    payload.highlightingIntervals,
                             }
                         }),
                     }
