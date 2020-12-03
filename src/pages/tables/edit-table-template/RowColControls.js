@@ -180,6 +180,13 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
         })
     }
 
+    function onHighlightingClear() {
+        dispatch({
+            type: rowColTypes[type].actions.updateHighlighting,
+            payload: { idx, highlightingIntervals: null },
+        })
+    }
+
     return (
         <TableCellHead className={utils.cell}>
             <div className={cx('titleContainer', { rowTitle: type === ROW })}>
@@ -324,6 +331,17 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     )}
                 </PopoverButton>
             </div>
+            {rowColObj.highlightingIntervals && (
+                <SelectorFrame
+                    title={i18n.t('Highlighting rules')}
+                    content={null}
+                    tooltip={i18n.t('Configure highlighting for {{name}}', {
+                        name: rowColTypes[type].nameLower,
+                    })}
+                    onClick={toggleHighlightingDialog}
+                    onClear={onHighlightingClear}
+                />
+            )}
             {rowColObj.dimensions?.item ||
             rowColObj.dimensions?.periods?.length ||
             rowColObj.dimensions?.orgUnits?.length ? (
