@@ -28,7 +28,7 @@ import {
 import styles from './styles/RowColumnControls.style'
 import utils from '../../../styles/utils.module.css'
 import SelectorFrame from './SelectorFrame'
-import { useTableDispatch } from '../../../context/tableContext'
+import { useTableDispatch, useTableState } from '../../../context/tableContext'
 import { HighlightingEditorDialog } from './HighlightingEditor'
 
 const ROW = 'row'
@@ -83,6 +83,7 @@ function getSelectedNames(arr) {
 
 export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
     const dispatch = useTableDispatch()
+    const table = useTableState()
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
@@ -390,7 +391,10 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
             <HighlightingEditorDialog
                 open={highlightingDialogOpen}
                 toggle={toggleHighlightingDialog}
-                highlightingIntervals={rowColObj.highlightingIntervals}
+                highlightingIntervals={
+                    rowColObj.highlightingIntervals ||
+                    table.highlightingIntervals
+                }
                 onSave={onHighlightingDialogSave}
             />
             <style jsx>{styles}</style>
