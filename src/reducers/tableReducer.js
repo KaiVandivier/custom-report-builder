@@ -13,6 +13,8 @@ export const DELETE_COLUMN = 'DELETE_COLUMN'
 export const UPDATE_CELL = 'UPDATE_CELL'
 export const UPDATE_ROW_DIMENSIONS = 'UPDATE_ROW_DIMENSIONS'
 export const UPDATE_COLUMN_DIMENSIONS = 'UPDATE_COLUMN_DIMENSIONS'
+export const UPDATE_ROW_HIGHLIGHTING = 'UPDATE_ROW_HIGHLIGHTING'
+export const UPDATE_COLUMN_HIGHLIGHTING = 'UPDATE_COLUMN_HIGHLIGHTING'
 
 export default function tableReducer(table, { type, payload }) {
     switch (type) {
@@ -54,6 +56,23 @@ export default function tableReducer(table, { type, payload }) {
                         cells: row.cells.map(cell => ({
                             ...cell,
                             data: { ...cell.data, ...payload.dimensions },
+                        })),
+                    }
+                }),
+            }
+        case UPDATE_ROW_HIGHLIGHTING:
+            // add highlighting intervals to row and all cells within
+            return {
+                ...table,
+                rows: table.rows.map((row, idx) => {
+                    if (idx !== payload.idx) return row
+                    return {
+                        ...row,
+                        highlightingIntervals: payload.highlightingIntervals,
+                        cells: row.cells.map(cell => ({
+                            ...cell,
+                            highlightingIntervals:
+                                payload.highlightingIntervals,
                         })),
                     }
                 }),
