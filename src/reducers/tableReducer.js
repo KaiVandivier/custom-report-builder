@@ -73,10 +73,12 @@ export default function tableReducer(table, { type, payload }) {
                     return {
                         ...row,
                         highlightingIntervals: payload.highlightingIntervals,
-                        cells: row.cells.map(cell => ({
+                        cells: row.cells.map((cell, idx) => ({
                             ...cell,
                             highlightingIntervals:
-                                payload.highlightingIntervals,
+                                payload.highlightingIntervals ||
+                                table.columns[idx].highlightingIntervals ||
+                                null,
                         })),
                     }
                 }),
