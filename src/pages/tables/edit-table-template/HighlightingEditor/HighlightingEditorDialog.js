@@ -3,6 +3,7 @@ import {
     colors,
     Button,
     ButtonStrip,
+    Help,
     Modal,
     ModalTitle,
     ModalContent,
@@ -60,6 +61,7 @@ function betweenNeighbors(key, idx) {
 export function HighlightingEditorDialog({
     open,
     toggle,
+    helpText,
     highlightingIntervals = defaultIntervals,
     onSave,
 }) {
@@ -139,6 +141,11 @@ export function HighlightingEditorDialog({
                 }) => (
                     <form onSubmit={handleSubmit}>
                         <ModalContent>
+                            {helpText && (
+                                <div style={{ marginBottom: '0.5rem' }}>
+                                    <Help>{helpText}</Help>
+                                </div>
+                            )}
                             <Table
                                 suppressZebraStriping
                                 className={utils.noBorder}
@@ -193,5 +200,6 @@ HighlightingEditorDialog.propTypes = {
     open: PropTypes.bool.isRequired,
     toggle: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
+    helpText: PropTypes.string,
     highlightingIntervals: PropTypes.array,
 }
