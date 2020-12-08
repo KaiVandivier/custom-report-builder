@@ -410,6 +410,10 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
             <HighlightingEditorDialog
                 open={highlightingDialogOpen}
                 toggle={toggleHighlightingDialog}
+                helpText={i18n.t(
+                    'Configure highlighting intervals for this {{name}}. Highlighting for each cell can be configured independently thereafter.',
+                    { name: rowColTypes[type].nameLower }
+                )}
                 highlightingIntervals={
                     rowColObj.highlightingIntervals ||
                     table.highlightingIntervals
