@@ -85,52 +85,52 @@ function getSelectedNames(arr) {
 export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
     const dispatch = useTableDispatch()
     const table = useTableState()
-    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-    const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+    const [editDialogOpen, setEditDialogOpen] = useState(false)
     const [dataDialogOpen, setDataDialogOpen] = useState(false)
     const [orgUnitDialogOpen, setOrgUnitDialogOpen] = useState(false)
     const [periodDialogOpen, setPeriodDialogOpen] = useState(false)
     const [highlightingDialogOpen, setHighlightingDialogOpen] = useState(false)
 
+    const toggleDeleteDialog = () => setDeleteDialogOpen(state => !state)
+    const toggleEditDialog = () => setEditDialogOpen(state => !state)
     const toggleDataDialog = () => setDataDialogOpen(state => !state)
     const toggleOrgUnitDialog = () => setOrgUnitDialogOpen(state => !state)
     const togglePeriodDialog = () => setPeriodDialogOpen(state => !state)
     const toggleHighlightingDialog = () =>
         setHighlightingDialogOpen(state => !state)
 
-    function onMoveUp(togglePopover) {
+    function onMoveUp() {
         if (idx <= 0) return
         dispatch({
             type: rowColTypes[type].actions.reorder,
             payload: { oldIdx: idx, newIdx: idx - 1 },
         })
-        togglePopover()
     }
 
-    function onMoveDown(togglePopover) {
+    function onMoveDown() {
         if (idx >= maxIdx) return
         dispatch({
             type: rowColTypes[type].actions.reorder,
             payload: { oldIdx: idx, newIdx: idx + 1 },
         })
-        togglePopover()
     }
 
-    function onEdit(togglePopover, inputText) {
+    function onEdit(inputText) {
+        toggleEditDialog()
         dispatch({
             type: rowColTypes[type].actions.update,
             payload: { idx, [rowColTypes[type].id]: { name: inputText } },
         })
-        togglePopover()
     }
 
-    function onDelete(togglePopover) {
+    function onDelete() {
+        toggleDeleteDialog()
         dispatch({
             type: rowColTypes[type].actions.delete,
             payload: { idx },
         })
-        togglePopover()
     }
 
     function onDataDialogSave(data) {
@@ -187,6 +187,104 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
         })
     }
 
+    function flyoutMenu(togglePopover) {
+        return (
+            <FlyoutMenu>
+                <MenuItem
+                    dense
+                    icon={<Icon name="assignment" dense />}
+                    label={i18n.t('Assign dimensions to {{name}}', {
+                        name: rowColTypes[type].nameLower,
+                    })}
+                >
+                    <MenuItem
+                        dense
+                        label={i18n.t('Data Item')}
+                        onClick={() => {
+                            toggleDataDialog()
+                            togglePopover()
+                        }}
+                    />
+                    <MenuItem
+                        dense
+                        label={i18n.t('Organisation Unit(s)')}
+                        onClick={() => {
+                            toggleOrgUnitDialog()
+                            togglePopover()
+                        }}
+                    />
+                    <MenuItem
+                        dense
+                        label={i18n.t('Period(s)')}
+                        onClick={() => {
+                            togglePeriodDialog()
+                            togglePopover()
+                        }}
+                    />
+                </MenuItem>
+                <MenuItem
+                    dense
+                    disabled={idx <= 0}
+                    icon={
+                        <Icon
+                            name={rowColTypes[type].decrementPosition.icon}
+                            dense
+                        />
+                    }
+                    label={rowColTypes[type].decrementPosition.getLabel()}
+                    onClick={() => {
+                        onMoveUp()
+                        togglePopover()
+                    }}
+                />
+                <MenuItem
+                    dense
+                    disabled={idx >= maxIdx}
+                    icon={
+                        <Icon
+                            name={rowColTypes[type].incrementPosition.icon}
+                            dense
+                        />
+                    }
+                    label={rowColTypes[type].incrementPosition.getLabel()}
+                    onClick={() => {
+                        onMoveDown()
+                        togglePopover()
+                    }}
+                />
+                <MenuItem
+                    dense
+                    icon={<Icon name="border_color" dense />}
+                    label={i18n.t('Configure highlighting for {{name}}', {
+                        name: rowColTypes[type].nameLower,
+                    })}
+                    onClick={() => {
+                        toggleHighlightingDialog()
+                        togglePopover()
+                    }}
+                />
+                <MenuItem
+                    dense
+                    icon={<Icon name="edit" dense />}
+                    label={i18n.t('Edit')}
+                    onClick={() => {
+                        toggleEditDialog()
+                        togglePopover()
+                    }}
+                />
+                <MenuItem
+                    dense
+                    icon={<Icon name="delete" dense />}
+                    label={i18n.t('Delete')}
+                    onClick={() => {
+                        toggleDeleteDialog()
+                        togglePopover()
+                    }}
+                />
+            </FlyoutMenu>
+        )
+    }
+
     return (
         <TableCellHead className={utils.cell}>
             <div className={cx('titleContainer', { rowTitle: type === ROW })}>
@@ -196,139 +294,7 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                         name: rowColTypes[type].nameUpper,
                     })}
                 >
-                    {togglePopover => (
-                        <FlyoutMenu>
-                            <MenuItem
-                                dense
-                                icon={<Icon name="assignment" dense />}
-                                label={i18n.t('Assign dimensions to {{name}}', {
-                                    name: rowColTypes[type].nameLower,
-                                })}
-                            >
-                                <MenuItem
-                                    dense
-                                    label={i18n.t('Data Item')}
-                                    onClick={() => {
-                                        toggleDataDialog()
-                                        togglePopover()
-                                    }}
-                                />
-                                <MenuItem
-                                    dense
-                                    label={i18n.t('Organisation Unit(s)')}
-                                    onClick={() => {
-                                        toggleOrgUnitDialog()
-                                        togglePopover()
-                                    }}
-                                />
-                                <MenuItem
-                                    dense
-                                    label={i18n.t('Period(s)')}
-                                    onClick={() => {
-                                        togglePeriodDialog()
-                                        togglePopover()
-                                    }}
-                                />
-                            </MenuItem>
-                            <MenuItem
-                                dense
-                                disabled={idx <= 0}
-                                icon={
-                                    <Icon
-                                        name={
-                                            rowColTypes[type].decrementPosition
-                                                .icon
-                                        }
-                                        dense
-                                    />
-                                }
-                                label={rowColTypes[
-                                    type
-                                ].decrementPosition.getLabel()}
-                                onClick={() => onMoveUp(togglePopover)}
-                            />
-                            <MenuItem
-                                dense
-                                disabled={idx >= maxIdx}
-                                icon={
-                                    <Icon
-                                        name={
-                                            rowColTypes[type].incrementPosition
-                                                .icon
-                                        }
-                                        dense
-                                    />
-                                }
-                                label={rowColTypes[
-                                    type
-                                ].incrementPosition.getLabel()}
-                                onClick={() => onMoveDown(togglePopover)}
-                            />
-                            <MenuItem
-                                dense
-                                icon={<Icon name="border_color" dense />}
-                                label={i18n.t(
-                                    'Configure highlighting for {{name}}',
-                                    { name: rowColTypes[type].nameLower }
-                                )}
-                                onClick={() => {
-                                    toggleHighlightingDialog()
-                                    togglePopover()
-                                }}
-                            />
-                            <MenuItem
-                                dense
-                                icon={<Icon name="edit" dense />}
-                                label={i18n.t('Edit')}
-                                onClick={() => setEditModalIsOpen(true)}
-                            />
-                            <MenuItem
-                                dense
-                                icon={<Icon name="delete" dense />}
-                                label={i18n.t('Delete')}
-                                onClick={() => setDeleteModalIsOpen(true)}
-                            />
-                            {deleteModalIsOpen && (
-                                <ConfirmModal
-                                    confirmText={i18n.t('Delete')}
-                                    text={i18n.t(
-                                        'Do you want to delete this {{name}}?',
-                                        { name: rowColTypes[type].nameLower }
-                                    )}
-                                    title={i18n.t('Confirm deletion')}
-                                    onCancel={() => setDeleteModalIsOpen(false)}
-                                    onConfirm={() => {
-                                        onDelete(togglePopover)
-                                        setDeleteModalIsOpen(false)
-                                    }}
-                                    destructive={true}
-                                />
-                            )}
-                            {editModalIsOpen && (
-                                <InputDialog
-                                    title={i18n.t('Edit {{ name }}', {
-                                        name: rowColTypes[type].nameLower,
-                                    })}
-                                    inputLabel={i18n.t('{{name}} name', {
-                                        name: rowColTypes[type].nameUpper,
-                                    })}
-                                    inputPlaceholder={i18n.t(
-                                        'Enter {{name}} name',
-                                        {
-                                            name: rowColTypes[type].nameLower,
-                                        }
-                                    )}
-                                    confirmText={i18n.t('Save')}
-                                    onCancel={() => setEditModalIsOpen(false)}
-                                    onConfirm={inputText => {
-                                        onEdit(togglePopover, inputText)
-                                        setEditModalIsOpen(false)
-                                    }}
-                                    initialValue={rowColObj.name}
-                                />
-                            )}
-                        </FlyoutMenu>
-                    )}
+                    {flyoutMenu}
                 </PopoverButton>
             </div>
             {table.highlightingOn && rowColObj.highlightingIntervals && (
@@ -379,6 +345,38 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     onClick={togglePeriodDialog}
                 />
             ) : null}
+
+            {/* Dialogs */}
+
+            {deleteDialogOpen && (
+                <ConfirmModal
+                    confirmText={i18n.t('Delete')}
+                    text={i18n.t('Do you want to delete this {{name}}?', {
+                        name: rowColTypes[type].nameLower,
+                    })}
+                    title={i18n.t('Confirm deletion')}
+                    onCancel={toggleDeleteDialog}
+                    onConfirm={onDelete}
+                    destructive={true}
+                />
+            )}
+            {editDialogOpen && (
+                <InputDialog
+                    title={i18n.t('Edit {{ name }}', {
+                        name: rowColTypes[type].nameLower,
+                    })}
+                    inputLabel={i18n.t('{{name}} name', {
+                        name: rowColTypes[type].nameUpper,
+                    })}
+                    inputPlaceholder={i18n.t('Enter {{name}} name', {
+                        name: rowColTypes[type].nameLower,
+                    })}
+                    confirmText={i18n.t('Save')}
+                    onCancel={toggleEditDialog}
+                    onConfirm={onEdit}
+                    initialValue={rowColObj.name}
+                />
+            )}
             {dataDialogOpen && (
                 <DataEngine>
                     {engine => (
