@@ -331,7 +331,7 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     )}
                 </PopoverButton>
             </div>
-            {rowColObj.highlightingIntervals && (
+            {table.highlightingOn && rowColObj.highlightingIntervals && (
                 <SelectorFrame
                     title={i18n.t('Highlighting rules')}
                     content={null}
