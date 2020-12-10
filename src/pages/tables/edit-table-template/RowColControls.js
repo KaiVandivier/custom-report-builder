@@ -304,11 +304,9 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
             {/* Selector frames */}
 
             {rowColObj.dimensions?.item ||
-            rowColObj.dimensions?.periods?.length ||
-            rowColObj.dimensions?.orgUnits?.length ||
-            rowColObj.highlightingIntervals ? (
-                <Divider />
-            ) : null}
+                rowColObj.dimensions?.periods?.length ||
+                rowColObj.dimensions?.orgUnits?.length ||
+                (rowColObj.highlightingIntervals && <Divider />)}
             {rowColObj.dimensions?.item && (
                 <SelectorFrame
                     title={i18n.t('Data item')}
@@ -320,7 +318,7 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     onClear={onDataSelectorClear}
                 />
             )}
-            {rowColObj.dimensions?.orgUnits?.length ? (
+            {rowColObj.dimensions?.orgUnits?.length && (
                 <SelectorFrame
                     title={i18n.t('Organisation unit(s)')}
                     content={getSelectedNames(rowColObj.dimensions.orgUnits)}
@@ -332,15 +330,15 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     )}
                     onClick={toggleOrgUnitDialog}
                 />
-            ) : null}
-            {rowColObj.dimensions?.periods?.length ? (
+            )}
+            {rowColObj.dimensions?.periods?.length && (
                 <SelectorFrame
                     title={i18n.t('Period(s)')}
                     content={getSelectedNames(rowColObj.dimensions.periods)}
                     tooltip={i18n.t('Select period(s)')}
                     onClick={togglePeriodDialog}
                 />
-            ) : null}
+            )}
             {table.highlightingOn && rowColObj.highlightingIntervals && (
                 <SelectorFrame
                     title={i18n.t('Highlighting rules')}
