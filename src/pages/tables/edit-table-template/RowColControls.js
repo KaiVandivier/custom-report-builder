@@ -30,7 +30,10 @@ import styles from './styles/RowColumnControls.style'
 import utils from '../../../styles/utils.module.css'
 import SelectorFrame from './SelectorFrame'
 import { useTableDispatch, useTableState } from '../../../context/tableContext'
-import { HighlightingEditorDialog } from './HighlightingEditor'
+import {
+    getIntervalString,
+    HighlightingEditorDialog,
+} from './HighlightingEditor'
 
 const ROW = 'row'
 const COL = 'column'
@@ -297,20 +300,13 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     {flyoutMenu}
                 </PopoverButton>
             </div>
-            {table.highlightingOn && rowColObj.highlightingIntervals && (
-                <SelectorFrame
-                    title={i18n.t('Highlighting rules')}
-                    content={null}
-                    tooltip={i18n.t('Configure highlighting for {{name}}', {
-                        name: rowColTypes[type].nameLower,
-                    })}
-                    onClick={toggleHighlightingDialog}
-                    onClear={onHighlightingClear}
-                />
-            )}
+
+            {/* Selector frames */}
+
             {rowColObj.dimensions?.item ||
             rowColObj.dimensions?.periods?.length ||
-            rowColObj.dimensions?.orgUnits?.length ? (
+            rowColObj.dimensions?.orgUnits?.length ||
+            rowColObj.highlightingIntervals ? (
                 <Divider />
             ) : null}
             {rowColObj.dimensions?.item && (
@@ -345,6 +341,17 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     onClick={togglePeriodDialog}
                 />
             ) : null}
+            {table.highlightingOn && rowColObj.highlightingIntervals && (
+                <SelectorFrame
+                    title={i18n.t('Highlighting rules')}
+                    content={getIntervalString(rowColObj.highlightingIntervals)}
+                    tooltip={i18n.t('Configure highlighting for {{name}}', {
+                        name: rowColTypes[type].nameLower,
+                    })}
+                    onClick={toggleHighlightingDialog}
+                    onClear={onHighlightingClear}
+                />
+            )}
 
             {/* Dialogs */}
 
