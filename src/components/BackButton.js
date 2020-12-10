@@ -5,7 +5,7 @@ import Icon from './Icon'
 import i18n from '../locales'
 import classes from './styles/BackButton.module.css'
 
-export function BackButton({ to, text }) {
+function BackButton({ to, text }) {
     return (
         <Link to={to} className={classes.link}>
             <div>
