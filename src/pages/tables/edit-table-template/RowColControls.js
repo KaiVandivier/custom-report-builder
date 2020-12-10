@@ -303,10 +303,10 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
 
             {/* Selector frames */}
 
-            {rowColObj.dimensions?.item ||
+            {(rowColObj.dimensions?.item ||
                 rowColObj.dimensions?.periods?.length ||
                 rowColObj.dimensions?.orgUnits?.length ||
-                (rowColObj.highlightingIntervals && <Divider />)}
+                rowColObj.highlightingIntervals) && <Divider />}
             {rowColObj.dimensions?.item && (
                 <SelectorFrame
                     title={i18n.t('Data item')}
