@@ -13,7 +13,10 @@ import {
     useTableDispatch,
     useTableState,
 } from '../../../../context/tableContext'
-import { HighlightingEditorDialog } from '../HighlightingEditor'
+import {
+    getIntervalString,
+    HighlightingEditorDialog,
+} from '../HighlightingEditor'
 
 function getSelectedNames(arr) {
     return arr.map(({ name }) => name).join(', ')
@@ -85,17 +88,6 @@ export function DataContentSelector({ cell, rowIdx, cellIdx }) {
             table.rows[rowIdx].highlightingIntervals ||
             null
         )
-    }
-
-    const getIntervalString = intervals => {
-        const intervalString = intervals.reduce((string, interval, idx) => {
-            if (idx === intervals.length - 1) return `${string}-\u221e`
-            return `${string}${interval.lowerBound} / `
-        }, '')
-        return i18n.t('Lower bounds{{colon}} {{-intervalString}}', {
-            colon: ':',
-            intervalString,
-        })
     }
 
     const getHighlightingSelectorContent = () => {
