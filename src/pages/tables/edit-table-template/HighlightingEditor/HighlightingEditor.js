@@ -11,6 +11,7 @@ import {
     HighlightingEditorDialog,
     defaultIntervals,
 } from './HighlightingEditorDialog'
+import { getIntervalString } from './getIntervalString'
 
 export function HighlightingEditor() {
     const table = useTableState()
@@ -41,20 +42,23 @@ export function HighlightingEditor() {
 
     return (
         <div>
-            <div className="switch-container">
-                <Switch
-                    checked={table.highlightingOn}
-                    label={i18n.t('Highlight cells based on value')}
-                    onChange={onSwitch}
-                />
-            </div>
-            <Button
-                small
-                disabled={!table.highlightingOn}
-                onClick={toggleModal}
-            >
-                {i18n.t('Configure')}
-            </Button>
+            <h6 className="label">{i18n.t('Enable highlighting')}</h6>
+            <Switch
+                checked={table.highlightingOn}
+                label={i18n.t('Highlight cells based on value')}
+                onChange={onSwitch}
+            />
+            {table.highlightingOn && (
+                <>
+                    <h6 className="label">{i18n.t('Highlighting rules')}</h6>
+                    <div className="rules-text">
+                        {getIntervalString(table.highlightingIntervals)}
+                    </div>
+                    <Button small onClick={toggleModal}>
+                        {i18n.t('Configure highlighting')}
+                    </Button>
+                </>
+            )}
             <HighlightingEditorDialog
                 open={modalIsOpen}
                 toggle={toggleModal}
