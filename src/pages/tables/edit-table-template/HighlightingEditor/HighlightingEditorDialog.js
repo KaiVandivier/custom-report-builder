@@ -1,6 +1,9 @@
 import React from 'react'
-import { Button, ButtonStrip, InputFieldFF } from '@dhis2/ui'
 import {
+    colors,
+    Button,
+    ButtonStrip,
+    Help,
     Modal,
     ModalTitle,
     ModalContent,
@@ -13,6 +16,7 @@ import {
     TableRow,
     TableCell,
     ReactFinalForm,
+    InputFieldFF,
     hasValue,
     number,
     composeValidators,
@@ -21,7 +25,12 @@ import PropTypes from 'prop-types'
 import i18n from '../../../../locales'
 import styles from './styles/HighlightingEditorDialog.style'
 import utils from '../../../../styles/utils.module.css'
-import { useTableState } from '../../../../context/tableContext'
+
+export const defaultIntervals = [
+    { lowerBound: 90, color: colors.green100 },
+    { lowerBound: 70, color: colors.yellow100 },
+    { lowerBound: -Infinity, color: colors.red100 },
+]
 
 const { Form, Field } = ReactFinalForm
 
@@ -49,9 +58,29 @@ function betweenNeighbors(key, idx) {
     }
 }
 
-export function HighlightingEditorDialog({ open, toggle, onSave }) {
-    const table = useTableState()
+export function HighlightingEditorDialog({
+    open,
+    toggle,
+    helpText,
+    highlightingIntervals = defaultIntervals,
+    onSave,
+}) {
     if (!open) return null
+
+    const onSubmit = values => {
+        toggle()
+
+        // Possible refactor: use constructor instead of the following logic
+        const newIntervals = highlightingIntervals.map((interval, idx, arr) => {
+            if (idx === arr.length - 1) return interval // remains -Infinity
+            return {
+                ...interval,
+                lowerBound: values.lowerBounds[idx],
+            }
+        })
+
+        onSave(newIntervals)
+    }
 
     const getTableRows = () => {
         const validateField = idx =>
@@ -61,7 +90,7 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
                 betweenNeighbors('lowerBounds', idx)
             )
 
-        return table.highlightingIntervals.map((interval, idx, arr) => (
+        return highlightingIntervals.map((interval, idx, arr) => (
             <TableRow key={idx}>
                 <TableCell>
                     {arr.length === 1 ? (
@@ -101,7 +130,7 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
     return (
         <Modal small onClose={toggle}>
             <ModalTitle>{i18n.t('Edit Highlighting Intervals')}</ModalTitle>
-            <Form onSubmit={onSave}>
+            <Form onSubmit={onSubmit}>
                 {({
                     handleSubmit,
                     form,
@@ -112,6 +141,11 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
                 }) => (
                     <form onSubmit={handleSubmit}>
                         <ModalContent>
+                            {helpText && (
+                                <div style={{ marginBottom: '0.5rem' }}>
+                                    <Help>{helpText}</Help>
+                                </div>
+                            )}
                             <Table
                                 suppressZebraStriping
                                 className={utils.noBorder}
@@ -158,10 +192,14 @@ export function HighlightingEditorDialog({ open, toggle, onSave }) {
     )
 }
 
+HighlightingEditorDialog.defaultProps = {
+    highlightingIntervals: defaultIntervals,
+}
+
 HighlightingEditorDialog.propTypes = {
     open: PropTypes.bool.isRequired,
     toggle: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
+    helpText: PropTypes.string,
+    highlightingIntervals: PropTypes.array,
 }
-
-export default HighlightingEditorDialog

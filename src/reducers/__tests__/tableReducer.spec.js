@@ -11,8 +11,10 @@ import tableReducer, {
     UPDATE_CELL,
     UPDATE_ROW_DIMENSIONS,
     UPDATE_COLUMN_DIMENSIONS,
+    UPDATE_ROW_HIGHLIGHTING,
+    UPDATE_COLUMN_HIGHLIGHTING,
 } from '../tableReducer'
-import testTable from '../../modules/testTable'
+import { testTable } from '../../modules/testTable'
 import { defaultCell } from '../../modules/defaultTable'
 
 describe('no action given', () => {
@@ -56,12 +58,34 @@ describe('row actions', () => {
                 ...testTable,
                 columns: [testCol, ...testTable.columns],
             }
+
             const res = tableReducer(dimensionTestTable, {
                 type: ADD_ROW,
                 payload: { name: 'New row' },
             })
+
             const newRow = res.rows[res.rows.length - 1]
             expect(newRow.cells[0].data).toMatchObject(testDimensions)
+        })
+
+        it('applies highlighting configuration from columns to new cells', () => {
+            const testIntervals = [{ text: 'test interval' }]
+            const testCol = {
+                name: 'test col',
+                highlightingIntervals: testIntervals,
+            }
+            const highlightingTestTable = {
+                ...testTable,
+                columns: [testCol, ...testTable.columns],
+            }
+
+            const res = tableReducer(highlightingTestTable, {
+                type: ADD_ROW,
+                payload: { name: 'New row' },
+            })
+
+            const newRow = res.rows[res.rows.length - 1]
+            expect(newRow.cells[0].highlightingIntervals).toEqual(testIntervals)
         })
     })
 
@@ -89,6 +113,67 @@ describe('row actions', () => {
         expect(res.rows[0].dimensions).toMatchObject(dimensions)
         res.rows[0].cells.forEach(cell => {
             expect(cell.data).toMatchObject(dimensions)
+        })
+    })
+
+    describe('row highlighting', () => {
+        it('updates row highlighting (and on all cells in row)', () => {
+            const intervals = [{ text: 'test interval' }]
+            const res = tableReducer(testTable, {
+                type: UPDATE_ROW_HIGHLIGHTING,
+                payload: { idx: 0, highlightingIntervals: intervals },
+            })
+
+            expect(res.rows[0].highlightingIntervals).toEqual(intervals)
+            const allCellsHaveNewIntervals = res.rows[0].cells.every(
+                cell => cell.highlightingIntervals == intervals
+            )
+            expect(allCellsHaveNewIntervals).toBe(true)
+        })
+
+        describe('clearing row highlighting', () => {
+            it('it clears row highlighting when highlighting is not defined on columns', () => {
+                const intervals = [{ text: 'test interval' }]
+                // add highlighting
+                const highlightedTable = tableReducer(testTable, {
+                    type: UPDATE_ROW_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: intervals },
+                })
+                const res = tableReducer(highlightedTable, {
+                    type: UPDATE_ROW_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: null },
+                })
+
+                expect(res.rows[0].highlightingIntervals).toEqual(null)
+                const allCellsCleared = res.rows[0].cells.every(
+                    cell => cell.highlightingIntervals === null
+                )
+                expect(allCellsCleared).toBe(true)
+            })
+
+            it('uses column highlighting config on cells in columns with highlighting defined', () => {
+                const rowIntervals = [{ text: 'row interval' }]
+                const colIntervals = [{ text: 'col interval' }]
+                // add highlighting tow row and col
+                const colHighlightedTable = tableReducer(testTable, {
+                    type: UPDATE_COLUMN_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: colIntervals },
+                })
+                const rowHighlightedTable = tableReducer(colHighlightedTable, {
+                    type: UPDATE_ROW_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: rowIntervals },
+                })
+                // clear highlighting on just col
+                const res = tableReducer(rowHighlightedTable, {
+                    type: UPDATE_ROW_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: null },
+                })
+
+                expect(res.rows[0].highlightingIntervals).toEqual(null)
+                expect(res.rows[0].cells[0].highlightingIntervals).toEqual(
+                    colIntervals
+                )
+            })
         })
     })
 
@@ -146,6 +231,27 @@ describe('column actions', () => {
                 res.rows[0].cells[res.rows[0].cells.length - 1]
             expect(newlyAddedCell.data).toMatchObject(testDimensions)
         })
+
+        it('applies highlighting configuration from columns to new cells', () => {
+            const testIntervals = [{ text: 'test interval' }]
+            const testRow = {
+                name: 'test row',
+                highlightingIntervals: testIntervals,
+                cells: Array(testTable.columns.length).fill(defaultCell),
+            }
+            const highlightingTestTable = {
+                ...testTable,
+                rows: [testRow, ...testTable.rows],
+            }
+
+            const res = tableReducer(highlightingTestTable, {
+                type: ADD_COLUMN,
+                payload: { name: 'New col' },
+            })
+
+            const newCell = res.rows[0].cells[res.rows[0].cells.length - 1]
+            expect(newCell.highlightingIntervals).toEqual(testIntervals)
+        })
     })
 
     it('updates a column', () => {
@@ -172,6 +278,68 @@ describe('column actions', () => {
         expect(res.columns[idx].dimensions).toMatchObject(dimensions)
         res.rows.forEach(row => {
             expect(row.cells[idx].data).toMatchObject(dimensions)
+        })
+    })
+
+    describe('column highlighting', () => {
+        it('updates column highlighting (and for all cells in column)', () => {
+            const intervals = [{ text: 'test interval' }]
+            const res = tableReducer(testTable, {
+                type: UPDATE_COLUMN_HIGHLIGHTING,
+                payload: { idx: 0, highlightingIntervals: intervals },
+            })
+
+            expect(res.columns[0].highlightingIntervals).toEqual(intervals)
+            const allCellsHaveNewIntervals = res.rows.every(
+                row => row.cells[0].highlightingIntervals == intervals
+            )
+            expect(allCellsHaveNewIntervals).toBe(true)
+        })
+
+        describe('clearing column highlighting', () => {
+            it('clears highlighting on rows with no highlighting', () => {
+                const intervals = [{ text: 'test interval' }]
+                // add highlighting
+                const highlightedTable = tableReducer(testTable, {
+                    type: UPDATE_COLUMN_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: intervals },
+                })
+                // clear highlighting
+                const res = tableReducer(highlightedTable, {
+                    type: UPDATE_COLUMN_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: null },
+                })
+
+                expect(res.columns[0].highlightingIntervals).toEqual(null)
+                const allCellsCleared = res.rows.every(
+                    row => row.cells[0].highlightingIntervals === null
+                )
+                expect(allCellsCleared).toBe(true)
+            })
+
+            it('reverts highlighting to row default if defined', () => {
+                const rowIntervals = [{ text: 'row interval' }]
+                const colIntervals = [{ text: 'col interval' }]
+                // add highlighting tow row and col
+                const rowHighlightedTable = tableReducer(testTable, {
+                    type: UPDATE_ROW_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: rowIntervals },
+                })
+                const colHighlightedTable = tableReducer(rowHighlightedTable, {
+                    type: UPDATE_COLUMN_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: colIntervals },
+                })
+                // clear highlighting on just col
+                const res = tableReducer(colHighlightedTable, {
+                    type: UPDATE_COLUMN_HIGHLIGHTING,
+                    payload: { idx: 0, highlightingIntervals: null },
+                })
+
+                expect(res.columns[0].highlightingIntervals).toEqual(null)
+                expect(res.rows[0].cells[0].highlightingIntervals).toEqual(
+                    rowIntervals
+                )
+            })
         })
     })
 

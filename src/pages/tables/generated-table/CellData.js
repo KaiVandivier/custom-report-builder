@@ -23,7 +23,7 @@ function getSelectedNames(selectedItems) {
     return selectedItems.map(({ name }) => name).join(', ')
 }
 
-export function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
+function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
     if (!cell.data.item) return null
 
     const queryVars = {
