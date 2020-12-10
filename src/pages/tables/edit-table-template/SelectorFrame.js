@@ -6,7 +6,7 @@ import Icon from '../../../components/Icon'
 import styles from './styles/SelectorFrame.style'
 import IconTooltipButton from '../../../components/IconTooltipButton'
 
-export function SelectorFrame({ title, content, tooltip, onClick, onClear }) {
+function SelectorFrame({ title, content, tooltip, onClick, onClear }) {
     return (
         <>
             <Tooltip content={tooltip} placement="top">
@@ -32,7 +32,7 @@ export function SelectorFrame({ title, content, tooltip, onClick, onClear }) {
                     >
                         <div>
                             <p className="title">{title}</p>
-                            <p className="content">{content}</p>
+                            {content && <p className="content">{content}</p>}
                         </div>
                         <div className="icons">
                             <Icon name="edit" size={'18px'} />

@@ -1,4 +1,4 @@
-export const reorderArray = (arr, oldIdx, newIdx) => {
+const reorderArray = (arr, oldIdx, newIdx) => {
     const validOldIdx = typeof oldIdx === 'number' && 0 <= oldIdx < arr.length
     const validNewIdx = typeof newIdx === 'number' && 0 <= newIdx < arr.length
     if (!validOldIdx || !validNewIdx)

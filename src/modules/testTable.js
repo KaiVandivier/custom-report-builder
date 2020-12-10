@@ -83,5 +83,3 @@ export const testTable = {
         },
     ],
 }
-
-export default testTable

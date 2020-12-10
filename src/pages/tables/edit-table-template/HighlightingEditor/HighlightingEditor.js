@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Switch, colors } from '@dhis2/ui'
+import { Button, Switch } from '@dhis2/ui'
 import i18n from '../../../../locales'
 import { UPDATE_TABLE } from '../../../../reducers/tableReducer'
 import styles from './styles/HighlightingEditor.style'
@@ -7,13 +7,11 @@ import {
     useTableDispatch,
     useTableState,
 } from '../../../../context/tableContext'
-import HighlightingEditorDialog from './HighlightingEditorDialog'
-
-const defaultIntervals = [
-    { lowerBound: 90, color: colors.green100 },
-    { lowerBound: 70, color: colors.yellow100 },
-    { lowerBound: -Infinity, color: colors.red100 },
-]
+import {
+    HighlightingEditorDialog,
+    defaultIntervals,
+} from './HighlightingEditorDialog'
+import { getIntervalString } from './getIntervalString'
 
 export function HighlightingEditor() {
     const table = useTableState()
@@ -35,19 +33,7 @@ export function HighlightingEditor() {
         })
     }
 
-    function onSubmit(values) {
-        toggleModal()
-
-        const highlightingIntervals = defaultIntervals.map(
-            (interval, idx, arr) => {
-                if (idx === arr.length - 1) return interval
-                return {
-                    ...interval,
-                    lowerBound: values.lowerBounds[idx],
-                }
-            }
-        )
-
+    function onSave(highlightingIntervals) {
         dispatch({
             type: UPDATE_TABLE,
             payload: { highlightingIntervals },
@@ -56,24 +42,28 @@ export function HighlightingEditor() {
 
     return (
         <div>
-            <div className="switch-container">
-                <Switch
-                    checked={table.highlightingOn}
-                    label={i18n.t('Highlight cells based on value')}
-                    onChange={onSwitch}
-                />
-            </div>
-            <Button
-                small
-                disabled={!table.highlightingOn}
-                onClick={toggleModal}
-            >
-                {i18n.t('Configure')}
-            </Button>
+            <h6 className="label">{i18n.t('Enable highlighting')}</h6>
+            <Switch
+                checked={table.highlightingOn}
+                label={i18n.t('Highlight cells based on value')}
+                onChange={onSwitch}
+            />
+            {table.highlightingOn && (
+                <>
+                    <h6 className="label">{i18n.t('Highlighting rules')}</h6>
+                    <div className="rules-text">
+                        {getIntervalString(table.highlightingIntervals)}
+                    </div>
+                    <Button small onClick={toggleModal}>
+                        {i18n.t('Configure highlighting')}
+                    </Button>
+                </>
+            )}
             <HighlightingEditorDialog
                 open={modalIsOpen}
                 toggle={toggleModal}
-                onSave={onSubmit}
+                highlightingIntervals={table.highlightingIntervals}
+                onSave={onSave}
             />
             <style jsx>{styles}</style>
         </div>

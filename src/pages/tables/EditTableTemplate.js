@@ -125,10 +125,7 @@ export function EditTableTemplate() {
                             />
                         </div>
                     </div>
-                    <div>
-                        <h6 className="label">{i18n.t('Highlighting')}</h6>
-                        <HighlightingEditor />
-                    </div>
+                    <HighlightingEditor />
                 </div>
                 <ButtonStrip end>
                     <AddTableDimension type="Row" />

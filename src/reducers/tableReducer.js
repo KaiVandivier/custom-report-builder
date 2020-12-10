@@ -13,8 +13,10 @@ export const DELETE_COLUMN = 'DELETE_COLUMN'
 export const UPDATE_CELL = 'UPDATE_CELL'
 export const UPDATE_ROW_DIMENSIONS = 'UPDATE_ROW_DIMENSIONS'
 export const UPDATE_COLUMN_DIMENSIONS = 'UPDATE_COLUMN_DIMENSIONS'
+export const UPDATE_ROW_HIGHLIGHTING = 'UPDATE_ROW_HIGHLIGHTING'
+export const UPDATE_COLUMN_HIGHLIGHTING = 'UPDATE_COLUMN_HIGHLIGHTING'
 
-export function tableReducer(table, { type, payload }) {
+export default function tableReducer(table, { type, payload }) {
     switch (type) {
         case UPDATE_TABLE:
             return {
@@ -29,6 +31,9 @@ export function tableReducer(table, { type, payload }) {
                     cells: table.columns.map(col => ({
                         ...defaultCell,
                         data: { ...defaultCell.data, ...col.dimensions },
+                        highlightingIntervals: col.highlightingIntervals
+                            ? [...col.highlightingIntervals]
+                            : null,
                     })),
                 }),
             }
@@ -58,6 +63,26 @@ export function tableReducer(table, { type, payload }) {
                     }
                 }),
             }
+        case UPDATE_ROW_HIGHLIGHTING:
+            // add highlighting intervals to row and all cells within
+            // to clear, use payload `{ highlightingIntervals: null }`
+            return {
+                ...table,
+                rows: table.rows.map((row, idx) => {
+                    if (idx !== payload.idx) return row
+                    return {
+                        ...row,
+                        highlightingIntervals: payload.highlightingIntervals,
+                        cells: row.cells.map((cell, idx) => ({
+                            ...cell,
+                            highlightingIntervals:
+                                payload.highlightingIntervals ||
+                                table.columns[idx].highlightingIntervals ||
+                                null,
+                        })),
+                    }
+                }),
+            }
         case REORDER_ROW:
             return {
                 ...table,
@@ -77,6 +102,9 @@ export function tableReducer(table, { type, payload }) {
                     cells: row.cells.concat({
                         ...defaultCell,
                         data: { ...defaultCell.data, ...row.dimensions },
+                        highlightingIntervals: row.highlightingIntervals
+                            ? [...row.highlightingIntervals]
+                            : null,
                     }),
                 })),
             }
@@ -109,6 +137,34 @@ export function tableReducer(table, { type, payload }) {
                             return {
                                 ...cell,
                                 data: { ...cell.data, ...payload.dimensions },
+                            }
+                        }),
+                    }
+                }),
+            }
+        case UPDATE_COLUMN_HIGHLIGHTING:
+            // adds highlighting interval to column and all cells in column
+            // to clear, use payload `{ highlightingIntervals: null }`
+            return {
+                ...table,
+                columns: table.columns.map((col, idx) => {
+                    if (idx !== payload.idx) return col
+                    return {
+                        ...col,
+                        highlightingIntervals: payload.highlightingIntervals,
+                    }
+                }),
+                rows: table.rows.map(row => {
+                    return {
+                        ...row,
+                        cells: row.cells.map((cell, idx) => {
+                            if (idx !== payload.idx) return cell
+                            return {
+                                ...cell,
+                                highlightingIntervals:
+                                    payload.highlightingIntervals ||
+                                    row.highlightingIntervals ||
+                                    null,
                             }
                         }),
                     }
@@ -157,8 +213,7 @@ export function tableReducer(table, { type, payload }) {
                 }),
             }
         default:
+            console.error(`Action type '${type}' not valid.`)
             return table
     }
 }
-
-export default tableReducer
