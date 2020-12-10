@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Divider } from '@dhis2/ui'
 import isEqual from 'lodash/isEqual'
 import i18n from '../../../../locales'
 
@@ -169,16 +168,13 @@ export function DataContentSelector({ cell, rowIdx, cellIdx }) {
                 onClick={togglePeriodDialog}
             />
             {table.highlightingOn && (
-                <>
-                    <Divider />
-                    <SelectorFrame
-                        title={i18n.t('Highlighting rules')}
-                        content={getHighlightingSelectorContent()}
-                        tooltip={i18n.t('Configure highlighting for cell')}
-                        onClick={toggleHighlightingDialog}
-                        onClear={onHighlightingDialogClear}
-                    />
-                </>
+                <SelectorFrame
+                    title={i18n.t('Highlighting rules')}
+                    content={getHighlightingSelectorContent()}
+                    tooltip={i18n.t('Configure highlighting for cell')}
+                    onClick={toggleHighlightingDialog}
+                    onClear={onHighlightingDialogClear}
+                />
             )}
             {dataDialogOpen && (
                 <DataEngine>
