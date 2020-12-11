@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-11T05:07:13.410Z\n"
-"PO-Revision-Date: 2020-12-11T05:07:13.410Z\n"
+"POT-Creation-Date: 2020-12-11T22:04:37.730Z\n"
+"PO-Revision-Date: 2020-12-11T22:04:37.730Z\n"
 
 msgid "Back"
 msgstr ""
@@ -177,10 +177,7 @@ msgstr ""
 msgid "Enter a name"
 msgstr ""
 
-msgid "Changes are saved automatically."
-msgstr ""
-
-msgid "Last saved at {{time}}."
+msgid "Changes are saved automatically. Last saved at {{time}}."
 msgstr ""
 
 msgid "Content type"
