@@ -27,6 +27,7 @@ import i18n from '../../locales'
 import { TABLES, getPath, GENERATED_TABLE } from '../../modules/paths'
 import { useTableActions, useTableState } from '../../context/tableContext'
 import HelpButton from '../../components/HelpButton'
+import AutosaveStatus from './edit-table-template/AutosaveStatus'
 
 export function EditTableTemplate() {
     const params = useParams()
@@ -140,6 +141,9 @@ export function EditTableTemplate() {
                     </Table>
                 </Card>
             </section>
+            <footer>
+                <AutosaveStatus />
+            </footer>
             <style jsx>{styles}</style>
         </>
     )
