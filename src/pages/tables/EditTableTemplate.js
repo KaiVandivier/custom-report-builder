@@ -105,7 +105,7 @@ export function EditTableTemplate() {
                         text={i18n.t('Back to Saved Tables')}
                     />
                     <div className="pageTitle">
-                        <h1>{i18n.t('Edit Table Template')}</h1>
+                        <h1>{i18n.t('Edit Table')}</h1>
                         <HelpButton subsection="#editing-a-table-template" />
                     </div>
                 </div>
