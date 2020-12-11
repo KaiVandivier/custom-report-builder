@@ -318,7 +318,7 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     onClear={onDataSelectorClear}
                 />
             )}
-            {rowColObj.dimensions?.orgUnits?.length && (
+            {rowColObj.dimensions?.orgUnits?.length > 0 && (
                 <SelectorFrame
                     title={i18n.t('Organisation unit(s)')}
                     content={getSelectedNames(rowColObj.dimensions.orgUnits)}
@@ -331,7 +331,7 @@ export function RowColControls({ type = ROW, rowColObj, idx, maxIdx }) {
                     onClick={toggleOrgUnitDialog}
                 />
             )}
-            {rowColObj.dimensions?.periods?.length && (
+            {rowColObj.dimensions?.periods?.length > 0 && (
                 <SelectorFrame
                     title={i18n.t('Period(s)')}
                     content={getSelectedNames(rowColObj.dimensions.periods)}
