@@ -13,6 +13,7 @@ export function EditTableTemplateActions({ onGenerate, onDelete }) {
         <>
             <ButtonStrip>
                 <Button
+                    secondary
                     large
                     icon={<Icon name="delete" />}
                     onClick={toggleModal}
