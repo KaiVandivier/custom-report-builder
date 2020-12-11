@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-10T04:50:03.810Z\n"
-"PO-Revision-Date: 2020-12-10T04:50:03.810Z\n"
+"POT-Creation-Date: 2020-12-11T05:07:13.410Z\n"
+"PO-Revision-Date: 2020-12-11T05:07:13.410Z\n"
 
 msgid "Back"
 msgstr ""
@@ -141,9 +141,6 @@ msgstr ""
 msgid "Table name"
 msgstr ""
 
-msgid "Highlighting"
-msgstr ""
-
 msgid "One or more periods are required to query data for this table."
 msgstr ""
 
@@ -180,10 +177,13 @@ msgstr ""
 msgid "Enter a name"
 msgstr ""
 
-msgid "Content type"
+msgid "Changes are saved automatically."
 msgstr ""
 
-msgid "Lower bounds{{colon}} {{-intervalString}}"
+msgid "Last saved at {{time}}."
+msgstr ""
+
+msgid "Content type"
 msgstr ""
 
 msgid "Same as table"
@@ -276,10 +276,13 @@ msgstr ""
 msgid "Confirm deletion"
 msgstr ""
 
+msgid "Enable highlighting"
+msgstr ""
+
 msgid "Highlight cells based on value"
 msgstr ""
 
-msgid "Configure"
+msgid "Configure highlighting"
 msgstr ""
 
 msgid "This value must be lower than the lower bound of the interval above it."
@@ -304,6 +307,9 @@ msgid "Color"
 msgstr ""
 
 msgid "Reset"
+msgstr ""
+
+msgid "Lower bounds{{colon}} {{-intervalString}}"
 msgstr ""
 
 msgid "Rename table"
