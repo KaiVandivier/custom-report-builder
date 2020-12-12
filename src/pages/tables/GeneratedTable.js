@@ -98,10 +98,10 @@ export function GeneratedTable() {
                     </Button>
                     <Button
                         large
-                        icon={<Icon name="edit" />}
+                        icon={<Icon name="table_chart" />}
                         onClick={() => history.push(getPath(EDIT_TABLE, id))}
                     >
-                        {i18n.t('Edit Template')}
+                        {i18n.t('View Template')}
                     </Button>
                     <Button
                         large
