@@ -77,9 +77,7 @@ export function GeneratedTable() {
                         text={i18n.t('Back to Saved Tables')}
                     />
                     <div className={classes.title}>
-                        <h1 className={classes.h1}>
-                            {i18n.t('Generate Report')}
-                        </h1>
+                        <h1 className={classes.h1}>{i18n.t('Report')}</h1>
                         <HelpButton subsection="#generating-a-table-from-a-template" />
                     </div>
                     <Help>
