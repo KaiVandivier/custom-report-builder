@@ -91,10 +91,10 @@ export function GeneratedTable() {
                 <ButtonStrip>
                     <Button
                         large
-                        icon={<Icon name="play_arrow" />}
+                        icon={<Icon name="edit" />}
                         onClick={toggleReportParamsDialog}
                     >
-                        {i18n.t('Choose Parameters')}
+                        {i18n.t('Change Report Parameters')}
                     </Button>
                     <Button
                         large
