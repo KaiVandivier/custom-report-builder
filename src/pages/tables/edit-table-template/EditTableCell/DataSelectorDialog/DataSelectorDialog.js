@@ -11,10 +11,7 @@ import {
 import { debounce } from 'lodash'
 import i18n from '../../../../../locales'
 
-import DataTypes from './DataTypesSelector'
-import Groups from './Groups'
-import FilterField from './FilterField'
-import DimensionItemsMenu from './DimensionItemsMenu'
+import { DataTypes, Groups, FilterField, DimensionItemsMenu } from './index'
 import { modal, modalContent } from './styles/DataSelectorDialog.module.css'
 
 import {
