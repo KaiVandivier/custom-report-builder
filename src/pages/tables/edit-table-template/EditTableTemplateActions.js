@@ -26,7 +26,7 @@ export function EditTableTemplateActions({ onGenerate, onDelete }) {
                     icon={<Icon name="play_arrow" color="white" />}
                     onClick={onGenerate}
                 >
-                    {i18n.t('Generate report')}
+                    {i18n.t('Generate Report')}
                 </Button>
             </ButtonStrip>
             {deleteModalIsOpen && (
