@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-11T23:33:57.168Z\n"
-"PO-Revision-Date: 2020-12-11T23:33:57.168Z\n"
+"POT-Creation-Date: 2020-12-12T00:13:28.882Z\n"
+"PO-Revision-Date: 2020-12-12T00:13:28.882Z\n"
 
 msgid "Back"
 msgstr ""
@@ -262,9 +262,6 @@ msgid "Enter text"
 msgstr ""
 
 msgid "Enter static text for cell"
-msgstr ""
-
-msgid "Generate report"
 msgstr ""
 
 msgid "Really delete this template?"
