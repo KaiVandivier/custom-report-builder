@@ -63,7 +63,7 @@ export function ReportParameters({
                     </div>
                 )}
                 <Divider margin={'1rem 0'} />
-                <ButtonStrip middle>
+                <ButtonStrip end>
                     <Button onClick={toggleModal}>{i18n.t('Cancel')}</Button>
                     <Button
                         primary
