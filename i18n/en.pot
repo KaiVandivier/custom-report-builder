@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-12T00:13:28.882Z\n"
-"PO-Revision-Date: 2020-12-12T00:13:28.882Z\n"
+"POT-Creation-Date: 2020-12-12T07:31:15.327Z\n"
+"PO-Revision-Date: 2020-12-12T07:31:15.327Z\n"
 
 msgid "Back"
 msgstr ""
@@ -144,16 +144,16 @@ msgstr ""
 msgid "One or more periods are required to query data for this table."
 msgstr ""
 
-msgid "Generate Report"
+msgid "Report"
 msgstr ""
 
 msgid "Tip - hover the mouse over a data cell to see its information."
 msgstr ""
 
-msgid "Choose Parameters"
+msgid "Change Report Parameters"
 msgstr ""
 
-msgid "Edit Template"
+msgid "View Template"
 msgstr ""
 
 msgid "Print"
@@ -262,6 +262,9 @@ msgid "Enter text"
 msgstr ""
 
 msgid "Enter static text for cell"
+msgstr ""
+
+msgid "Generate Report"
 msgstr ""
 
 msgid "Really delete this template?"
