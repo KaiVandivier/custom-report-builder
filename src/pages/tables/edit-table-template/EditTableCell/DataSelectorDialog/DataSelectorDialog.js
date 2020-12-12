@@ -49,7 +49,7 @@ export class DataSelectorDialog extends Component {
             ? defaultGroupId(this.props.initialValues.dataType)
             : ALL_ID,
         groupDetail: this.props.initialValues.groupDetail || '',
-        filterText: this.props.initialValues.item?.name || '',
+        filterText: '',
         items: [],
         nextPage: null,
         filter: {},
