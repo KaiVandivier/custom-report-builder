@@ -4,7 +4,7 @@ import { FlyoutMenu, MenuItem } from '@dhis2/ui'
 import i18n from '../../../locales'
 
 import Icon from '../../../components/Icon'
-import DeleteTableTemplate from './DeleteTableTemplate'
+import { DeleteTableTemplate } from './DeleteTableTemplate'
 import PopoverButton from '../../../components/PopoverButton'
 
 export function SavedTableTemplateActions({ onGenerate, onEdit, onDelete }) {
