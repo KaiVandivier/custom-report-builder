@@ -11,7 +11,7 @@ import {
 import i18n from '../../../locales'
 
 import styles from './styles/TableWithData.styles'
-import GeneratedTableCell from './GeneratedTableCell'
+import { GeneratedTableCell } from './GeneratedTableCell'
 import { useTableState } from '../../../context/tableContext'
 
 function getSelectedNames(selectedItems) {
@@ -28,7 +28,6 @@ export function TableWithData({
     if (periodParamNeeded && !selectedPeriods.length)
         return <p>Waiting for parameters...</p>
 
-    // Render table by iterating over all cells, and for each, looking up value in map
     function tableHeader() {
         return (
             <TableRowHead>
