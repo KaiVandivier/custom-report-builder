@@ -13,6 +13,7 @@ import { EDIT_TABLE, getPath, TABLES } from '../../modules/paths'
 import { DATA } from '../../modules/contentTypes'
 import { useTableState } from '../../context/tableContext'
 import HelpButton from '../../components/HelpButton'
+import { FootnotesProvider } from '../../context/footnotesContext'
 
 export function isAllPopulatedInTable(key, table) {
     return table.rows.every(row =>
@@ -112,10 +113,12 @@ export function GeneratedTable() {
             </header>
             <Card className={utils.card}>
                 <div ref={printRef} className={classes.print}>
-                    <TableWithData
-                        {...reportParams}
-                        periodParamNeeded={periodParamNeeded}
-                    />
+                    <FootnotesProvider>
+                        <TableWithData
+                            {...reportParams}
+                            periodParamNeeded={periodParamNeeded}
+                        />
+                    </FootnotesProvider>
                 </div>
             </Card>
         </div>
