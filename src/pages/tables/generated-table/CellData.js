@@ -47,31 +47,37 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
         refetch(queryVars)
     }, [cell, selectedOrgUnits, selectedPeriods])
 
+    // Maybe, with period and ou footnotes, this just needs to show data item
+    function getTooltipContent() {
+        return `\
+            Data item: ${cell.data.item.name}.
+            Org. unit: ${
+                cell.data.orgUnits?.length
+                    ? getSelectedNames(cell.data.orgUnits)
+                    : getSelectedNames(selectedOrgUnits)
+            }.
+            Period: ${
+                cell.data.periods?.length
+                    ? getSelectedNames(cell.data.periods)
+                    : getSelectedNames(selectedPeriods)
+            }.
+        `
+    }
+
     if (loading) return <CircularLoader small />
     if (error) {
         console.error(error)
         return <>{i18n.t('Oops! Something went wrong.')}</>
     }
 
-    const tooltipContent = `\
-        Data item: ${cell.data.item.name}.
-        Org. unit: ${
-            cell.data.orgUnits?.length
-                ? getSelectedNames(cell.data.orgUnits)
-                : getSelectedNames(selectedOrgUnits)
-        }.
-        Period: ${
-            cell.data.periods?.length
-                ? getSelectedNames(cell.data.periods)
-                : getSelectedNames(selectedPeriods)
-        }.
-    `
-
     return (
-        <Tooltip content={tooltipContent}>
+        <Tooltip content={getTooltipContent()}>
             {props => (
                 <span {...props}>
                     {data.result.rows.length ? data.result.rows[0][1] : '-'}
+                    {/* If OU, add ou footnote */}
+                    {/* If PE, add pe footnote */}
+                    {/* Add comma between if there are both */}
                 </span>
             )}
         </Tooltip>
