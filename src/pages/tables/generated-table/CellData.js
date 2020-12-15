@@ -69,37 +69,24 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
 
     function getFootnotes() {
         const footnotes = []
+
         // If ou, add sup
         if (cell.data.orgUnits.length > 0) {
             // get key as list of ids
             const key = getSelectedIds(cell.data.orgUnits)
-            // check map for existing footnote
-            let footnote = orgUnitFootnotes.get(key)
-            if (footnote === undefined) {
-                footnote = {
-                    id: `ou${orgUnitFootnotes.size + 1}`,
-                    description: getSelectedNames(cell.data.orgUnits),
-                }
-                orgUnitFootnotes.set(key, footnote)
-            }
-            footnotes.push(footnote)
+            const footnote = orgUnitFootnotes.get(key)
+            if (footnote !== undefined) footnotes.push(footnote)
         }
+
         // If pe, add sup
         if (cell.data.periods.length > 0) {
-            // get key as list of ids
             const key = getSelectedIds(cell.data.periods)
-            // check map for existing footnote
-            let footnote = periodFootnotes.get(key)
-            if (footnote === undefined) {
-                footnote = {
-                    id: `p${periodFootnotes.size + 1}`,
-                    description: getSelectedNames(cell.data.periods),
-                }
-                periodFootnotes.set(key, footnote)
-            }
-            footnotes.push(footnote)
+            const footnote = periodFootnotes.get(key)
+            if (footnote !== undefined) footnotes.push(footnote)
         }
+
         if (footnotes.length === 0) return null
+
         // Add commma between
         return (
             <span>
