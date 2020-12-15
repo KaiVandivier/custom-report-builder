@@ -1,16 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-
-// To avoid using mutable objects, this context could use a reducer;
-// eg, 'GET_ITEM' and 'SET_ITEM' to get and set footnote items
 
 const OrgUnitFootnotesContext = React.createContext()
 const PeriodFootnotesContext = React.createContext()
 
 export function FootnotesProvider({ children }) {
+    const [orgUnitFootnotes, setOrgUnitFootnotes] = useState(new Map())
+    const [periodFootnotes, setPeriodFootnotes] = useState(new Map())
+
     return (
-        <OrgUnitFootnotesContext.Provider value={new Map()}>
-            <PeriodFootnotesContext.Provider value={new Map()}>
+        <OrgUnitFootnotesContext.Provider
+            value={[orgUnitFootnotes, setOrgUnitFootnotes]}
+        >
+            <PeriodFootnotesContext.Provider
+                value={[periodFootnotes, setPeriodFootnotes]}
+            >
                 {children}
             </PeriodFootnotesContext.Provider>
         </OrgUnitFootnotesContext.Provider>
@@ -22,30 +26,39 @@ FootnotesProvider.propTypes = {
 }
 
 export function useOrgUnitFootnotes() {
-    const orgUnitFootnotes = useContext(OrgUnitFootnotesContext)
+    const [orgUnitFootnotes, setOrgUnitFootnotes] = useContext(
+        OrgUnitFootnotesContext
+    )
 
-    if (orgUnitFootnotes === undefined)
+    if ([orgUnitFootnotes, setOrgUnitFootnotes] === undefined)
         throw new Error(
             'useOrgUnitFootnotes must be used within a FootnotesProvider'
         )
 
-    return orgUnitFootnotes
+    return [orgUnitFootnotes, setOrgUnitFootnotes]
 }
 
 export function usePeriodFootnotes() {
-    const periodFootnotes = useContext(PeriodFootnotesContext)
+    const [periodFootnotes, setPeriodFootnotes] = useContext(
+        PeriodFootnotesContext
+    )
 
-    if (periodFootnotes === undefined)
+    if ([periodFootnotes, setPeriodFootnotes] === undefined)
         throw new Error(
             'usePeriodFootnotes must be used within a FootnotesProvider'
         )
 
-    return periodFootnotes
+    return [periodFootnotes, setPeriodFootnotes]
 }
 
 export function useFootnotes() {
+    const [periodFootnotes, setPeriodFootnotes] = usePeriodFootnotes()
+    const [orgUnitFootnotes, setOrgUnitFootnotes] = useOrgUnitFootnotes()
+
     return {
-        orgUnitFootnotes: useOrgUnitFootnotes(),
-        periodFootnotes: usePeriodFootnotes(),
+        orgUnitFootnotes,
+        setOrgUnitFootnotes,
+        periodFootnotes,
+        setPeriodFootnotes,
     }
 }
