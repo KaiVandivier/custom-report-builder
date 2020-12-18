@@ -16,11 +16,11 @@ import { useTableState } from '../../../context/tableContext'
 import { useFootnotes } from '../../../context/footnotesContext'
 import Footnotes from './Footnotes'
 
-function getSelectedIds(selectedItems) {
+export function getSelectedIds(selectedItems) {
     return selectedItems.map(({ id }) => id).join(';')
 }
 
-function getSelectedNames(selectedItems) {
+export function getSelectedNames(selectedItems) {
     return selectedItems.map(({ name }) => name).join(', ')
 }
 
