@@ -20,10 +20,6 @@ function getSelectedIds(selectedItems) {
     return selectedItems.map(({ id }) => id).join(';')
 }
 
-function getSelectedNames(selectedItems) {
-    return selectedItems.map(({ name }) => name).join(', ')
-}
-
 function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
     if (!cell.data.item) return null
 
@@ -50,21 +46,8 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
         refetch(queryVars)
     }, [cell, selectedOrgUnits, selectedPeriods])
 
-    // Maybe, with period and ou footnotes, this just needs to show data item
     function getTooltipContent() {
-        return `\
-            Data item: ${cell.data.item.name}.
-            Org. unit: ${
-                cell.data.orgUnits?.length
-                    ? getSelectedNames(cell.data.orgUnits)
-                    : getSelectedNames(selectedOrgUnits)
-            }.
-            Period: ${
-                cell.data.periods?.length
-                    ? getSelectedNames(cell.data.periods)
-                    : getSelectedNames(selectedPeriods)
-            }.
-        `
+        return `Data item: ${cell.data.item.name}.`
     }
 
     function getFootnotes() {
@@ -107,9 +90,6 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
             {props => (
                 <span {...props}>
                     {data.result.rows.length ? data.result.rows[0][1] : '-'}
-                    {/* If OU, add ou footnote */}
-                    {/* If PE, add pe footnote */}
-                    {/* Add comma between if there are both */}
                     {getFootnotes()}
                 </span>
             )}
