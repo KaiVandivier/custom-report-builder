@@ -13,6 +13,7 @@ import { EDIT_TABLE, getPath, TABLES } from '../../modules/paths'
 import { DATA } from '../../modules/contentTypes'
 import { useTableState } from '../../context/tableContext'
 import HelpButton from '../../components/HelpButton'
+import { FootnotesProvider } from '../../context/footnotesContext'
 
 export function isAllPopulatedInTable(key, table) {
     return table.rows.every(row =>
@@ -77,9 +78,7 @@ export function GeneratedTable() {
                         text={i18n.t('Back to Saved Tables')}
                     />
                     <div className={classes.title}>
-                        <h1 className={classes.h1}>
-                            {i18n.t('Generate Report')}
-                        </h1>
+                        <h1 className={classes.h1}>{i18n.t('Report')}</h1>
                         <HelpButton subsection="#generating-a-table-from-a-template" />
                     </div>
                     <Help>
@@ -91,17 +90,17 @@ export function GeneratedTable() {
                 <ButtonStrip>
                     <Button
                         large
-                        icon={<Icon name="play_arrow" />}
+                        icon={<Icon name="edit" />}
                         onClick={toggleReportParamsDialog}
                     >
-                        {i18n.t('Choose Parameters')}
+                        {i18n.t('Change Report Parameters')}
                     </Button>
                     <Button
                         large
-                        icon={<Icon name="edit" />}
+                        icon={<Icon name="table_chart" />}
                         onClick={() => history.push(getPath(EDIT_TABLE, id))}
                     >
-                        {i18n.t('Edit Template')}
+                        {i18n.t('View Template')}
                     </Button>
                     <Button
                         large
@@ -114,10 +113,12 @@ export function GeneratedTable() {
             </header>
             <Card className={utils.card}>
                 <div ref={printRef} className={classes.print}>
-                    <TableWithData
-                        {...reportParams}
-                        periodParamNeeded={periodParamNeeded}
-                    />
+                    <FootnotesProvider>
+                        <TableWithData
+                            {...reportParams}
+                            periodParamNeeded={periodParamNeeded}
+                        />
+                    </FootnotesProvider>
                 </div>
             </Card>
         </div>

@@ -2,7 +2,11 @@ import React, { useEffect } from 'react'
 import { CircularLoader, Tooltip } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import i18n from '../../../locales'
+import { useTableState } from '../../../context/tableContext'
+import { getSelectedIds } from './TableWithData'
+import FootnoteRefs from './FootnoteRefs'
 
 const ANALYTICS_QUERY = {
     result: {
@@ -15,16 +19,10 @@ const ANALYTICS_QUERY = {
     },
 }
 
-function getSelectedIds(selectedItems) {
-    return selectedItems.map(({ id }) => id).join(';')
-}
-
-function getSelectedNames(selectedItems) {
-    return selectedItems.map(({ name }) => name).join(', ')
-}
-
-function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
+function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
     if (!cell.data.item) return null
+
+    const table = useTableState()
 
     const queryVars = {
         dxId: cell.data.item.id,
@@ -38,8 +36,6 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
 
     const { data, loading, error, refetch } = useDataQuery(ANALYTICS_QUERY, {
         variables: queryVars,
-        onComplete: ({ result }) =>
-            result.rows.length && onLoad(result.rows[0][1]),
     })
 
     // Make sure query updates in response to new props
@@ -47,32 +43,46 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
         refetch(queryVars)
     }, [cell, selectedOrgUnits, selectedPeriods])
 
+    function getTooltipContent() {
+        return `Data item: ${cell.data.item.name}.`
+    }
+
+    function getCellColor() {
+        const intervals =
+            cell.highlightingIntervals || table.highlightingIntervals
+        const value = data.result.rows[0][1]
+        for (const { lowerBound, color } of intervals) {
+            if (Number(value) >= Number(lowerBound)) return color
+        }
+    }
+
     if (loading) return <CircularLoader small />
     if (error) {
         console.error(error)
         return <>{i18n.t('Oops! Something went wrong.')}</>
     }
 
-    const tooltipContent = `\
-        Data item: ${cell.data.item.name}.
-        Org. unit: ${
-            cell.data.orgUnits?.length
-                ? getSelectedNames(cell.data.orgUnits)
-                : getSelectedNames(selectedOrgUnits)
-        }.
-        Period: ${
-            cell.data.periods?.length
-                ? getSelectedNames(cell.data.periods)
-                : getSelectedNames(selectedPeriods)
-        }.
-    `
-
     return (
-        <Tooltip content={tooltipContent}>
+        <Tooltip content={getTooltipContent()}>
             {props => (
-                <span {...props}>
-                    {data.result.rows.length ? data.result.rows[0][1] : '-'}
-                </span>
+                <div {...props}>
+                    <span
+                        className={cx({ highlightingOn: table.highlightingOn })}
+                    >
+                        {data.result.rows.length ? data.result.rows[0][1] : '-'}
+                    </span>
+
+                    <FootnoteRefs cell={cell} />
+
+                    <style jsx>{`
+                        .highlightingOn {
+                            display: inline-block;
+                            padding: 0.5rem;
+                            margin: -0.5rem 0rem -0.5rem -0.5rem;
+                            background-color: ${getCellColor()};
+                        }
+                    `}</style>
+                </div>
             )}
         </Tooltip>
     )
@@ -92,7 +102,6 @@ CellData.propTypes = {
             name: PropTypes.string,
         })
     ),
-    onLoad: PropTypes.func,
 }
 
 export default CellData
