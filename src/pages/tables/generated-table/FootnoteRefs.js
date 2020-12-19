@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { colors } from '@dhis2/ui'
 import { useFootnotes } from '../../../context/footnotesContext'
 import { getSelectedIds } from './TableWithData'
 
@@ -31,6 +32,7 @@ function FootnoteRefs({ cell }) {
             <style jsx>{`
                 sup {
                     margin-left: 0.375rem;
+                    color: ${colors.grey700};
                 }
             `}</style>
         </sup>
