@@ -13,8 +13,6 @@ function AutosaveStatus() {
 
     // update time when table is update
     useEffect(() => {
-        console.log('using time effect')
-        console.log(TimeFormat.format(new Date()))
         setTime(TimeFormat.format(new Date()))
     }, [table])
 
