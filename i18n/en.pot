@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-12T07:31:15.327Z\n"
-"PO-Revision-Date: 2020-12-12T07:31:15.327Z\n"
+"POT-Creation-Date: 2020-12-18T03:33:37.783Z\n"
+"PO-Revision-Date: 2020-12-18T03:33:37.783Z\n"
 
 msgid "Back"
 msgstr ""
@@ -369,6 +369,15 @@ msgid "Clear"
 msgstr ""
 
 msgid "Oops! Something went wrong."
+msgstr ""
+
+msgid "{{id}}{{c}} {{description}}"
+msgstr ""
+
+msgid "Organisation Units{{c}}"
+msgstr ""
+
+msgid "Periods{{c}}"
 msgstr ""
 
 msgid "Report parameters"
