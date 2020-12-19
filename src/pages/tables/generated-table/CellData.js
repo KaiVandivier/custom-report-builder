@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import { CircularLoader, Tooltip } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import i18n from '../../../locales'
 import { useFootnotes } from '../../../context/footnotesContext'
+import { useTableState } from '../../../context/tableContext'
 
 const ANALYTICS_QUERY = {
     result: {
@@ -20,9 +22,10 @@ function getSelectedIds(selectedItems) {
     return selectedItems.map(({ id }) => id).join(';')
 }
 
-function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
+function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
     if (!cell.data.item) return null
 
+    const table = useTableState()
     const { orgUnitFootnotes, periodFootnotes } = useFootnotes()
 
     const queryVars = {
@@ -37,8 +40,6 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
 
     const { data, loading, error, refetch } = useDataQuery(ANALYTICS_QUERY, {
         variables: queryVars,
-        onComplete: ({ result }) =>
-            result.rows.length && onLoad(result.rows[0][1]),
     })
 
     // Make sure query updates in response to new props
@@ -79,6 +80,15 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
         )
     }
 
+    function getCellColor() {
+        const intervals =
+            cell.highlightingIntervals || table.highlightingIntervals
+        const value = data.result.rows[0][1]
+        for (const { lowerBound, color } of intervals) {
+            if (Number(value) >= Number(lowerBound)) return color
+        }
+    }
+
     if (loading) return <CircularLoader small />
     if (error) {
         console.error(error)
@@ -88,10 +98,22 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods, onLoad }) {
     return (
         <Tooltip content={getTooltipContent()}>
             {props => (
-                <span {...props}>
-                    {data.result.rows.length ? data.result.rows[0][1] : '-'}
+                <div {...props}>
+                    <span
+                        className={cx({ highlightingOn: table.highlightingOn })}
+                    >
+                        {data.result.rows.length ? data.result.rows[0][1] : '-'}
+                    </span>
                     {getFootnotes()}
-                </span>
+                    <style jsx>{`
+                        .highlightingOn {
+                            display: inline-block;
+                            padding: 0.5rem;
+                            margin: -0.5rem 0.125rem;
+                            background-color: ${getCellColor()};
+                        }
+                    `}</style>
+                </div>
             )}
         </Tooltip>
     )
@@ -111,7 +133,6 @@ CellData.propTypes = {
             name: PropTypes.string,
         })
     ),
-    onLoad: PropTypes.func,
 }
 
 export default CellData
