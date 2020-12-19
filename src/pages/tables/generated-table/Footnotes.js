@@ -8,8 +8,6 @@ import { useFootnotes } from '../../../context/footnotesContext'
 function Footnotes() {
     const { orgUnitFootnotes, periodFootnotes } = useFootnotes()
 
-    console.log(orgUnitFootnotes)
-
     function getFootnotes(footnotes) {
         return Array.from(footnotes.values()).map(({ id, description }) => (
             <div key={id}>
