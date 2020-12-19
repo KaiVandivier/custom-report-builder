@@ -109,7 +109,7 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
                         .highlightingOn {
                             display: inline-block;
                             padding: 0.5rem;
-                            margin: -0.5rem 0.125rem;
+                            margin: -0.5rem 0.125rem -0.5rem -0.5rem;
                             background-color: ${getCellColor()};
                         }
                     `}</style>
