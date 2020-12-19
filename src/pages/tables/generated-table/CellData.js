@@ -4,9 +4,9 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import i18n from '../../../locales'
-import { useFootnotes } from '../../../context/footnotesContext'
 import { useTableState } from '../../../context/tableContext'
 import { getSelectedIds } from './TableWithData'
+import FootnoteRefs from './FootnoteRefs'
 
 const ANALYTICS_QUERY = {
     result: {
@@ -23,7 +23,6 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
     if (!cell.data.item) return null
 
     const table = useTableState()
-    const { orgUnitFootnotes, periodFootnotes } = useFootnotes()
 
     const queryVars = {
         dxId: cell.data.item.id,
@@ -46,35 +45,6 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
 
     function getTooltipContent() {
         return `Data item: ${cell.data.item.name}.`
-    }
-
-    function getFootnotes() {
-        const footnotes = []
-
-        // If ou, add sup
-        if (cell.data.orgUnits.length > 0) {
-            // get key as list of ids
-            const key = getSelectedIds(cell.data.orgUnits)
-            const footnote = orgUnitFootnotes.get(key)
-            if (footnote !== undefined) footnotes.push(footnote)
-        }
-
-        // If pe, add sup
-        if (cell.data.periods.length > 0) {
-            const key = getSelectedIds(cell.data.periods)
-            const footnote = periodFootnotes.get(key)
-            if (footnote !== undefined) footnotes.push(footnote)
-        }
-
-        if (footnotes.length === 0) return null
-
-        // Add commma between
-        return (
-            <span>
-                {' '}
-                <sup>{footnotes.map(({ id }) => id).join(', ')}</sup>
-            </span>
-        )
     }
 
     function getCellColor() {
@@ -101,12 +71,14 @@ function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
                     >
                         {data.result.rows.length ? data.result.rows[0][1] : '-'}
                     </span>
-                    {getFootnotes()}
+
+                    <FootnoteRefs cell={cell} />
+
                     <style jsx>{`
                         .highlightingOn {
                             display: inline-block;
                             padding: 0.5rem;
-                            margin: -0.5rem 0.125rem -0.5rem -0.5rem;
+                            margin: -0.5rem 0rem -0.5rem -0.5rem;
                             background-color: ${getCellColor()};
                         }
                     `}</style>
