@@ -6,6 +6,7 @@ import cx from 'classnames'
 import i18n from '../../../locales'
 import { useFootnotes } from '../../../context/footnotesContext'
 import { useTableState } from '../../../context/tableContext'
+import { getSelectedIds } from './TableWithData'
 
 const ANALYTICS_QUERY = {
     result: {
@@ -16,10 +17,6 @@ const ANALYTICS_QUERY = {
             skipMeta: true,
         }),
     },
-}
-
-function getSelectedIds(selectedItems) {
-    return selectedItems.map(({ id }) => id).join(';')
 }
 
 function CellData({ cell, selectedOrgUnits, selectedPeriods }) {
