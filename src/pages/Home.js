@@ -1,7 +1,7 @@
 import React from 'react'
 import i18n from '../locales'
 import styles from './styles/Home.style'
-import { NavCard } from './home'
+import { NavCard } from './home/index'
 import { TABLES, REPORTS, HELP } from '../modules/paths'
 
 /**
