@@ -7,7 +7,7 @@ import {
     EditTableTemplate,
     SavedTableTemplates,
     GeneratedTable,
-} from './tables'
+} from './tables/index'
 import { TableProvider } from '../context/tableContext'
 import NoMatch from './NoMatch'
 
