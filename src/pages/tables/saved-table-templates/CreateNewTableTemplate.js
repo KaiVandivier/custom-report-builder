@@ -5,7 +5,7 @@ import { Button } from '@dhis2/ui'
 import InputDialog from '../../../components/InputDialog'
 import Icon from '../../../components/Icon'
 
-export function CreateNewTableTemplate({ createNew, demo }) {
+export function CreateNewTableTemplate({ createNew, isDemo }) {
     const [modalOpen, setModalOpen] = useState(false)
     const toggleModal = () => setModalOpen(state => !state)
 
@@ -16,7 +16,7 @@ export function CreateNewTableTemplate({ createNew, demo }) {
 
     return (
         <div>
-            {demo ? (
+            {isDemo ? (
                 <Button icon={<Icon name="add" />} onClick={toggleModal}>
                     {i18n.t('Create demo table')}
                 </Button>
@@ -32,7 +32,7 @@ export function CreateNewTableTemplate({ createNew, demo }) {
             {modalOpen && (
                 <InputDialog
                     title={
-                        demo
+                        isDemo
                             ? i18n.t('Create demo table template')
                             : i18n.t('Create new table template')
                     }
@@ -50,7 +50,7 @@ export function CreateNewTableTemplate({ createNew, demo }) {
 
 CreateNewTableTemplate.propTypes = {
     createNew: PropTypes.func.isRequired,
-    demo: PropTypes.bool,
+    isDemo: PropTypes.bool,
 }
 
 export default CreateNewTableTemplate

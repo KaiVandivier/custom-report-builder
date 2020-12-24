@@ -101,7 +101,7 @@ export function SavedTableTemplates() {
                 <ButtonStrip>
                     <CreateNewTableTemplate
                         createNew={createDemo}
-                        demo={true}
+                        isDemo={true}
                     />
                     <CreateNewTableTemplate createNew={createNew} />
                 </ButtonStrip>
