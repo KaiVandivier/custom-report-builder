@@ -23,6 +23,7 @@ import utils from '../../styles/utils.module.css'
 import classes from './styles/SavedTableTemplates.module.css'
 import { EDIT_TABLE, GENERATED_TABLE, getPath } from '../../modules/paths'
 import HelpButton from '../../components/HelpButton'
+import CreateExampleTable from './saved-table-templates/CreateExampleTable'
 
 // TODO:
 // - Rename 'template' to 'table'
@@ -45,6 +46,7 @@ export function SavedTableTemplates() {
                     <TableCell className={classes.tableCell}>
                         <div className={classes.noTables}>
                             <em>No tables have been created yet.</em>
+                            <CreateExampleTable />
                         </div>
                     </TableCell>
                 </TableRow>
