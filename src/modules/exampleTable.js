@@ -1,14 +1,33 @@
 import { useState } from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
+/* import {
+    ADD_COLUMN,
+    ADD_ROW,
+    UPDATE_COLUMN_DIMENSIONS,
+    UPDATE_COLUMN_HIGHLIGHTING,
+    UPDATE_ROW_DIMENSIONS,
+} from '../reducers/tableReducer'
 
-// export async function createExampleTable(engine) {
-// use exampleTable
-// Query level 1 org unit
-// Query level 2 org units
-// Query 4 indicators
-// }
+function getRowAdditionActions(names) {}
 
-const EXAMPLE_TABLE_QUERY = {
+function getColumnAdditionActions(names) {} */
+
+export async function createExampleTable(data) {
+    console.log(data)
+    // const actions = []
+    // Add rows and columns
+    // Row for each ou
+    // Column for each indicator
+    // data.lvl1ou.organisationUnits.forEach(ou => {})
+    // data.lvl2ous.organisationUnits.forEach(ou => {})
+    // data.indicators.indicators.forEach(indicator => {})
+    // use exampleTable
+    // Query level 1 org unit
+    // Query level 2 org units
+    // Query 4 indicators
+}
+
+export const EXAMPLE_TABLE_QUERY = {
     lvl1ou: {
         resource: 'organisationUnits',
         params: {
