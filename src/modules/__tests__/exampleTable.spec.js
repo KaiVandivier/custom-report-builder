@@ -46,10 +46,6 @@ const testProgramIndicatorsRes = {
             id: 'tUdBD1JDxpn',
             name: 'Average age of deaths',
         },
-        {
-            id: 'sGna2pquXOO',
-            name: 'Average age of female discharges',
-        },
     ],
 }
 
@@ -62,14 +58,6 @@ const testDataElementsRes = {
         {
             id: 'P3jJH5Tu5VC',
             name: 'Acute Flaccid Paralysis (AFP) follow-up',
-        },
-        {
-            id: 'FQ2o8UBlcrS',
-            name: 'Acute Flaccid Paralysis (AFP) new',
-        },
-        {
-            id: 'M62VHgYT2n0',
-            name: 'Acute Flaccid Paralysis (AFP) referrals',
         },
     ],
 }
