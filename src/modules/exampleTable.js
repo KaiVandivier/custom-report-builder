@@ -42,8 +42,6 @@ export function getColumnActions(table, data) {
     ].slice(0, 4)
     const actions = []
 
-    console.log(dataItems)
-
     // For existing columns, update each data item with one from list
     for (let i = 0; i < dataItems.length; i++) {
         const updateColNameAction = {
