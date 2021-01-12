@@ -11,6 +11,69 @@ import {
     getColumnActions,
 } from '../exampleTable'
 
+const testIndicatorsRes = {
+    indicators: [
+        {
+            id: 'Uvn6LCg7dVU',
+            name: 'ANC 1 Coverage',
+        },
+        {
+            id: 'ReUHfIn0pTQ',
+            name: 'ANC 1-3 Dropout Rate',
+        },
+        {
+            id: 'OdiHJayrsKo',
+            name: 'ANC 2 Coverage',
+        },
+        {
+            id: 'sB79w2hiLp8',
+            name: 'ANC 3 Coverage',
+        },
+    ],
+}
+
+const testProgramIndicatorsRes = {
+    programIndicators: [
+        {
+            id: 'GSae40Fyppf',
+            name: 'Age at visit',
+        },
+        {
+            id: 'dSBYyCUjCXd',
+            name: 'Age at visit - calc from days',
+        },
+        {
+            id: 'tUdBD1JDxpn',
+            name: 'Average age of deaths',
+        },
+        {
+            id: 'sGna2pquXOO',
+            name: 'Average age of female discharges',
+        },
+    ],
+}
+
+const testDataElementsRes = {
+    dataElements: [
+        {
+            id: 'FTRrcoaog83',
+            name: 'Accute Flaccid Paralysis (Deaths < 5 yrs)',
+        },
+        {
+            id: 'P3jJH5Tu5VC',
+            name: 'Acute Flaccid Paralysis (AFP) follow-up',
+        },
+        {
+            id: 'FQ2o8UBlcrS',
+            name: 'Acute Flaccid Paralysis (AFP) new',
+        },
+        {
+            id: 'M62VHgYT2n0',
+            name: 'Acute Flaccid Paralysis (AFP) referrals',
+        },
+    ],
+}
+
 // A fake API result for testing
 // (Pager and extra data items could be removed?)
 const testData = {
@@ -42,66 +105,9 @@ const testData = {
             },
         ],
     },
-    indicatorsRes: {
-        indicators: [
-            {
-                id: 'Uvn6LCg7dVU',
-                name: 'ANC 1 Coverage',
-            },
-            {
-                id: 'ReUHfIn0pTQ',
-                name: 'ANC 1-3 Dropout Rate',
-            },
-            {
-                id: 'OdiHJayrsKo',
-                name: 'ANC 2 Coverage',
-            },
-            {
-                id: 'sB79w2hiLp8',
-                name: 'ANC 3 Coverage',
-            },
-        ],
-    },
-    programIndicatorsRes: {
-        programIndicators: [
-            {
-                id: 'GSae40Fyppf',
-                name: 'Age at visit',
-            },
-            {
-                id: 'dSBYyCUjCXd',
-                name: 'Age at visit - calc from days',
-            },
-            {
-                id: 'tUdBD1JDxpn',
-                name: 'Average age of deaths',
-            },
-            {
-                id: 'sGna2pquXOO',
-                name: 'Average age of female discharges',
-            },
-        ],
-    },
-    dataElementsRes: {
-        dataElements: [
-            {
-                id: 'FTRrcoaog83',
-                name: 'Accute Flaccid Paralysis (Deaths < 5 yrs)',
-            },
-            {
-                id: 'P3jJH5Tu5VC',
-                name: 'Acute Flaccid Paralysis (AFP) follow-up',
-            },
-            {
-                id: 'FQ2o8UBlcrS',
-                name: 'Acute Flaccid Paralysis (AFP) new',
-            },
-            {
-                id: 'M62VHgYT2n0',
-                name: 'Acute Flaccid Paralysis (AFP) referrals',
-            },
-        ],
-    },
+    indicatorsRes: { indicators: [] },
+    programIndicatorsRes: { programIndicators: [] },
+    dataElementsRes: { dataElements: [] },
 }
 
 it('correctly produces a set of reducer actions for the given table', () => {
@@ -197,13 +203,17 @@ it('correctly produces a set of reducer actions for the given table', () => {
 
 describe('getting column actions', () => {
     it('correctly produces reducer actions for column actions', () => {
-        const actions = getColumnActions(exampleTable, testData)
+        const testDataWithIndicators = {
+            ...testData,
+            indicatorsRes: { ...testIndicatorsRes },
+        }
+        const actions = getColumnActions(exampleTable, testDataWithIndicators)
         const expected = [
             {
                 type: UPDATE_COLUMN,
                 payload: {
                     idx: 0,
-                    column: { name: testData.indicatorsRes.indicators[0].name },
+                    column: { name: testIndicatorsRes.indicators[0].name },
                 },
             },
             {
@@ -211,7 +221,7 @@ describe('getting column actions', () => {
                 payload: {
                     idx: 0,
                     dimensions: {
-                        dataItem: { ...testData.indicatorsRes.indicators[0] },
+                        dataItem: { ...testIndicatorsRes.indicators[0] },
                     },
                 },
             },
@@ -219,7 +229,7 @@ describe('getting column actions', () => {
                 type: UPDATE_COLUMN,
                 payload: {
                     idx: 1,
-                    column: { name: testData.indicatorsRes.indicators[1].name },
+                    column: { name: testIndicatorsRes.indicators[1].name },
                 },
             },
             {
@@ -227,7 +237,7 @@ describe('getting column actions', () => {
                 payload: {
                     idx: 1,
                     dimensions: {
-                        dataItem: { ...testData.indicatorsRes.indicators[1] },
+                        dataItem: { ...testIndicatorsRes.indicators[1] },
                     },
                 },
             },
@@ -235,7 +245,7 @@ describe('getting column actions', () => {
                 type: UPDATE_COLUMN,
                 payload: {
                     idx: 2,
-                    column: { name: testData.indicatorsRes.indicators[2].name },
+                    column: { name: testIndicatorsRes.indicators[2].name },
                 },
             },
             {
@@ -243,7 +253,7 @@ describe('getting column actions', () => {
                 payload: {
                     idx: 2,
                     dimensions: {
-                        dataItem: { ...testData.indicatorsRes.indicators[2] },
+                        dataItem: { ...testIndicatorsRes.indicators[2] },
                     },
                 },
             },
@@ -251,7 +261,7 @@ describe('getting column actions', () => {
                 type: UPDATE_COLUMN,
                 payload: {
                     idx: 3,
-                    column: { name: testData.indicatorsRes.indicators[3].name },
+                    column: { name: testIndicatorsRes.indicators[3].name },
                 },
             },
             {
@@ -259,7 +269,7 @@ describe('getting column actions', () => {
                 payload: {
                     idx: 3,
                     dimensions: {
-                        dataItem: { ...testData.indicatorsRes.indicators[3] },
+                        dataItem: { ...testIndicatorsRes.indicators[3] },
                     },
                 },
             },
@@ -270,6 +280,7 @@ describe('getting column actions', () => {
 
     it('correctly handles < 4 and > 0 data items', () => {
         // ...by updating the relevant columns and deleting the rest
+        console.log(testProgramIndicatorsRes, testDataElementsRes)
     })
 
     it.todo('correctly handles 0 data items')
