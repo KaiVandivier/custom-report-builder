@@ -1,4 +1,5 @@
 import {
+    ADD_COLUMN,
     ADD_ROW,
     DELETE_COLUMN,
     UPDATE_COLUMN,
@@ -279,7 +280,7 @@ describe('getting column actions', () => {
             testDataWithProgramIndicators
         )
 
-        // 3x update_column, 3x update_column_dimensinos, 1x delete_column
+        // 3x update_column actions, 3x update_column_dimensinos, 1x delete_column
         expect(actions.length).toBe(7)
         expect(actions[actions.length - 1]).toEqual({
             type: DELETE_COLUMN,
@@ -287,8 +288,23 @@ describe('getting column actions', () => {
         })
     })
 
-    it.todo('correctly handles 0 data items')
-    // ...by inserting a column with a descriptive name
+    it('correctly handles 0 data items', () => {
+        // ...by inserting a column with a descriptive name.
+        // There are 0 data items returned in testData
+        const actions = getColumnActions(exampleTable, testData)
+        console.log(actions)
+
+        // 4x delete_column actions, 1x add_column
+        expect(actions.length).toBe(5)
+        expect(actions[0]).toEqual({ type: DELETE_COLUMN, payload: { idx: 0 } })
+        expect(actions[actions.length - 1]).toEqual({
+            type: ADD_COLUMN,
+            payload: {
+                name:
+                    'No data items found in instance. Add some data items to see example columns',
+            },
+        })
+    })
 
     it('successfully falls back to other data types if no indicators available', () =>
         console.log(testDataElementsRes))
