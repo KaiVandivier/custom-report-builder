@@ -10,8 +10,6 @@ import tableReducer, {
 } from '../reducers/tableReducer'
 import i18n from '../locales'
 
-// todo: remove rows - don't need them
-
 export function getRowActions(table, data) {
     const orgUnits = [
         ...data.lvl1orgUnitRes.organisationUnits,
@@ -122,7 +120,7 @@ export const EXAMPLE_TABLE_QUERY = {
         },
     },
     // an attempt to fill out columns if there are no indicators in this instance
-    // the same could be done for other data types
+    // the same could be done for other data types (tracker or event)
     programIndicatorsRes: {
         resource: 'programIndicators',
         params: {
@@ -140,19 +138,20 @@ export const EXAMPLE_TABLE_QUERY = {
 }
 
 export function useExampleTable() {
-    const table = useState(null)
-    const { data, loading, error } = useDataQuery(EXAMPLE_TABLE_QUERY, {
-        // TODO: build table with functions above upon completion
-        onComplete: console.log,
+    const [exampleTable, setExampleTable] = useState(null)
+    const { loading, error } = useDataQuery(EXAMPLE_TABLE_QUERY, {
+        onComplete: data => {
+            const exampleTable = createExampleTable(data)
+            setExampleTable(exampleTable)
+        },
     })
 
-    console.log(data)
-    if (loading || error) return null
-    return { table, loading, error }
+    return { exampleTable, loading, error }
 }
 
 // This table is built from the Sierra Leone demo db;
-// It should be changed with a series of actions to use the real instance's data
+// It is the base that will be changed with a series of operations
+// to use the real instance's data
 export const exampleTable = {
     name: 'Demo table',
     rows: [
