@@ -1,34 +1,102 @@
 import { useState } from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
-/* import {
-    ADD_COLUMN,
+import tableReducer, {
     ADD_ROW,
+    DELETE_COLUMN,
+    UPDATE_COLUMN,
     UPDATE_COLUMN_DIMENSIONS,
-    UPDATE_COLUMN_HIGHLIGHTING,
     UPDATE_ROW_DIMENSIONS,
 } from '../reducers/tableReducer'
 
-function getRowAdditionActions(names) {}
+// todo: remove rows - don't need them
+// action === { type, payload }
 
-function getColumnAdditionActions(names) {} */
+export function getRowActions(table, data) {
+    const orgUnits = [
+        ...data.lvl1orgUnitRes.organisationUnits,
+        ...data.lvl2orgUnitsRes.organisationUnits,
+    ]
+    const actions = []
+
+    orgUnits.forEach((orgUnit, idx) => {
+        const addRowAction = { type: ADD_ROW, payload: { name: orgUnit.name } }
+        const addDimensionAction = {
+            type: UPDATE_ROW_DIMENSIONS,
+            payload: {
+                idx: idx + table.rows.length,
+                dimensions: { orgUnits: [orgUnit] },
+            },
+        }
+        actions.push(addRowAction, addDimensionAction)
+    })
+
+    return actions
+}
+
+export function getColumnActions(table, data) {
+    const dataItems = [
+        ...data.indicatorsRes.indicators,
+        ...data.programIndicatorsRes.programIndicators,
+        ...data.dataElementsRes.dataElements,
+    ].slice(0, 4)
+    const actions = []
+
+    console.log(dataItems)
+
+    // maybe throw an error if dataItems.length == 0
+    if (dataItems.length === 0) {
+        // Delete columns
+        // Make a column with name "No data elements were found to make columns from. ...
+        // Create more data elements to construct a more complete example table."
+        // Also, maybe do this for any dataItems < 4
+    }
+
+    // if there are fewer than 4 data items, reduce number of columns in table
+    const lengthDif = table.columns.length - dataItems.length
+
+    // TODO: For existing columns, update data item with one from list
+    for (let i = 0; i < dataItems.length; i++) {
+        const updateColNameAction = {
+            type: UPDATE_COLUMN,
+            payload: { name: dataItems[i].name },
+        }
+        const updateColDimensionAction = {
+            type: UPDATE_COLUMN_DIMENSIONS,
+            payload: {
+                idx: i,
+                dimensions: {
+                    dataItem: dataItems[i],
+                },
+            },
+        }
+        actions.push(updateColNameAction, updateColDimensionAction)
+    }
+
+    // For the rest, delete
+    for (let i = 0; i < lengthDif; i++) {
+        const deleteColumnAction = {
+            type: DELETE_COLUMN,
+            payload: { idx: dataItems.length + 1 },
+        }
+        actions.push(deleteColumnAction)
+    }
+
+    return actions
+}
 
 export async function createExampleTable(data) {
     console.log(data)
-    // const actions = []
-    // Add rows and columns
-    // Row for each ou
-    // Column for each indicator
-    // data.lvl1ou.organisationUnits.forEach(ou => {})
-    // data.lvl2ous.organisationUnits.forEach(ou => {})
-    // data.indicators.indicators.forEach(indicator => {})
-    // use exampleTable
-    // Query level 1 org unit
-    // Query level 2 org units
-    // Query 4 indicators
+    // make a series of actions to change table state with reducer
+    const actions = [
+        ...getRowActions(exampleTable, data),
+        ...getColumnActions(exampleTable, data),
+    ]
+    const finalTable = actions.reduce(tableReducer, exampleTable)
+    return finalTable
 }
 
 export const EXAMPLE_TABLE_QUERY = {
-    lvl1ou: {
+    lvl1orgUnitRes: {
         resource: 'organisationUnits',
         params: {
             fields: ['id', 'displayName~rename(name)'],
@@ -36,7 +104,7 @@ export const EXAMPLE_TABLE_QUERY = {
             pageSize: 1,
         },
     },
-    lvl2ous: {
+    lvl2orgUnitsRes: {
         resource: 'organisationUnits',
         params: {
             fields: ['id', 'displayName~rename(name)'],
@@ -44,8 +112,24 @@ export const EXAMPLE_TABLE_QUERY = {
             pageSize: 4,
         },
     },
-    indicators: {
+    indicatorsRes: {
         resource: 'indicators',
+        params: {
+            fields: ['id', 'displayName~rename(name)'],
+            pageSize: 4,
+        },
+    },
+    // an attempt to fill out columns if there are no indicators in this instance
+    // the same could be done for other data types
+    programIndicatorsRes: {
+        resource: 'programIndicators',
+        params: {
+            fields: ['id', 'displayName~rename(name)'],
+            pageSize: 4,
+        },
+    },
+    dataElementsRes: {
+        resource: 'dataElements',
         params: {
             fields: ['id', 'displayName~rename(name)'],
             pageSize: 4,
@@ -56,14 +140,18 @@ export const EXAMPLE_TABLE_QUERY = {
 export function useExampleTable() {
     const table = useState(null)
     const { data, loading, error } = useDataQuery(EXAMPLE_TABLE_QUERY, {
+        // TODO: build table with functions above upon completion
         onComplete: console.log,
     })
 
-    if (loading || error) return null
     console.log(data)
+    if (loading || error) return null
     return { table, loading, error }
 }
 
+// This table is built from the Sierra Leone demo db;
+// It should be changed with a series of actions to use the real instance's data
+// TODO: Remove extra rows; create new ones instead of updating them
 export const exampleTable = {
     name: 'Demo table',
     rows: [
