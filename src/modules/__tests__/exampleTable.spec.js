@@ -22,7 +22,7 @@ const testData = {
             },
         ],
     },
-    lvl2orgUnitsRes: {
+    lvl2orgUnitRes: {
         organisationUnits: [
             {
                 id: 'O6uvpzGd5pu',
@@ -125,7 +125,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
         {
             type: ADD_ROW,
             payload: {
-                name: testData.lvl2orgUnitsRes.organisationUnits[0].name,
+                name: testData.lvl2orgUnitRes.organisationUnits[0].name,
             },
         },
         {
@@ -134,7 +134,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
                 idx: exampleTable.rows.length + 1,
                 dimensions: {
                     orgUnits: [
-                        { ...testData.lvl2orgUnitsRes.organisationUnits[0] },
+                        { ...testData.lvl2orgUnitRes.organisationUnits[0] },
                     ],
                 },
             },
@@ -142,7 +142,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
         {
             type: ADD_ROW,
             payload: {
-                name: testData.lvl2orgUnitsRes.organisationUnits[1].name,
+                name: testData.lvl2orgUnitRes.organisationUnits[1].name,
             },
         },
         {
@@ -151,7 +151,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
                 idx: exampleTable.rows.length + 2,
                 dimensions: {
                     orgUnits: [
-                        { ...testData.lvl2orgUnitsRes.organisationUnits[1] },
+                        { ...testData.lvl2orgUnitRes.organisationUnits[1] },
                     ],
                 },
             },
@@ -159,7 +159,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
         {
             type: ADD_ROW,
             payload: {
-                name: testData.lvl2orgUnitsRes.organisationUnits[2].name,
+                name: testData.lvl2orgUnitRes.organisationUnits[2].name,
             },
         },
         {
@@ -168,7 +168,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
                 idx: exampleTable.rows.length + 3,
                 dimensions: {
                     orgUnits: [
-                        { ...testData.lvl2orgUnitsRes.organisationUnits[2] },
+                        { ...testData.lvl2orgUnitRes.organisationUnits[2] },
                     ],
                 },
             },
@@ -176,7 +176,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
         {
             type: ADD_ROW,
             payload: {
-                name: testData.lvl2orgUnitsRes.organisationUnits[3].name,
+                name: testData.lvl2orgUnitRes.organisationUnits[3].name,
             },
         },
         {
@@ -185,7 +185,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
                 idx: exampleTable.rows.length + 4,
                 dimensions: {
                     orgUnits: [
-                        { ...testData.lvl2orgUnitsRes.organisationUnits[3] },
+                        { ...testData.lvl2orgUnitRes.organisationUnits[3] },
                     ],
                 },
             },
@@ -268,8 +268,9 @@ describe('getting column actions', () => {
         expect(actions).toEqual(expected)
     })
 
-    it.todo('correctly handles < 4 and > 0 data items')
-    // ...by updating the relevant columns and deleting the rest
+    it('correctly handles < 4 and > 0 data items', () => {
+        // ...by updating the relevant columns and deleting the rest
+    })
 
     it.todo('correctly handles 0 data items')
     // ...by inserting a column with a descriptive name
@@ -279,3 +280,5 @@ describe('getting column actions', () => {
     )
     // ...by making columns out of program indicators and data elements
 })
+
+it.todo('creates a whole table')

@@ -15,7 +15,7 @@ import i18n from '../locales'
 export function getRowActions(table, data) {
     const orgUnits = [
         ...data.lvl1orgUnitRes.organisationUnits,
-        ...data.lvl2orgUnitsRes.organisationUnits,
+        ...data.lvl2orgUnitRes.organisationUnits,
     ]
     const actions = []
 
@@ -108,7 +108,7 @@ export const EXAMPLE_TABLE_QUERY = {
             pageSize: 1,
         },
     },
-    lvl2orgUnitsRes: {
+    lvl2orgUnitRes: {
         resource: 'organisationUnits',
         params: {
             fields: ['id', 'displayName~rename(name)'],
