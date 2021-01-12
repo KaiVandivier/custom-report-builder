@@ -10,14 +10,6 @@ import {
 // (Pager and extra data items could be removed?)
 const testData = {
     lvl1orgUnitRes: {
-        pager: {
-            page: 1,
-            pageCount: 1332,
-            total: 1332,
-            pageSize: 1,
-            nextPage:
-                'http://localhost:8080/api/35/organisationUnits?page=2&pageSize=1&level=1&fields=id%2CdisplayName%7Erename%28name%29',
-        },
         organisationUnits: [
             {
                 id: 'ImspTQPwCqd',
@@ -26,14 +18,6 @@ const testData = {
         ],
     },
     lvl2orgUnitsRes: {
-        pager: {
-            page: 1,
-            pageCount: 333,
-            total: 1332,
-            pageSize: 4,
-            nextPage:
-                'http://localhost:8080/api/35/organisationUnits?page=2&pageSize=4&level=2&fields=id%2CdisplayName%7Erename%28name%29',
-        },
         organisationUnits: [
             {
                 id: 'O6uvpzGd5pu',
@@ -54,14 +38,6 @@ const testData = {
         ],
     },
     indicatorsRes: {
-        pager: {
-            page: 1,
-            pageCount: 20,
-            total: 77,
-            pageSize: 4,
-            nextPage:
-                'http://localhost:8080/api/35/indicators?page=2&pageSize=4&fields=id%2CdisplayName%7Erename%28name%29',
-        },
         indicators: [
             {
                 id: 'Uvn6LCg7dVU',
@@ -82,14 +58,6 @@ const testData = {
         ],
     },
     programIndicatorsRes: {
-        pager: {
-            page: 1,
-            pageCount: 30,
-            total: 117,
-            pageSize: 4,
-            nextPage:
-                'http://localhost:8080/api/35/programIndicators?page=2&pageSize=4&fields=id%2CdisplayName%7Erename%28name%29',
-        },
         programIndicators: [
             {
                 id: 'GSae40Fyppf',
@@ -110,14 +78,6 @@ const testData = {
         ],
     },
     dataElementsRes: {
-        pager: {
-            page: 1,
-            pageCount: 259,
-            total: 1035,
-            pageSize: 4,
-            nextPage:
-                'http://localhost:8080/api/35/dataElements?page=2&pageSize=4&fields=id%2CdisplayName%7Erename%28name%29',
-        },
         dataElements: [
             {
                 id: 'FTRrcoaog83',
