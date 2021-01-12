@@ -1,5 +1,6 @@
 import {
     ADD_ROW,
+    DELETE_COLUMN,
     UPDATE_COLUMN,
     UPDATE_COLUMN_DIMENSIONS,
     UPDATE_ROW_DIMENSIONS,
@@ -267,16 +268,30 @@ describe('getting column actions', () => {
     })
 
     it('correctly handles < 4 and > 0 data items', () => {
-        // ...by updating the relevant columns and deleting the rest
-        console.log(testProgramIndicatorsRes, testDataElementsRes)
+        // ...by updating the relevant columns and deleting the rest.
+        // there are 3 program indicators
+        const testDataWithProgramIndicators = {
+            ...testData,
+            programIndicatorsRes: { ...testProgramIndicatorsRes },
+        }
+        const actions = getColumnActions(
+            exampleTable,
+            testDataWithProgramIndicators
+        )
+
+        // 3x update_column, 3x update_column_dimensinos, 1x delete_column
+        expect(actions.length).toBe(7)
+        expect(actions[actions.length - 1]).toEqual({
+            type: DELETE_COLUMN,
+            payload: { idx: 3 },
+        })
     })
 
     it.todo('correctly handles 0 data items')
     // ...by inserting a column with a descriptive name
 
-    it.todo(
-        'successfully falls back to other data types if no indicators available'
-    )
+    it('successfully falls back to other data types if no indicators available', () =>
+        console.log(testDataElementsRes))
     // ...by making columns out of program indicators and data elements
 })
 
