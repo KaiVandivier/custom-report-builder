@@ -190,15 +190,7 @@ it('correctly produces a set of reducer actions for the given table', () => {
     expect(actions).toEqual(expected)
 })
 
-describe('getting column actions', () => {
-    it('correctly produces reducer actions for column actions', () => {
-        // TODO
-        // const actions = getColumnActions(exampleTable, testData)
-    })
-
-    it.todo('correctly handles data items < 4 and > 0')
-    // by updating the relevant columns and deleting the rest
-
-    it.todo('correctly handles data items = 0')
-    // ...by inserting a column with a descriptive name
+it('correctly produces reducer actions for column actions', () => {
+    // TODO
+    // const actions = getColumnActions(exampleTable, testData)
 })
