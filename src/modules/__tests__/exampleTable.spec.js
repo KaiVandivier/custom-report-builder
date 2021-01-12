@@ -8,7 +8,7 @@ import {
 } from '../../reducers/tableReducer'
 import {
     exampleTable,
-    // createExampleTable,
+    createExampleTable,
     getRowActions,
     getColumnActions,
 } from '../exampleTable'
@@ -339,4 +339,21 @@ describe('getting column actions', () => {
     })
 })
 
-it.todo('creates a whole table')
+it('creates a whole table as a result of the reducer actions', () => {
+    const testDataWithMixedDataItems = {
+        ...testData,
+        programIndicatorsRes: { ...testProgramIndicatorsRes },
+        dataElementsRes: { ...testDataElementsRes },
+    }
+    const finalTable = createExampleTable(testDataWithMixedDataItems)
+
+    expect(finalTable.rows.length).toBe(6)
+    expect(finalTable.columns.length).toBe(4)
+
+    expect(finalTable.rows[1].name).toBe(
+        testData.lvl1orgUnitRes.organisationUnits[0].name
+    )
+    expect(finalTable.columns[0].name).toBe(
+        testProgramIndicatorsRes.programIndicators[0].name
+    )
+})
