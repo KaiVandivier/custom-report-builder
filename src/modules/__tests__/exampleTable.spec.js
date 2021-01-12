@@ -292,7 +292,6 @@ describe('getting column actions', () => {
         // ...by inserting a column with a descriptive name.
         // There are 0 data items returned in testData
         const actions = getColumnActions(exampleTable, testData)
-        console.log(actions)
 
         // 4x delete_column actions, 1x add_column
         expect(actions.length).toBe(5)
@@ -306,9 +305,38 @@ describe('getting column actions', () => {
         })
     })
 
-    it('successfully falls back to other data types if no indicators available', () =>
-        console.log(testDataElementsRes))
-    // ...by making columns out of program indicators and data elements
+    it('successfully falls back to other data types if no indicators available, up to a max of 4 items', () => {
+        // ...by making columns out of program indicators and data elements
+        const testDataWithBackups = {
+            ...testData,
+            programIndicatorsRes: { ...testProgramIndicatorsRes },
+            dataElementsRes: { ...testDataElementsRes },
+        }
+        const actions = getColumnActions(exampleTable, testDataWithBackups)
+
+        // 4x update_column actions, 4x update_column_dimension
+        expect(actions.length).toBe(8)
+        // first 3 columns are for program indicators
+        expect(actions[0]).toEqual({
+            type: UPDATE_COLUMN,
+            payload: {
+                idx: 0,
+                column: {
+                    name: testProgramIndicatorsRes.programIndicators[0].name,
+                },
+            },
+        })
+        // last column is for data element
+        expect(actions[actions.length - 1]).toEqual({
+            type: UPDATE_COLUMN_DIMENSIONS,
+            payload: {
+                idx: 3,
+                dimensions: {
+                    dataItem: { ...testDataElementsRes.dataElements[0] },
+                },
+            },
+        })
+    })
 })
 
 it.todo('creates a whole table')
