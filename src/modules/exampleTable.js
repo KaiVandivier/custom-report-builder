@@ -89,8 +89,7 @@ export function getColumnActions(table, data) {
     return actions
 }
 
-export async function createExampleTable(data) {
-    console.log(data)
+export function createExampleTable(data) {
     // make a series of actions to change table state with reducer
     const actions = [
         ...getRowActions(exampleTable, data),
