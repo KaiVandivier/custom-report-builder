@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
 import tableReducer, {
+    ADD_COLUMN,
     ADD_ROW,
     DELETE_COLUMN,
     UPDATE_COLUMN,
     UPDATE_COLUMN_DIMENSIONS,
     UPDATE_ROW_DIMENSIONS,
 } from '../reducers/tableReducer'
+import i18n from '../locales'
 
 // todo: remove rows - don't need them
-// action === { type, payload }
 
 export function getRowActions(table, data) {
     const orgUnits = [
@@ -43,22 +44,11 @@ export function getColumnActions(table, data) {
 
     console.log(dataItems)
 
-    // maybe throw an error if dataItems.length == 0
-    if (dataItems.length === 0) {
-        // Delete columns
-        // Make a column with name "No data elements were found to make columns from. ...
-        // Create more data elements to construct a more complete example table."
-        // Also, maybe do this for any dataItems < 4
-    }
-
-    // if there are fewer than 4 data items, reduce number of columns in table
-    const lengthDif = table.columns.length - dataItems.length
-
-    // TODO: For existing columns, update data item with one from list
+    // For existing columns, update each data item with one from list
     for (let i = 0; i < dataItems.length; i++) {
         const updateColNameAction = {
             type: UPDATE_COLUMN,
-            payload: { name: dataItems[i].name },
+            payload: { idx: i, column: { name: dataItems[i].name } },
         }
         const updateColDimensionAction = {
             type: UPDATE_COLUMN_DIMENSIONS,
@@ -72,13 +62,28 @@ export function getColumnActions(table, data) {
         actions.push(updateColNameAction, updateColDimensionAction)
     }
 
-    // For the rest, delete
+    // if there are fewer than 4 data items, reduce number of columns in table
+    const lengthDif = table.columns.length - dataItems.length
     for (let i = 0; i < lengthDif; i++) {
         const deleteColumnAction = {
             type: DELETE_COLUMN,
-            payload: { idx: dataItems.length + 1 },
+            payload: { idx: dataItems.length },
         }
         actions.push(deleteColumnAction)
+    }
+
+    // Leave a note if there are no data items for an example table
+    // Also, maybe do this for any dataItems < 4?
+    if (dataItems.length === 0) {
+        const addMessageColumnAction = {
+            type: ADD_COLUMN,
+            payload: {
+                name: i18n.t(
+                    'No data items found in instance. Add some data items to see example columns'
+                ),
+            },
+        }
+        actions.push(addMessageColumnAction)
     }
 
     return actions
@@ -151,7 +156,6 @@ export function useExampleTable() {
 
 // This table is built from the Sierra Leone demo db;
 // It should be changed with a series of actions to use the real instance's data
-// TODO: Remove extra rows; create new ones instead of updating them
 export const exampleTable = {
     name: 'Demo table',
     rows: [
