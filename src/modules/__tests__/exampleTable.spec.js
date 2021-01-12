@@ -1,9 +1,14 @@
-import { ADD_ROW, UPDATE_ROW_DIMENSIONS } from '../../reducers/tableReducer'
+import {
+    ADD_ROW,
+    UPDATE_COLUMN,
+    UPDATE_COLUMN_DIMENSIONS,
+    UPDATE_ROW_DIMENSIONS,
+} from '../../reducers/tableReducer'
 import {
     exampleTable,
     // createExampleTable,
     getRowActions,
-    // getColumnActions,
+    getColumnActions,
 } from '../exampleTable'
 
 // A fake API result for testing
@@ -192,13 +197,85 @@ it('correctly produces a set of reducer actions for the given table', () => {
 
 describe('getting column actions', () => {
     it('correctly produces reducer actions for column actions', () => {
-        // TODO
-        // const actions = getColumnActions(exampleTable, testData)
+        const actions = getColumnActions(exampleTable, testData)
+        const expected = [
+            {
+                type: UPDATE_COLUMN,
+                payload: {
+                    idx: 0,
+                    column: { name: testData.indicatorsRes.indicators[0].name },
+                },
+            },
+            {
+                type: UPDATE_COLUMN_DIMENSIONS,
+                payload: {
+                    idx: 0,
+                    dimensions: {
+                        dataItem: { ...testData.indicatorsRes.indicators[0] },
+                    },
+                },
+            },
+            {
+                type: UPDATE_COLUMN,
+                payload: {
+                    idx: 1,
+                    column: { name: testData.indicatorsRes.indicators[1].name },
+                },
+            },
+            {
+                type: UPDATE_COLUMN_DIMENSIONS,
+                payload: {
+                    idx: 1,
+                    dimensions: {
+                        dataItem: { ...testData.indicatorsRes.indicators[1] },
+                    },
+                },
+            },
+            {
+                type: UPDATE_COLUMN,
+                payload: {
+                    idx: 2,
+                    column: { name: testData.indicatorsRes.indicators[2].name },
+                },
+            },
+            {
+                type: UPDATE_COLUMN_DIMENSIONS,
+                payload: {
+                    idx: 2,
+                    dimensions: {
+                        dataItem: { ...testData.indicatorsRes.indicators[2] },
+                    },
+                },
+            },
+            {
+                type: UPDATE_COLUMN,
+                payload: {
+                    idx: 3,
+                    column: { name: testData.indicatorsRes.indicators[3].name },
+                },
+            },
+            {
+                type: UPDATE_COLUMN_DIMENSIONS,
+                payload: {
+                    idx: 3,
+                    dimensions: {
+                        dataItem: { ...testData.indicatorsRes.indicators[3] },
+                    },
+                },
+            },
+        ]
+
+        expect(actions).toEqual(expected)
     })
 
-    it.todo('correctly handles data items < 4 and > 0')
-    // by updating the relevant columns and deleting the rest
+    it.todo('correctly handles < 4 and > 0 data items')
+    // ...by updating the relevant columns and deleting the rest
 
-    it.todo('correctly handles data items = 0')
+    it.todo('correctly handles 0 data items')
     // ...by inserting a column with a descriptive name
+
+    it.todo(
+        'successfully falls back to other data types if no indicators available'
+    )
+    // ...by making columns out of program indicators and data elements
 })
