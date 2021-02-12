@@ -18,12 +18,12 @@ import {
     CreateNewTableTemplate,
     SavedTableTemplateActions,
 } from './saved-table-templates'
-import defaultTable from '../../modules/defaultTable'
+import { defaultTable } from '../../modules/defaultTable'
 import utils from '../../styles/utils.module.css'
 import classes from './styles/SavedTableTemplates.module.css'
 import { EDIT_TABLE, GENERATED_TABLE, getPath } from '../../modules/paths'
 import HelpButton from '../../components/HelpButton'
-import CreateExampleTable from './saved-table-templates/CreateExampleTable'
+import { CreateExampleTable } from './saved-table-templates/CreateExampleTable'
 
 // TODO:
 // - Rename 'template' to 'table'
