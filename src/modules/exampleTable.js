@@ -51,7 +51,7 @@ export function getColumnActions(table, data) {
             payload: {
                 idx: i,
                 dimensions: {
-                    dataItem: dataItems[i],
+                    item: dataItems[i],
                 },
             },
         }
@@ -95,7 +95,7 @@ export function createExampleTable(data) {
     return finalTable
 }
 
-export const EXAMPLE_TABLE_QUERY = {
+const EXAMPLE_TABLE_QUERY = {
     lvl1orgUnitRes: {
         resource: 'organisationUnits',
         params: {

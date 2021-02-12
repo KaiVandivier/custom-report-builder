@@ -65,7 +65,6 @@ const testDataElementsRes = {
 }
 
 // A fake API result for testing
-// (Pager and extra data items could be removed?)
 const testData = {
     lvl1orgUnitRes: {
         organisationUnits: [
@@ -211,7 +210,7 @@ describe('getting column actions', () => {
                 payload: {
                     idx: 0,
                     dimensions: {
-                        dataItem: { ...testIndicatorsRes.indicators[0] },
+                        item: { ...testIndicatorsRes.indicators[0] },
                     },
                 },
             },
@@ -227,7 +226,7 @@ describe('getting column actions', () => {
                 payload: {
                     idx: 1,
                     dimensions: {
-                        dataItem: { ...testIndicatorsRes.indicators[1] },
+                        item: { ...testIndicatorsRes.indicators[1] },
                     },
                 },
             },
@@ -243,7 +242,7 @@ describe('getting column actions', () => {
                 payload: {
                     idx: 2,
                     dimensions: {
-                        dataItem: { ...testIndicatorsRes.indicators[2] },
+                        item: { ...testIndicatorsRes.indicators[2] },
                     },
                 },
             },
@@ -259,7 +258,7 @@ describe('getting column actions', () => {
                 payload: {
                     idx: 3,
                     dimensions: {
-                        dataItem: { ...testIndicatorsRes.indicators[3] },
+                        item: { ...testIndicatorsRes.indicators[3] },
                     },
                 },
             },
@@ -332,7 +331,7 @@ describe('getting column actions', () => {
             payload: {
                 idx: 3,
                 dimensions: {
-                    dataItem: { ...testDataElementsRes.dataElements[0] },
+                    item: { ...testDataElementsRes.dataElements[0] },
                 },
             },
         })
@@ -355,5 +354,18 @@ it('creates a whole table as a result of the reducer actions', () => {
     )
     expect(finalTable.columns[0].name).toBe(
         testProgramIndicatorsRes.programIndicators[0].name
+    )
+    expect(finalTable.columns[1].dimensions.item).toEqual(
+        testProgramIndicatorsRes.programIndicators[1]
+    )
+    expect(finalTable.columns[1].name).toBe(
+        testProgramIndicatorsRes.programIndicators[1].name
+    )
+    expect(finalTable.columns[3].dimensions.item).toEqual(
+        // Last column uses data elements because there are only 3 program indicators
+        testDataElementsRes.dataElements[0]
+    )
+    expect(finalTable.columns[3].name).toEqual(
+        testDataElementsRes.dataElements[0].name
     )
 })
