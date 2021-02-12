@@ -18,11 +18,12 @@ import {
     CreateNewTableTemplate,
     SavedTableTemplateActions,
 } from './saved-table-templates'
-import defaultTable from '../../modules/defaultTable'
+import { defaultTable } from '../../modules/defaultTable'
 import utils from '../../styles/utils.module.css'
 import classes from './styles/SavedTableTemplates.module.css'
 import { EDIT_TABLE, GENERATED_TABLE, getPath } from '../../modules/paths'
 import HelpButton from '../../components/HelpButton'
+import { CreateExampleTable } from './saved-table-templates/CreateExampleTable'
 
 // TODO:
 // - Rename 'template' to 'table'
@@ -38,6 +39,14 @@ export function SavedTableTemplates() {
         history.push(getPath(EDIT_TABLE, id))
     }
 
+    async function createDemo(exampleTable) {
+        const { id } = await tableTemplateActions.add({
+            ...exampleTable,
+            name: 'Demo Table',
+        })
+        history.push(getPath(EDIT_TABLE, id))
+    }
+
     function mapTemplatesToRows() {
         if (!savedTableTemplates?.length)
             return (
@@ -45,6 +54,7 @@ export function SavedTableTemplates() {
                     <TableCell className={classes.tableCell}>
                         <div className={classes.noTables}>
                             <em>No tables have been created yet.</em>
+                            <CreateExampleTable onCreate={createDemo} />
                         </div>
                     </TableCell>
                 </TableRow>

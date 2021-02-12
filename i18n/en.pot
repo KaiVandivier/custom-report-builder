@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-18T03:33:37.783Z\n"
-"PO-Revision-Date: 2020-12-18T03:33:37.783Z\n"
+"POT-Creation-Date: 2021-02-12T09:26:41.206Z\n"
+"PO-Revision-Date: 2021-02-12T09:26:41.206Z\n"
 
 msgid "Back"
 msgstr ""
@@ -81,6 +81,9 @@ msgid "Event data items"
 msgstr ""
 
 msgid "Program indicators"
+msgstr ""
+
+msgid "No data items found in instance. Add some data items to see example columns"
 msgstr ""
 
 msgid "Home"
@@ -398,6 +401,9 @@ msgid "Period{{s}} - {{pe}}"
 msgstr ""
 
 msgid "Date - "
+msgstr ""
+
+msgid "Create example table"
 msgstr ""
 
 msgid "Create new"
