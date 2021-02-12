@@ -39,6 +39,14 @@ export function SavedTableTemplates() {
         history.push(getPath(EDIT_TABLE, id))
     }
 
+    async function createDemo(exampleTable) {
+        const { id } = await tableTemplateActions.add({
+            ...exampleTable,
+            name: 'Demo Table',
+        })
+        history.push(getPath(EDIT_TABLE, id))
+    }
+
     function mapTemplatesToRows() {
         if (!savedTableTemplates?.length)
             return (
@@ -46,7 +54,7 @@ export function SavedTableTemplates() {
                     <TableCell className={classes.tableCell}>
                         <div className={classes.noTables}>
                             <em>No tables have been created yet.</em>
-                            <CreateExampleTable />
+                            <CreateExampleTable onCreate={createDemo} />
                         </div>
                     </TableCell>
                 </TableRow>
